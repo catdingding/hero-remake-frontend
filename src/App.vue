@@ -4,4 +4,42 @@
   </div>
 </template>
 
-<style lang="less"></style>
+<style lang="less">
+  #app {
+    min-height: 100vh;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    text-align: center;
+    padding: 10px;
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    text-align: center;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    th {
+      font-size: 16px;
+    }
+    td,
+    th {
+      padding: 5px;
+      height: 43px;
+    }
+    tr:not(:last-child) {
+      border-bottom: 1px solid #ccc;
+    }
+  }
+  .save-panel {
+    margin-top: 50px;
+    text-align: center;
+  }
+</style>
