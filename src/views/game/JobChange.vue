@@ -14,7 +14,9 @@
         <td>{{ job.name }}</td>
         <td>{{ job.description }}</td>
         <td>
-          <Button type="primary" @click="change_job({ job: job.id }).then(() => $router.push('/game/'))">轉職</Button>
+          <el-button type="primary" @click="change_job({ job: job.id }).then(() => $router.push('/game/'))"
+            >轉職</el-button
+          >
         </td>
       </tr>
     </table>

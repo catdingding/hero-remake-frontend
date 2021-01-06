@@ -1,63 +1,61 @@
 <template>
   <div class="game">
-    <Layout>
-      <Header>
-        <Menu mode="horizontal" theme="dark">
-          <div class="navbar">
-            <MenuItem name="index" to="/game">
-              主頁
-            </MenuItem>
-            <Submenu name="chara">
-              <template slot="title">
-                角色
-              </template>
-              <MenuItem name="bag" to="/game/bag">背包/裝備</MenuItem>
-              <MenuItem name="excercise">修煉</MenuItem>
-              <MenuItem name="ability" to="/game/ability-learn">學習奧義</MenuItem>
-              <MenuItem name="ability" to="/game/ability-setting">設置奧義</MenuItem>
-              <MenuItem name="skill" to="/game/skill-setting">技能</MenuItem>
-              <MenuItem name="job-change" to="/game/job-change">轉職</MenuItem>
-              <MenuItem name="alchemy" to="/game/alchemy">鍊金</MenuItem>
-              <MenuItem name="send-gold-item">傳送金錢/道具</MenuItem>
-            </Submenu>
-            <Submenu name="town">
-              <template slot="title">
-                城鎮
-              </template>
-              <MenuItem name="storage" to="/game/storage">倉庫</MenuItem>
-              <MenuItem name="smith">鍛造屋</MenuItem>
-              <MenuItem name="store-weapon" to="/game/store/weapon">武器店</MenuItem>
-              <MenuItem name="store-armor" to="/game/store/armor">防具店</MenuItem>
-              <MenuItem name="store-jewelry" to="/game/store/jewelry">飾品店</MenuItem>
-              <MenuItem name="store-item" to="/game/store/item">道具店</MenuItem>
-            </Submenu>
-            <Submenu name="country">
-              <template slot="title">
-                國家
-              </template>
-              <MenuItem name="country-join-create">入國/建國</MenuItem>
-              <MenuItem name="country-profile">概況</MenuItem>
-              <MenuItem name="country-join">入國申請</MenuItem>
-              <MenuItem name="country-storage">國庫</MenuItem>
-              <MenuItem name="country-donate">捐獻</MenuItem>
-              <MenuItem name="country-officers">官職</MenuItem>
-              <MenuItem name="king-change">國王更改</MenuItem>
-            </Submenu>
-            <Submenu name="other">
-              <template slot="title">
-                其他
-              </template>
-              <MenuItem name="password-change">更改密碼</MenuItem>
-              <MenuItem name="donate-store">贊助商店</MenuItem>
-            </Submenu>
-          </div>
-        </Menu>
-      </Header>
-      <Content class="content">
+    <el-container>
+      <el-header>
+        <el-menu mode="horizontal" router background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
+          <el-menu-item index="index" :route="{ path: '/game' }">
+            主頁
+          </el-menu-item>
+          <el-submenu index="chara">
+            <template slot="title">
+              角色
+            </template>
+            <el-menu-item index="bag" :route="{ path: '/game/bag' }">背包/裝備</el-menu-item>
+            <el-menu-item index="excercise">修煉</el-menu-item>
+            <el-menu-item index="ability" :route="{ path: '/game/ability-learn' }">學習奧義</el-menu-item>
+            <el-menu-item index="ability" :route="{ path: '/game/ability-setting' }">設置奧義</el-menu-item>
+            <el-menu-item index="skill" :route="{ path: '/game/skill-setting' }">技能</el-menu-item>
+            <el-menu-item index="job-change" :route="{ path: '/game/job-change' }">轉職</el-menu-item>
+            <el-menu-item index="alchemy" :route="{ path: '/game/alchemy' }">鍊金</el-menu-item>
+            <el-menu-item index="send-gold-item">傳送金錢/道具</el-menu-item>
+          </el-submenu>
+          <el-submenu index="town">
+            <template slot="title">
+              城鎮
+            </template>
+            <el-menu-item index="storage" :route="{ path: '/game/storage' }">倉庫</el-menu-item>
+            <el-menu-item index="smith">鍛造屋</el-menu-item>
+            <el-menu-item index="store-weapon" :route="{ path: '/game/store/weapon' }">武器店</el-menu-item>
+            <el-menu-item index="store-armor" :route="{ path: '/game/store/armor' }">防具店</el-menu-item>
+            <el-menu-item index="store-jewelry" :route="{ path: '/game/store/jewelry' }">飾品店</el-menu-item>
+            <el-menu-item index="store-item" :route="{ path: '/game/store/item' }">道具店</el-menu-item>
+          </el-submenu>
+          <el-submenu index="country">
+            <template slot="title">
+              國家
+            </template>
+            <el-menu-item index="country-join-create">入國/建國</el-menu-item>
+            <el-menu-item index="country-profile">概況</el-menu-item>
+            <el-menu-item index="country-join">入國申請</el-menu-item>
+            <el-menu-item index="country-storage">國庫</el-menu-item>
+            <el-menu-item index="country-donate">捐獻</el-menu-item>
+            <el-menu-item index="country-officers">官職</el-menu-item>
+            <el-menu-item index="king-change">國王更改</el-menu-item>
+          </el-submenu>
+          <el-submenu index="other">
+            <template slot="title">
+              其他
+            </template>
+            <el-menu-item index="password-change">更改密碼</el-menu-item>
+            <el-menu-item index="donate-store">贊助商店</el-menu-item>
+          </el-submenu>
+        </el-menu>
+      </el-header>
+      <el-main class="content">
         <router-view class="router-view" />
-      </Content>
-      <Footer class="footer"></Footer>
-    </Layout>
+      </el-main>
+      <el-footer class="footer"></el-footer>
+    </el-container>
   </div>
 </template>
 
@@ -85,5 +83,8 @@
     padding: 25px 0 25px 0;
     display: flex;
     justify-content: space-around;
+  }
+  .el-header {
+    padding: 0;
   }
 </style>

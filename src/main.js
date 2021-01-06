@@ -1,15 +1,16 @@
 import Vue from "vue";
-import "view-design/dist/styles/iview.css";
+import "element-ui/lib/theme-chalk/index.css";
+import "./style.css";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
-import ViewUI from "view-design";
-import locale from "view-design/dist/locale/zh-TW";
+import ElementUI from "element-ui";
+import locale from "element-ui/lib/locale/lang/zh-TW";
 import VueLodash from "vue-lodash";
 import lodash from "lodash";
 import "./filters";
 
-Vue.use(ViewUI, { locale });
+Vue.use(ElementUI, { locale });
 Vue.use(VueLodash, { lodash: lodash });
 Vue.config.productionTip = false;
 

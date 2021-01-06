@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import { Message } from "view-design";
+import { Message } from "element-ui";
 import api from "@/api";
 import battle from "./battle";
 import map from "./map";

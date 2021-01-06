@@ -1,10 +1,10 @@
 <template>
   <div class="home">
-    <Row type="flex" justify="center" align="middle">
+    <el-row type="flex" justify="center" align="middle">
       <div stype="width:300px">
         <LoginRegist></LoginRegist>
       </div>
-    </Row>
+    </el-row>
   </div>
 </template>
 

@@ -4,7 +4,7 @@
       <div class="location" v-for="(location, index) in map" :key="index">
         {{ location.town_name || "無城鎮" }}<br />{{ location.battle_map_name }}<br />({{ location.x }},
         {{ location.y }})<br />
-        <Button type="success" @click="move(location)">前往</Button>
+        <el-button type="success" @click="move(location)">前往</el-button>
       </div>
     </div>
   </div>

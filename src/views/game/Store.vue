@@ -15,10 +15,10 @@
           <td>{{ item.type.value / 2 }}</td>
           <td>
             <div>
-              <InputNumber :min="1" v-model="item.select_number"></InputNumber>
-              <Button type="primary" @click="sell_item({ item: item.id, number: item.select_number })">
+              <el-input-number :min="1" v-model="item.select_number"></el-input-number>
+              <el-button type="primary" @click="sell_item({ item: item.id, number: item.select_number })">
                 出售
-              </Button>
+              </el-button>
             </div>
           </td>
         </template>

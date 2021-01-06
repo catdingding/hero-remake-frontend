@@ -12,7 +12,7 @@
         <td>{{ ability.description }}</td>
         <td>{{ ability.require_proficiency }}</td>
         <td>
-          <Button type="primary" @click="learn_ability({ ability: ability.id })">學習</Button>
+          <el-button type="primary" @click="learn_ability({ ability: ability.id })">學習</el-button>
         </td>
       </tr>
     </table>

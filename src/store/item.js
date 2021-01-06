@@ -1,5 +1,5 @@
 import api from "@/api";
-import { Message } from "view-design";
+import { Message } from "element-ui";
 
 export default {
   namespaced: true,

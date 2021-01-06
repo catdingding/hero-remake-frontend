@@ -1,43 +1,43 @@
 <template>
-  <Tabs>
-    <TabPane label="登入">
-      <Form :label-width="80" :rules="login_validate" :model="login_data">
-        <FormItem label="Email" prop="email">
-          <Input placeholder v-model="login_data.email"></Input>
-        </FormItem>
-        <FormItem label="密碼" prop="password">
-          <Input placeholder type="password" v-model="login_data.password"></Input>
-        </FormItem>
-        <FormItem>
-          <Button type="primary" size="large" @click="login">登入</Button>
-        </FormItem>
-      </Form>
-    </TabPane>
-    <TabPane label="註冊">
-      <Form :label-width="80" :rules="register_validate" :model="register_data">
-        <FormItem label="Email" prop="email">
-          <Input placeholder v-model="register_data.email"></Input>
-        </FormItem>
-        <FormItem label="密碼" prop="password1">
-          <Input placeholder type="password" v-model="register_data.password1"></Input>
-        </FormItem>
-        <FormItem label="確認密碼" prop="password2">
-          <Input placeholder type="password" v-model="register_data.password2"></Input>
-        </FormItem>
-        <FormItem label="昵稱" prop="chara.name">
-          <Input placeholder v-model="register_data.chara.name"></Input>
-        </FormItem>
-        <FormItem label="元素屬性" prop="element_type">
-          <Select v-model="register_data.chara.element_type" style="width:200px">
-            <Option v-for="item in element_types" :value="item.id" :key="item.id">{{ item.name }}</Option>
-          </Select>
-        </FormItem>
-        <FormItem>
-          <Button type="primary" size="large" @click="register">註冊</Button>
-        </FormItem>
-      </Form>
-    </TabPane>
-  </Tabs>
+  <el-tabs>
+    <el-tab-pane label="登入">
+      <el-form label-width="80px" :rules="login_validate" :model="login_data">
+        <el-form-item label="Email" prop="email">
+          <el-input placeholder v-model="login_data.email"></el-input>
+        </el-form-item>
+        <el-form-item label="密碼" prop="password">
+          <el-input placeholder type="password" v-model="login_data.password"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" size="medium" @click="login">登入</el-button>
+        </el-form-item>
+      </el-form>
+    </el-tab-pane>
+    <el-tab-pane label="註冊">
+      <el-form label-width="80px" :rules="register_validate" :model="register_data">
+        <el-form-item label="Email" prop="email">
+          <el-input placeholder v-model="register_data.email"></el-input>
+        </el-form-item>
+        <el-form-item label="密碼" prop="password1">
+          <el-input placeholder type="password" v-model="register_data.password1"></el-input>
+        </el-form-item>
+        <el-form-item label="確認密碼" prop="password2">
+          <el-input placeholder type="password" v-model="register_data.password2"></el-input>
+        </el-form-item>
+        <el-form-item label="昵稱" prop="chara.name">
+          <el-input placeholder v-model="register_data.chara.name"></el-input>
+        </el-form-item>
+        <el-form-item label="元素屬性" prop="element_type">
+          <el-select v-model="register_data.chara.element_type" style="width:200px">
+            <el-option v-for="item in element_types" :value="item.id" :key="item.id">{{ item.name }}</el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" size="medium" @click="register">註冊</el-button>
+        </el-form-item>
+      </el-form>
+    </el-tab-pane>
+  </el-tabs>
 </template>
 <script>
   import { mapState } from "vuex";
@@ -80,24 +80,24 @@
         this.$store
           .dispatch("login", this.login_data)
           .then(async res => {
-            this.$Message.success("登入成功");
+            this.$message.success("登入成功");
             await this.$store.dispatch("get_available_charas");
             await this.$store.commit("set_chara");
             this.$router.push("game/");
           })
-          .catch(err => this.$Message.error("登入失敗"));
+          .catch(err => this.$message.error("登入失敗"));
       },
       register: function() {
         this.$store
           .dispatch("register", this.register_data)
           .then(async res => {
-            this.$Message.success("註冊成功");
+            this.$message.success("註冊成功");
             await this.$store.dispatch("get_available_charas");
             await this.$store.commit("set_chara");
             this.$router.push("game/");
           })
           .catch(err =>
-            this.$Message.error({
+            this.$message.error({
               content: JSON.stringify(err.response.data),
               duration: 10
             })

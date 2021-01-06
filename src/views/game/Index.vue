@@ -1,8 +1,8 @@
 <template>
   <div>
-    <Row type="flex" justify="space-around" style="width: 100%;">
-      <Col span="7">
-        <Card class="profile-card">
+    <el-row type="flex" justify="space-around" style="width: 100%;">
+      <el-col :span="7">
+        <el-card class="profile-card">
           <p slot="title">地點狀態</p>
           <div class="profile" v-if="chara_profile">
             <div class="attr">
@@ -21,15 +21,15 @@
               <span>戰鬥地圖</span>
               <span>{{ chara_profile.location.battle_map_name }}</span>
             </div>
-            <Divider />
+            <el-divider />
             <div class="command">
-              <Button size="large" type="success" to="/game/map">移動</Button>
+              <el-button size="medium" type="success" to="/game/map">移動</el-button>
             </div>
           </div>
-        </Card>
-      </Col>
-      <Col span="7">
-        <Card class="profile-card">
+        </el-card>
+      </el-col>
+      <el-col :span="7">
+        <el-card class="profile-card">
           <p slot="title">角色狀態</p>
           <div class="profile" v-if="chara_profile">
             <div class="attr">
@@ -72,54 +72,51 @@
                 <PercentageDisplay color="skyblue" :value="chara_profile.mp" :max-value="chara_profile.mp_max" />
               </span>
             </div>
-            <Collapse :simple="true">
-              <Panel>
-                能力（上限值）
-                <div slot="content">
-                  <div class="attr" v-for="attr in chara_profile.attributes" :key="attr.id">
-                    <span>{{ attr.type.name }}</span>
-                    <span>{{ attr.value }}/{{ attr.limit }}</span>
-                  </div>
+            <el-collapse :simple="true">
+              <el-collapse-item title="能力（上限值）">
+                <div class="attr" v-for="attr in chara_profile.attributes" :key="attr.id">
+                  <span>{{ attr.type.name }}</span>
+                  <span>{{ attr.value }}/{{ attr.limit }}</span>
                 </div>
-              </Panel>
-              <Panel>
-                職業熟練
-                <div slot="content">
-                  <div class="attr" v-for="attr in chara_profile.attributes" :key="attr.id">
-                    <span>{{ attr.type.class_name }}</span>
-                    <span>{{ attr.proficiency }}</span>
-                  </div>
+              </el-collapse-item>
+              <el-collapse-item title="職業熟練">
+                <div class="attr" v-for="attr in chara_profile.attributes" :key="attr.id">
+                  <span>{{ attr.type.class_name }}</span>
+                  <span>{{ attr.proficiency }}</span>
                 </div>
-              </Panel>
-            </Collapse>
+              </el-collapse-item>
+            </el-collapse>
           </div>
-        </Card>
-      </Col>
+        </el-card>
+      </el-col>
 
-      <Col span="7">
-        <Card class="command-card">
+      <el-col :span="7">
+        <el-card class="command-card">
           <p slot="title">指令</p>
           <div class="command" v-if="chara_profile">
-            <Divider>行動冷卻</Divider>
+            <el-divider>行動冷卻</el-divider>
             <span :key="auto_refresh">{{ chara_profile.next_action_time | cd }}</span>
-            <Divider />
-            <Select style="margin-bottom:16px;" v-model="battle_map_id">
-              <Option :value="chara_profile.location.battle_map">{{ chara_profile.location.battle_map_name }}</Option>
-              <Option
+            <el-divider />
+            <el-select style="margin-bottom:16px;" v-model="battle_map_id">
+              <el-option
+                :value="chara_profile.location.battle_map"
+                :label="chara_profile.location.battle_map_name"
+              ></el-option>
+              <el-option
                 v-for="battle_map_ticket in chara_profile.battle_map_tickets"
                 v-show="battle_map_ticket.value"
                 :value="battle_map_ticket.battle_map.id"
                 :key="battle_map_ticket.battle_map.id"
-                >{{ battle_map_ticket.battle_map.name }}({{ battle_map_ticket.value }})</Option
+                >{{ battle_map_ticket.battle_map.name }}({{ battle_map_ticket.value }})</el-option
               >
-            </Select>
-            <Button size="large" type="error" @click="fight_battle_map">戰鬥</Button>
-            <Divider />
-            <Button size="large" type="success" @click="$store.dispatch('rest')">休息</Button>
+            </el-select>
+            <el-button size="medium" type="primary" @click="fight_battle_map">戰鬥</el-button>
+            <el-divider />
+            <el-button size="medium" type="success" @click="$store.dispatch('rest')">休息</el-button>
           </div>
-        </Card>
-      </Col>
-    </Row>
+        </el-card>
+      </el-col>
+    </el-row>
   </div>
 </template>
 

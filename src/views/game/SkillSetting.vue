@@ -12,37 +12,39 @@
       <tr v-for="(setting, index) in settings" :key="index">
         <td>{{ index }}</td>
         <td>
-          <Select v-model="setting.skill">
-            <Option v-for="(skill, index) in available_skills" :key="index" :value="skill.id">{{ skill.name }}</Option>
-          </Select>
+          <el-select v-model="setting.skill">
+            <el-option v-for="(skill, index) in available_skills" :key="index" :value="skill.id">{{
+              skill.name
+            }}</el-option>
+          </el-select>
         </td>
         <td>
-          <InputNumber
+          <el-input-number
             :min="0"
             :max="100"
             v-model="setting.hp_percentage"
             :formatter="value => `${value}%`"
             :parser="value => value.replace('%', '')"
           >
-          </InputNumber>
+          </el-input-number>
         </td>
         <td>
-          <InputNumber
+          <el-input-number
             :min="0"
             :max="100"
             v-model="setting.mp_percentage"
             :formatter="value => `${value}%`"
             :parser="value => value.replace('%', '')"
           >
-          </InputNumber>
+          </el-input-number>
         </td>
-        <td><Button type="success" @click="add_setting(index)">增加</Button></td>
-        <td><Button type="error" @click="remove_setting(index)">刪除</Button></td>
+        <td><el-button type="success" @click="add_setting(index)">增加</el-button></td>
+        <td><el-button type="danger" @click="remove_setting(index)">刪除</el-button></td>
       </tr>
     </table>
 
     <div class="save-panel">
-      <Button type="success" size="large" @click="set_skill_settings(settings)">儲存</Button>
+      <el-button type="success" size="medium" @click="set_skill_settings(settings)">儲存</el-button>
     </div>
   </div>
 </template>

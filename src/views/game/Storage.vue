@@ -7,10 +7,10 @@
         <template v-slot:extra-td="{ item }">
           <td>
             <div>
-              <InputNumber :min="1" v-model="item.select_number"></InputNumber>
-              <Button type="primary" @click="take_item_from_storage({ item: item.id, number: item.select_number })">
+              <el-input-number :min="1" v-model="item.select_number"></el-input-number>
+              <el-button type="primary" @click="take_item_from_storage({ item: item.id, number: item.select_number })">
                 取出
-              </Button>
+              </el-button>
             </div>
           </td>
         </template>
@@ -23,10 +23,10 @@
         <template v-slot:extra-td="{ item }">
           <td>
             <div>
-              <InputNumber :min="1" v-model="item.select_number"></InputNumber>
-              <Button type="primary" @click="put_item_to_storage({ item: item.id, number: item.select_number })">
+              <el-input-number :min="1" v-model="item.select_number"></el-input-number>
+              <el-button type="primary" @click="put_item_to_storage({ item: item.id, number: item.select_number })">
                 存入
-              </Button>
+              </el-button>
             </div>
           </td>
         </template>

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Message } from "view-design";
+import { Message } from "element-ui";
 
 let api = axios.create({ baseURL: "http://127.0.0.1:8000/" });
 

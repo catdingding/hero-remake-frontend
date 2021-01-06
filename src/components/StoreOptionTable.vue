@@ -20,10 +20,10 @@
       <td>{{ option.item_type.value }}</td>
       <td>
         <div>
-          <InputNumber :min="1" v-model="option.select_number"></InputNumber>
-          <Button type="primary" @click="buy_store_option({ id: option.id, number: option.select_number })">
+          <el-input-number :min="1" v-model="option.select_number"></el-input-number>
+          <el-button type="primary" @click="buy_store_option({ id: option.id, number: option.select_number })">
             購買
-          </Button>
+          </el-button>
         </div>
       </td>
     </tr>

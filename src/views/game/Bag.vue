@@ -20,7 +20,7 @@
           <td>{{ slot.item ? slot.item.equipment : "" | object_ability }}</td>
           <td>
             <div v-if="slot.item">
-              <Button type="primary" @click="divest_slot({ slot_type: slot.type.id })">卸下</Button>
+              <el-button type="primary" @click="divest_slot({ slot_type: slot.type.id })">卸下</el-button>
             </div>
           </td>
         </tr>
@@ -34,11 +34,13 @@
         <template v-slot:extra-td="{ item }">
           <td>
             <div v-if="item.type.use_effect">
-              <InputNumber :min="1" v-model="item.select_number"></InputNumber>
-              <Button type="primary" @click="use_item({ item: item.id, number: item.select_number })">使用</Button>
+              <el-input-number :min="1" v-model="item.select_number"></el-input-number>
+              <el-button type="primary" @click="use_item({ item: item.id, number: item.select_number })"
+                >使用</el-button
+              >
             </div>
             <div v-if="item.equipment">
-              <Button type="primary" @click="equip_item({ item: item.id })">裝備</Button>
+              <el-button type="primary" @click="equip_item({ item: item.id })">裝備</el-button>
             </div>
           </td>
         </template>

@@ -11,10 +11,10 @@
           <td>{{ option.item_type.name }}</td>
           <td>{{ option.proficiency_cost }}</td>
           <td>
-            <InputNumber :min="1" v-model="option.select_number"></InputNumber>
-            <Button type="primary" @click="make_alchemy_option({ id: option.id, number: option.select_number })">
+            <el-input-number :min="1" v-model="option.select_number"></el-input-number>
+            <el-button type="primary" @click="make_alchemy_option({ id: option.id, number: option.select_number })">
               製作
-            </Button>
+            </el-button>
           </td>
         </tr>
       </table>

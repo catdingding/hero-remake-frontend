@@ -47,7 +47,7 @@
           獲得了 {{ battle_result.exp }} 經驗值<br />
           <span v-if="loots">獲得了 {{ loots }}<br /></span>
         </div>
-        <Button type="info" size="large" to="./">返回主頁</Button>
+        <router-link to="./"><el-button type="primary" size="medium">返回主頁</el-button></router-link>
       </div>
     </div>
   </div>

@@ -8,18 +8,18 @@
       <tr>
         <td>主要奧義</td>
         <td>
-          <Select v-model="setting.main_ability">
-            <Option v-for="(ability, index) in available_to_set_abilities" :key="index" :value="ability.id">
+          <el-select v-model="setting.main_ability">
+            <el-option v-for="(ability, index) in available_to_set_abilities" :key="index" :value="ability.id">
               {{ ability.name }}
-            </Option>
-          </Select>
+            </el-option>
+          </el-select>
         </td>
       </tr>
       <tr>
         <td>職業奧義</td>
         <td>
-          <Select v-model="setting.job_ability">
-            <Option
+          <el-select v-model="setting.job_ability">
+            <el-option
               v-for="(ability, index) in available_to_set_abilities.filter(
                 x => x.attribute_type === chara_profile.job.attribute_type.id
               )"
@@ -27,28 +27,28 @@
               :value="ability.id"
             >
               {{ ability.name }}
-            </Option>
-          </Select>
+            </el-option>
+          </el-select>
         </td>
       </tr>
       <tr>
         <td>生活奧義</td>
         <td>
-          <Select v-model="setting.live_ability">
-            <Option
+          <el-select v-model="setting.live_ability">
+            <el-option
               v-for="(ability, index) in available_to_set_abilities.filter(x => x.is_live)"
               :key="index"
               :value="ability.id"
             >
               {{ ability.name }}
-            </Option>
-          </Select>
+            </el-option>
+          </el-select>
         </td>
       </tr>
     </table>
 
     <div class="save-panel">
-      <Button type="success" size="large" @click="set_abilitie_setting(setting)">儲存</Button>
+      <el-button type="success" size="medium" @click="set_abilitie_setting(setting)">儲存</el-button>
     </div>
   </div>
 </template>
