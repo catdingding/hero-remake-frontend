@@ -1,3 +1,11 @@
 body {
   margin: 0;
 }
+
+.small-font {
+  font-size: 14px;
+}
+
+.el-card__header {
+  text-align: center;
+}

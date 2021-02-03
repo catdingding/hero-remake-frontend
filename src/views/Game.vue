@@ -11,42 +11,57 @@
               角色
             </template>
             <el-menu-item index="bag" :route="{ path: '/game/bag' }">背包/裝備</el-menu-item>
-            <el-menu-item index="excercise">修煉</el-menu-item>
-            <el-menu-item index="ability" :route="{ path: '/game/ability-learn' }">學習奧義</el-menu-item>
-            <el-menu-item index="ability" :route="{ path: '/game/ability-setting' }">設置奧義</el-menu-item>
+            <el-menu-item index="excercise" :route="{ path: '/game/exercise' }">修煉</el-menu-item>
+            <el-menu-item index="ability-learn" :route="{ path: '/game/ability-learn' }">學習奧義</el-menu-item>
+            <el-menu-item index="ability-setting" :route="{ path: '/game/ability-setting' }">設置奧義</el-menu-item>
             <el-menu-item index="skill" :route="{ path: '/game/skill-setting' }">技能</el-menu-item>
             <el-menu-item index="job-change" :route="{ path: '/game/job-change' }">轉職</el-menu-item>
             <el-menu-item index="alchemy" :route="{ path: '/game/alchemy' }">鍊金</el-menu-item>
-            <el-menu-item index="send-gold-item">傳送金錢/道具</el-menu-item>
+            <el-menu-item index="send-item-gold" :route="{ path: '/game/send-item-gold' }">傳送道具/金錢</el-menu-item>
           </el-submenu>
           <el-submenu index="town">
             <template slot="title">
               城鎮
             </template>
             <el-menu-item index="storage" :route="{ path: '/game/storage' }">倉庫</el-menu-item>
-            <el-menu-item index="smith">鍛造屋</el-menu-item>
+            <el-menu-item index="smith" :route="{ path: '/game/smith' }">鍛造屋</el-menu-item>
+            <el-menu-item index="pet-store" :route="{ path: '/game/pet-store' }">寵物屋</el-menu-item>
             <el-menu-item index="store-weapon" :route="{ path: '/game/store/weapon' }">武器店</el-menu-item>
             <el-menu-item index="store-armor" :route="{ path: '/game/store/armor' }">防具店</el-menu-item>
             <el-menu-item index="store-jewelry" :route="{ path: '/game/store/jewelry' }">飾品店</el-menu-item>
             <el-menu-item index="store-item" :route="{ path: '/game/store/item' }">道具店</el-menu-item>
+            <el-menu-item index="auction-house" :route="{ path: '/game/auction-house' }">拍賣所</el-menu-item>
+            <el-menu-item index="sell-house" :route="{ path: '/game/sell-house' }">出售所</el-menu-item>
+            <el-menu-item index="purchase-house" :route="{ path: '/game/purchase-house' }">收購所</el-menu-item>
           </el-submenu>
           <el-submenu index="country">
             <template slot="title">
               國家
             </template>
-            <el-menu-item index="country-join-create">入國/建國</el-menu-item>
-            <el-menu-item index="country-profile">概況</el-menu-item>
-            <el-menu-item index="country-join">入國申請</el-menu-item>
-            <el-menu-item index="country-storage">國庫</el-menu-item>
-            <el-menu-item index="country-donate">捐獻</el-menu-item>
-            <el-menu-item index="country-officers">官職</el-menu-item>
-            <el-menu-item index="king-change">國王更改</el-menu-item>
+            <el-menu-item index="country-list" :route="{ path: '/game/country/list' }">國家列表</el-menu-item>
+            <el-menu-item index="country-found" :route="{ path: '/game/country/found' }" v-show="!chara_country">
+              建國
+            </el-menu-item>
+
+            <el-menu-item index="country-panel" :route="{ path: '/game/country/panel' }" v-show="chara_country">
+              國家面板
+            </el-menu-item>
+            <el-menu-item
+              index="country-join-request"
+              :route="{ path: '/game/country/join-request' }"
+              v-show="chara_official || chara_is_king"
+            >
+              入國申請審查
+            </el-menu-item>
+            <el-menu-item index="country-storage" :route="{ path: '/game/country/storage' }" v-show="chara_country">
+              國庫
+            </el-menu-item>
           </el-submenu>
           <el-submenu index="other">
             <template slot="title">
               其他
             </template>
-            <el-menu-item index="password-change">更改密碼</el-menu-item>
+            <el-menu-item index="password-change" :route="{ path: '/game/password-change' }">更改密碼</el-menu-item>
             <el-menu-item index="donate-store">贊助商店</el-menu-item>
           </el-submenu>
         </el-menu>
@@ -60,11 +75,18 @@
 </template>
 
 <script>
+  import { mapState, mapGetters } from "vuex";
   export default {
     data() {
       return {};
     },
-    components: {}
+    computed: {
+      ...mapState("chara", ["chara_country", "chara_official", "chara_is_king"]),
+    },
+    mounted() {
+      this.$store.dispatch("chara/get_chara_profile", {});
+      this.$store.dispatch("ws/start_chat");
+    },
   };
 </script>
 
@@ -83,6 +105,7 @@
     padding: 25px 0 25px 0;
     display: flex;
     justify-content: space-around;
+    flex-flow: row wrap;
   }
   .el-header {
     padding: 0;

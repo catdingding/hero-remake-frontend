@@ -29,7 +29,7 @@
         </el-form-item>
         <el-form-item label="元素屬性" prop="element_type">
           <el-select v-model="register_data.chara.element_type" style="width:200px">
-            <el-option v-for="item in element_types" :value="item.id" :key="item.id">{{ item.name }}</el-option>
+            <el-option v-for="item in element_types" :value="item.id" :key="item.id" :label="item.name"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item>
@@ -77,31 +77,20 @@
     },
     methods: {
       login: function() {
-        this.$store
-          .dispatch("login", this.login_data)
-          .then(async res => {
-            this.$message.success("登入成功");
-            await this.$store.dispatch("get_available_charas");
-            await this.$store.commit("set_chara");
-            this.$router.push("game/");
-          })
-          .catch(err => this.$message.error("登入失敗"));
+        this.$store.dispatch("login", this.login_data).then(async res => {
+          this.$message.success("登入成功");
+          await this.$store.dispatch("get_available_charas");
+          await this.$store.commit("set_chara");
+          this.$router.push("game/");
+        });
       },
       register: function() {
-        this.$store
-          .dispatch("register", this.register_data)
-          .then(async res => {
-            this.$message.success("註冊成功");
-            await this.$store.dispatch("get_available_charas");
-            await this.$store.commit("set_chara");
-            this.$router.push("game/");
-          })
-          .catch(err =>
-            this.$message.error({
-              content: JSON.stringify(err.response.data),
-              duration: 10
-            })
-          );
+        this.$store.dispatch("register", this.register_data).then(async res => {
+          this.$message.success("註冊成功");
+          await this.$store.dispatch("get_available_charas");
+          await this.$store.commit("set_chara");
+          this.$router.push("game/");
+        });
       }
     },
     computed: mapState(["element_types"]),

@@ -2,25 +2,28 @@ import Vue from "vue";
 import Vuex from "vuex";
 import { Message } from "element-ui";
 import api from "@/api";
+import chara from "./chara";
 import battle from "./battle";
 import map from "./map";
 import item from "./item";
 import trade from "./trade";
 import job from "./job";
 import ability from "./ability";
+import search from "./search";
+import country from "./country";
+import user from "./user";
+import ws from "./ws";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  modules: { battle, map, item, trade, job, ability },
+  modules: { chara, battle, map, item, trade, job, ability, search, country, user, ws },
   state: {
-    auto_refresh: 0,
     access_token: localStorage.getItem("access_token") || "",
     refresh_token: localStorage.getItem("refresh_token") || "",
-    chara: localStorage.getItem("chara") || null,
+    chara_id: localStorage.getItem("chara_id") || null,
     element_types: [],
-    available_charas: [],
-    chara_profile: null
+    available_charas: []
   },
   getters: {},
   mutations: {
@@ -40,21 +43,10 @@ export default new Vuex.Store({
       state.available_charas = data;
     },
     set_chara(state) {
-      const chara = state.available_charas[0].id;
-      state.chara = chara;
-      api.defaults.headers.common["Chara-ID"] = chara;
-      localStorage.setItem("chara", chara);
-    },
-    set_chara_profile(state, data) {
-      if (data.bag_items) {
-        for (let item of data.bag_items) {
-          item.select_number = 1;
-        }
-      }
-      state.chara_profile = data;
-    },
-    trigger_auto_refresh(state) {
-      state.auto_refresh += 1;
+      const chara_id = state.available_charas[0].id;
+      state.chara_id = chara_id;
+      api.defaults.headers.common["Chara-ID"] = chara_id;
+      localStorage.setItem("chara_id", chara_id);
     }
   },
   actions: {
@@ -90,22 +82,10 @@ export default new Vuex.Store({
         commit("set_available_charas", res.data);
       });
     },
-    async get_chara_profile({ commit }, { omit = "bag_items,slots,skill_settings", fields = "" }) {
-      var url = "/chara/profile/?";
-      if (omit) {
-        url += "omit=" + omit + "&";
-      }
-      if (fields) {
-        url += "fields=" + fields;
-      }
-      return api.get(url).then(res => {
-        commit("set_chara_profile", res.data);
-      });
-    },
     async rest({ commit, dispatch }) {
       return api.post("/chara/rest/").then(res => {
         Message.success("體力已恢復");
-        dispatch("get_chara_profile", {});
+        dispatch("chara/get_chara_profile", {});
       });
     }
   }

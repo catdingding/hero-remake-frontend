@@ -47,7 +47,7 @@ export default {
     },
     async make_alchemy_option({ state, commit, dispatch, rootState }, { id, number }) {
       api.post(`ability/alchemy-options/${id}/make/`, { number }).then(() => {
-        dispatch("get_chara_profile", { fields: "bag_items,proficiency" });
+        dispatch("chara/get_chara_profile", { fields: "bag_items,proficiency" });
       });
     }
   }

@@ -6,7 +6,8 @@ export default {
   state() {
     return {
       available_jobs: [],
-      available_skills: []
+      available_skills: [],
+      exercise_rewards: []
     };
   },
   mutations: {
@@ -15,12 +16,25 @@ export default {
     },
     set_available_skills(state, data) {
       state.available_skills = data;
+    },
+    set_exercise_rewards(state, data) {
+      state.exercise_rewards = data;
     }
   },
   actions: {
     async get_available_jobs({ state, commit, dispatch, rootState }) {
       api.get(`chara/job/available/`).then(res => {
         commit("set_available_jobs", res.data);
+      });
+    },
+    async get_exercise_rewards({ state, commit, dispatch, rootState }) {
+      api.get(`exercise-rewards/`).then(res => {
+        commit("set_exercise_rewards", res.data);
+      });
+    },
+    async exercise({ state, commit, dispatch, rootState }) {
+      api.post(`chara/exercise/`).then(res => {
+        dispatch("chara/get_chara_profile", { omit: "", fields: "attributes" }, { root: true });
       });
     },
     async change_job({ state, commit, dispatch, rootState }, data) {

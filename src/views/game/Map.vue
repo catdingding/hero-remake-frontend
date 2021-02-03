@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div class="map" v-if="map">
+    <div class="map small-font" v-if="map">
       <div class="location" v-for="(location, index) in map" :key="index">
         {{ location.town_name || "無城鎮" }}<br />{{ location.battle_map_name }}<br />({{ location.x }},
         {{ location.y }})<br />
-        <el-button type="success" @click="move(location)">前往</el-button>
+        <el-button type="success" size="mini" @click="move(location)">前往</el-button>
       </div>
     </div>
   </div>
@@ -33,9 +33,10 @@
 
 <style lang="less" scoped>
   .map {
-    width: 700px;
-    height: 700px;
+    width: 740px;
+    height: 740px;
     display: flex;
+    justify-content: space-around;
     flex-wrap: wrap;
     .location {
       width: 100px;

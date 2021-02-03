@@ -13,9 +13,12 @@
         <td>{{ index }}</td>
         <td>
           <el-select v-model="setting.skill">
-            <el-option v-for="(skill, index) in available_skills" :key="index" :value="skill.id">{{
-              skill.name
-            }}</el-option>
+            <el-option
+              v-for="(skill, index) in available_skills"
+              :key="index"
+              :value="skill.id"
+              :label="skill.name"
+            ></el-option>
           </el-select>
         </td>
         <td>
@@ -58,7 +61,7 @@
         settings: []
       };
     },
-    computed: { ...mapState("job", ["available_skills"]) },
+    computed: { ...mapState("job", ["available_skills"]), ...mapState("chara", ["chara_skill_settings"]) },
     methods: {
       ...mapActions("job", ["set_skill_settings"]),
       add_setting(index) {
@@ -70,8 +73,8 @@
     },
     mounted() {
       this.$store.dispatch("job/get_available_skills", {});
-      this.$store.dispatch("get_chara_profile", { omit: "", fields: "skill_settings" }).then(() => {
-        this.settings = this.$store.state.chara_profile.skill_settings;
+      this.$store.dispatch("chara/get_chara_profile", { omit: "", fields: "skill_settings" }).then(() => {
+        this.settings = this.chara_skill_settings;
         if (this.settings.length === 0) {
           this.add_setting(-1);
         }

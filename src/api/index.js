@@ -8,9 +8,9 @@ if (token) {
   api.defaults.headers.common["Authorization"] = "Bearer " + token;
 }
 
-const chara = localStorage.getItem("chara");
-if (chara) {
-  api.defaults.headers.common["Chara-ID"] = chara;
+const chara_id = localStorage.getItem("chara_id");
+if (chara_id) {
+  api.defaults.headers.common["Chara-ID"] = chara_id;
 }
 
 function flat_data(data) {
@@ -31,6 +31,10 @@ function flat_data(data) {
 
 api.interceptors.response.use(
   res => {
+    var display_message = res.data["display_message"];
+    if (display_message) {
+      Message.success(display_message);
+    }
     return res;
   },
   err => {

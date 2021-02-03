@@ -1,5 +1,5 @@
 <template>
-  <table>
+  <table class="small-font">
     <tr>
       <th>名稱</th>
       <th>類型</th>
@@ -10,8 +10,13 @@
       <th>奧義</th>
       <slot name="extra-th"></slot>
     </tr>
-    <tr class="item" v-for="(item, index) in items" :key="index">
-      <td>{{ item.equipment ? item.equipment.custom_name : item.type.name }}</td>
+    <tr class="item" v-for="item in items" :key="item.id">
+      <td>
+        <el-tooltip effect="dark" :content="item.type.description" placement="top">
+          <i class="el-icon-info"></i>
+        </el-tooltip>
+        {{ item.equipment ? item.equipment.display_name : item.type.name }}
+      </td>
       <td>{{ item.equipment ? item.type.slot_type.name : "道具" }}</td>
       <td>{{ item.number }}</td>
       <td>{{ item.equipment ? item.equipment.attack : "" }}</td>
@@ -30,7 +35,7 @@
     data() {
       return {};
     },
-    props: ["items"]
+    props: ["items"],
   };
 </script>
 

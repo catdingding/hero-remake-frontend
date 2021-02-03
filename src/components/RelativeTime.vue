@@ -1,0 +1,40 @@
+<template>
+  <span>
+    {{ relative_time }}
+  </span>
+</template>
+
+<script>
+  import { mapState, mapActions } from "vuex";
+  export default {
+    name: "RelativeTime",
+    data() {
+      return { relative_time: "" };
+    },
+    props: { time_string: { type: String }, period: { type: Number, default: 1000 } },
+    computed: {},
+    methods: {
+      compute_relative_time() {
+        var ms = Date.parse(this.time_string) - new Date();
+        if (ms > 3600000) {
+          return Math.floor(ms / 3600000) + "小時" + Math.floor((ms % 3600000) / 60000) + "分鐘";
+        }
+        if (ms > 60000) {
+          return Math.floor(ms / 60000) + "分鐘" + Math.floor((ms % 60000) / 1000) + "秒";
+        }
+        if (ms > 0) {
+          return (ms / 1000).toFixed(1) + "秒";
+        }
+        return 0 + "秒";
+      },
+      set_relative_time() {
+        this.relative_time = this.compute_relative_time();
+      }
+    },
+    mounted() {
+      setInterval(this.set_relative_time, this.period);
+    }
+  };
+</script>
+
+<style lang="less" scoped></style>

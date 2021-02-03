@@ -19,7 +19,7 @@ export default {
   actions: {
     async sell_item({ state, commit, dispatch, rootState }, data) {
       await api.post("chara/item/sell/", data).then(res => {
-        dispatch("get_chara_profile", { omit: "", fields: "bag_items,gold" }, { root: true });
+        dispatch("chara/get_chara_profile", { omit: "", fields: "bag_items,gold" }, { root: true });
       });
     },
     async get_store_options({ state, commit, dispatch, rootState }, { store_type }) {
@@ -29,7 +29,7 @@ export default {
     },
     async buy_store_option({ state, commit, dispatch, rootState }, { id, number }) {
       api.post(`trade/store-options/${id}/buy/`, { number }).then(res => {
-        dispatch("get_chara_profile", { omit: "", fields: "bag_items,gold" }, { root: true });
+        dispatch("chara/get_chara_profile", { omit: "", fields: "bag_items,gold" }, { root: true });
       });
     }
   }

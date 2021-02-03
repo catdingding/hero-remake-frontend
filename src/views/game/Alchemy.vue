@@ -19,9 +19,9 @@
         </tr>
       </table>
     </div>
-    <div class="bag" v-if="chara_profile && chara_profile.bag_items">
+    <div class="bag">
       <h2>背包</h2>
-      <ItemTable :items="chara_profile.bag_items"></ItemTable>
+      <ItemTable :items="chara_bag_items"></ItemTable>
     </div>
   </div>
 </template>
@@ -34,10 +34,13 @@
     data() {
       return {};
     },
-    computed: { ...mapState("ability", ["alchemy_options"]), ...mapState(["chara_profile"]) },
+    computed: {
+      ...mapState("ability", ["alchemy_options"]),
+      ...mapState("chara", ["chara_bag_items", "chara_proficiency"])
+    },
     methods: { ...mapActions("ability", ["make_alchemy_option"]) },
     mounted() {
-      this.$store.dispatch("get_chara_profile", { omit: "", fields: "bag_items,proficiency" });
+      this.$store.dispatch("chara/get_chara_profile", { omit: "", fields: "bag_items,proficiency" });
       this.$store.dispatch("ability/get_alchemy_options");
     },
     components: { ItemTable }

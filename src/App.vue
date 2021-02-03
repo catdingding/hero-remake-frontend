@@ -26,9 +26,6 @@
     background-color: #fff;
     border-radius: 10px;
     padding: 10px;
-    th {
-      font-size: 16px;
-    }
     td,
     th {
       padding: 5px;

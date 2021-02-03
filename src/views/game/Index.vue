@@ -1,86 +1,90 @@
 <template>
   <div>
-    <el-row type="flex" justify="space-around" style="width: 100%;">
+    <el-row type="flex" justify="space-between" style="width: 100%;">
       <el-col :span="7">
         <el-card class="profile-card">
-          <p slot="title">地點狀態</p>
-          <div class="profile" v-if="chara_profile">
+          <div slot="header">地點狀態</div>
+          <div class="profile" v-if="chara_location">
             <div class="attr">
               <span>座標</span>
-              <span>({{ chara_profile.location.x }},{{ chara_profile.location.y }})</span>
+              <span>({{ chara_location.x }},{{ chara_location.y }})</span>
             </div>
             <div class="attr">
               <span>城鎮</span>
-              <span>{{ chara_profile.location.town_name || "無" }}</span>
+              <span>{{ chara_location.town_name || "無" }}</span>
             </div>
             <div class="attr">
               <span>屬性</span>
-              <span>{{ chara_profile.location.element_type.name }}</span>
+              <span>{{ chara_location.element_type.name }}</span>
             </div>
             <div class="attr">
               <span>戰鬥地圖</span>
-              <span>{{ chara_profile.location.battle_map_name }}</span>
+              <span>{{ chara_location.battle_map_name }}</span>
             </div>
             <el-divider />
             <div class="command">
-              <el-button size="medium" type="success" to="/game/map">移動</el-button>
+              <router-link to="/game/map"><el-button size="medium" type="success">移動</el-button></router-link>
             </div>
           </div>
         </el-card>
       </el-col>
       <el-col :span="7">
         <el-card class="profile-card">
-          <p slot="title">角色狀態</p>
-          <div class="profile" v-if="chara_profile">
+          <div slot="header">角色狀態</div>
+          <div class="profile">
             <div class="attr">
               <span>名稱</span>
-              <span>{{ chara_profile.name }}</span>
+              <span>{{ chara_name }}</span>
+            </div>
+            <div class="attr">
+              <span>國籍</span>
+              <span>{{ chara_country === null ? "無所屬" : chara_country.name }}</span>
             </div>
             <div class="attr">
               <span>職業</span>
-              <span>{{ chara_profile.job.name }}</span>
+              <span v-if="chara_job">{{ chara_job.name }}</span>
             </div>
             <div class="attr">
               <span>等級</span>
-              <span>{{ chara_profile.level }}</span>
+              <span>{{ chara_level }}</span>
             </div>
             <div class="attr">
               <span>屬性</span>
-              <span>{{ chara_profile.element_type.name }}</span>
+              <span v-if="chara_element_type">{{ chara_element_type.name }}</span>
             </div>
             <div class="attr">
               <span>金錢</span>
-              <span>{{ chara_profile.gold | currency }}</span>
+              <span>{{ chara_gold | currency }}</span>
             </div>
             <div class="attr">
               <span>熟練度</span>
-              <span>{{ chara_profile.proficiency | currency }}</span>
+              <span>{{ chara_proficiency | currency }}</span>
             </div>
             <div class="attr">
               <span>健康度</span>
-              <span>{{ chara_profile.health }}</span>
+              <span>{{ chara_health }}</span>
             </div>
             <div class="attr">
               <span>HP</span>
               <span>
-                <PercentageDisplay color="red" :value="chara_profile.hp" :max-value="chara_profile.hp_max" />
+                <PercentageDisplay color="red" :value="chara_hp" :max-value="chara_hp_max" />
               </span>
             </div>
             <div class="attr">
               <span>MP</span>
               <span>
-                <PercentageDisplay color="skyblue" :value="chara_profile.mp" :max-value="chara_profile.mp_max" />
+                <PercentageDisplay color="skyblue" :value="chara_mp" :max-value="chara_mp_max" />
               </span>
             </div>
             <el-collapse :simple="true">
               <el-collapse-item title="能力（上限值）">
-                <div class="attr" v-for="attr in chara_profile.attributes" :key="attr.id">
+                <div class="attr" v-for="attr in chara_attributes" :key="attr.id">
                   <span>{{ attr.type.name }}</span>
-                  <span>{{ attr.value }}/{{ attr.limit }}</span>
+                  <span>{{ attr.value }}（{{ attr.limit }}）</span>
                 </div>
               </el-collapse-item>
               <el-collapse-item title="職業熟練">
-                <div class="attr" v-for="attr in chara_profile.attributes" :key="attr.id">
+                <div class="attr" v-for="attr in chara_attributes" :key="attr.id">
                   <span>{{ attr.type.class_name }}</span>
                   <span>{{ attr.proficiency }}</span>
                 </div>
@@ -92,23 +96,24 @@
 
       <el-col :span="7">
         <el-card class="command-card">
-          <p slot="title">指令</p>
-          <div class="command" v-if="chara_profile">
+          <div slot="header">指令</div>
+          <div class="command">
             <el-divider>行動冷卻</el-divider>
-            <span :key="auto_refresh">{{ chara_profile.next_action_time | cd }}</span>
+            <RelativeTime :time_string="chara_next_action_time" :period="100"></RelativeTime>
             <el-divider />
             <el-select style="margin-bottom:16px;" v-model="battle_map_id">
               <el-option
-                :value="chara_profile.location.battle_map"
-                :label="chara_profile.location.battle_map_name"
+                v-if="chara_location"
+                :value="chara_location.battle_map"
+                :label="chara_location.battle_map_name"
               ></el-option>
               <el-option
-                v-for="battle_map_ticket in chara_profile.battle_map_tickets"
+                v-for="battle_map_ticket in chara_battle_map_tickets"
                 v-show="battle_map_ticket.value"
                 :value="battle_map_ticket.battle_map.id"
                 :key="battle_map_ticket.battle_map.id"
-                >{{ battle_map_ticket.battle_map.name }}({{ battle_map_ticket.value }})</el-option
-              >
+                :lable="battle_map_ticket.battle_map.name + '(' + battle_map_ticket.value + ')'"
+              ></el-option>
             </el-select>
             <el-button size="medium" type="primary" @click="fight_battle_map">戰鬥</el-button>
             <el-divider />
@@ -117,37 +122,66 @@
         </el-card>
       </el-col>
     </el-row>
+    <el-row type="flex" justify="space-between" style="width: 100%;" class="chat">
+      <el-col :span="11">
+        <MessageBlock title="公開頻道" channel="public" :messages="public_messages"></MessageBlock>
+      </el-col>
+      <el-col :span="11">
+        <MessageBlock title="國家頻道" channel="country" :messages="country_messages"></MessageBlock>
+      </el-col>
+      <el-col :span="11">
+        <MessageBlock title="私訊頻道" channel="private" :messages="private_messages" need-receiver></MessageBlock>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
 <script>
-  import { mapState, mapGetters } from "vuex";
+  import { mapState, mapGetters, mapActions } from "vuex";
   import PercentageDisplay from "@/components/PercentageDisplay.vue";
-
+  import MessageBlock from "@/components/MessageBlock";
   export default {
     data() {
-      return {};
+      return { public_message_form_data: { content: "" } };
     },
     methods: {
       fight_battle_map() {
         this.$store.dispatch("battle/fight_battle_map").then(() => this.$router.push("/game/battle-result"));
-      }
+      },
     },
     computed: {
-      ...mapState(["chara_profile", "auto_refresh"]),
+      ...mapState("ws", ["public_messages", "country_messages", "private_messages"]),
+      ...mapState("chara", [
+        "chara_location",
+        "chara_battle_map_tickets",
+        "chara_next_action_time",
+        "chara_name",
+        "chara_job",
+        "chara_level",
+        "chara_element_type",
+        "chara_gold",
+        "chara_proficiency",
+        "chara_health",
+        "chara_hp",
+        "chara_mp",
+        "chara_hp_max",
+        "chara_mp_max",
+        "chara_attributes",
+        "chara_country",
+      ]),
       battle_map_id: {
         get() {
           return this.$store.state.battle.battle_map_id;
         },
         set(value) {
           this.$store.commit("battle/set_battle_map_id", value);
-        }
-      }
+        },
+      },
     },
-    components: { PercentageDisplay },
+    components: { PercentageDisplay, MessageBlock },
     mounted() {
-      this.$store.dispatch("get_chara_profile", {});
-    }
+      this.$store.dispatch("chara/get_chara_profile", {});
+    },
   };
 </script>
 
@@ -171,5 +205,12 @@
   }
   .command {
     text-align: center;
+  }
+  .profile-card,
+  .command-card {
+    height: 100%;
+  }
+  .chat {
+    flex-flow: row wrap;
   }
 </style>
