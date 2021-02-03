@@ -5,15 +5,14 @@
         <div>攻擊方</div>
         <div>防禦方</div>
       </div>
-
-      <RecycleScroller class="scroller" :items="battle_result.logs" key-field="index" :item-size="110">
+      <RecycleScroller class="scroller" :items="filtered_logs" key-field="index" :item-size="110">
         <template v-slot="{ item }">
           <div class="round">
             <div class="attackers">
               <div class="charas">
                 <div
                   class="chara"
-                  v-for="(chara, chara_index) in item.charas.filter(x => x.team === 'attacker')"
+                  v-for="(chara, chara_index) in item.charas.filter((x) => x.team === 'attacker')"
                   :key="chara_index"
                 >
                   <BattleCharaStatus :chara="chara" />
@@ -21,7 +20,7 @@
               </div>
               <div class="actions">
                 <div
-                  v-for="(action, action_index) in item.actions.filter(x => x.team === 'attacker')"
+                  v-for="(action, action_index) in item.actions.filter((x) => x.team === 'attacker')"
                   :key="action_index"
                 >
                   {{ action.message }}
@@ -32,7 +31,7 @@
               <div class="charas">
                 <div
                   class="chara"
-                  v-for="(chara, chara_index) in item.charas.filter(x => x.team === 'defender')"
+                  v-for="(chara, chara_index) in item.charas.filter((x) => x.team === 'defender')"
                   :key="chara_index"
                 >
                   <BattleCharaStatus :chara="chara" />
@@ -40,7 +39,7 @@
               </div>
               <div class="actions">
                 <div
-                  v-for="(action, action_index) in item.actions.filter(x => x.team === 'defender')"
+                  v-for="(action, action_index) in item.actions.filter((x) => x.team === 'defender')"
                   :key="action_index"
                 >
                   <div>{{ action.message }}</div>
@@ -72,16 +71,19 @@
     name: "BattleResult",
     data() {
       return {
-        winner_mesasage: { attacker: "攻擊方獲得了勝利！", defender: "防禦方獲得了勝利！", draw: "雙方不分勝負……" }
+        winner_mesasage: { attacker: "攻擊方獲得了勝利！", defender: "防禦方獲得了勝利！", draw: "雙方不分勝負……" },
       };
     },
     computed: {
       ...mapState("battle", ["battle_result"]),
+      filtered_logs() {
+        return this.battle_result.logs.filter((x) => x.actions.length !== 0);
+      },
       loots() {
-        return this.battle_result.loots.map(x => x.name + x.number).join("、");
-      }
+        return this.battle_result.loots.map((x) => x.name + x.number).join("、");
+      },
     },
-    components: { BattleCharaStatus }
+    components: { BattleCharaStatus },
   };
 </script>
 
