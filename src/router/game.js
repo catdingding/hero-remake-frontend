@@ -4,6 +4,7 @@ import map from "@/views/game/Map.vue";
 import Bag from "@/views/game/Bag.vue";
 import Storage from "@/views/game/Storage.vue";
 import Store from "@/views/game/Store.vue";
+import ExchangeHouse from "@/views/game/ExchangeHouse.vue";
 import JobChange from "@/views/game/JobChange.vue";
 import SkillSetting from "@/views/game/SkillSetting.vue";
 import AbilityLearn from "@/views/game/AbilityLearn.vue";
@@ -44,4 +45,5 @@ export default [
   { path: "country/join-request", component: CountryJoinRequest },
   { path: "country/panel", component: CountryPanel },
   { path: "pet-store", component: PetStore },
+  { path: "exchange-house", component: ExchangeHouse },
 ];

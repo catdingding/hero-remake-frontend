@@ -30,6 +30,7 @@
             <el-menu-item index="store-armor" :route="{ path: '/game/store/armor' }">防具店</el-menu-item>
             <el-menu-item index="store-jewelry" :route="{ path: '/game/store/jewelry' }">飾品店</el-menu-item>
             <el-menu-item index="store-item" :route="{ path: '/game/store/item' }">道具店</el-menu-item>
+            <el-menu-item index="exchange-house" :route="{ path: '/game/exchange-house' }">兌換屋</el-menu-item>
             <el-menu-item index="auction-house" :route="{ path: '/game/auction-house' }">拍賣所</el-menu-item>
             <el-menu-item index="sell-house" :route="{ path: '/game/sell-house' }">出售所</el-menu-item>
             <el-menu-item index="purchase-house" :route="{ path: '/game/purchase-house' }">收購所</el-menu-item>
