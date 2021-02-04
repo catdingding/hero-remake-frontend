@@ -5,7 +5,7 @@
       <ItemTypeOptionTable :options="store_options">
         <template v-slot:extra-th>
           <th>價格</th>
-          <th>購買</th>
+          <th class="table-input-number-th">購買</th>
         </template>
         <template v-slot:extra-td="{ option }">
           <td>{{ option.item_type.value | currency }}</td>
@@ -30,7 +30,7 @@
       <ItemTable :items="chara_bag_items">
         <template v-slot:extra-th>
           <th>出售價</th>
-          <th>出售</th>
+          <th class="table-input-number-th">出售</th>
         </template>
         <template v-slot:extra-td="{ item }">
           <td>{{ (item.type.value / 2) | currency }}</td>

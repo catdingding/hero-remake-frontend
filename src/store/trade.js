@@ -45,7 +45,7 @@ export default {
       });
     },
     async buy_exchange_option({ state, commit, dispatch, rootState }, { id, number }) {
-      api.post(`trade/exchange-options/${id}/buy/`, { number }).then((res) => {
+      api.post(`trade/exchange-options/${id}/exchange/`, { number }).then((res) => {
         dispatch("chara/get_chara_profile", { omit: "", fields: "bag_items" }, { root: true });
       });
     },

@@ -3,7 +3,7 @@
     <div class="storage">
       <h2>國庫</h2>
       <ItemTable :items="country_storage_items">
-        <template v-slot:extra-th><th>取出</th></template>
+        <template v-slot:extra-th><th class="table-input-number-th">取出</th></template>
         <template v-slot:extra-td="{ item }">
           <td>
             <div>
@@ -23,7 +23,7 @@
     <div class="bag">
       <h2>背包</h2>
       <ItemTable :items="chara_bag_items">
-        <template v-slot:extra-th><th>存入</th></template>
+        <template v-slot:extra-th><th class="table-input-number-th">存入</th></template>
         <template v-slot:extra-td="{ item }">
           <td>
             <div>
@@ -53,13 +53,13 @@
     },
     computed: { ...mapState("chara", ["chara_bag_items"]), ...mapState("country", ["country_storage_items"]) },
     methods: {
-      ...mapActions("country", ["take_item_from_country_storage", "put_item_to_country_storage"])
+      ...mapActions("country", ["take_item_from_country_storage", "put_item_to_country_storage"]),
     },
     mounted() {
       this.$store.dispatch("chara/get_chara_profile", { omit: "", fields: "bag_items" });
       this.$store.dispatch("country/get_country_storage_items");
     },
-    components: { ItemTable }
+    components: { ItemTable },
   };
 </script>
 

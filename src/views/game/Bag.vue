@@ -29,7 +29,7 @@
     <div class="bag">
       <ItemTable :items="chara_bag_items">
         <template v-slot:extra-th>
-          <th>使用/裝備</th>
+          <th class="table-input-number-th">使用/裝備</th>
         </template>
         <template v-slot:extra-td="{ item }">
           <td>

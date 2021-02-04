@@ -3,9 +3,7 @@
     <tr>
       <th>名稱</th>
       <th>類型</th>
-      <th>攻擊</th>
-      <th>防禦</th>
-      <th>重量</th>
+      <th>攻/防/重量</th>
       <th>奧義</th>
       <slot name="extra-th"></slot>
     </tr>
@@ -17,9 +15,13 @@
         {{ option.item_type.name }}
       </td>
       <td>{{ option.item_type.slot_type ? option.item_type.slot_type.name : "道具" }}</td>
-      <td>{{ option.item_type.attack }}</td>
-      <td>{{ option.item_type.defense }}</td>
-      <td>{{ option.item_type.weight }}</td>
+      <td>
+        {{ option.item_type.slot_type ? option.item_type.attack : "" }}
+        {{ option.item_type.slot_type ? "/" : "" }}
+        {{ option.item_type.slot_type ? option.item_type.defense : "" }}
+        {{ option.item_type.slot_type ? "/" : "" }}
+        {{ option.item_type.slot_type ? option.item_type.weight : "" }}
+      </td>
       <td>{{ option.item_type | object_ability }}</td>
       <slot name="extra-td" :option="option"></slot>
     </tr>

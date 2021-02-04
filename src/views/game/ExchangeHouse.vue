@@ -5,7 +5,7 @@
       <ItemTypeOptionTable :options="exchange_options">
         <template v-slot:extra-th>
           <th>需求</th>
-          <th>兌換</th>
+          <th class="table-input-number-th">兌換</th>
         </template>
         <template v-slot:extra-td="{ option }">
           <td>
@@ -21,7 +21,7 @@
                 size="mini"
                 @click="buy_exchange_option({ id: option.id, number: option.select_number })"
               >
-                購買
+                兌換
               </el-button>
             </div>
           </td>

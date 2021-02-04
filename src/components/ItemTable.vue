@@ -4,9 +4,7 @@
       <th>名稱</th>
       <th>類型</th>
       <th>數量</th>
-      <th>攻擊</th>
-      <th>防禦</th>
-      <th>重量</th>
+      <th>攻/防/重量</th>
       <th>奧義</th>
       <slot name="extra-th"></slot>
     </tr>
@@ -19,9 +17,13 @@
       </td>
       <td>{{ item.equipment ? item.type.slot_type.name : "道具" }}</td>
       <td>{{ item.number }}</td>
-      <td>{{ item.equipment ? item.equipment.attack : "" }}</td>
-      <td>{{ item.equipment ? item.equipment.defense : "" }}</td>
-      <td>{{ item.equipment ? item.equipment.weight : "" }}</td>
+      <td>
+        {{ item.equipment ? item.equipment.attack : "" }}
+        {{ item.equipment ? "/" : "" }}
+        {{ item.equipment ? item.equipment.defense : "" }}
+        {{ item.equipment ? "/" : "" }}
+        {{ item.equipment ? item.equipment.weight : "" }}
+      </td>
       <td>{{ item.equipment | object_ability }}</td>
       <slot name="extra-td" :item="item"></slot>
     </tr>
