@@ -10,21 +10,27 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    name: "Home",
-    component: Home
+    component: Home,
+    meta: { title: "首頁" },
   },
   {
     path: "/game",
-    name: "Game",
     component: Game,
-    children: game_children
-  }
+    meta: { title: "主面板" },
+    children: game_children,
+  },
 ];
 
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
-  routes
+  routes,
+});
+
+router.afterEach((to, from) => {
+  Vue.nextTick(() => {
+    document.title = to.meta.title;
+  });
 });
 
 export default router;
