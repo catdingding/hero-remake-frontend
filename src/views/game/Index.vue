@@ -112,7 +112,7 @@
                 v-show="battle_map_ticket.value"
                 :value="battle_map_ticket.battle_map.id"
                 :key="battle_map_ticket.battle_map.id"
-                :lable="battle_map_ticket.battle_map.name + '(' + battle_map_ticket.value + ')'"
+                :label="battle_map_ticket.battle_map.name + '(' + battle_map_ticket.value + ')'"
               ></el-option>
             </el-select>
             <el-button size="medium" type="primary" @click="fight_battle_map">戰鬥</el-button>
