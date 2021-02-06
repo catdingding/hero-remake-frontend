@@ -19,19 +19,12 @@
         <template v-slot:extra-column>
           <el-table-column label="傳送" align="center" width="150px">
             <template slot-scope="scope">
-              <el-input-number
-                :min="1"
+              <InputNumberWithButton
+                text="傳送"
                 :max="scope.row.number"
-                size="mini"
-                v-model="scope.row.select_number"
-              ></el-input-number>
-              <el-button
-                type="primary"
-                size="mini"
-                @click="send_item({ item: scope.row.id, number: scope.row.select_number, receiver: receiver })"
+                @click="send_item({ item: scope.row.id, number: $event, receiver: receiver })"
               >
-                傳送
-              </el-button>
+              </InputNumberWithButton>
             </template>
           </el-table-column>
         </template>
@@ -44,6 +37,7 @@
   import { mapState, mapActions } from "vuex";
   import ItemTable from "@/components/ItemTable.vue";
   import CharaSelect from "@/components/CharaSelect.vue";
+  import InputNumberWithButton from "@/components/InputNumberWithButton";
 
   export default {
     name: "SendItemGold",
@@ -62,7 +56,7 @@
     mounted() {
       this.$store.dispatch("chara/get_chara_profile", { omit: "", fields: "bag_items,gold" });
     },
-    components: { ItemTable, CharaSelect },
+    components: { ItemTable, CharaSelect, InputNumberWithButton },
   };
 </script>
 

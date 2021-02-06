@@ -6,19 +6,12 @@
         <template v-slot:extra-column>
           <el-table-column label="取出" align="center" :width="150">
             <template slot-scope="scope">
-              <el-input-number
-                size="mini"
-                :min="1"
+              <InputNumberWithButton
+                text="取出"
                 :max="scope.row.number"
-                v-model="scope.row.select_number"
-              ></el-input-number>
-              <el-button
-                type="primary"
-                size="mini"
-                @click="take_item_from_storage({ item: scope.row.id, number: scope.row.select_number })"
+                @click="take_item_from_storage({ item: scope.row.id, number: $event })"
               >
-                取出
-              </el-button>
+              </InputNumberWithButton>
             </template>
           </el-table-column>
         </template>
@@ -30,19 +23,12 @@
         <template v-slot:extra-column>
           <el-table-column label="存入" align="center" :width="150">
             <template slot-scope="scope">
-              <el-input-number
-                size="mini"
-                :min="1"
+              <InputNumberWithButton
+                text="存入"
                 :max="scope.row.number"
-                v-model="scope.row.select_number"
-              ></el-input-number>
-              <el-button
-                type="primary"
-                size="mini"
-                @click="put_item_to_storage({ item: scope.row.id, number: scope.row.select_number })"
+                @click="put_item_to_storage({ item: scope.row.id, number: $event })"
               >
-                存入
-              </el-button>
+              </InputNumberWithButton>
             </template>
           </el-table-column>
         </template>
@@ -54,6 +40,8 @@
 <script>
   import { mapState, mapActions } from "vuex";
   import ItemTable from "@/components/ItemTable.vue";
+  import InputNumberWithButton from "@/components/InputNumberWithButton";
+
   export default {
     name: "Storage",
     data() {
@@ -67,7 +55,7 @@
       this.$store.dispatch("chara/get_chara_profile", { omit: "", fields: "bag_items" });
       this.$store.dispatch("item/get_storage_items");
     },
-    components: { ItemTable },
+    components: { ItemTable, InputNumberWithButton },
   };
 </script>
 

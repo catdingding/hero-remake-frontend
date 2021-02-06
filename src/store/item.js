@@ -10,9 +10,6 @@ export default {
   },
   mutations: {
     set_storage_items(state, data) {
-      for (let item of data) {
-        item.select_number = 1;
-      }
       state.storage_items = data;
     },
   },

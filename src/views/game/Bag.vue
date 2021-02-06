@@ -24,14 +24,12 @@
           <el-table-column label="使用/裝備" align="center" :width="150">
             <template slot-scope="scope">
               <div v-if="scope.row.type.use_effect">
-                <el-input-number size="mini" :min="1" v-model="scope.row.select_number"></el-input-number>
-                <el-button
-                  type="primary"
-                  size="mini"
-                  @click="use_item({ item: scope.row.id, number: scope.row.select_number })"
+                <InputNumberWithButton
+                  text="使用"
+                  :max="scope.row.number"
+                  @click="use_item({ item: scope.row.id, number: $event })"
                 >
-                  使用
-                </el-button>
+                </InputNumberWithButton>
               </div>
               <div v-if="scope.row.equipment">
                 <el-button type="primary" size="mini" @click="equip_item({ item: scope.row.id })">裝備</el-button>
@@ -48,6 +46,8 @@
   import { mapState, mapActions } from "vuex";
   import ItemTable from "@/components/ItemTable.vue";
   import SlotTable from "@/components/SlotTable.vue";
+  import InputNumberWithButton from "@/components/InputNumberWithButton";
+
   export default {
     name: "Bag",
     data() {
@@ -60,7 +60,7 @@
     mounted() {
       this.$store.dispatch("chara/get_chara_profile", { omit: "", fields: "gold,proficiency,slots,bag_items" });
     },
-    components: { ItemTable, SlotTable },
+    components: { ItemTable, SlotTable, InputNumberWithButton },
   };
 </script>
 

@@ -11,15 +11,9 @@ export default {
   },
   mutations: {
     set_store_options(state, data) {
-      for (let item of data) {
-        item.select_number = 1;
-      }
       state.store_options = data;
     },
     set_exchange_options(state, data) {
-      for (let item of data) {
-        item.select_number = 1;
-      }
       state.exchange_options = data;
     },
   },

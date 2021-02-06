@@ -11,10 +11,8 @@
           <td>{{ option.item_type.name }}</td>
           <td>{{ option.proficiency_cost }}</td>
           <td>
-            <el-input-number :min="1" v-model="option.select_number"></el-input-number>
-            <el-button type="primary" @click="make_alchemy_option({ id: option.id, number: option.select_number })">
-              製作
-            </el-button>
+            <InputNumberWithButton text="製作" @click="make_alchemy_option({ id: option.id, number: $event })">
+            </InputNumberWithButton>
           </td>
         </tr>
       </table>
@@ -29,6 +27,8 @@
 <script>
   import { mapState, mapActions } from "vuex";
   import ItemTable from "@/components/ItemTable.vue";
+  import InputNumberWithButton from "@/components/InputNumberWithButton";
+
   export default {
     name: "Alchemy",
     data() {
@@ -43,7 +43,7 @@
       this.$store.dispatch("chara/get_chara_profile", { omit: "", fields: "bag_items,proficiency" });
       this.$store.dispatch("ability/get_alchemy_options");
     },
-    components: { ItemTable },
+    components: { ItemTable, InputNumberWithButton },
   };
 </script>
 

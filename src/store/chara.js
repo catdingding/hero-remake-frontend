@@ -29,20 +29,15 @@ export default {
       chara_mp_max: null,
       chara_mp: null,
       chara_official: null,
-      chara_is_king: false
+      chara_is_king: false,
     };
   },
   mutations: {
     set_chara_profile(state, data) {
-      if (data.bag_items) {
-        for (let item of data.bag_items) {
-          item.select_number = 1;
-        }
-      }
       for (let key in data) {
         state[`chara_${key}`] = data[key];
       }
-    }
+    },
   },
   actions: {
     async get_chara_profile({ commit }, { omit = "bag_items,slots,skill_settings", fields = "" }) {
@@ -53,9 +48,9 @@ export default {
       if (fields) {
         url += "fields=" + fields;
       }
-      return api.get(url).then(res => {
+      return api.get(url).then((res) => {
         commit("set_chara_profile", res.data);
       });
-    }
-  }
+    },
+  },
 };

@@ -13,14 +13,8 @@
           </el-table-column>
           <el-table-column label="兌換" align="center" width="150px">
             <template slot-scope="scope">
-              <el-input-number size="mini" :min="1" v-model="scope.row.select_number"></el-input-number>
-              <el-button
-                type="primary"
-                size="mini"
-                @click="buy_exchange_option({ id: scope.row.id, number: scope.row.select_number })"
-              >
-                兌換
-              </el-button>
+              <InputNumberWithButton text="兌換" @click="buy_exchange_option({ id: scope.row.id, number: $event })">
+              </InputNumberWithButton>
             </template>
           </el-table-column>
         </template>
@@ -37,6 +31,7 @@
   import { mapState, mapActions } from "vuex";
   import ItemTypeOptionTable from "@/components/ItemTypeOptionTable.vue";
   import ItemTable from "@/components/ItemTable.vue";
+  import InputNumberWithButton from "@/components/InputNumberWithButton";
 
   export default {
     name: "ExchangeHouse",
@@ -51,7 +46,7 @@
       this.$store.dispatch("chara/get_chara_profile", { omit: "", fields: "bag_items" });
       this.$store.dispatch("trade/get_exchange_options");
     },
-    components: { ItemTable, ItemTypeOptionTable },
+    components: { ItemTable, ItemTypeOptionTable, InputNumberWithButton },
   };
 </script>
 

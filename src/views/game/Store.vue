@@ -11,14 +11,8 @@
           </el-table-column>
           <el-table-column label="購買" align="center" width="150px">
             <template slot-scope="scope">
-              <el-input-number size="mini" :min="1" v-model="scope.row.select_number"></el-input-number>
-              <el-button
-                type="primary"
-                size="mini"
-                @click="buy_store_option({ id: scope.row.id, number: scope.row.select_number })"
-              >
-                購買
-              </el-button>
+              <InputNumberWithButton text="購買" @click="buy_store_option({ id: scope.row.id, number: $event })">
+              </InputNumberWithButton>
             </template>
           </el-table-column>
         </template>
@@ -36,19 +30,12 @@
           </el-table-column>
           <el-table-column label="出售" align="center" width="150px">
             <template slot-scope="scope">
-              <el-input-number
-                size="mini"
-                :min="1"
+              <InputNumberWithButton
+                text="出售"
                 :max="scope.row.number"
-                v-model="scope.row.select_number"
-              ></el-input-number>
-              <el-button
-                type="primary"
-                size="mini"
-                @click="sell_item({ item: scope.row.id, number: scope.row.select_number })"
+                @click="sell_item({ item: scope.row.id, number: $event })"
               >
-                出售
-              </el-button>
+              </InputNumberWithButton>
             </template>
           </el-table-column>
         </template>
@@ -62,6 +49,8 @@
   import ItemTable from "@/components/ItemTable.vue";
   import ItemTypeOptionTable from "@/components/ItemTypeOptionTable.vue";
   import CharaWallet from "@/components/CharaWallet.vue";
+  import InputNumberWithButton from "@/components/InputNumberWithButton";
+
   export default {
     name: "Bag",
     data() {
@@ -80,7 +69,7 @@
         this.$store.dispatch("trade/get_store_options", { store_type: to.params.store_type });
       },
     },
-    components: { ItemTable, ItemTypeOptionTable, CharaWallet },
+    components: { ItemTable, ItemTypeOptionTable, CharaWallet, InputNumberWithButton },
   };
 </script>
 
