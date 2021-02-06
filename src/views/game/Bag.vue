@@ -28,21 +28,24 @@
     </div>
     <div class="bag">
       <ItemTable :items="chara_bag_items">
-        <template v-slot:extra-th>
-          <th class="table-input-number-th">使用/裝備</th>
-        </template>
-        <template v-slot:extra-td="{ item }">
-          <td>
-            <div v-if="item.type.use_effect">
-              <el-input-number size="mini" :min="1" v-model="item.select_number"></el-input-number>
-              <el-button type="primary" size="mini" @click="use_item({ item: item.id, number: item.select_number })">
-                使用
-              </el-button>
-            </div>
-            <div v-if="item.equipment">
-              <el-button type="primary" size="mini" @click="equip_item({ item: item.id })">裝備</el-button>
-            </div>
-          </td>
+        <template v-slot:extra-column>
+          <el-table-column label="使用/裝備" align="center" :width="150">
+            <template slot-scope="scope">
+              <div v-if="scope.row.type.use_effect">
+                <el-input-number size="mini" :min="1" v-model="scope.row.select_number"></el-input-number>
+                <el-button
+                  type="primary"
+                  size="mini"
+                  @click="use_item({ item: scope.row.id, number: scope.row.select_number })"
+                >
+                  使用
+                </el-button>
+              </div>
+              <div v-if="scope.row.equipment">
+                <el-button type="primary" size="mini" @click="equip_item({ item: scope.row.id })">裝備</el-button>
+              </div>
+            </template>
+          </el-table-column>
         </template>
       </ItemTable>
     </div>

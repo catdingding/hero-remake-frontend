@@ -1,33 +1,39 @@
 <template>
-  <table class="small-font">
-    <tr>
-      <th>名稱</th>
-      <th>類型</th>
-      <th>數量</th>
-      <th>攻/防/重量</th>
-      <th>奧義</th>
-      <slot name="extra-th"></slot>
-    </tr>
-    <tr class="item" v-for="item in items" :key="item.id">
-      <td>
-        <el-tooltip effect="dark" :content="item.type.description" placement="top">
+  <el-table :data="items">
+    <el-table-column label="名稱" align="center">
+      <template slot-scope="scope">
+        <el-tooltip effect="dark" :content="scope.row.type.description" placement="top">
           <i class="el-icon-info"></i>
         </el-tooltip>
-        {{ item.equipment ? item.equipment.display_name : item.type.name }}
-      </td>
-      <td>{{ item.equipment ? item.type.slot_type.name : "道具" }}</td>
-      <td>{{ item.number }}</td>
-      <td>
-        {{ item.equipment ? item.equipment.attack : "" }}
-        {{ item.equipment ? "/" : "" }}
-        {{ item.equipment ? item.equipment.defense : "" }}
-        {{ item.equipment ? "/" : "" }}
-        {{ item.equipment ? item.equipment.weight : "" }}
-      </td>
-      <td>{{ item.equipment | object_ability }}</td>
-      <slot name="extra-td" :item="item"></slot>
-    </tr>
-  </table>
+        {{ scope.row.equipment ? scope.row.equipment.display_name : scope.row.type.name }}
+      </template>
+    </el-table-column>
+    <el-table-column label="類型" align="center" width="80px">
+      <template slot-scope="scope">
+        {{ scope.row.equipment ? scope.row.type.slot_type.name : "道具" }}
+      </template>
+    </el-table-column>
+    <el-table-column label="數量" align="center" width="80px">
+      <template slot-scope="scope">
+        {{ scope.row.number }}
+      </template>
+    </el-table-column>
+    <el-table-column label="攻/防/重量" align="center">
+      <template slot-scope="scope">
+        {{ scope.row.equipment ? scope.row.equipment.attack : "" }}
+        {{ scope.row.equipment ? "/" : "" }}
+        {{ scope.row.equipment ? scope.row.equipment.defense : "" }}
+        {{ scope.row.equipment ? "/" : "" }}
+        {{ scope.row.equipment ? scope.row.equipment.weight : "" }}
+      </template>
+    </el-table-column>
+    <el-table-column label="奧義" align="center">
+      <template slot-scope="scope">
+        {{ scope.row.equipment | object_ability }}
+      </template>
+    </el-table-column>
+    <slot name="extra-column"></slot>
+  </el-table>
 </template>
 
 <script>
