@@ -36,15 +36,19 @@
     },
     computed: {
       ...mapState("ability", ["alchemy_options"]),
-      ...mapState("chara", ["chara_bag_items", "chara_proficiency"])
+      ...mapState("chara", ["chara_bag_items", "chara_proficiency"]),
     },
     methods: { ...mapActions("ability", ["make_alchemy_option"]) },
     mounted() {
       this.$store.dispatch("chara/get_chara_profile", { omit: "", fields: "bag_items,proficiency" });
       this.$store.dispatch("ability/get_alchemy_options");
     },
-    components: { ItemTable }
+    components: { ItemTable },
   };
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+  .bag {
+    width: 48%;
+  }
+</style>

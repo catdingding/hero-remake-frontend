@@ -8,17 +8,17 @@
         {{ scope.row.equipment ? scope.row.equipment.display_name : scope.row.type.name }}
       </template>
     </el-table-column>
-    <el-table-column label="類型" align="center" width="80px">
+    <el-table-column label="類型" align="center" width="60px">
       <template slot-scope="scope">
         {{ scope.row.equipment ? scope.row.type.slot_type.name : "道具" }}
       </template>
     </el-table-column>
-    <el-table-column label="數量" align="center" width="80px">
+    <el-table-column label="數量" align="center" width="60px">
       <template slot-scope="scope">
         {{ scope.row.number }}
       </template>
     </el-table-column>
-    <el-table-column label="攻/防/重量" align="center">
+    <el-table-column label="攻/防/重量" align="center" width="110px">
       <template slot-scope="scope">
         {{ scope.row.equipment ? scope.row.equipment.attack : "" }}
         {{ scope.row.equipment ? "/" : "" }}

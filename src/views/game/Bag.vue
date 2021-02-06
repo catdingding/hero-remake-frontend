@@ -1,30 +1,22 @@
 <template>
   <div>
     <div class="slots">
-      <table class="small-font">
-        <tr>
-          <th>裝備欄</th>
-          <th>名稱</th>
-          <th>攻擊</th>
-          <th>防禦</th>
-          <th>重量</th>
-          <th>奧義</th>
-          <th>卸下</th>
-        </tr>
-        <tr class="item" v-for="(slot, index) in chara_slots" :key="index">
-          <td>{{ slot.type.name }}</td>
-          <td>{{ slot.item ? slot.item.equipment.display_name : "" }}</td>
-          <td>{{ slot.item ? slot.item.equipment.attack : "" }}</td>
-          <td>{{ slot.item ? slot.item.equipment.defense : "" }}</td>
-          <td>{{ slot.item ? slot.item.equipment.weight : "" }}</td>
-          <td>{{ slot.item ? slot.item.equipment : "" | object_ability }}</td>
-          <td>
-            <div v-if="slot.item">
-              <el-button type="primary" size="mini" @click="divest_slot({ slot_type: slot.type.id })">卸下</el-button>
-            </div>
-          </td>
-        </tr>
-      </table>
+      <SlotTable :slots="chara_slots">
+        <template v-slot:extra-column>
+          <el-table-column label="卸下" align="center">
+            <template slot-scope="scope">
+              <el-button
+                v-if="scope.row.item"
+                type="primary"
+                size="mini"
+                @click="divest_slot({ slot_type: scope.row.type.id })"
+              >
+                卸下
+              </el-button>
+            </template>
+          </el-table-column>
+        </template>
+      </SlotTable>
     </div>
     <div class="bag">
       <ItemTable :items="chara_bag_items">
@@ -55,6 +47,7 @@
 <script>
   import { mapState, mapActions } from "vuex";
   import ItemTable from "@/components/ItemTable.vue";
+  import SlotTable from "@/components/SlotTable.vue";
   export default {
     name: "Bag",
     data() {
@@ -67,7 +60,7 @@
     mounted() {
       this.$store.dispatch("chara/get_chara_profile", { omit: "", fields: "gold,proficiency,slots,bag_items" });
     },
-    components: { ItemTable },
+    components: { ItemTable, SlotTable },
   };
 </script>
 

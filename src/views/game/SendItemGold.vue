@@ -1,32 +1,39 @@
 <template>
   <div>
-    <el-card>
-      <div slot="header">選擇傳送對象</div>
-      <CharaSelect v-model="receiver"></CharaSelect>
-    </el-card>
-    <el-card class="send-gold">
-      <div slot="header">傳送金錢</div>
-      <el-input-number v-model="gold" :min="0" :max="chara_gold"></el-input-number>
-      <br /><br />
-      <el-button type="primary" @click="send_gold({ gold: gold, receiver: receiver })">傳送</el-button>
-    </el-card>
-    <el-card>
+    <div>
+      <el-card>
+        <div slot="header">選擇傳送對象</div>
+        <CharaSelect v-model="receiver"></CharaSelect>
+      </el-card>
+      <el-card class="send-gold">
+        <div slot="header">傳送金錢</div>
+        <el-input-number v-model="gold" :min="0" :max="chara_gold"></el-input-number>
+        <br /><br />
+        <el-button type="primary" @click="send_gold({ gold: gold, receiver: receiver })">傳送</el-button>
+      </el-card>
+    </div>
+
+    <el-card class="send-item">
       <div slot="header">傳送物品</div>
       <ItemTable :items="chara_bag_items">
-        <template v-slot:extra-th><th>傳送</th></template>
-        <template v-slot:extra-td="{ item }">
-          <td>
-            <div>
-              <el-input-number :min="1" :max="item.number" size="mini" v-model="item.select_number"></el-input-number>
+        <template v-slot:extra-column>
+          <el-table-column label="傳送" align="center" width="150px">
+            <template slot-scope="scope">
+              <el-input-number
+                :min="1"
+                :max="scope.row.number"
+                size="mini"
+                v-model="scope.row.select_number"
+              ></el-input-number>
               <el-button
                 type="primary"
                 size="mini"
-                @click="send_item({ item: item.id, number: item.select_number, receiver: receiver })"
+                @click="send_item({ item: scope.row.id, number: scope.row.select_number, receiver: receiver })"
               >
                 傳送
               </el-button>
-            </div>
-          </td>
+            </template>
+          </el-table-column>
         </template>
       </ItemTable>
     </el-card>
@@ -43,24 +50,28 @@
     data() {
       return {
         gold: 0,
-        receiver: null
+        receiver: null,
       };
     },
     computed: {
-      ...mapState("chara", ["chara_bag_items", "chara_gold"])
+      ...mapState("chara", ["chara_bag_items", "chara_gold"]),
     },
     methods: {
-      ...mapActions("item", ["send_item", "send_gold"])
+      ...mapActions("item", ["send_item", "send_gold"]),
     },
     mounted() {
       this.$store.dispatch("chara/get_chara_profile", { omit: "", fields: "bag_items,gold" });
     },
-    components: { ItemTable, CharaSelect }
+    components: { ItemTable, CharaSelect },
   };
 </script>
 
 <style lang="less" scoped>
   .send-gold {
     text-align: center;
+    margin-top: 30px;
+  }
+  .send-item {
+    width: 65%;
   }
 </style>

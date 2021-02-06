@@ -3,24 +3,24 @@
     <div class="store">
       <h2>架上商品</h2>
       <ItemTypeOptionTable :options="store_options">
-        <template v-slot:extra-th>
-          <th>價格</th>
-          <th class="table-input-number-th">購買</th>
-        </template>
-        <template v-slot:extra-td="{ option }">
-          <td>{{ option.item_type.value | currency }}</td>
-          <td>
-            <div>
-              <el-input-number size="mini" :min="1" v-model="option.select_number"></el-input-number>
+        <template v-slot:extra-column>
+          <el-table-column label="價格" align="center">
+            <template slot-scope="scope">
+              {{ scope.row.item_type.value | currency }}
+            </template>
+          </el-table-column>
+          <el-table-column label="購買" align="center" width="150px">
+            <template slot-scope="scope">
+              <el-input-number size="mini" :min="1" v-model="scope.row.select_number"></el-input-number>
               <el-button
                 type="primary"
                 size="mini"
-                @click="buy_store_option({ id: option.id, number: option.select_number })"
+                @click="buy_store_option({ id: scope.row.id, number: scope.row.select_number })"
               >
                 購買
               </el-button>
-            </div>
-          </td>
+            </template>
+          </el-table-column>
         </template>
       </ItemTypeOptionTable>
     </div>
@@ -28,20 +28,29 @@
       <h2>背包</h2>
       <CharaWallet></CharaWallet>
       <ItemTable :items="chara_bag_items">
-        <template v-slot:extra-th>
-          <th>出售價</th>
-          <th class="table-input-number-th">出售</th>
-        </template>
-        <template v-slot:extra-td="{ item }">
-          <td>{{ (item.type.value / 2) | currency }}</td>
-          <td>
-            <div>
-              <el-input-number size="mini" :min="1" :max="item.number" v-model="item.select_number"></el-input-number>
-              <el-button type="primary" size="mini" @click="sell_item({ item: item.id, number: item.select_number })">
+        <template v-slot:extra-column>
+          <el-table-column label="出售價" align="center">
+            <template slot-scope="scope">
+              {{ (scope.row.type.value / 2) | currency }}
+            </template>
+          </el-table-column>
+          <el-table-column label="出售" align="center" width="150px">
+            <template slot-scope="scope">
+              <el-input-number
+                size="mini"
+                :min="1"
+                :max="scope.row.number"
+                v-model="scope.row.select_number"
+              ></el-input-number>
+              <el-button
+                type="primary"
+                size="mini"
+                @click="sell_item({ item: scope.row.id, number: scope.row.select_number })"
+              >
                 出售
               </el-button>
-            </div>
-          </td>
+            </template>
+          </el-table-column>
         </template>
       </ItemTable>
     </div>
@@ -80,6 +89,6 @@
     width: 48%;
   }
   .chara {
-    width: 48%;
+    width: 52%;
   }
 </style>

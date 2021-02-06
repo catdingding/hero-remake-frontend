@@ -3,40 +3,48 @@
     <div class="storage">
       <h2>倉庫</h2>
       <ItemTable :items="storage_items">
-        <template v-slot:extra-th><th class="table-input-number-th">取出</th></template>
-        <template v-slot:extra-td="{ item }">
-          <td>
-            <div>
-              <el-input-number size="mini" :min="1" :max="item.number" v-model="item.select_number"></el-input-number>
+        <template v-slot:extra-column>
+          <el-table-column label="取出" align="center" :width="150">
+            <template slot-scope="scope">
+              <el-input-number
+                size="mini"
+                :min="1"
+                :max="scope.row.number"
+                v-model="scope.row.select_number"
+              ></el-input-number>
               <el-button
                 type="primary"
                 size="mini"
-                @click="take_item_from_storage({ item: item.id, number: item.select_number })"
+                @click="take_item_from_storage({ item: scope.row.id, number: scope.row.select_number })"
               >
                 取出
               </el-button>
-            </div>
-          </td>
+            </template>
+          </el-table-column>
         </template>
       </ItemTable>
     </div>
     <div class="bag">
       <h2>背包</h2>
       <ItemTable :items="chara_bag_items">
-        <template v-slot:extra-th><th class="table-input-number-th">存入</th></template>
-        <template v-slot:extra-td="{ item }">
-          <td>
-            <div>
-              <el-input-number size="mini" :min="1" :max="item.number" v-model="item.select_number"></el-input-number>
+        <template v-slot:extra-column>
+          <el-table-column label="存入" align="center" :width="150">
+            <template slot-scope="scope">
+              <el-input-number
+                size="mini"
+                :min="1"
+                :max="scope.row.number"
+                v-model="scope.row.select_number"
+              ></el-input-number>
               <el-button
                 type="primary"
                 size="mini"
-                @click="put_item_to_storage({ item: item.id, number: item.select_number })"
+                @click="put_item_to_storage({ item: scope.row.id, number: scope.row.select_number })"
               >
                 存入
               </el-button>
-            </div>
-          </td>
+            </template>
+          </el-table-column>
         </template>
       </ItemTable>
     </div>
@@ -67,7 +75,7 @@
   .storage {
     width: 48%;
   }
-  .slots {
+  .bag {
     width: 48%;
   }
 </style>

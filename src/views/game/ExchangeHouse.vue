@@ -3,28 +3,26 @@
     <div class="store">
       <h2>架上商品</h2>
       <ItemTypeOptionTable :options="exchange_options">
-        <template v-slot:extra-th>
-          <th>需求</th>
-          <th class="table-input-number-th">兌換</th>
-        </template>
-        <template v-slot:extra-td="{ option }">
-          <td>
-            <div v-for="(requirement, index) in option.requirements" :key="index">
-              {{ requirement.item_type.name }}×{{ requirement.number }}
-            </div>
-          </td>
-          <td>
-            <div>
-              <el-input-number size="mini" :min="1" v-model="option.select_number"></el-input-number>
+        <template v-slot:extra-column>
+          <el-table-column label="需求" align="center">
+            <template slot-scope="scope">
+              <div v-for="(requirement, index) in scope.row.requirements" :key="index">
+                {{ requirement.item_type.name }}×{{ requirement.number }}
+              </div>
+            </template>
+          </el-table-column>
+          <el-table-column label="兌換" align="center" width="150px">
+            <template slot-scope="scope">
+              <el-input-number size="mini" :min="1" v-model="scope.row.select_number"></el-input-number>
               <el-button
                 type="primary"
                 size="mini"
-                @click="buy_exchange_option({ id: option.id, number: option.select_number })"
+                @click="buy_exchange_option({ id: scope.row.id, number: scope.row.select_number })"
               >
                 兌換
               </el-button>
-            </div>
-          </td>
+            </template>
+          </el-table-column>
         </template>
       </ItemTypeOptionTable>
     </div>
