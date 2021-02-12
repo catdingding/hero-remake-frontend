@@ -48,5 +48,5 @@ Vue.filter("item_field_value", (item, field) => {
 });
 
 Vue.filter("item_string", (item) => {
-  return `${Vue.filter("item_name")(item)} ${Vue.filter("item_attr")(item)} ${Vue.filter("object_ability")(item)}`;
+  return `${Vue.filter("item_name")(item)} ${Vue.filter("item_attr")(item)} ${Vue.filter("object_ability")(item)} (擁有${item.number})`;
 });
