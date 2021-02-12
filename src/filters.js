@@ -24,3 +24,29 @@ Vue.filter("object_ability", (obj) => {
   }
   return abilities.join("/");
 });
+
+// item
+
+Vue.filter("item_name", (item) => {
+  return item.equipment ? item.equipment.display_name : item.type.name;
+});
+Vue.filter("item_description", (item) => {
+  return item.type.description;
+});
+Vue.filter("item_type", (item) => {
+  return item.equipment ? item.type.slot_type.name : "道具";
+});
+Vue.filter("item_attr", (item) => {
+  if (item.equipment) {
+    return `${item.equipment.attack}/${item.equipment.defense}/${item.equipment.weight}`;
+  } else {
+    return "";
+  }
+});
+Vue.filter("item_field_value", (item, field) => {
+  return item[field];
+});
+
+Vue.filter("item_string", (item) => {
+  return `${Vue.filter("item_name")(item)} ${Vue.filter("item_attr")(item)} ${Vue.filter("object_ability")(item)}`;
+});
