@@ -19,7 +19,7 @@
       </SlotTable>
     </div>
     <div class="bag">
-      <ItemTable :items="chara_bag_items">
+      <ItemTable :data="chara_bag_items">
         <template v-slot:extra-column>
           <el-table-column label="使用/裝備" align="center" :width="150">
             <template slot-scope="scope">

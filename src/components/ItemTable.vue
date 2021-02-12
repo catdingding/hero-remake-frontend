@@ -1,35 +1,31 @@
 <template>
-  <el-table :data="items">
+  <el-table :data="data">
     <el-table-column label="名稱" align="center">
       <template slot-scope="scope">
-        <el-tooltip effect="dark" :content="scope.row.type.description" placement="top">
+        <el-tooltip effect="dark" :content="extract_item(scope) | item_description" placement="top">
           <i class="el-icon-info"></i>
         </el-tooltip>
-        {{ scope.row.equipment ? scope.row.equipment.display_name : scope.row.type.name }}
+        {{ extract_item(scope) | item_name }}
       </template>
     </el-table-column>
     <el-table-column label="類型" align="center" width="60px">
       <template slot-scope="scope">
-        {{ scope.row.equipment ? scope.row.type.slot_type.name : "道具" }}
+        {{ extract_item(scope) | item_type }}
       </template>
     </el-table-column>
     <el-table-column label="數量" align="center" width="60px">
       <template slot-scope="scope">
-        {{ scope.row.number }}
+        {{ extract_item(scope) | item_field_value("number") }}
       </template>
     </el-table-column>
     <el-table-column label="攻/防/重量" align="center" width="110px">
       <template slot-scope="scope">
-        {{ scope.row.equipment ? scope.row.equipment.attack : "" }}
-        {{ scope.row.equipment ? "/" : "" }}
-        {{ scope.row.equipment ? scope.row.equipment.defense : "" }}
-        {{ scope.row.equipment ? "/" : "" }}
-        {{ scope.row.equipment ? scope.row.equipment.weight : "" }}
+        {{ extract_item(scope) | item_attr }}
       </template>
     </el-table-column>
     <el-table-column label="奧義" align="center">
       <template slot-scope="scope">
-        {{ scope.row.equipment | object_ability }}
+        {{ extract_item(scope) | object_ability }}
       </template>
     </el-table-column>
     <slot name="extra-column"></slot>
@@ -43,7 +39,16 @@
     data() {
       return {};
     },
-    props: ["items"],
+    methods: {
+      extract_item(scope) {
+        if (this.item_field === null) {
+          return scope.row;
+        } else {
+          return scope.row[this.item_field];
+        }
+      },
+    },
+    props: { data: { type: Array }, item_field: { default: null } },
   };
 </script>
 

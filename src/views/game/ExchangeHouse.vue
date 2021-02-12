@@ -22,7 +22,7 @@
     </div>
     <div class="chara">
       <h2>背包</h2>
-      <ItemTable :items="chara_bag_items"> </ItemTable>
+      <ItemTable :data="chara_bag_items"> </ItemTable>
     </div>
   </div>
 </template>

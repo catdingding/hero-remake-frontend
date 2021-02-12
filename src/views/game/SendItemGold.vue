@@ -15,7 +15,7 @@
 
     <el-card class="send-item">
       <div slot="header">傳送物品</div>
-      <ItemTable :items="chara_bag_items">
+      <ItemTable :data="chara_bag_items">
         <template v-slot:extra-column>
           <el-table-column label="傳送" align="center" width="150px">
             <template slot-scope="scope">

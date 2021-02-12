@@ -21,7 +21,7 @@
     <div class="chara">
       <h2>背包</h2>
       <CharaWallet></CharaWallet>
-      <ItemTable :items="chara_bag_items">
+      <ItemTable :data="chara_bag_items">
         <template v-slot:extra-column>
           <el-table-column label="出售價" align="center">
             <template slot-scope="scope">
