@@ -9,6 +9,8 @@ export default {
       exchange_options: [],
       active_auctions: [],
       todo_auctions: [],
+      active_sales: [],
+      todo_sales: [],
     };
   },
   mutations: {
@@ -23,6 +25,12 @@ export default {
     },
     set_todo_auctions(state, data) {
       state.todo_auctions = data;
+    },
+    set_active_sales(state, data) {
+      state.active_sales = data;
+    },
+    set_todo_sales(state, data) {
+      state.todo_sales = data;
     },
   },
   actions: {
@@ -82,6 +90,32 @@ export default {
     async receive_auction_gold({ state, commit, dispatch, rootState }, id) {
       api.post(`trade/auctions/${id}/receive-gold/`).then((res) => {
         dispatch("get_todo_auctions");
+      });
+    },
+    // sale
+    async get_active_sales({ state, commit, dispatch, rootState }) {
+      api.get(`trade/sales/active/`).then((res) => {
+        commit("set_active_sales", res.data);
+      });
+    },
+    async get_todo_sales({ state, commit, dispatch, rootState }) {
+      api.get(`trade/sales/todo/`).then((res) => {
+        commit("set_todo_sales", res.data);
+      });
+    },
+    async create_sale({ state, commit, dispatch, rootState }, data) {
+      api.post(`trade/sales/`, data).then((res) => {
+        dispatch("get_active_sales");
+      });
+    },
+    async buy_sale({ state, commit, dispatch, rootState }, id) {
+      api.post(`trade/sales/${id}/buy/`).then((res) => {
+        dispatch("get_active_sales");
+      });
+    },
+    async receive_sale_item({ state, commit, dispatch, rootState }, id) {
+      api.post(`trade/sales/${id}/receive-item/`).then((res) => {
+        dispatch("get_todo_sales");
       });
     },
   },

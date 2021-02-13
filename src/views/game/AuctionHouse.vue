@@ -64,21 +64,21 @@
         <el-table :data="todo_auctions">
           <el-table-column label="物品名稱" align="center">
             <template slot-scope="scope">
-              <template v-if="!(scope.row.seller === chara_id && scope.row.bidder)">
+              <template v-if="!(scope.row.seller.id === chara_id && scope.row.bidder)">
                 {{ scope.row.item.equipment ? scope.row.item.equipment.display_name : scope.row.item.type.name }}
               </template>
             </template>
           </el-table-column>
           <el-table-column label="數量" align="center">
             <template slot-scope="scope">
-              <template v-if="!(scope.row.seller === chara_id && scope.row.bidder)">
+              <template v-if="!(scope.row.seller.id === chara_id && scope.row.bidder)">
                 {{ scope.row.item.number }}
               </template>
             </template>
           </el-table-column>
           <el-table-column label="金錢" prop="reserve_price" align="center">
             <template slot-scope="scope">
-              <template v-if="scope.row.seller === chara_id && scope.row.bidder">
+              <template v-if="scope.row.seller.id === chara_id && scope.row.bidder">
                 {{ scope.row.reserve_price | currency }}
               </template>
             </template>
@@ -88,7 +88,7 @@
               <el-button
                 type="primary"
                 @click="receive_auction_gold(scope.row.id)"
-                v-if="scope.row.seller === chara_id && scope.row.bidder"
+                v-if="scope.row.seller.id === chara_id && scope.row.bidder"
               >
                 領取金錢
               </el-button>

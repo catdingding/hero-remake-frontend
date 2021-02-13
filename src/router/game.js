@@ -23,6 +23,7 @@ import CountryStorage from "@/views/game/CountryStorage.vue";
 import CountryPanel from "@/views/game/CountryPanel.vue";
 
 import AuctionHouse from "@/views/game/AuctionHouse.vue";
+import SaleHouse from "@/views/game/SaleHouse.vue";
 
 export default [
   { path: "", component: Index, meta: { title: "主面板" } },
@@ -48,4 +49,5 @@ export default [
   { path: "pet-store", component: PetStore, meta: { title: "寵物店" } },
   { path: "exchange-house", component: ExchangeHouse, meta: { title: "兌換屋" } },
   { path: "auction-house", component: AuctionHouse, meta: { title: "拍賣所" } },
+  { path: "sale-house", component: SaleHouse, meta: { title: "出售所" } },
 ];
