@@ -97,6 +97,7 @@
       <el-col :span="7">
         <el-card class="command-card">
           <div slot="header">指令</div>
+          <Avatar class="avatar" :chara_id="chara_id"></Avatar>
           <div class="command">
             <el-divider>行動冷卻</el-divider>
             <RelativeTime :time_string="chara_next_action_time" :period="100"></RelativeTime>
@@ -124,13 +125,18 @@
     </el-row>
     <el-row type="flex" justify="space-between" style="width: 100%;" class="chat">
       <el-col :span="11">
-        <MessageBlock title="公開頻道" channel="public" :messages="public_messages"></MessageBlock>
+        <ChatMessageBlock title="公開頻道" channel="public" :messages="public_messages"></ChatMessageBlock>
       </el-col>
       <el-col :span="11">
-        <MessageBlock title="國家頻道" channel="country" :messages="country_messages"></MessageBlock>
+        <ChatMessageBlock title="國家頻道" channel="country" :messages="country_messages"></ChatMessageBlock>
       </el-col>
       <el-col :span="11">
-        <MessageBlock title="私訊頻道" channel="private" :messages="private_messages" need-receiver></MessageBlock>
+        <ChatMessageBlock
+          title="私訊頻道"
+          channel="private"
+          :messages="private_messages"
+          need-receiver
+        ></ChatMessageBlock>
       </el-col>
     </el-row>
   </div>
@@ -139,7 +145,9 @@
 <script>
   import { mapState, mapGetters, mapActions } from "vuex";
   import PercentageDisplay from "@/components/PercentageDisplay.vue";
-  import MessageBlock from "@/components/MessageBlock";
+  import ChatMessageBlock from "@/components/ChatMessageBlock";
+  import Avatar from "@/components/Avatar";
+
   export default {
     data() {
       return { public_message_form_data: { content: "" } };
@@ -152,6 +160,7 @@
     computed: {
       ...mapState("ws", ["public_messages", "country_messages", "private_messages"]),
       ...mapState("chara", [
+        "chara_id",
         "chara_location",
         "chara_battle_map_tickets",
         "chara_next_action_time",
@@ -178,7 +187,7 @@
         },
       },
     },
-    components: { PercentageDisplay, MessageBlock },
+    components: { PercentageDisplay, ChatMessageBlock, Avatar },
     mounted() {
       this.$store.dispatch("chara/get_chara_profile", {});
     },
@@ -209,6 +218,9 @@
   .profile-card,
   .command-card {
     height: 100%;
+  }
+  .avatar {
+    height: 120px;
   }
   .chat {
     flex-flow: row wrap;

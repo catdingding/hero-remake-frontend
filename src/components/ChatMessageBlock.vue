@@ -1,13 +1,16 @@
 <template>
   <el-card>
     <div slot="header">{{ title }}</div>
-    <el-input v-model="content" placeholder="輸入訊息" v-on:keyup.enter.native="send_chat_message"></el-input>
+    <el-input
+      v-model="content"
+      placeholder="輸入訊息"
+      :maxlength="100"
+      v-on:keyup.enter.native="send_chat_message"
+    ></el-input>
     <CharaSelect v-model="receiver" v-if="needReceiver"></CharaSelect>
     <el-button type="primary" @click="send_chat_message">送出</el-button>
     <div class="message-box">
-      <div v-for="(message, index) in reversed_messages" :key="index">
-        {{ message.sender_profile.name }}：{{ message.content }}
-      </div>
+      <ChatMessage v-for="(message, index) in reversed_messages" :key="index" :message="message"> </ChatMessage>
     </div>
   </el-card>
 </template>
@@ -15,8 +18,9 @@
 <script>
   import { mapState, mapActions } from "vuex";
   import CharaSelect from "@/components/CharaSelect.vue";
+  import ChatMessage from "@/components/ChatMessage.vue";
   export default {
-    name: "MessageBlock",
+    name: "ChatMessageBlock",
     data() {
       return { content: "", receiver: null };
     },
@@ -45,13 +49,13 @@
         return this.messages.slice().reverse();
       },
     },
-    components: { CharaSelect },
+    components: { CharaSelect, ChatMessage },
   };
 </script>
 
 <style lang="less" scoped>
   .message-box {
-    height: 500px;
+    height: 750px;
     overflow-y: scroll;
   }
 

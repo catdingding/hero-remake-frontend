@@ -25,6 +25,13 @@ Vue.filter("object_ability", (obj) => {
   return abilities.join("/");
 });
 
+// datetime
+Vue.filter("datetime_display", (date) => {
+  var d = new Date(date);
+
+  return `${d.getFullYear()}/${d.getMonth() + 1}/${d.getDate()} ${d.getHours()}時${d.getMinutes()}分`;
+});
+
 // item
 
 Vue.filter("item_name", (item) => {
@@ -48,5 +55,7 @@ Vue.filter("item_field_value", (item, field) => {
 });
 
 Vue.filter("item_string", (item) => {
-  return `${Vue.filter("item_name")(item)} ${Vue.filter("item_attr")(item)} ${Vue.filter("object_ability")(item)} (擁有${item.number})`;
+  return `${Vue.filter("item_name")(item)} ${Vue.filter("item_attr")(item)} ${Vue.filter("object_ability")(
+    item
+  )} (擁有${item.number})`;
 });
