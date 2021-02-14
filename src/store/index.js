@@ -1,6 +1,8 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import { Message } from "element-ui";
+import router from "@/router";
+
 import api from "@/api";
 import chara from "./chara";
 import battle from "./battle";
@@ -23,7 +25,7 @@ export default new Vuex.Store({
     refresh_token: localStorage.getItem("refresh_token") || "",
     chara_id: localStorage.getItem("chara_id") || null,
     element_types: [],
-    available_charas: []
+    available_charas: [],
   },
   getters: {},
   mutations: {
@@ -47,46 +49,56 @@ export default new Vuex.Store({
       state.chara_id = chara_id;
       api.defaults.headers.common["Chara-ID"] = chara_id;
       localStorage.setItem("chara_id", chara_id);
-    }
+    },
   },
   actions: {
-    async login({ commit }, data) {
-      return api
-        .post("/token/", data)
-        .then(res => {
-          commit("set_access_token", res.data.access);
-          commit("set_refresh_token", res.data.refresh);
-        })
-        .catch(err => {
-          throw err;
-        });
+    async login({ commit, dispatch }, data) {
+      var res = await api.post("/token/", data);
+      commit("set_access_token", res.data.access);
+      commit("set_refresh_token", res.data.refresh);
+      Message.success("登入成功");
+
+      // 自動選擇角色
+      await dispatch("get_available_charas");
+      commit("set_chara");
+      router.push("game/");
     },
-    async register({ commit }, data) {
-      return api
-        .post("/user/registration/", data)
-        .then(res => {
-          commit("set_access_token", res.data.access);
-          commit("set_refresh_token", res.data.refresh);
-        })
-        .catch(err => {
-          throw err;
-        });
+    async register({ commit, dispatch }, data) {
+      data = Object.assign({}, data);
+      var chara_avatar = data.chara_avatar;
+      delete data.chara_avatar;
+
+      var form_data = new FormData();
+      form_data.append("json_data", JSON.stringify(data));
+      form_data.append("chara_avatar", chara_avatar);
+
+      var res = await api.post("/user/registration/", form_data, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+      commit("set_access_token", res.data.access);
+      commit("set_refresh_token", res.data.refresh);
+      Message.success("註冊成功");
+
+      // 自動選擇角色
+      await dispatch("get_available_charas");
+      commit("set_chara");
+      router.push("game/");
     },
     async refresh_element_types({ commit }) {
-      return api.get("/world/element-types/").then(res => {
+      return api.get("/world/element-types/").then((res) => {
         commit("set_element_types", res.data);
       });
     },
     async get_available_charas({ commit }) {
-      return api.get("/user/charas/").then(res => {
+      return api.get("/user/charas/").then((res) => {
         commit("set_available_charas", res.data);
       });
     },
     async rest({ commit, dispatch }) {
-      return api.post("/chara/rest/").then(res => {
+      return api.post("/chara/rest/").then((res) => {
         Message.success("體力已恢復");
         dispatch("chara/get_chara_profile", {});
       });
-    }
-  }
+    },
+  },
 });

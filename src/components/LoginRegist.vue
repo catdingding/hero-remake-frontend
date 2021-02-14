@@ -14,7 +14,7 @@
       </el-form>
     </el-tab-pane>
     <el-tab-pane label="註冊">
-      <el-form label-width="80px" :rules="register_validate" :model="register_data">
+      <el-form label-width="80px" ref="register_form" :rules="register_validate" :model="register_data">
         <el-form-item label="Email" prop="email">
           <el-input placeholder v-model="register_data.email"></el-input>
         </el-form-item>
@@ -27,10 +27,22 @@
         <el-form-item label="昵稱" prop="chara.name">
           <el-input placeholder v-model="register_data.chara.name"></el-input>
         </el-form-item>
-        <el-form-item label="元素屬性" prop="element_type">
+        <el-form-item label="元素屬性" prop="chara.element_type">
           <el-select v-model="register_data.chara.element_type" style="width:200px">
             <el-option v-for="item in element_types" :value="item.id" :key="item.id" :label="item.name"></el-option>
           </el-select>
+        </el-form-item>
+        <el-form-item label="上傳頭像" prop="chara_avatar">
+          <el-upload
+            action=""
+            class="avatar-uploader"
+            :show-file-list="false"
+            :auto-upload="false"
+            :on-change="change_chara_avatar"
+          >
+            <img v-if="register_data.chara_avatar" :src="chara_avatar_object_url" class="avatar" />
+            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+          </el-upload>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" size="medium" @click="register">註冊</el-button>
@@ -46,7 +58,7 @@
       return {
         login_data: {
           email: "",
-          password: ""
+          password: "",
         },
         register_data: {
           email: "",
@@ -54,48 +66,78 @@
           password2: "",
           chara: {
             name: "",
-            element_type: ""
-          }
+            element_type: "",
+          },
+          chara_avatar: null,
         },
+        chara_avatar_object_url: null,
         login_validate: {
           email: [
             { required: true, message: "請輸入 Email", trigger: "blur" },
-            { type: "email", message: "Email 格式錯誤", trigger: "blur" }
+            { type: "email", message: "Email 格式錯誤", trigger: "blur" },
           ],
-          password: [{ required: true, message: "請輸入密碼", trigger: "blur" }]
+          password: [{ required: true, message: "請輸入密碼", trigger: "blur" }],
         },
         register_validate: {
           "chara.name": [{ required: true, message: "請填昵稱", trigger: "blur" }],
+          "chara.element_type": [{ required: true, message: "請選擇屬性", trigger: "blur" }],
+          chara_avatar: [{ required: true, message: "請上傳頭像" }],
           email: [
             { required: true, message: "請填寫 Email", trigger: "blur" },
-            { type: "email", message: "Email 格式錯誤", trigger: "blur" }
+            { type: "email", message: "Email 格式錯誤", trigger: "blur" },
           ],
           password1: [{ required: true, message: "請填寫密碼", trigger: "blur" }],
-          password2: [{ required: true, message: "請再次填寫密碼", trigger: "blur" }]
-        }
+          password2: [{ required: true, message: "請再次填寫密碼", trigger: "blur" }],
+        },
       };
     },
     methods: {
       login: function() {
-        this.$store.dispatch("login", this.login_data).then(async res => {
-          this.$message.success("登入成功");
-          await this.$store.dispatch("get_available_charas");
-          await this.$store.commit("set_chara");
-          this.$router.push("game/");
-        });
+        this.$store.dispatch("login", this.login_data);
       },
       register: function() {
-        this.$store.dispatch("register", this.register_data).then(async res => {
-          this.$message.success("註冊成功");
-          await this.$store.dispatch("get_available_charas");
-          await this.$store.commit("set_chara");
-          this.$router.push("game/");
+        this.$refs.register_form.validate((valid) => {
+          if (valid) {
+            this.$store.dispatch("register", this.register_data);
+          }
         });
-      }
+      },
+      change_chara_avatar(file, fileList) {
+        this.chara_avatar_object_url = URL.createObjectURL(file.raw);
+        this.register_data.chara_avatar = file.raw;
+      },
     },
     computed: mapState(["element_types"]),
     mounted: function() {
       this.$store.dispatch("refresh_element_types");
-    }
+    },
   };
 </script>
+<style lang="less" scoped>
+  .avatar-uploader {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    width: 250px;
+    height: 250px;
+  }
+  .avatar-uploader:hover {
+    border-color: #409eff;
+  }
+  .avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 250px;
+    height: 250px;
+    line-height: 250px;
+    text-align: center;
+  }
+  .avatar {
+    width: 250px;
+    height: 250px;
+    display: block;
+    object-fit: cover;
+  }
+</style>
