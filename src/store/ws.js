@@ -28,7 +28,7 @@ export default {
       var token = rootState.access_token;
       var chara_id = rootState.chara_id;
 
-      var ws = new WebSocket(`ws://127.0.0.1:8000/ws/chat/?token=${token}&chara=${chara_id}`);
+      var ws = new WebSocket(`ws://${process.env.VUE_APP_API_ROOT}/ws/chat/?token=${token}&chara=${chara_id}`);
       commit("set_chat_ws", ws);
       ws.onmessage = function(e) {
         commit("receive_chat_message", e);

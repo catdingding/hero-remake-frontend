@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Message } from "element-ui";
 
-let api = axios.create({ baseURL: "http://127.0.0.1:8000/" });
+let api = axios.create({ baseURL: `http://${process.env.VUE_APP_API_ROOT}/` });
 
 const token = localStorage.getItem("access_token");
 if (token) {
@@ -30,14 +30,14 @@ function flat_data(data) {
 }
 
 api.interceptors.response.use(
-  res => {
+  (res) => {
     var display_message = res.data["display_message"];
     if (display_message) {
       Message.success(display_message);
     }
     return res;
   },
-  err => {
+  (err) => {
     Message.error(flat_data(err.response.data).join("<br/>"));
     return Promise.reject(err);
   }
