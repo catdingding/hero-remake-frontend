@@ -9,7 +9,7 @@
   export default {
     name: "RelativeTime",
     data() {
-      return { relative_time: "" };
+      return { relative_time: "", interval_id: null };
     },
     props: { time_string: { type: String }, period: { type: Number, default: 1000 } },
     computed: {},
@@ -29,11 +29,14 @@
       },
       set_relative_time() {
         this.relative_time = this.compute_relative_time();
-      }
+      },
     },
     mounted() {
-      setInterval(this.set_relative_time, this.period);
-    }
+      this.interval_id = setInterval(this.set_relative_time, this.period);
+    },
+    beforeDestroy() {
+      clearInterval(this.interval_id);
+    },
   };
 </script>
 
