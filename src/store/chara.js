@@ -1,4 +1,5 @@
 import api from "@/api";
+import { Message } from "element-ui";
 
 export default {
   namespaced: true,
@@ -50,6 +51,12 @@ export default {
       }
       return api.get(url).then((res) => {
         commit("set_chara_profile", res.data);
+      });
+    },
+    async rest({ commit, dispatch }) {
+      return api.post("/chara/rest/").then((res) => {
+        Message.success("體力已恢復");
+        dispatch("chara/get_chara_profile", { fields: "hp" }, { root: true });
       });
     },
   },

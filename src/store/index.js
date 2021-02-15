@@ -94,11 +94,5 @@ export default new Vuex.Store({
         commit("set_available_charas", res.data);
       });
     },
-    async rest({ commit, dispatch }) {
-      return api.post("/chara/rest/").then((res) => {
-        Message.success("體力已恢復");
-        dispatch("chara/get_chara_profile", {});
-      });
-    },
   },
 });

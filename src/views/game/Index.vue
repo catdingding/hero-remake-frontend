@@ -118,7 +118,7 @@
             </el-select>
             <el-button size="medium" type="primary" @click="fight_battle_map">戰鬥</el-button>
             <el-divider />
-            <el-button size="medium" type="success" @click="$store.dispatch('rest')">休息</el-button>
+            <el-button size="medium" type="success" @click="rest">休息</el-button>
           </div>
         </el-card>
       </el-col>
@@ -150,9 +150,10 @@
 
   export default {
     data() {
-      return { public_message_form_data: { content: "" } };
+      return {};
     },
     methods: {
+      ...mapActions("chara", ["rest"]),
       fight_battle_map() {
         this.$store.dispatch("battle/fight_battle_map").then(() => this.$router.push("/game/battle-result"));
       },
