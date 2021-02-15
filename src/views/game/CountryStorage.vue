@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="storage">
-      <h2>國庫</h2>
+      <h2 class="page-block-title">國庫</h2>
       <ItemTable :data="country_storage_items">
         <template v-slot:extra-column>
           <el-table-column label="取出" align="center" :width="150">
@@ -18,7 +18,7 @@
       </ItemTable>
     </div>
     <div class="bag">
-      <h2>背包</h2>
+      <h2 class="page-block-title">背包</h2>
       <ItemTable :data="chara_bag_items">
         <template v-slot:extra-column>
           <el-table-column label="存入" align="center" :width="150">

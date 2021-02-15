@@ -18,7 +18,7 @@
       </table>
     </div>
     <div class="bag">
-      <h2>背包</h2>
+      <h2 class="page-block-title">背包</h2>
       <ItemTable :data="chara_bag_items"></ItemTable>
     </div>
   </div>

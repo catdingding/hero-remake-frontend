@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="store">
-      <h2>架上商品</h2>
+      <h2 class="page-block-title">架上商品</h2>
       <ItemTypeOptionTable :options="store_options">
         <template v-slot:extra-column>
           <el-table-column label="價格" align="center">
@@ -19,7 +19,7 @@
       </ItemTypeOptionTable>
     </div>
     <div class="chara">
-      <h2>背包</h2>
+      <h2 class="page-block-title">背包</h2>
       <CharaWallet></CharaWallet>
       <ItemTable :data="chara_bag_items">
         <template v-slot:extra-column>
