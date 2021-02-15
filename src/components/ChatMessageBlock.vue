@@ -5,6 +5,7 @@
       v-model="content"
       placeholder="輸入訊息"
       :maxlength="100"
+      show-word-limit
       v-on:keyup.enter.native="send_chat_message"
     ></el-input>
     <CharaSelect v-model="receiver" v-if="needReceiver"></CharaSelect>
