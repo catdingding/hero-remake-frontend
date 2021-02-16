@@ -19,10 +19,11 @@
             <el-menu-item index="alchemy" :route="{ path: '/game/alchemy' }">鍊金</el-menu-item>
             <el-menu-item index="send-item-gold" :route="{ path: '/game/send-item-gold' }">傳送道具/金錢</el-menu-item>
           </el-submenu>
-          <el-submenu index="town">
+          <el-submenu index="town" v-show="chara_location && chara_location.town_name">
             <template slot="title">
               城鎮
             </template>
+            <el-menu-item index="inn" :route="{ path: '/game/inn' }">旅店</el-menu-item>
             <el-menu-item index="storage" :route="{ path: '/game/storage' }">倉庫</el-menu-item>
             <el-menu-item index="smith" :route="{ path: '/game/smith' }">鍛造屋</el-menu-item>
             <el-menu-item index="pet-store" :route="{ path: '/game/pet-store' }">寵物店</el-menu-item>
@@ -84,7 +85,7 @@
       return { auto_fight_interval_id: null, waiting_battle_result: false };
     },
     computed: {
-      ...mapState("chara", ["chara_country", "chara_official", "chara_is_king", "chara_hp"]),
+      ...mapState("chara", ["chara_country", "chara_official", "chara_is_king", "chara_hp", "chara_location"]),
       ...mapGetters("chara", ["able_to_action"]),
       ...mapFields("battle", ["auto_fight_enabled"]),
       ...mapState("battle", ["battle_map_id"]),

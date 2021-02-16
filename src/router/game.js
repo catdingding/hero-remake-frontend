@@ -25,6 +25,8 @@ import CountryPanel from "@/views/game/CountryPanel.vue";
 import AuctionHouse from "@/views/game/AuctionHouse.vue";
 import SaleHouse from "@/views/game/SaleHouse.vue";
 
+import Inn from "@/views/game/Inn.vue";
+
 export default [
   { path: "", component: Index, meta: { title: "主面板" } },
   { path: "battle-result", component: BattleResult, meta: { title: "戰鬥結果" } },
@@ -50,4 +52,5 @@ export default [
   { path: "exchange-house", component: ExchangeHouse, meta: { title: "兌換屋" } },
   { path: "auction-house", component: AuctionHouse, meta: { title: "拍賣所" } },
   { path: "sale-house", component: SaleHouse, meta: { title: "出售所" } },
+  { path: "inn", component: Inn, meta: { title: "旅館" } },
 ];
