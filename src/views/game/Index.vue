@@ -117,6 +117,7 @@
               ></el-option>
             </el-select>
             <el-button size="medium" type="primary" @click="fight_battle_map">戰鬥</el-button>
+            <el-switch v-model="auto_fight_enabled" active-text="自動戰鬥" inactive-text="手動戰鬥"></el-switch>
             <el-divider />
             <el-button size="medium" type="success" @click="rest">休息</el-button>
           </div>
@@ -144,6 +145,7 @@
 
 <script>
   import { mapState, mapGetters, mapActions } from "vuex";
+  import { mapFields } from "vuex-map-fields";
   import PercentageDisplay from "@/components/PercentageDisplay.vue";
   import ChatMessageBlock from "@/components/ChatMessageBlock";
   import Avatar from "@/components/Avatar";
@@ -179,14 +181,7 @@
         "chara_attributes",
         "chara_country",
       ]),
-      battle_map_id: {
-        get() {
-          return this.$store.state.battle.battle_map_id;
-        },
-        set(value) {
-          this.$store.commit("battle/set_battle_map_id", value);
-        },
-      },
+      ...mapFields("battle", ["battle_map_id", "auto_fight_enabled"]),
     },
     components: { PercentageDisplay, ChatMessageBlock, Avatar },
     mounted() {

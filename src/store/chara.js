@@ -33,6 +33,11 @@ export default {
       chara_is_king: false,
     };
   },
+  getters: {
+    able_to_action: (state) => () => {
+      return Date.parse(state.chara_next_action_time) - new Date() <= 0;
+    },
+  },
   mutations: {
     set_chara_profile(state, data) {
       for (let key in data) {
@@ -41,7 +46,7 @@ export default {
     },
   },
   actions: {
-    async get_chara_profile({ commit }, { omit = "bag_items,slots,skill_settings", fields = "" }) {
+    async get_chara_profile({ commit, state, rootState }, { omit = "bag_items,slots,skill_settings", fields = "" }) {
       var url = "/chara/profile/?";
       if (omit) {
         url += "omit=" + omit + "&";
@@ -49,9 +54,16 @@ export default {
       if (fields) {
         url += "fields=" + fields;
       }
-      return api.get(url).then((res) => {
-        commit("set_chara_profile", res.data);
-      });
+      let res = await api.get(url);
+      commit("set_chara_profile", res.data);
+
+      let remain_tickets = state.chara_battle_map_tickets.reduce(
+        (acc, current) => (current.battle_map.id === rootState.battle.battle_map_id ? acc + current.value : acc),
+        0
+      );
+      if (remain_tickets === 0) {
+        commit("battle/updateField", { path: "battle_map_id", value: state.chara_location.battle_map }, { root: true });
+      }
     },
     async rest({ commit, dispatch }) {
       return api.post("/chara/rest/").then((res) => {

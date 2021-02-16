@@ -77,16 +77,55 @@
 
 <script>
   import { mapState, mapGetters } from "vuex";
+  import { mapFields } from "vuex-map-fields";
+
   export default {
     data() {
-      return {};
+      return { auto_fight_interval_id: null, waiting_battle_result: false };
     },
     computed: {
-      ...mapState("chara", ["chara_country", "chara_official", "chara_is_king"]),
+      ...mapState("chara", ["chara_country", "chara_official", "chara_is_king", "chara_hp"]),
+      ...mapGetters("chara", ["able_to_action"]),
+      ...mapFields("battle", ["auto_fight_enabled"]),
+      ...mapState("battle", ["battle_map_id"]),
+    },
+    methods: {
+      async try_auto_fight() {
+        if (!this.auto_fight_enabled || this.waiting_battle_result || !this.able_to_action()) {
+          return;
+        }
+        if (this.chara_hp <= 0) {
+          this.$notify.error({
+            title: "提示",
+            message: "HP不足，已停止自動戰鬥",
+            duration: 0,
+          });
+          this.auto_fight_enabled = false;
+          return;
+        }
+
+        if (this.battle_map_id === null) {
+          this.$notify.error({
+            title: "提示",
+            message: "請選擇戰鬥地圖",
+            duration: 0,
+          });
+          this.auto_fight_enabled = false;
+          return;
+        }
+        this.waiting_battle_result = true;
+        await this.$store.dispatch("battle/fight_battle_map");
+        await this.$store.dispatch("chara/get_chara_profile", {});
+        this.waiting_battle_result = false;
+      },
     },
     mounted() {
       this.$store.dispatch("chara/get_chara_profile", {});
       this.$store.dispatch("ws/start_chat");
+      this.auto_fight_interval_id = setInterval(this.try_auto_fight, 100);
+    },
+    beforeDestroy() {
+      clearInterval(this.auto_fight_interval_id);
     },
   };
 </script>
