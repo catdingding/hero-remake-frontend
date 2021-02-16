@@ -2,8 +2,12 @@
   <div>
     <div class="map small-font" v-if="map">
       <div class="location" v-for="(location, index) in map" :key="index">
-        {{ location.town_name || "無城鎮" }}<br />{{ location.battle_map_name }}<br />({{ location.x }},
-        {{ location.y }})<br />
+        <span :class="{ 'no-town': !location.town_name }">{{ location.town_name || "無城鎮" }}</span>
+        <br />
+        <span>{{ location.battle_map_name }}</span>
+        <br />
+        <span>({{ location.x }}, {{ location.y }})</span>
+        <br />
         <el-button type="success" size="mini" @click="move(location)">前往</el-button>
       </div>
     </div>
@@ -23,11 +27,11 @@
         this.$store.dispatch("map/move", location).then(() => {
           this.$router.push("./");
         });
-      }
+      },
     },
     mounted() {
       this.$store.dispatch("map/get_map");
-    }
+    },
   };
 </script>
 
@@ -44,6 +48,9 @@
       border: #aaa 1px solid;
       background-color: #fff;
       text-align: center;
+      .no-town {
+        color: #999;
+      }
     }
   }
 </style>

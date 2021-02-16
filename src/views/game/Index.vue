@@ -195,14 +195,17 @@
     .attr {
       margin: 5px 0 5px 0;
       width: 100%;
+      height: 24px;
       display: flex;
 
       span:nth-child(1) {
         width: 30%;
+        line-height: 24px;
         display: inline-block;
       }
       span:nth-child(2) {
         width: 70%;
+        line-height: 24px;
         text-align: right;
         display: inline-block;
       }
