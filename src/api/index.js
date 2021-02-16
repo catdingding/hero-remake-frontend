@@ -34,6 +34,8 @@ api.interceptors.response.use(
     var display_message = res.data["display_message"];
     if (display_message) {
       Message.success(display_message);
+    } else if (res.data["status"] === "success") {
+      Message.success("操作成功");
     }
     return res;
   },
