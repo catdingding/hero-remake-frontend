@@ -1,6 +1,7 @@
 import Index from "@/views/game/Index.vue";
 import BattleResult from "@/views/game/BattleResult.vue";
 import map from "@/views/game/Map.vue";
+import CharaIntroduction from "@/views/game/CharaIntroduction.vue";
 import Bag from "@/views/game/Bag.vue";
 import Storage from "@/views/game/Storage.vue";
 import Store from "@/views/game/Store.vue";
@@ -31,6 +32,7 @@ export default [
   { path: "", component: Index, meta: { title: "主面板" } },
   { path: "battle-result", component: BattleResult, meta: { title: "戰鬥結果" } },
   { path: "map", component: map, meta: { title: "地圖" } },
+  { path: "chara-introduction", component: CharaIntroduction, meta: { title: "自傳" } },
   { path: "bag", component: Bag, meta: { title: "背包" } },
   { path: "storage", component: Storage, meta: { title: "倉庫" } },
   { path: "store/:store_type", component: Store, meta: { title: "商店" } },

@@ -31,6 +31,7 @@ export default {
       chara_mp: null,
       chara_official: null,
       chara_is_king: false,
+      chara_introduction: null,
     };
   },
   getters: {
@@ -46,7 +47,10 @@ export default {
     },
   },
   actions: {
-    async get_chara_profile({ commit, state, rootState }, { omit = "bag_items,slots,skill_settings", fields = "" }) {
+    async get_chara_profile(
+      { commit, state, rootState },
+      { omit = "bag_items,slots,skill_settings,introduction", fields = "" }
+    ) {
       var url = "/chara/profile/?";
       if (omit) {
         url += "omit=" + omit + "&";
@@ -70,6 +74,9 @@ export default {
         Message.success("體力已恢復");
         dispatch("chara/get_chara_profile", { fields: "hp" }, { root: true });
       });
+    },
+    async set_introduction({ commit, dispatch }, data) {
+      return api.put("/chara/introduction/", data);
     },
   },
 };
