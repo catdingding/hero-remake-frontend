@@ -24,13 +24,13 @@
       return {};
     },
     props: ["chara"],
-    components: { PercentageDisplay }
+    components: { PercentageDisplay },
   };
 </script>
 
 <style lang="less" scoped>
   .battle-chara-status {
-    width: 120px;
+    width: 125px;
     .name {
       text-align: center;
     }
@@ -40,7 +40,7 @@
       display: flex;
 
       span:nth-child(1) {
-        width: 30px;
+        width: 25px;
         display: inline-block;
       }
       span:nth-child(2) {
