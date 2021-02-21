@@ -1,21 +1,15 @@
 <template>
   <div>
-    <table>
-      <tr>
-        <th>名稱</th>
-        <th>說明</th>
-        <th>消耗熟練度</th>
-        <th>學習</th>
-      </tr>
-      <tr v-for="(ability, index) in available_to_learn_abilities" :key="index">
-        <td>{{ ability.name }}</td>
-        <td>{{ ability.description }}</td>
-        <td>{{ ability.require_proficiency }}</td>
-        <td>
-          <el-button type="primary" @click="learn_ability({ ability: ability.id })">學習</el-button>
-        </td>
-      </tr>
-    </table>
+    <el-table :data="available_to_learn_abilities">
+      <el-table-column label="名稱" align="center" prop="name"></el-table-column>
+      <el-table-column label="說明" align="center" prop="description"></el-table-column>
+      <el-table-column label="消耗熟練度" align="center" prop="require_proficiency"></el-table-column>
+      <el-table-column label="學習" align="center" prop="created_at">
+        <template slot-scope="scope">
+          <el-button type="primary" @click="learn_ability({ ability: scope.row.id })">學習</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
   </div>
 </template>
 
@@ -30,7 +24,7 @@
     methods: { ...mapActions("ability", ["learn_ability"]) },
     mounted() {
       this.$store.dispatch("ability/get_available_to_learn_abilities");
-    }
+    },
   };
 </script>
 

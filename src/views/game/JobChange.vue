@@ -1,25 +1,16 @@
 <template>
   <div>
-    <table>
-      <tr>
-        <th>系別</th>
-        <th>位階</th>
-        <th>名稱</th>
-        <th>說明</th>
-        <th>轉職</th>
-      </tr>
-      <tr v-for="(job, index) in available_jobs" :key="index">
-        <td>{{ job.attribute_type.class_name }}</td>
-        <td>{{ job.rank }}階</td>
-        <td>{{ job.name }}</td>
-        <td>{{ job.description }}</td>
-        <td>
-          <el-button type="primary" @click="change_job({ job: job.id }).then(() => $router.push('/game/'))"
-            >轉職</el-button
-          >
-        </td>
-      </tr>
-    </table>
+    <el-table :data="available_jobs">
+      <el-table-column label="系別" align="center" prop="attribute_type.class_name"></el-table-column>
+      <el-table-column label="位階" align="center" prop="rank"></el-table-column>
+      <el-table-column label="名稱" align="center" prop="name"></el-table-column>
+      <el-table-column label="說明" align="center" prop="description"></el-table-column>
+      <el-table-column label="轉職" align="center" prop="created_at">
+        <template slot-scope="scope">
+          <el-button type="primary" @click="change_job({ job: scope.row.id })">轉職</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
   </div>
 </template>
 
@@ -34,7 +25,7 @@
     methods: { ...mapActions("job", ["change_job"]) },
     mounted() {
       this.$store.dispatch("job/get_available_jobs", {});
-    }
+    },
   };
 </script>
 

@@ -1,21 +1,17 @@
 <template>
   <div>
-    <div>
-      <table>
-        <tr>
-          <th>名稱</th>
-          <th>消耗熟練度</th>
-          <th>製作</th>
-        </tr>
-        <tr v-for="(option, index) in alchemy_options" :key="index">
-          <td>{{ option.item_type.name }}</td>
-          <td>{{ option.proficiency_cost }}</td>
-          <td>
-            <InputNumberWithButton text="製作" @click="make_alchemy_option({ id: option.id, number: $event })">
+    <div class="alchemy">
+      <h2 class="page-block-title">製作選項</h2>
+      <el-table :data="alchemy_options">
+        <el-table-column label="名稱" align="center" prop="item_type.name"></el-table-column>
+        <el-table-column label="消耗熟練度" align="center" prop="proficiency_cost"></el-table-column>
+        <el-table-column label="製作" align="center" prop="created_at">
+          <template slot-scope="scope">
+            <InputNumberWithButton text="製作" @click="make_alchemy_option({ id: scope.row.id, number: $event })">
             </InputNumberWithButton>
-          </td>
-        </tr>
-      </table>
+          </template>
+        </el-table-column>
+      </el-table>
     </div>
     <div class="bag">
       <h2 class="page-block-title">背包</h2>
@@ -48,6 +44,7 @@
 </script>
 
 <style lang="less" scoped>
+  .alchemy,
   .bag {
     width: 48%;
   }
