@@ -3,7 +3,10 @@
     <Avatar class="avatar" :chara_id="message.sender_profile.id"></Avatar>
     <div class="message">
       <div class="title">
-        <span>{{ message.sender_profile.name }}@{{ message.sender_profile.country__name || "無所屬" }}</span>
+        <span>
+          <CharaLink :chara_name="message.sender_profile.name" :chara_id="message.sender_profile.id"></CharaLink>
+          @{{ message.sender_profile.country__name || "無所屬" }}
+        </span>
         <span v-if="message.receiver_profile">傳送給</span>
         <span v-if="message.receiver_profile">
           {{ message.receiver_profile.name }}@{{ message.receiver_profile.country__name || "無所屬" }}
@@ -18,6 +21,7 @@
 <script>
   import { mapState, mapActions } from "vuex";
   import Avatar from "@/components/Avatar";
+  import CharaLink from "@/components/CharaLink";
 
   export default {
     name: "ChatMessage",
@@ -25,7 +29,7 @@
       return {};
     },
     props: { message: { type: Object } },
-    components: { Avatar },
+    components: { Avatar, CharaLink },
   };
 </script>
 
@@ -51,10 +55,6 @@
   }
   .title {
     font-weight: 600;
-    span {
-      display: inline-block;
-      margin-right: 10px;
-    }
   }
   .content {
     word-break: break-all;

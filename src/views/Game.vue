@@ -74,12 +74,16 @@
       </el-main>
       <el-footer class="footer"></el-footer>
     </el-container>
+    <el-dialog title="角色資料" :visible.sync="chara_profile_dialog_visible" width="50%">
+      <CharaPublicProfileCard :data="chara_profile_dialog_data"></CharaPublicProfileCard>
+    </el-dialog>
   </div>
 </template>
 
 <script>
   import { mapState, mapGetters } from "vuex";
   import { mapFields } from "vuex-map-fields";
+  import CharaPublicProfileCard from "@/components/CharaPublicProfileCard.vue";
 
   export default {
     data() {
@@ -90,6 +94,8 @@
       ...mapGetters("chara", ["able_to_action"]),
       ...mapFields("battle", ["auto_fight_enabled"]),
       ...mapState("battle", ["battle_map_id"]),
+      ...mapFields("dialog", ["chara_profile_dialog_visible"]),
+      ...mapState("dialog", ["chara_profile_dialog_data"]),
     },
     methods: {
       async try_auto_fight() {
@@ -129,6 +135,7 @@
     beforeDestroy() {
       clearInterval(this.auto_fight_interval_id);
     },
+    components: { CharaPublicProfileCard },
   };
 </script>
 
