@@ -1,5 +1,7 @@
 # build stage
 FROM node:lts-alpine as build-stage
+ARG VUE_APP_API_ROOT
+ENV VUE_APP_API_ROOT ${VUE_APP_API_ROOT}
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
