@@ -1,15 +1,16 @@
 <template>
   <div class="chat-message">
-    <Avatar class="avatar" :chara_id="message.sender_profile.id"></Avatar>
+    <Avatar class="avatar" :chara_id="message.sender.id"></Avatar>
     <div class="message">
       <div class="title">
         <span>
-          <CharaLink :chara_name="message.sender_profile.name" :chara_id="message.sender_profile.id"></CharaLink>
-          @{{ message.sender_profile.country__name || "無所屬" }}
+          <CharaLink :chara_name="message.sender.name" :chara_id="message.sender.id"></CharaLink>
+          @{{ message.sender.country ? message.sender.country.name : "無所屬" }}
         </span>
-        <span v-if="message.receiver_profile">傳送給</span>
-        <span v-if="message.receiver_profile">
-          {{ message.receiver_profile.name }}@{{ message.receiver_profile.country__name || "無所屬" }}
+        <span v-if="message.receiver">傳送給</span>
+        <span v-if="message.receiver">
+          {{ message.receiver.name }}
+          @{{ message.receiver.country ? message.receiver.country.name : "無所屬" }}
         </span>
       </div>
       <div class="content">「{{ message.content }}」</div>

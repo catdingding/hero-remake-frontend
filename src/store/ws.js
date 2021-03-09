@@ -20,7 +20,11 @@ export default {
     },
     receive_chat_message(state, e) {
       var data = JSON.parse(e.data);
-      state[`${data.channel}_messages`].push(data);
+      let messages = state[`${data.channel}_messages`];
+      messages.push(data);
+      if (messages.length > 10) {
+        messages.shift();
+      }
     },
   },
   actions: {
