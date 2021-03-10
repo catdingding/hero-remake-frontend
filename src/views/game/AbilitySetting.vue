@@ -25,11 +25,11 @@
           <el-select v-model="setting.job_ability">
             <el-option
               v-for="(ability, index) in available_to_set_abilities.filter(
-                x => x.attribute_type === chara_job.attribute_type.id
+                (x) => x.attribute_type === chara_job.attribute_type.id
               )"
               :key="index"
               :value="ability.id"
-              :lable="ability.name"
+              :label="ability.name"
             >
             </el-option>
           </el-select>
@@ -40,7 +40,7 @@
         <td>
           <el-select v-model="setting.live_ability">
             <el-option
-              v-for="(ability, index) in available_to_set_abilities.filter(x => x.is_live)"
+              v-for="(ability, index) in available_to_set_abilities.filter((x) => x.is_live)"
               :key="index"
               :value="ability.id"
               :label="ability.name"
@@ -63,12 +63,12 @@
     name: "AbilityLearn",
     data() {
       return {
-        setting: { main_ability: null, job_ability: null, live_ability: null }
+        setting: { main_ability: null, job_ability: null, live_ability: null },
       };
     },
     computed: {
       ...mapState("ability", ["available_to_set_abilities"]),
-      ...mapState("chara", ["chara_job", "chara_main_ability", "chara_job_ability", "chara_live_ability"])
+      ...mapState("chara", ["chara_job", "chara_main_ability", "chara_job_ability", "chara_live_ability"]),
     },
     methods: { ...mapActions("ability", ["set_abilitie_setting"]) },
     mounted() {
@@ -77,10 +77,10 @@
         this.setting = {
           main_ability: this.chara_main_ability,
           job_ability: this.chara_job_ability,
-          live_ability: this.chara_live_ability
+          live_ability: this.chara_live_ability,
         };
       });
-    }
+    },
   };
 </script>
 
