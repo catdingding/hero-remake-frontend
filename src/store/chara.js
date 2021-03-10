@@ -72,7 +72,7 @@ export default {
     async rest({ commit, dispatch }) {
       return api.post("/chara/rest/").then((res) => {
         Message.success("體力已恢復");
-        dispatch("chara/get_chara_profile", { fields: "hp" }, { root: true });
+        dispatch("chara/get_chara_profile", { fields: "hp,mp" }, { root: true });
       });
     },
     async set_introduction({ commit, dispatch }, data) {
