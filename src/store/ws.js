@@ -22,7 +22,7 @@ export default {
       var data = JSON.parse(e.data);
       let messages = state[`${data.channel}_messages`];
       messages.push(data);
-      if (messages.length > 10) {
+      if (messages.length > 50) {
         messages.shift();
       }
     },
