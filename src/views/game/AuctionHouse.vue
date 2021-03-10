@@ -36,7 +36,7 @@
       </el-tab-pane>
       <!-- 拍賣物品 -->
       <el-tab-pane label="出售物品" name="second">
-        <el-form :model="auction_form_data">
+        <el-form :model="auction_form_data" label-width="120px" label-position="left">
           <el-form-item label="物品" required>
             <el-select v-model="auction_form_data.item">
               <el-option
@@ -53,7 +53,7 @@
           <el-form-item label="底價" required>
             <el-input-number v-model="auction_form_data.reserve_price" :min="1"></el-input-number>
           </el-form-item>
-          <el-form-item label="時長" required>
+          <el-form-item label="時長（小時）" required>
             <el-input-number v-model="auction_form_data.hours" :min="1"></el-input-number>
           </el-form-item>
           <el-button type="primary" @click="create_auction(auction_form_data)">拍賣物品</el-button>
