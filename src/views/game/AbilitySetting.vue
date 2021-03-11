@@ -75,9 +75,9 @@
       this.$store.dispatch("ability/get_available_to_set_abilities");
       this.$store.dispatch("chara/get_chara_profile", {}).then(() => {
         this.setting = {
-          main_ability: this.chara_main_ability,
-          job_ability: this.chara_job_ability,
-          live_ability: this.chara_live_ability,
+          main_ability: this.chara_main_ability ? this.chara_main_ability.id : null,
+          job_ability: this.chara_job_ability ? this.chara_job_ability.id : null,
+          live_ability: this.chara_live_ability ? this.chara_live_ability.id : null,
         };
       });
     },

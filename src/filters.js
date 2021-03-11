@@ -11,18 +11,22 @@ Vue.filter("currency", (value) => {
   return output;
 });
 
-Vue.filter("object_ability", (obj) => {
-  if (!obj) {
+Vue.filter("object_ability", (object) => {
+  if (!object) {
     return "";
   }
   var abilities = [];
-  if (obj.ability_1) {
-    abilities.push(obj.ability_1.name);
+  if (object.ability_1) {
+    abilities.push(object.ability_1.name);
   }
-  if (obj.ability_2) {
-    abilities.push(obj.ability_2.name);
+  if (object.ability_2) {
+    abilities.push(object.ability_2.name);
   }
   return abilities.join("/");
+});
+
+Vue.filter("item_ability", (item) => {
+  return Vue.filter("object_ability")(item.equipment);
 });
 
 // datetime
@@ -55,7 +59,7 @@ Vue.filter("item_field_value", (item, field) => {
 });
 
 Vue.filter("item_string", (item) => {
-  return `${Vue.filter("item_name")(item)} ${Vue.filter("item_attr")(item)} ${Vue.filter("object_ability")(
-    item
-  )} (擁有${item.number})`;
+  return `${Vue.filter("item_name")(item)} ${Vue.filter("item_attr")(item)} ${Vue.filter("item_ability")(item)} (擁有${
+    item.number
+  })`;
 });

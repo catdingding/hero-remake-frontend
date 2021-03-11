@@ -25,7 +25,7 @@
     </el-table-column>
     <el-table-column label="奧義" align="center">
       <template slot-scope="scope">
-        {{ extract_item(scope) | object_ability }}
+        {{ extract_item(scope) | item_ability }}
       </template>
     </el-table-column>
     <slot name="extra-column"></slot>
