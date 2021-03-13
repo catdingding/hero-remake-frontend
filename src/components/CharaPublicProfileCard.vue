@@ -4,42 +4,49 @@
       <!-- 基本 -->
       <div>
         <div>
-          <span>名稱</span><span>{{ data.name }}</span>
+          <div>名稱</div>
+          <div>{{ data.name }}</div>
         </div>
         <div>
-          <span>國籍</span><span>{{ data.country === null ? "無所屬" : data.country.name }}</span>
+          <div>國籍</div>
+          <div>{{ data.country === null ? "無所屬" : data.country.name }}</div>
         </div>
         <div>
-          <span>職業</span><span>{{ data.job.name }}</span>
+          <div>職業</div>
+          <div>{{ data.job.name }}</div>
         </div>
         <div>
-          <span>屬性</span><span>{{ data.element_type.name }}</span>
+          <div>屬性</div>
+          <div>{{ data.element_type.name }}</div>
         </div>
         <div>
-          <span>等級</span><span>{{ data.level }}</span>
+          <div>等級</div>
+          <div>{{ data.level }}</div>
         </div>
       </div>
       <!-- 屬性 -->
       <div>
         <div>
-          <span>HP</span><span>{{ data.hp }} / {{ data.hp_max }}</span>
+          <div>HP</div>
+          <div>{{ data.hp }} / {{ data.hp_max }}</div>
         </div>
         <div>
-          <span>MP</span><span>{{ data.mp }}/ {{ data.mp_max }}</span>
+          <div>MP</div>
+          <div>{{ data.mp }}/ {{ data.mp_max }}</div>
         </div>
         <div class="attr" v-for="attr in data.attributes" :key="attr.id">
-          <span>{{ attr.type.name }}</span>
-          <span>{{ attr.value }}</span>
+          <div>{{ attr.type.name }}</div>
+          <div>{{ attr.value }}</div>
         </div>
       </div>
       <!-- 裝備 -->
       <div>
-        <div v-for="slot in data.slots" :key="slot.id">
-          <span>{{ slot.type.name }}</span>
-          <span v-if="slot.item">
-            {{ slot.item | item_name }}{{ slot.item | item_attr }}{{ slot.item | item_ability }}
-          </span>
-          <span v-else>無</span>
+        <div v-for="slot in data.slots" :key="slot.id" class="slot">
+          <div>{{ slot.type.name }}</div>
+          <div v-if="slot.item">
+            {{ slot.item | item_name }}{{ slot.item | item_attr }}<br />{{ slot.item | item_ability }}
+          </div>
+          <div v-else>無</div>
         </div>
       </div>
     </div>
@@ -69,18 +76,16 @@
       & > div {
         margin: 5px 0 5px 0;
         width: 100%;
-        height: 24px;
-
-        span:nth-child(1) {
-          width: 30%;
+        display: flex;
+        div {
           line-height: 24px;
-          display: inline-block;
         }
-        span:nth-child(2) {
+        div:nth-child(1) {
+          width: 30%;
+        }
+        div:nth-child(2) {
           width: 70%;
-          line-height: 24px;
           text-align: right;
-          display: inline-block;
         }
       }
     }
