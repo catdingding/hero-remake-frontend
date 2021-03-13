@@ -32,6 +32,7 @@ export default {
       chara_official: null,
       chara_is_king: false,
       chara_introduction: null,
+      chara_record: null,
     };
   },
   getters: {

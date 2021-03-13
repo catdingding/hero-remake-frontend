@@ -49,6 +49,10 @@
               <span>{{ chara_level }}</span>
             </div>
             <div class="attr">
+              <span>經驗值</span>
+              <span>{{ chara_exp }}</span>
+            </div>
+            <div class="attr">
               <span>屬性</span>
               <span v-if="chara_element_type">{{ chara_element_type.name }}</span>
             </div>
@@ -87,6 +91,12 @@
                 <div class="attr" v-for="attr in chara_attributes" :key="attr.id">
                   <span>{{ attr.type.class_name }}</span>
                   <span>{{ attr.proficiency }}</span>
+                </div>
+              </el-collapse-item>
+              <el-collapse-item title="其他數據">
+                <div class="attr" v-if="chara_record">
+                  <span>總戰數</span>
+                  <span>{{ chara_record.total_battle }}</span>
                 </div>
               </el-collapse-item>
             </el-collapse>
@@ -170,6 +180,7 @@
         "chara_name",
         "chara_job",
         "chara_level",
+        "chara_exp",
         "chara_element_type",
         "chara_gold",
         "chara_proficiency",
@@ -180,6 +191,7 @@
         "chara_mp_max",
         "chara_attributes",
         "chara_country",
+        "chara_record",
       ]),
       ...mapFields("battle", ["battle_map_id", "auto_fight_enabled"]),
     },
