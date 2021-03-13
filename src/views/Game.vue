@@ -122,8 +122,12 @@
           return;
         }
         this.waiting_battle_result = true;
-        await this.$store.dispatch("battle/fight_battle_map");
-        await this.$store.dispatch("chara/get_chara_profile", {});
+        try {
+          await this.$store.dispatch("battle/fight_battle_map");
+          await this.$store.dispatch("chara/get_chara_profile", {});
+        } catch (e) {
+          console.log(e);
+        }
         this.waiting_battle_result = false;
       },
     },
