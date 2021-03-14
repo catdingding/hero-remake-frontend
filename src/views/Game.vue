@@ -130,14 +130,22 @@
         }
         this.waiting_battle_result = false;
       },
+      process_hot_key(e) {
+        if (e.key === "F4") {
+          this.$router.push("/game");
+        }
+      },
     },
     mounted() {
       this.$store.dispatch("chara/get_chara_profile", {});
       this.$store.dispatch("ws/start_chat");
       this.auto_fight_interval_id = setInterval(this.try_auto_fight, 100);
+
+      window.addEventListener("keydown", this.process_hot_key);
     },
     beforeDestroy() {
       clearInterval(this.auto_fight_interval_id);
+      window.removeEventListener("keydown", this.process_hot_key);
     },
     components: { CharaPublicProfileCard },
   };
