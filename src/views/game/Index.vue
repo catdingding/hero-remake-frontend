@@ -6,20 +6,24 @@
           <div slot="header">地點狀態</div>
           <div class="profile" v-if="chara_location">
             <div class="attr">
-              <span>座標</span>
-              <span>({{ chara_location.x }},{{ chara_location.y }})</span>
+              <div>座標</div>
+              <div>({{ chara_location.x }},{{ chara_location.y }})</div>
             </div>
             <div class="attr">
-              <span>城鎮</span>
-              <span>{{ chara_location.town_name || "無" }}</span>
+              <div>
+                <el-tooltip effect="dark" content="若位於無城鎮地點，無法使用城鎮設施" placement="top">
+                  <span>城鎮</span>
+                </el-tooltip>
+              </div>
+              <div>{{ chara_location.town_name || "無" }}</div>
             </div>
             <div class="attr">
-              <span>屬性</span>
-              <span>{{ chara_location.element_type.name }}</span>
+              <div>屬性</div>
+              <div>{{ chara_location.element_type.name }}</div>
             </div>
             <div class="attr">
-              <span>戰鬥地圖</span>
-              <span>{{ chara_location.battle_map_name }}</span>
+              <div>戰鬥地圖</div>
+              <div>{{ chara_location.battle_map_name }}</div>
             </div>
             <el-divider />
             <div class="command">
@@ -33,70 +37,80 @@
           <div slot="header">角色狀態</div>
           <div class="profile">
             <div class="attr">
-              <span>名稱</span>
-              <span>{{ chara_name }}</span>
+              <div>名稱</div>
+              <div>{{ chara_name }}</div>
             </div>
             <div class="attr">
-              <span>國籍</span>
-              <span>{{ chara_country === null ? "無所屬" : chara_country.name }}</span>
+              <div>國籍</div>
+              <div>{{ chara_country === null ? "無所屬" : chara_country.name }}</div>
             </div>
             <div class="attr">
-              <span>職業</span>
-              <span v-if="chara_job">{{ chara_job.name }}</span>
+              <div>職業</div>
+              <div v-if="chara_job">{{ chara_job.name }}</div>
             </div>
             <div class="attr">
-              <span>等級</span>
-              <span>{{ chara_level }}</span>
+              <div>
+                <el-tooltip effect="dark" content="上限為100，滿級後可進行轉職" placement="top">
+                  <span>等級</span>
+                </el-tooltip>
+              </div>
+              <div>{{ chara_level }}</div>
             </div>
             <div class="attr">
-              <span>經驗值</span>
-              <span>{{ chara_exp }}</span>
+              <div>經驗值</div>
+              <div>{{ chara_exp }}</div>
             </div>
             <div class="attr">
-              <span>屬性</span>
-              <span v-if="chara_element_type">{{ chara_element_type.name }}</span>
+              <div>屬性</div>
+              <div v-if="chara_element_type">{{ chara_element_type.name }}</div>
             </div>
             <div class="attr">
-              <span>金錢</span>
-              <span>{{ chara_gold | currency }}</span>
+              <div>金錢</div>
+              <div>{{ chara_gold | currency }}</div>
             </div>
             <div class="attr">
-              <span>熟練度</span>
-              <span>{{ chara_proficiency | currency }}</span>
+              <div>熟練度</div>
+              <div>{{ chara_proficiency | currency }}</div>
             </div>
             <div class="attr">
-              <span>健康度</span>
-              <span>{{ chara_health }}</span>
+              <div>
+                <el-tooltip effect="dark" content="影響休息恢復量，可於城鎮旅店恢復" placement="top">
+                  <span>
+                    健康度
+                  </span>
+                </el-tooltip>
+              </div>
+              <div>{{ chara_health }}</div>
             </div>
             <div class="attr">
-              <span>HP</span>
-              <span>
+              <div>HP</div>
+              <div>
                 <PercentageDisplay color="red" :value="chara_hp" :max-value="chara_hp_max" />
-              </span>
+              </div>
             </div>
             <div class="attr">
-              <span>MP</span>
-              <span>
+              <div>MP</div>
+              <div>
                 <PercentageDisplay color="skyblue" :value="chara_mp" :max-value="chara_mp_max" />
-              </span>
+              </div>
             </div>
             <el-collapse :simple="true">
               <el-collapse-item title="能力（上限值）">
                 <div class="attr" v-for="attr in chara_attributes" :key="attr.id">
-                  <span>{{ attr.type.name }}</span>
-                  <span>{{ attr.value }}（{{ attr.limit }}）</span>
+                  <div>{{ attr.type.name }}</div>
+                  <div>{{ attr.value }}（{{ attr.limit }}）</div>
                 </div>
               </el-collapse-item>
               <el-collapse-item title="職業熟練">
                 <div class="attr" v-for="attr in chara_attributes" :key="attr.id">
-                  <span>{{ attr.type.class_name }}</span>
-                  <span>{{ attr.proficiency }}</span>
+                  <div>{{ attr.type.class_name }}</div>
+                  <div>{{ attr.proficiency }}</div>
                 </div>
               </el-collapse-item>
               <el-collapse-item title="其他數據">
                 <div class="attr" v-if="chara_record">
-                  <span>總戰數</span>
-                  <span>{{ chara_record.total_battle }}</span>
+                  <div>總戰數</div>
+                  <div>{{ chara_record.total_battle }}</div>
                 </div>
               </el-collapse-item>
             </el-collapse>
@@ -129,7 +143,9 @@
             <el-button size="medium" type="primary" @click="fight_battle_map">戰鬥</el-button>
             <el-switch v-model="auto_fight_enabled" active-text="自動戰鬥" inactive-text="手動戰鬥"></el-switch>
             <el-divider />
-            <el-button size="medium" type="success" @click="rest">休息</el-button>
+            <el-tooltip effect="dark" content="恢復HP與MP，恢復上限受健康度影響" placement="top">
+              <el-button size="medium" type="success" @click="rest">休息</el-button>
+            </el-tooltip>
           </div>
         </el-card>
       </el-col>
@@ -207,19 +223,17 @@
     .attr {
       margin: 5px 0 5px 0;
       width: 100%;
-      height: 24px;
       display: flex;
-
-      span:nth-child(1) {
-        width: 30%;
+      & > div {
         line-height: 24px;
-        display: inline-block;
       }
-      span:nth-child(2) {
+      & > div:nth-child(1) {
+        width: 30%;
+      }
+      & > div:nth-child(2) {
         width: 70%;
-        line-height: 24px;
+
         text-align: right;
-        display: inline-block;
       }
     }
   }
