@@ -5,6 +5,7 @@ import CharaIntroduction from "@/views/game/CharaIntroduction.vue";
 import Bag from "@/views/game/Bag.vue";
 import Storage from "@/views/game/Storage.vue";
 import Store from "@/views/game/Store.vue";
+import PointStore from "@/views/game/PointStore.vue";
 import ExchangeHouse from "@/views/game/ExchangeHouse.vue";
 import JobChange from "@/views/game/JobChange.vue";
 import SkillSetting from "@/views/game/SkillSetting.vue";
@@ -55,4 +56,5 @@ export default [
   { path: "auction-house", component: AuctionHouse, meta: { title: "拍賣所" } },
   { path: "sale-house", component: SaleHouse, meta: { title: "出售所" } },
   { path: "inn", component: Inn, meta: { title: "旅館" } },
+  { path: "point-store", component: PointStore, meta: { title: "贊助商店" } },
 ];
