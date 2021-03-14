@@ -151,19 +151,17 @@
       </el-col>
     </el-row>
     <el-row type="flex" justify="space-between" style="width: 100%;" class="chat">
-      <el-col :span="11">
-        <ChatMessageBlock title="公開頻道" channel="public" :messages="public_messages"></ChatMessageBlock>
-      </el-col>
-      <el-col :span="11">
-        <ChatMessageBlock title="國家頻道" channel="country" :messages="country_messages"></ChatMessageBlock>
-      </el-col>
-      <el-col :span="11">
-        <ChatMessageBlock
-          title="私訊頻道"
-          channel="private"
-          :messages="private_messages"
-          need-receiver
-        ></ChatMessageBlock>
+      <el-col :span="24">
+        <el-tabs value="all">
+          <el-tab-pane
+            v-for="channel in channels"
+            :key="channel.name"
+            :label="channel.display_name"
+            :name="channel.name"
+          >
+            <ChatMessageBlock :channel="channel.name" :need_input="channel.need_input"></ChatMessageBlock>
+          </el-tab-pane>
+        </el-tabs>
       </el-col>
     </el-row>
   </div>
@@ -187,7 +185,7 @@
       },
     },
     computed: {
-      ...mapState("ws", ["public_messages", "country_messages", "private_messages"]),
+      ...mapState("ws", ["channels", "public_messages", "country_messages", "private_messages", "all_messages"]),
       ...mapState("chara", [
         "chara_id",
         "chara_location",

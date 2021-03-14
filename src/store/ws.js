@@ -3,27 +3,39 @@ export default {
   state() {
     return {
       chat_ws: null,
-      public_messages: [],
-      country_messages: [],
-      private_messages: [],
+      channels: [
+        { name: "all", display_name: "全體", need_input: true },
+        { name: "public", display_name: "公開", need_input: true },
+        { name: "country", display_name: "國家", need_input: true },
+        { name: "private", display_name: "私訊", need_input: true },
+      ],
+      messages_mapping: {
+        all: [],
+        public: [],
+        country: [],
+        private: [],
+      },
     };
   },
   mutations: {
-    set_chat_ws(state, data) {
+    set_chat_ws(state, ws) {
       if (state.chat_ws) {
         state.chat_ws.close();
       }
-      state.public_messages = [];
-      state.country_messages = [];
-      state.private_messages = [];
-      state.chat_ws = data;
+      state.chat_ws = ws;
+
+      for (let channel in state.messages_mapping) {
+        state.messages_mapping[channel] = [];
+      }
     },
     receive_chat_message(state, e) {
       var data = JSON.parse(e.data);
-      let messages = state[`${data.channel}_messages`];
-      messages.push(data);
-      if (messages.length > 50) {
-        messages.shift();
+      for (let channel of ["all", data.channel]) {
+        let messages = state.messages_mapping[channel];
+        messages.unshift(data);
+        if (messages.length > 50) {
+          messages.pop();
+        }
       }
     },
   },

@@ -3,6 +3,7 @@
     <Avatar class="avatar" :chara_id="message.sender.id"></Avatar>
     <div class="message">
       <div class="title">
+        <span>[{{ channel_name_mapping[message.channel] }}]</span>
         <span>
           <CharaLink :chara_name="message.sender.name" :chara_id="message.sender.id"></CharaLink>
           @{{ message.sender.country ? message.sender.country.name : "無所屬" }}
@@ -27,7 +28,13 @@
   export default {
     name: "ChatMessage",
     data() {
-      return {};
+      return {
+        channel_name_mapping: {
+          public: "公",
+          country: "國",
+          private: "私",
+        },
+      };
     },
     props: { message: { type: Object } },
     components: { Avatar, CharaLink },

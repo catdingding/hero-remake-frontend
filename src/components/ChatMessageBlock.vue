@@ -1,19 +1,28 @@
 <template>
-  <el-card>
-    <div slot="header">{{ title }}</div>
+  <div>
     <el-input
+      v-if="need_input"
       v-model="content"
       placeholder="輸入訊息"
       :maxlength="100"
       show-word-limit
       v-on:keyup.enter.native="send_chat_message"
     ></el-input>
-    <CharaSelect v-model="receiver" v-if="needReceiver"></CharaSelect>
-    <el-button type="primary" @click="send_chat_message">送出</el-button>
+    <el-select v-if="channel === 'all'" v-model="target_channel" class="channel">
+      <el-option
+        v-for="channel in channels.filter((x) => x.need_input && x.name !== 'all')"
+        :key="channel.name"
+        :value="channel.name"
+        :label="channel.display_name"
+      >
+      </el-option>
+    </el-select>
+    <CharaSelect v-if="need_receiver" v-model="receiver"></CharaSelect>
+    <el-button v-if="need_input" type="primary" @click="send_chat_message">送出</el-button>
     <div class="message-box">
-      <ChatMessage v-for="(message, index) in reversed_messages" :key="index" :message="message"> </ChatMessage>
+      <ChatMessage v-for="(message, index) in messages" :key="index" :message="message"> </ChatMessage>
     </div>
-  </el-card>
+  </div>
 </template>
 
 <script>
@@ -23,13 +32,11 @@
   export default {
     name: "ChatMessageBlock",
     data() {
-      return { content: "", receiver: null };
+      return { target_channel: null, content: "", receiver: null };
     },
     props: {
-      title: { type: String },
       channel: { type: String },
-      messages: { type: Array },
-      needReceiver: { type: Boolean, default: false },
+      need_input: { type: Boolean },
     },
     methods: {
       send_chat_message() {
@@ -37,8 +44,8 @@
           return;
         }
 
-        var data = { channel: this.channel, content: this.content };
-        if (this.needReceiver) {
+        var data = { channel: this.target_channel, content: this.content };
+        if (this.need_receiver) {
           data["receiver"] = this.receiver;
         }
         this.$store.dispatch("ws/send_chat_message", data);
@@ -46,10 +53,22 @@
       },
     },
     computed: {
-      reversed_messages() {
-        return this.messages.slice().reverse();
+      ...mapState("ws", ["channels", "messages_mapping"]),
+      messages() {
+        return this.messages_mapping[this.channel];
+      },
+      need_receiver() {
+        return this.target_channel === "private";
       },
     },
+    mounted() {
+      if (this.channel === "all") {
+        this.target_channel = "public";
+      } else {
+        this.target_channel = this.channel;
+      }
+    },
+
     components: { CharaSelect, ChatMessage },
   };
 </script>
@@ -62,5 +81,9 @@
 
   .el-card {
     margin-top: 30px;
+  }
+
+  .channel {
+    width: 80px;
   }
 </style>
