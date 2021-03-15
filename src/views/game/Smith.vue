@@ -38,8 +38,9 @@
               <el-button
                 type="primary"
                 @click="smith_replace_ability({ slot_type: slot.type.id, source_item: slot.source_item_1 })"
-                >注入</el-button
               >
+                注入（消耗{{ compute_replace_ability_cost(slot.item, slot.source_item_1) }}熟練）
+              </el-button>
             </div>
           </td>
           <td>
@@ -62,7 +63,7 @@
                 type="primary"
                 @click="smith_replace_ability({ slot_type: slot.type.id, source_item: slot.source_item_2 })"
               >
-                注入
+                注入（消耗{{ compute_replace_ability_cost(slot.item, slot.source_item_2) }}熟練）
               </el-button>
             </div>
           </td>
@@ -70,7 +71,9 @@
             <div v-if="slot.item">
               {{ slot.item.equipment.upgrade_times }}/{{ slot.item.equipment.upgrade_times_limit }}
               <br />
-              <el-button type="primary" @click="smith_upgrade({ slot_type: slot.type.id, times: 1 })">強化</el-button>
+              <el-button type="primary" @click="smith_upgrade({ slot_type: slot.type.id, times: 1 })">
+                強化（消耗{{ slot.item.equipment.element_type.name }}原料*3）
+              </el-button>
             </div>
           </td>
         </tr>
@@ -87,17 +90,40 @@
     data() {
       return {};
     },
-    computed: { ...mapState("chara", ["chara_slots", "chara_bag_items"]) },
+    computed: { ...mapState("chara", ["chara_slots", "chara_bag_items", "chara_element_type"]) },
     methods: {
-      ...mapActions("item", ["smith_upgrade", "smith_replace_ability"])
+      ...mapActions("item", ["smith_upgrade", "smith_replace_ability"]),
+      compute_replace_ability_cost(target, source_id) {
+        for (let item of this.chara_bag_items) {
+          if (item.id === source_id) {
+            var source = item;
+          }
+        }
+        if (!target || !source) {
+          return 0;
+        }
+        if (source.type.category === 3) {
+          return 25000;
+        }
+        var cost =
+          50 - Math.floor((source.equipment.attack - source.equipment.defense + source.equipment.weight * 3) / 10);
+        if (source.equipment.element_type === target.equipment.element_type) {
+          cost -= 10;
+          if (this.chara_element_type === target.equipment.element_type) {
+            cost -= 10;
+          }
+        }
+        cost = Math.max(0, cost);
+        return cost * 500;
+      },
     },
     mounted() {
       this.$store.dispatch("chara/get_chara_profile", {
         omit: "",
-        fields: "slots,bag_items,proficiency,gold"
+        fields: "slots,bag_items,proficiency,gold",
       });
     },
-    components: { CharaWallet }
+    components: { CharaWallet },
   };
 </script>
 
