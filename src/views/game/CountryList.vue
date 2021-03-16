@@ -10,7 +10,7 @@
           {{ scope.row.created_at | datetime_display }}
         </template>
       </el-table-column>
-      <el-table-column label="申請加入" align="center">
+      <el-table-column label="申請加入" align="center" v-if="!chara_country">
         <template slot-scope="scope">
           <el-button type="primary" @click="create_country_join_request({ country: scope.row.id })">申請加入</el-button>
         </template>
@@ -26,10 +26,11 @@
     data() {
       return {};
     },
-    computed: { ...mapState("search", ["search_result_countries"]) },
+    computed: { ...mapState("search", ["search_result_countries"]), ...mapState("chara", ["chara_country"]) },
     methods: { ...mapActions("country", ["create_country_join_request"]) },
     mounted() {
       this.$store.dispatch("search/search_countries", {});
+      this.$store.dispatch("chara/get_chara_profile", { fields: "country" });
     },
   };
 </script>
