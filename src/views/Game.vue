@@ -72,7 +72,14 @@
       <el-main class="content">
         <router-view class="router-view" />
       </el-main>
-      <el-footer class="footer"></el-footer>
+      <el-footer class="footer" height="100px">
+        <div>
+          參考<br />
+          Farland History Ⅱ Ver2.11 <a href="http://farland.jellybean.jp/top.htm">bean</a><br />
+          The Wars of Roses Ver6.4 <a href="http://g2.ngw.jp/~maccyu/game/">maccyu</a><br />
+          繁體中文化無限改版:<a href="http://www.gm.idv.tw/">Zeeman</a><br />
+        </div>
+      </el-footer>
     </el-container>
     <el-dialog title="角色資料" :visible.sync="chara_profile_dialog_visible" width="50%">
       <CharaPublicProfileCard :data="chara_profile_dialog_data"></CharaPublicProfileCard>
@@ -170,5 +177,18 @@
   }
   .el-header {
     padding: 0;
+  }
+  .footer {
+    text-align: center;
+    font-size: 14px;
+    padding: 10px;
+    background-color: #545c64;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    a {
+      color: #fff;
+    }
   }
 </style>
