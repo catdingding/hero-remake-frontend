@@ -14,7 +14,12 @@
           @{{ message.receiver.country ? message.receiver.country.name : "無所屬" }}
         </span>
       </div>
-      <div class="content">「{{ message.content }}」</div>
+      <div class="content">
+        「
+        {{ message.sender.official ? `【${message.sender.official.title}】` : "" }}
+        {{ message.content }}
+        」
+      </div>
       <div class="datetime">{{ message.created_at | datetime_display }}</div>
     </div>
   </div>
