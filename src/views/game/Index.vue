@@ -164,6 +164,19 @@
         </el-tabs>
       </el-col>
     </el-row>
+    <el-row type="flex" justify="space-between" style="width: 100%;" class="chat">
+      <el-col :span="24">
+        <el-collapse>
+          <el-collapse-item>
+            <template slot="title"> 在線角色({{ online_charas.length }})</template>
+            <div class="online-charas">
+              <CharaLink v-for="chara in online_charas" :key="chara.id" :chara_name="chara.name" :chara_id="chara.id">
+              </CharaLink>
+            </div>
+          </el-collapse-item>
+        </el-collapse>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
@@ -173,18 +186,23 @@
   import PercentageDisplay from "@/components/PercentageDisplay.vue";
   import ChatMessageBlock from "@/components/ChatMessageBlock";
   import Avatar from "@/components/Avatar";
+  import CharaLink from "@/components/CharaLink";
 
   export default {
     data() {
-      return {};
+      return {
+        online_charas_interval_id: null,
+      };
     },
     methods: {
+      ...mapActions(["get_online_charas"]),
       ...mapActions("chara", ["rest"]),
       fight_battle_map() {
         this.$store.dispatch("battle/fight_battle_map").then(() => this.$router.push("/game/battle-result"));
       },
     },
     computed: {
+      ...mapState(["online_charas"]),
       ...mapState("ws", ["channels", "public_messages", "country_messages", "private_messages", "all_messages"]),
       ...mapState("chara", [
         "chara_id",
@@ -209,14 +227,22 @@
       ]),
       ...mapFields("battle", ["battle_map_id", "auto_fight_enabled"]),
     },
-    components: { PercentageDisplay, ChatMessageBlock, Avatar },
+    components: { PercentageDisplay, ChatMessageBlock, Avatar, CharaLink },
     mounted() {
       this.$store.dispatch("chara/get_chara_profile", {});
+      this.get_online_charas();
+      this.online_charas_interval_id = setInterval(this.get_online_charas, 60000);
+    },
+    beforeDestroy() {
+      clearInterval(this.online_charas_interval_id);
     },
   };
 </script>
 
 <style lang="less" scoped>
+  .el-row {
+    margin-bottom: 20px;
+  }
   .profile {
     .attr {
       margin: 5px 0 5px 0;
@@ -247,5 +273,12 @@
   }
   .chat {
     flex-flow: row wrap;
+  }
+  .online-charas {
+    font-size: 14px;
+    span {
+      display: inline-block;
+      margin-right: 5px;
+    }
   }
 </style>

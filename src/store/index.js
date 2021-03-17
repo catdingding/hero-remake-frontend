@@ -28,6 +28,7 @@ export default new Vuex.Store({
     chara_id: localStorage.getItem("chara_id") || null,
     element_types: [],
     available_charas: [],
+    online_charas: [],
   },
   getters: {},
   mutations: {
@@ -51,6 +52,9 @@ export default new Vuex.Store({
       state.chara_id = chara_id;
       api.defaults.headers.common["Chara-ID"] = chara_id;
       localStorage.setItem("chara_id", chara_id);
+    },
+    set_online_charas(state, data) {
+      state.online_charas = data;
     },
   },
   actions: {
@@ -95,6 +99,10 @@ export default new Vuex.Store({
       return api.get("/user/charas/").then((res) => {
         commit("set_available_charas", res.data);
       });
+    },
+    async get_online_charas({ commit }) {
+      var res = await api.get("/charas/online/");
+      commit("set_online_charas", res.data);
     },
   },
 });
