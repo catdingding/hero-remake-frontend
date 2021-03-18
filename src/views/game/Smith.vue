@@ -72,7 +72,7 @@
               {{ slot.item.equipment.upgrade_times }}/{{ slot.item.equipment.upgrade_times_limit }}
               <br />
               <el-button type="primary" @click="smith_upgrade({ slot_type: slot.type.id, times: 1 })">
-                強化（消耗{{ slot.item.equipment.element_type.name }}原料*3）
+                強化（消耗{{ slot.item.equipment.element_type.name }}原料*3、1500萬金錢）
               </el-button>
             </div>
           </td>
