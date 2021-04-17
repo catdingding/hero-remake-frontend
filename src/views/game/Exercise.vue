@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>當前修煉消耗：{{ cost }}熟練度</div>
+    <div>當前修煉消耗：{{ cost }}熟練度，當前擁有熟練度：{{chara_proficiency | currency }}</div>
     <table>
       <tr>
         <th>職業</th>
@@ -35,7 +35,7 @@
     },
     computed: {
       ...mapState("job", ["exercise_rewards"]),
-      ...mapState("chara", ["chara_job", "chara_attributes"]),
+      ...mapState("chara", ["chara_proficiency", "chara_job", "chara_attributes"]),
       formatted_exercise_rewards() {
         return this._(this.exercise_rewards)
           .sortBy((x) => x.reward_attribute_type.id)
@@ -52,7 +52,7 @@
     methods: { ...mapActions("job", ["exercise"]) },
     mounted() {
       this.$store.dispatch("job/get_exercise_rewards");
-      this.$store.dispatch("chara/get_chara_profile", { omit: "", fields: "job,attributes" });
+      this.$store.dispatch("chara/get_chara_profile", { omit: "", fields: "proficiency,job,attributes" });
     },
   };
 </script>
