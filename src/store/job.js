@@ -34,7 +34,7 @@ export default {
     },
     async exercise({ state, commit, dispatch, rootState }) {
       api.post(`chara/exercise/`).then(res => {
-        dispatch("chara/get_chara_profile", { omit: "", fields: "attributes" }, { root: true });
+        dispatch("chara/get_chara_profile", { omit: "", fields: "proficiency,attributes" }, { root: true });
       });
     },
     async change_job({ state, commit, dispatch, rootState }, data) {
