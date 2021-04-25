@@ -106,7 +106,7 @@
           return 25000;
         }
         var cost =
-          50 - Math.floor((source.equipment.attack - source.equipment.defense + source.equipment.weight * 3) / 10);
+          50 - Math.floor((source.equipment.attack + source.equipment.defense - source.equipment.weight * 3) / 10);
         if (source.equipment.element_type === target.equipment.element_type) {
           cost -= 10;
           if (this.chara_element_type === target.equipment.element_type) {
