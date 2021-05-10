@@ -76,10 +76,10 @@
               </template>
             </template>
           </el-table-column>
-          <el-table-column label="金錢" prop="reserve_price" align="center">
+          <el-table-column label="金錢" align="center">
             <template slot-scope="scope">
               <template v-if="scope.row.seller.id === chara_id && scope.row.bidder">
-                {{ scope.row.reserve_price | currency }}
+                {{ scope.row.bid_price | currency }}
               </template>
             </template>
           </el-table-column>
