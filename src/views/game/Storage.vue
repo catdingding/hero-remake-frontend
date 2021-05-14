@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="storage">
-      <h2 class="page-block-title">倉庫</h2>
+      <h2 class="page-block-title">倉庫（{{ storage_items.length }}/{{ chara_storage_item_limit }}）</h2>
       <ItemTable :data="storage_items">
         <template v-slot:extra-column>
           <el-table-column label="取出" align="center" :width="150">
@@ -18,7 +18,7 @@
       </ItemTable>
     </div>
     <div class="bag">
-      <h2 class="page-block-title">背包</h2>
+      <h2 class="page-block-title">背包（{{ chara_bag_items.length }}/{{ chara_bag_item_limit }}）</h2>
       <ItemTable :data="chara_bag_items">
         <template v-slot:extra-column>
           <el-table-column label="存入" align="center" :width="150">
@@ -47,12 +47,18 @@
     data() {
       return {};
     },
-    computed: { ...mapState("chara", ["chara_bag_items"]), ...mapState("item", ["storage_items"]) },
+    computed: {
+      ...mapState("chara", ["chara_storage_item_limit", "chara_bag_item_limit", "chara_bag_items"]),
+      ...mapState("item", ["storage_items"]),
+    },
     methods: {
       ...mapActions("item", ["take_item_from_storage", "put_item_to_storage"]),
     },
     mounted() {
-      this.$store.dispatch("chara/get_chara_profile", { omit: "", fields: "bag_items" });
+      this.$store.dispatch("chara/get_chara_profile", {
+        omit: "",
+        fields: "storage_item_limit,bag_item_limit,bag_items",
+      });
       this.$store.dispatch("item/get_storage_items");
     },
     components: { ItemTable, InputNumberWithButton },

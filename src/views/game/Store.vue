@@ -19,7 +19,7 @@
       </ItemTypeOptionTable>
     </div>
     <div class="chara">
-      <h2 class="page-block-title">背包</h2>
+      <h2 class="page-block-title">背包（{{ chara_bag_items.length }}/{{ chara_bag_item_limit }}）</h2>
       <CharaWallet></CharaWallet>
       <ItemTable :data="chara_bag_items">
         <template v-slot:extra-column>
@@ -56,12 +56,18 @@
     data() {
       return {};
     },
-    computed: { ...mapState("chara", ["chara_bag_items"]), ...mapState("trade", ["store_options"]) },
+    computed: {
+      ...mapState("chara", ["chara_bag_item_limit", "chara_bag_items"]),
+      ...mapState("trade", ["store_options"]),
+    },
     methods: {
       ...mapActions("trade", ["sell_item", "buy_store_option"]),
     },
     mounted() {
-      this.$store.dispatch("chara/get_chara_profile", { omit: "", fields: "bag_items,gold,proficiency" });
+      this.$store.dispatch("chara/get_chara_profile", {
+        omit: "",
+        fields: "bag_item_limit,bag_items,gold,proficiency",
+      });
       this.$store.dispatch("trade/get_store_options", { store_type: this.$route.params.store_type });
     },
     watch: {

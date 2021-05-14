@@ -33,6 +33,8 @@ export default {
       chara_is_king: false,
       chara_introduction: null,
       chara_record: null,
+      chara_bag_item_limit: null,
+      chara_storage_item_limit: null,
     };
   },
   getters: {
