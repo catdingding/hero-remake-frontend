@@ -96,6 +96,14 @@
             </div>
             <el-collapse :simple="true">
               <el-collapse-item title="能力（上限值）">
+                <div class="attr">
+                  <div>HP</div>
+                  <div>{{ chara_hp_max }}（{{ chara_hp_limit }}）</div>
+                </div>
+                <div class="attr">
+                  <div>MP</div>
+                  <div>{{ chara_mp_max }}（{{ chara_mp_limit }}）</div>
+                </div>
                 <div class="attr" v-for="attr in chara_attributes" :key="attr.id">
                   <div>{{ attr.type.name }}</div>
                   <div>{{ attr.value }}（{{ attr.limit }}）</div>
@@ -221,6 +229,8 @@
         "chara_mp",
         "chara_hp_max",
         "chara_mp_max",
+        "chara_hp_limit",
+        "chara_mp_limit",
         "chara_attributes",
         "chara_country",
         "chara_record",

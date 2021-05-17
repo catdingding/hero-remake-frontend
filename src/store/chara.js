@@ -29,6 +29,8 @@ export default {
       chara_hp: null,
       chara_mp_max: null,
       chara_mp: null,
+      chara_hp_limit: null,
+      chara_mp_limit: null,
       chara_official: null,
       chara_is_king: false,
       chara_introduction: null,
@@ -80,6 +82,10 @@ export default {
     },
     async set_introduction({ commit, dispatch }, data) {
       return api.put("/chara/introduction/", data);
+    },
+    async increase_hp_mp_max({ commit, dispatch }) {
+      await api.post("/chara/increase-hp-mp-max/");
+      return dispatch("chara/get_chara_profile", { fields: "gold,hp_max,mp_max" }, { root: true });
     },
   },
 };
