@@ -1,12 +1,21 @@
 import Vue from "vue";
 
 Vue.filter("currency", (value) => {
-  var output = value % 10000 || "0";
-  if (value >= 10000) {
-    output = Math.floor((value / 10000) % 10000) + "萬" + output;
+  if (value === 0) {
+    return "0";
   }
+
+  var output = "";
   if (value >= 100000000) {
-    output = Math.floor(value / 100000000) + "億" + output;
+    output = Math.floor(value / 100000000) + "億";
+    value = value % 100000000;
+  }
+  if (value >= 10000) {
+    output = output + Math.floor(value / 10000) + "萬";
+    value = value % 10000;
+  }
+  if (value >= 1) {
+    output = output + value;
   }
   return output;
 });
