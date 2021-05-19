@@ -54,6 +54,9 @@
         <div v-for="(message, index) in battle_result.messages" :key="index">
           {{ message }}
         </div>
+        <router-link v-if="show_home_button" to="/game">
+          <el-button type="primary" size="medium">返回主頁</el-button>
+        </router-link>
       </div>
     </div>
   </div>
@@ -64,7 +67,7 @@
   import BattleCharaStatus from "@/components/BattleCharaStatus.vue";
 
   export default {
-    name: "BattleResult",
+    name: "BattleResultBlock",
     data() {
       return {
         winner_mesasage: { attacker: "攻擊方獲得了勝利！", defender: "防禦方獲得了勝利！", draw: "雙方不分勝負……" },
@@ -83,6 +86,7 @@
         }
       },
     },
+    props: { show_home_button: { type: Boolean, default: false } },
     components: { BattleCharaStatus },
   };
 </script>

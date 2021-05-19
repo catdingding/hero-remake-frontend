@@ -86,7 +86,7 @@
       <CharaPublicProfileCard :data="chara_profile_dialog_data"></CharaPublicProfileCard>
     </el-dialog>
     <el-dialog title="戰鬥結果" :visible.sync="battle_result_dialog_visible" width="90%">
-      <BattleResult></BattleResult>
+      <BattleResultBlock></BattleResultBlock>
     </el-dialog>
   </div>
 </template>
@@ -95,7 +95,7 @@
   import { mapState, mapGetters } from "vuex";
   import { mapFields } from "vuex-map-fields";
   import CharaPublicProfileCard from "@/components/CharaPublicProfileCard.vue";
-  import BattleResult from "@/components/BattleResult.vue";
+  import BattleResultBlock from "@/components/BattleResultBlock.vue";
 
   export default {
     data() {
@@ -159,7 +159,7 @@
       clearInterval(this.auto_fight_interval_id);
       window.removeEventListener("keydown", this.process_hot_key);
     },
-    components: { CharaPublicProfileCard, BattleResult },
+    components: { CharaPublicProfileCard, BattleResultBlock },
   };
 </script>
 
