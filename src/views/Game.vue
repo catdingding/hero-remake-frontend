@@ -17,6 +17,7 @@
             <el-menu-item index="skill" :route="{ path: '/game/skill-setting' }">技能</el-menu-item>
             <el-menu-item index="job-change" :route="{ path: '/game/job-change' }">轉職</el-menu-item>
             <el-menu-item index="alchemy" :route="{ path: '/game/alchemy' }">鍊金</el-menu-item>
+            <el-menu-item index="pvp" :route="{ path: '/game/pvp' }">PvP</el-menu-item>
             <el-menu-item index="send-item-gold" :route="{ path: '/game/send-item-gold' }">傳送道具/金錢</el-menu-item>
             <el-menu-item index="chara-introduction" :route="{ path: '/game/chara-introduction' }">自傳</el-menu-item>
           </el-submenu>
@@ -84,6 +85,9 @@
     <el-dialog title="角色資料" :visible.sync="chara_profile_dialog_visible" width="50%">
       <CharaPublicProfileCard :data="chara_profile_dialog_data"></CharaPublicProfileCard>
     </el-dialog>
+    <el-dialog title="戰鬥結果" :visible.sync="battle_result_dialog_visible" width="90%">
+      <BattleResult></BattleResult>
+    </el-dialog>
   </div>
 </template>
 
@@ -91,6 +95,7 @@
   import { mapState, mapGetters } from "vuex";
   import { mapFields } from "vuex-map-fields";
   import CharaPublicProfileCard from "@/components/CharaPublicProfileCard.vue";
+  import BattleResult from "@/components/BattleResult.vue";
 
   export default {
     data() {
@@ -99,7 +104,7 @@
     computed: {
       ...mapState("chara", ["chara_country", "chara_official", "chara_is_king", "chara_hp", "chara_location"]),
       ...mapGetters("chara", ["able_to_action"]),
-      ...mapFields("battle", ["auto_fight_enabled"]),
+      ...mapFields("battle", ["auto_fight_enabled", "battle_result_dialog_visible"]),
       ...mapState("battle", ["battle_map_id"]),
       ...mapFields("dialog", ["chara_profile_dialog_visible"]),
       ...mapState("dialog", ["chara_profile_dialog_data"]),
@@ -154,7 +159,7 @@
       clearInterval(this.auto_fight_interval_id);
       window.removeEventListener("keydown", this.process_hot_key);
     },
-    components: { CharaPublicProfileCard },
+    components: { CharaPublicProfileCard, BattleResult },
   };
 </script>
 

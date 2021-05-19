@@ -22,6 +22,7 @@ export default {
       chara_name: null,
       chara_next_action_time: null,
       chara_exp: null,
+      chara_pvp_points: null,
       chara_proficiency: null,
       chara_gold: null,
       chara_health: null,
