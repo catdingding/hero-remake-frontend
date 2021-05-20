@@ -9,13 +9,15 @@
         <td>主要奧義</td>
         <td>
           <el-select v-model="setting.main_ability">
-            <el-option
+            <el-tooltip
               v-for="(ability, index) in available_to_set_abilities"
               :key="index"
-              :value="ability.id"
-              :label="ability.name"
+              effect="dark"
+              :content="ability.description"
+              placement="left"
             >
-            </el-option>
+              <el-option :value="ability.id" :label="ability.name"> </el-option>
+            </el-tooltip>
           </el-select>
         </td>
       </tr>
@@ -23,15 +25,17 @@
         <td>職業奧義</td>
         <td>
           <el-select v-model="setting.job_ability">
-            <el-option
+            <el-tooltip
               v-for="(ability, index) in available_to_set_abilities.filter(
                 (x) => x.attribute_type === chara_job.attribute_type.id
               )"
               :key="index"
-              :value="ability.id"
-              :label="ability.name"
+              effect="dark"
+              :content="ability.description"
+              placement="left"
             >
-            </el-option>
+              <el-option :value="ability.id" :label="ability.name"> </el-option>
+            </el-tooltip>
           </el-select>
         </td>
       </tr>
@@ -39,13 +43,15 @@
         <td>生活奧義</td>
         <td>
           <el-select v-model="setting.live_ability">
-            <el-option
+            <el-tooltip
               v-for="(ability, index) in available_to_set_abilities.filter((x) => x.is_live)"
               :key="index"
-              :value="ability.id"
-              :label="ability.name"
+              effect="dark"
+              :content="ability.description"
+              placement="left"
             >
-            </el-option>
+              <el-option :value="ability.id" :label="ability.name"> </el-option>
+            </el-tooltip>
           </el-select>
         </td>
       </tr>
