@@ -1,6 +1,6 @@
 <template>
   <el-table :data="slots">
-    <el-table-column label="裝備欄" align="center" width="70px">
+    <el-table-column label="裝備欄" align="center" width="80px">
       <template slot-scope="scope">
         {{ scope.row.type.name }}
       </template>
