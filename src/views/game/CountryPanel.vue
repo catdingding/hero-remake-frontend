@@ -148,12 +148,12 @@
         change_king_form_data: { chara: null },
         change_king_dialog_visiable: false,
         create_official_dialog_visiable: false,
-        create_official_form_data: { chara: null, title: "" }
+        create_official_form_data: { chara: null, title: "" },
       };
     },
     computed: {
       ...mapState("chara", ["chara_gold", "chara_country", "chara_official", "chara_is_king"]),
-      ...mapState("country", ["country_citizens"])
+      ...mapState("country", ["country_citizens"]),
     },
     methods: {
       ...mapActions("country", [
@@ -162,15 +162,15 @@
         "delete_country_official",
         "change_king",
         "leave_country",
-        "dismiss_citizen"
-      ])
+        "dismiss_citizen",
+      ]),
     },
     mounted() {
-      this.$store.dispatch("chara/get_chara_profile", { omit: "", fields: "country,gold" }).then(() => {
+      this.$store.dispatch("chara/get_chara_profile", { fields: "country,gold,official,is_king" }).then(() => {
         this.$store.dispatch("country/get_country_citizens");
       });
     },
-    components: { CharaSelect }
+    components: { CharaSelect },
   };
 </script>
 

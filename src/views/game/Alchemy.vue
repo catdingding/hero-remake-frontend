@@ -36,7 +36,7 @@
     },
     methods: { ...mapActions("ability", ["make_alchemy_option"]) },
     mounted() {
-      this.$store.dispatch("chara/get_chara_profile", { omit: "", fields: "bag_items,proficiency" });
+      this.$store.dispatch("chara/get_chara_profile", { fields: "bag_items,proficiency" });
       this.$store.dispatch("ability/get_alchemy_options");
     },
     components: { ItemTable, InputNumberWithButton },

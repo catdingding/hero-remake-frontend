@@ -103,7 +103,7 @@
     },
     mounted() {
       this.$store.dispatch("trade/get_active_sales");
-      this.$store.dispatch("chara/get_chara_profile", { omit: "", fields: "gold,bag_items" });
+      this.$store.dispatch("chara/get_chara_profile", { fields: "gold,bag_items" });
       this.$store.dispatch("trade/get_todo_sales");
     },
     components: { ItemTable },

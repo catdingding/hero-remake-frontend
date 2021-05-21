@@ -118,10 +118,7 @@
       },
     },
     mounted() {
-      this.$store.dispatch("chara/get_chara_profile", {
-        omit: "",
-        fields: "slots,bag_items,proficiency,gold",
-      });
+      this.$store.dispatch("chara/get_chara_profile", { fields: "slots,bag_items,proficiency,gold" });
     },
     components: { CharaWallet },
   };

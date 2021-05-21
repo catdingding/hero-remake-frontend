@@ -7,7 +7,7 @@ export default {
     return {
       available_jobs: [],
       available_skills: [],
-      exercise_rewards: []
+      exercise_rewards: [],
     };
   },
   mutations: {
@@ -19,29 +19,29 @@ export default {
     },
     set_exercise_rewards(state, data) {
       state.exercise_rewards = data;
-    }
+    },
   },
   actions: {
     async get_available_jobs({ state, commit, dispatch, rootState }) {
-      api.get(`chara/job/available/`).then(res => {
+      api.get(`chara/job/available/`).then((res) => {
         commit("set_available_jobs", res.data);
       });
     },
     async get_exercise_rewards({ state, commit, dispatch, rootState }) {
-      api.get(`exercise-rewards/`).then(res => {
+      api.get(`exercise-rewards/`).then((res) => {
         commit("set_exercise_rewards", res.data);
       });
     },
     async exercise({ state, commit, dispatch, rootState }) {
-      api.post(`chara/exercise/`).then(res => {
-        dispatch("chara/get_chara_profile", { omit: "", fields: "proficiency,attributes" }, { root: true });
+      api.post(`chara/exercise/`).then((res) => {
+        dispatch("chara/get_chara_profile", { fields: "proficiency,attributes" }, { root: true });
       });
     },
     async change_job({ state, commit, dispatch, rootState }, data) {
       return api.post(`chara/job/change/`, data);
     },
     async get_available_skills({ state, commit, dispatch, rootState }) {
-      api.get(`chara/skill/available/`).then(res => {
+      api.get(`chara/skill/available/`).then((res) => {
         commit("set_available_skills", res.data);
       });
     },
@@ -50,6 +50,6 @@ export default {
         data[index].order = index;
       }
       return api.post(`chara/skill/set/`, { settings: data });
-    }
-  }
+    },
+  },
 };

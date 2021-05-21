@@ -136,7 +136,9 @@
         this.waiting_battle_result = true;
         try {
           await this.$store.dispatch("battle/fight_battle_map");
-          await this.$store.dispatch("chara/get_chara_profile", {});
+          await this.$store.dispatch("chara/get_chara_profile", {
+            omit: "bag_items,slots,skill_settings,introduction,main_ability,job_ability,live_ability",
+          });
         } catch (e) {
           console.log(e);
         }
@@ -149,7 +151,9 @@
       },
     },
     mounted() {
-      this.$store.dispatch("chara/get_chara_profile", {});
+      this.$store.dispatch("chara/get_chara_profile", {
+        omit: "bag_items,slots,skill_settings,introduction,main_ability,job_ability,live_ability",
+      });
       this.$store.dispatch("ws/start_chat");
       this.auto_fight_interval_id = setInterval(this.try_auto_fight, 100);
 

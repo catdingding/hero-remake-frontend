@@ -81,7 +81,6 @@
     mounted() {
       this.$store.dispatch("job/get_exercise_rewards");
       this.$store.dispatch("chara/get_chara_profile", {
-        omit: "",
         fields: "gold,proficiency,hp_max,mp_max,hp_limit,mp_limit,job,attributes",
       });
     },

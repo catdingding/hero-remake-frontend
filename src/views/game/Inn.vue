@@ -20,7 +20,7 @@
     },
     methods: { ...mapActions("town", ["sleep_inn"]) },
     mounted() {
-      this.$store.dispatch("chara/get_chara_profile", { omit: "", fields: "attributes" });
+      this.$store.dispatch("chara/get_chara_profile", { fields: "attributes" });
     },
   };
 </script>

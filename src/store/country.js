@@ -25,7 +25,7 @@ export default {
   actions: {
     async found_country({ state, commit, dispatch, rootState }, data) {
       return api.post(`country/found/`, data).then((res) => {
-        dispatch("chara/get_chara_profile", { omit: "", fields: "country" }, { root: true });
+        dispatch("chara/get_chara_profile", { fields: "country" }, { root: true });
       });
     },
     async get_country_storage_items({ state, commit, dispatch, rootState }) {
@@ -36,18 +36,18 @@ export default {
     async put_item_to_country_storage({ state, commit, dispatch, rootState }, data) {
       return api.post("country/storage/put/", data).then((res) => {
         dispatch("get_country_storage_items");
-        dispatch("chara/get_chara_profile", { omit: "", fields: "bag_items" }, { root: true });
+        dispatch("chara/get_chara_profile", { fields: "bag_items" }, { root: true });
       });
     },
     async take_item_from_country_storage({ state, commit, dispatch, rootState }, data) {
       return api.post("country/storage/take/", data).then((res) => {
         dispatch("get_country_storage_items");
-        dispatch("chara/get_chara_profile", { omit: "", fields: "bag_items" }, { root: true });
+        dispatch("chara/get_chara_profile", { fields: "bag_items" }, { root: true });
       });
     },
     async donate_country({ state, commit, dispatch, rootState }, data) {
       return api.post(`country/donate/`, data).then((res) => {
-        dispatch("chara/get_chara_profile", { omit: "", fields: "country,gold" }, { root: true });
+        dispatch("chara/get_chara_profile", { fields: "country,gold" }, { root: true });
       });
     },
     async get_country_citizens({ state, commit, dispatch, rootState }) {
@@ -68,7 +68,7 @@ export default {
     },
     async change_king({ state, commit, dispatch, rootState }, data) {
       return api.post(`country/change-king/`, data).then((res) => {
-        dispatch("chara/get_chara_profile", { omit: "", fields: "country,is_king" }, { root: true });
+        dispatch("chara/get_chara_profile", { fields: "country,is_king" }, { root: true });
       });
     },
     async leave_country({ state, commit, dispatch, rootState }) {

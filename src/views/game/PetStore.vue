@@ -54,7 +54,6 @@
     },
     mounted() {
       this.$store.dispatch("chara/get_chara_profile", {
-        omit: "",
         fields: "slots,proficiency,gold",
       });
     },

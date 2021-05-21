@@ -26,8 +26,8 @@
             :min="0"
             :max="100"
             v-model="setting.hp_percentage"
-            :formatter="value => `${value}%`"
-            :parser="value => value.replace('%', '')"
+            :formatter="(value) => `${value}%`"
+            :parser="(value) => value.replace('%', '')"
           >
           </el-input-number>
         </td>
@@ -36,8 +36,8 @@
             :min="0"
             :max="100"
             v-model="setting.mp_percentage"
-            :formatter="value => `${value}%`"
-            :parser="value => value.replace('%', '')"
+            :formatter="(value) => `${value}%`"
+            :parser="(value) => value.replace('%', '')"
           >
           </el-input-number>
         </td>
@@ -58,7 +58,7 @@
     name: "SkillSetting",
     data() {
       return {
-        settings: []
+        settings: [],
       };
     },
     computed: { ...mapState("job", ["available_skills"]), ...mapState("chara", ["chara_skill_settings"]) },
@@ -69,17 +69,17 @@
       },
       remove_setting(index) {
         this.settings.splice(index, 1);
-      }
+      },
     },
     mounted() {
       this.$store.dispatch("job/get_available_skills", {});
-      this.$store.dispatch("chara/get_chara_profile", { omit: "", fields: "skill_settings" }).then(() => {
+      this.$store.dispatch("chara/get_chara_profile", { fields: "skill_settings" }).then(() => {
         this.settings = this.chara_skill_settings;
         if (this.settings.length === 0) {
           this.add_setting(-1);
         }
       });
-    }
+    },
   };
 </script>
 

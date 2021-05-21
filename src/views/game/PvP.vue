@@ -27,7 +27,7 @@
     },
     mounted() {
       this.$store.dispatch("battle/get_pvp_opponents");
-      this.$store.dispatch("chara/get_chara_profile", { omit: "", fields: "id,pvp_points" });
+      this.$store.dispatch("chara/get_chara_profile", { fields: "id,pvp_points" });
     },
   };
 </script>

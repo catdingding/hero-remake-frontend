@@ -43,7 +43,7 @@
       ...mapActions("trade", ["buy_exchange_option"]),
     },
     mounted() {
-      this.$store.dispatch("chara/get_chara_profile", { omit: "", fields: "bag_items" });
+      this.$store.dispatch("chara/get_chara_profile", { fields: "bag_items" });
       this.$store.dispatch("trade/get_exchange_options");
     },
     components: { ItemTable, ItemTypeOptionTable, InputNumberWithButton },

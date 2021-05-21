@@ -54,7 +54,7 @@
       ...mapActions("item", ["send_item", "send_gold"]),
     },
     mounted() {
-      this.$store.dispatch("chara/get_chara_profile", { omit: "", fields: "bag_items,gold" });
+      this.$store.dispatch("chara/get_chara_profile", { fields: "bag_items,gold" });
     },
     components: { ItemTable, CharaSelect, InputNumberWithButton },
   };

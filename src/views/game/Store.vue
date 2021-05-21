@@ -64,10 +64,7 @@
       ...mapActions("trade", ["sell_item", "buy_store_option"]),
     },
     mounted() {
-      this.$store.dispatch("chara/get_chara_profile", {
-        omit: "",
-        fields: "bag_item_limit,bag_items,gold,proficiency",
-      });
+      this.$store.dispatch("chara/get_chara_profile", { fields: "bag_item_limit,bag_items,gold,proficiency" });
       this.$store.dispatch("trade/get_store_options", { store_type: this.$route.params.store_type });
     },
     watch: {

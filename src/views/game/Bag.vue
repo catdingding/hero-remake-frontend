@@ -58,7 +58,7 @@
       ...mapActions("item", ["use_item", "equip_item", "divest_slot"]),
     },
     mounted() {
-      this.$store.dispatch("chara/get_chara_profile", { omit: "", fields: "gold,proficiency,slots,bag_items" });
+      this.$store.dispatch("chara/get_chara_profile", { fields: "gold,proficiency,slots,bag_items" });
     },
     components: { ItemTable, SlotTable, InputNumberWithButton },
   };

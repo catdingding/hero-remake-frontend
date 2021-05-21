@@ -14,7 +14,7 @@ export default {
   },
   actions: {
     async get_map({ state, commit, dispatch, rootState }) {
-      await dispatch("chara/get_chara_profile", {}, { root: true });
+      await dispatch("chara/get_chara_profile", { fields: "location" }, { root: true });
       var location = rootState.chara.chara_location;
       return api.get(`/map/?x=${location.x}&y=${location.y}&radius=3`).then((res) => {
         commit("set_map", res.data);

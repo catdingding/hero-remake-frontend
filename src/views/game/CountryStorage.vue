@@ -52,7 +52,7 @@
       ...mapActions("country", ["take_item_from_country_storage", "put_item_to_country_storage"]),
     },
     mounted() {
-      this.$store.dispatch("chara/get_chara_profile", { omit: "", fields: "bag_items" });
+      this.$store.dispatch("chara/get_chara_profile", { fields: "bag_items" });
       this.$store.dispatch("country/get_country_storage_items");
     },
     components: { ItemTable, InputNumberWithButton },

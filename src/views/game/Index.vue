@@ -239,7 +239,9 @@
     },
     components: { PercentageDisplay, ChatMessageBlock, Avatar, CharaLink },
     mounted() {
-      this.$store.dispatch("chara/get_chara_profile", {});
+      this.$store.dispatch("chara/get_chara_profile", {
+        omit: "bag_items,slots,skill_settings,introduction,main_ability,job_ability,live_ability",
+      });
       this.get_online_charas();
       this.online_charas_interval_id = setInterval(this.get_online_charas, 60000);
     },

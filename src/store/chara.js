@@ -53,10 +53,7 @@ export default {
     },
   },
   actions: {
-    async get_chara_profile(
-      { commit, state, rootState },
-      { omit = "bag_items,slots,skill_settings,introduction", fields = "" }
-    ) {
+    async get_chara_profile({ commit, state, rootState }, { omit = "", fields = "" }) {
       var url = "/chara/profile/?";
       if (omit) {
         url += "omit=" + omit + "&";

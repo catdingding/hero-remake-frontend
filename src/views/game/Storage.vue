@@ -55,10 +55,7 @@
       ...mapActions("item", ["take_item_from_storage", "put_item_to_storage"]),
     },
     mounted() {
-      this.$store.dispatch("chara/get_chara_profile", {
-        omit: "",
-        fields: "storage_item_limit,bag_item_limit,bag_items",
-      });
+      this.$store.dispatch("chara/get_chara_profile", { fields: "storage_item_limit,bag_item_limit,bag_items" });
       this.$store.dispatch("item/get_storage_items");
     },
     components: { ItemTable, InputNumberWithButton },

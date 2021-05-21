@@ -39,7 +39,7 @@ export default {
     },
     async pvp_fight({ state, commit, dispatch, rootState }, opponent) {
       let res = await api.post(`/battle/pvp-fight/`, { opponent });
-      dispatch("chara/get_chara_profile", { omit: "", fields: "pvp_point,next_action_time" }, { root: true });
+      dispatch("chara/get_chara_profile", { fields: "pvp_point,next_action_time" }, { root: true });
       dispatch("get_pvp_opponents");
       commit("set_battle_result_dialog_visible", true);
       commit("set_battle_result", res.data);

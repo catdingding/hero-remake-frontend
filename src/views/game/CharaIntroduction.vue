@@ -20,7 +20,7 @@
     },
     methods: { ...mapActions("chara", ["set_introduction"]) },
     mounted() {
-      this.$store.dispatch("chara/get_chara_profile", { omit: "", fields: "introduction" }).then(() => {
+      this.$store.dispatch("chara/get_chara_profile", { fields: "introduction" }).then(() => {
         this.content = this.chara_introduction.content;
       });
     },
