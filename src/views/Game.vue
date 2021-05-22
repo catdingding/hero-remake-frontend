@@ -67,6 +67,7 @@
             </template>
             <el-menu-item index="password-change" :route="{ path: '/game/password-change' }">更改密碼</el-menu-item>
             <el-menu-item index="point-store" :route="{ path: '/game/point-store' }">贊助商店</el-menu-item>
+            <el-menu-item @click="logout">登出</el-menu-item>
           </el-submenu>
         </el-menu>
       </el-header>
@@ -92,8 +93,9 @@
 </template>
 
 <script>
-  import { mapState, mapGetters } from "vuex";
+  import { mapState, mapGetters, mapActions } from "vuex";
   import { mapFields } from "vuex-map-fields";
+  import { Message } from "element-ui";
   import CharaPublicProfileCard from "@/components/CharaPublicProfileCard.vue";
   import BattleResultBlock from "@/components/BattleResultBlock.vue";
 
@@ -102,6 +104,7 @@
       return { auto_fight_interval_id: null, waiting_battle_result: false };
     },
     computed: {
+      ...mapGetters(["is_loggedin"]),
       ...mapState("chara", ["chara_country", "chara_official", "chara_is_king", "chara_hp", "chara_location"]),
       ...mapGetters("chara", ["able_to_action"]),
       ...mapFields("battle", ["auto_fight_enabled", "battle_result_dialog_visible"]),
@@ -110,6 +113,7 @@
       ...mapState("dialog", ["chara_profile_dialog_data"]),
     },
     methods: {
+      ...mapActions(["logout"]),
       async try_auto_fight() {
         if (!this.auto_fight_enabled || this.waiting_battle_result || !this.able_to_action()) {
           return;
@@ -151,6 +155,11 @@
       },
     },
     mounted() {
+      if (!this.is_loggedin) {
+        this.$router.push("/");
+        Message.error("請先登入");
+        return;
+      }
       this.$store.dispatch("chara/get_chara_profile", {
         omit: "bag_items,slots,skill_settings,introduction,main_ability,job_ability,live_ability",
       });
@@ -168,11 +177,6 @@
 </script>
 
 <style lang="less" scoped>
-  .navbar {
-    width: 500px;
-    margin: 0 auto;
-    margin-right: 50px;
-  }
   .content {
     min-height: calc(100vh - 112px);
   }

@@ -30,7 +30,11 @@ export default new Vuex.Store({
     available_charas: [],
     online_charas: [],
   },
-  getters: {},
+  getters: {
+    is_loggedin(state) {
+      return !!state.access_token;
+    },
+  },
   mutations: {
     set_access_token(state, token) {
       state.access_token = token;
@@ -40,6 +44,12 @@ export default new Vuex.Store({
     set_refresh_token(state, token) {
       state.refresh_token = token;
       localStorage.setItem("refresh_token", token);
+    },
+    clear_token(state) {
+      state.access_token = "";
+      state.refresh_token = "";
+      localStorage.removeItem("access_token");
+      localStorage.removeItem("refresh_token");
     },
     set_element_types(state, data) {
       state.element_types = data;
@@ -68,6 +78,11 @@ export default new Vuex.Store({
       await dispatch("get_available_charas");
       commit("set_chara");
       router.push("game/");
+    },
+    async logout({ commit, dispatch }) {
+      commit("clear_token");
+      Message.success("登出成功");
+      router.push("/");
     },
     async register({ commit, dispatch }, data) {
       data = Object.assign({}, data);
