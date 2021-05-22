@@ -1,7 +1,11 @@
 <template>
   <div>
     <el-table :data="pvp_opponents">
-      <el-table-column label="角色名稱" align="center" prop="name"></el-table-column>
+      <el-table-column label="角色名稱" align="center">
+        <template slot-scope="scope">
+          <CharaLink :chara_name="scope.row.name" :chara_id="scope.row.id"></CharaLink>
+        </template>
+      </el-table-column>
       <el-table-column label="PvP分數" align="center" prop="pvp_points"></el-table-column>
       <el-table-column label="挑戰" align="center">
         <template slot-scope="scope">
@@ -16,6 +20,7 @@
 
 <script>
   import { mapState, mapActions } from "vuex";
+  import CharaLink from "@/components/CharaLink";
   export default {
     name: "PvP",
     data() {
@@ -29,6 +34,7 @@
       this.$store.dispatch("battle/get_pvp_opponents");
       this.$store.dispatch("chara/get_chara_profile", { fields: "id,pvp_points" });
     },
+    components: { CharaLink },
   };
 </script>
 
