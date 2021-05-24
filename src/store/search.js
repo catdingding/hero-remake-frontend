@@ -32,7 +32,6 @@ export default {
       state.search_result_countries = data;
     },
     search_result_log_messages(state, data) {
-      data.reverse();
       state.search_result_log_messages = data;
     },
   },
