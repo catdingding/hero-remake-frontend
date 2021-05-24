@@ -10,6 +10,7 @@ export default {
       auto_fight_enabled: false,
       pvp_opponents: [],
       battle_result_dialog_visible: false,
+      battle_loots_log_messages: [],
     };
   },
   getters: {
@@ -26,11 +27,23 @@ export default {
     set_battle_result_dialog_visible(state, data) {
       state.battle_result_dialog_visible = data;
     },
+    append_loots_log(state, data) {
+      if (data.loots.length !== 0) {
+        state.battle_loots_log_messages.unshift({
+          created_at: new Date(),
+          content: "獲得了" + data.loots.map((x) => x.name + "×" + x.number).join("、"),
+        });
+        if (state.battle_loots_log_messages.length > 100) {
+          state.battle_loots_log_messages.pop();
+        }
+      }
+    },
   },
   actions: {
     async fight_battle_map({ state, commit, dispatch, rootState }) {
       let res = await api.post(`/battle/battle-maps/${state.battle_map_id}/fight/`);
       commit("set_battle_result", res.data);
+      commit("append_loots_log", res.data);
     },
     async get_pvp_opponents({ state, commit, dispatch, rootState }) {
       return api.get(`/charas/?ordering=-pvp_points`).then((res) => {

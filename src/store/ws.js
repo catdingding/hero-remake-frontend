@@ -2,7 +2,7 @@ export default {
   namespaced: true,
   state() {
     return {
-      chat_ws: null,
+      ws: null,
       channels: [
         { name: "all", display_name: "全體", need_input: true },
         { name: "public", display_name: "公開", need_input: true },
@@ -15,21 +15,28 @@ export default {
         country: [],
         private: [],
       },
+      log_messages: [],
     };
   },
   mutations: {
-    set_chat_ws(state, ws) {
-      if (state.chat_ws) {
-        state.chat_ws.close();
+    set_ws(state, ws) {
+      if (state.ws) {
+        state.ws.close();
       }
-      state.chat_ws = ws;
+      state.ws = ws;
 
       for (let channel in state.messages_mapping) {
         state.messages_mapping[channel] = [];
       }
+      state.log_messages = [];
     },
-    receive_chat_message(state, e) {
-      var data = JSON.parse(e.data);
+    receive_log_message(state, data) {
+      state.log_messages.unshift(data);
+      if (state.log_messages.length > 100) {
+        state.log_messages.pop();
+      }
+    },
+    receive_chat_message(state, data) {
       for (let channel of ["all", data.channel]) {
         let messages = state.messages_mapping[channel];
         messages.unshift(data);
@@ -40,18 +47,23 @@ export default {
     },
   },
   actions: {
-    async start_chat({ state, commit, dispatch, rootState }) {
+    async start_ws({ state, commit, dispatch, rootState }) {
       var token = rootState.access_token;
       var chara_id = rootState.chara_id;
 
       var ws = new WebSocket(`ws://${process.env.VUE_APP_API_ROOT}/ws/chat/?token=${token}&chara=${chara_id}`);
-      commit("set_chat_ws", ws);
+      commit("set_ws", ws);
       ws.onmessage = function(e) {
-        commit("receive_chat_message", e);
+        var data = JSON.parse(e.data);
+        if (data.type === "chat_message") {
+          commit("receive_chat_message", data);
+        } else if (data.type === "log_message") {
+          commit("receive_log_message", data);
+        }
       };
       ws.onclose = function(e) {
         setTimeout(() => {
-          dispatch("start_chat");
+          dispatch("start_ws");
         }, 5000);
       };
       ws.onerror = function(err) {
@@ -59,7 +71,7 @@ export default {
       };
     },
     async send_chat_message({ state, commit, dispatch, rootState }, data) {
-      state.chat_ws.send(JSON.stringify(data));
+      state.ws.send(JSON.stringify(data));
     },
   },
 };

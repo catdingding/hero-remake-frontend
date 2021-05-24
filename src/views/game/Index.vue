@@ -158,6 +158,16 @@
         </el-card>
       </el-col>
     </el-row>
+
+    <el-row type="flex" justify="space-between" style="width: 100%;">
+      <el-col :span="15">
+        <LogMessageBlock title="最近事件" :messages="log_messages"></LogMessageBlock>
+      </el-col>
+      <el-col :span="8">
+        <LogMessageBlock title="打寶記錄" :messages="battle_loots_log_messages"></LogMessageBlock>
+      </el-col>
+    </el-row>
+
     <el-row type="flex" justify="space-between" style="width: 100%;" class="chat">
       <el-col :span="24">
         <el-tabs value="all">
@@ -193,10 +203,12 @@
   import { mapFields } from "vuex-map-fields";
   import PercentageDisplay from "@/components/PercentageDisplay.vue";
   import ChatMessageBlock from "@/components/ChatMessageBlock";
+  import LogMessageBlock from "@/components/LogMessageBlock";
   import Avatar from "@/components/Avatar";
   import CharaLink from "@/components/CharaLink";
 
   export default {
+    name: "Index",
     data() {
       return {
         online_charas_interval_id: null,
@@ -211,7 +223,7 @@
     },
     computed: {
       ...mapState(["online_charas"]),
-      ...mapState("ws", ["channels", "public_messages", "country_messages", "private_messages", "all_messages"]),
+      ...mapState("ws", ["channels", "log_messages"]),
       ...mapState("chara", [
         "chara_id",
         "chara_location",
@@ -235,18 +247,21 @@
         "chara_country",
         "chara_record",
       ]),
+      ...mapState("battle", ["battle_loots_log_messages"]),
       ...mapFields("battle", ["battle_map_id", "auto_fight_enabled"]),
     },
-    components: { PercentageDisplay, ChatMessageBlock, Avatar, CharaLink },
+    components: { PercentageDisplay, LogMessageBlock, ChatMessageBlock, Avatar, CharaLink },
     mounted() {
-      this.$store.dispatch("chara/get_chara_profile", {
-        omit: "bag_items,slots,skill_settings,introduction,main_ability,job_ability,live_ability",
-      });
       this.get_online_charas();
       this.online_charas_interval_id = setInterval(this.get_online_charas, 60000);
     },
     beforeDestroy() {
       clearInterval(this.online_charas_interval_id);
+    },
+    activated() {
+      this.$store.dispatch("chara/get_chara_profile", {
+        omit: "bag_items,slots,skill_settings,introduction,main_ability,job_ability,live_ability",
+      });
     },
   };
 </script>

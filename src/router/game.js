@@ -18,6 +18,7 @@ import PvP from "@/views/game/PvP.vue";
 import Smith from "@/views/game/Smith.vue";
 import PetStore from "@/views/game/PetStore.vue";
 import PasswordChange from "@/views/game/PasswordChange.vue";
+import Log from "@/views/game/Log.vue";
 
 import CountryList from "@/views/game/CountryList.vue";
 import CountryJoinRequest from "@/views/game/CountryJoinRequest.vue";
@@ -59,4 +60,5 @@ export default [
   { path: "sale-house", component: SaleHouse, meta: { title: "出售所" } },
   { path: "inn", component: Inn, meta: { title: "旅館" } },
   { path: "point-store", component: PointStore, meta: { title: "贊助商店" } },
+  { path: "log", component: Log, meta: { title: "事件查詢" } },
 ];

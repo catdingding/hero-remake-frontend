@@ -65,6 +65,7 @@
             <template slot="title">
               其他
             </template>
+            <el-menu-item index="log" :route="{ path: '/game/log' }">事件查詢</el-menu-item>
             <el-menu-item index="password-change" :route="{ path: '/game/password-change' }">更改密碼</el-menu-item>
             <el-menu-item index="point-store" :route="{ path: '/game/point-store' }">贊助商店</el-menu-item>
             <el-menu-item @click="logout">登出</el-menu-item>
@@ -72,7 +73,9 @@
         </el-menu>
       </el-header>
       <el-main class="content">
-        <router-view class="router-view" />
+        <keep-alive include="Index">
+          <router-view class="router-view" />
+        </keep-alive>
       </el-main>
       <el-footer class="footer" height="100px">
         <div>
@@ -163,7 +166,7 @@
       this.$store.dispatch("chara/get_chara_profile", {
         omit: "bag_items,slots,skill_settings,introduction,main_ability,job_ability,live_ability",
       });
-      this.$store.dispatch("ws/start_chat");
+      this.$store.dispatch("ws/start_ws");
       this.auto_fight_interval_id = setInterval(this.try_auto_fight, 100);
 
       window.addEventListener("keydown", this.process_hot_key);
