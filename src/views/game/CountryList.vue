@@ -4,7 +4,7 @@
       <el-table-column label="國家名稱" align="center" prop="name"> </el-table-column>
       <el-table-column label="國王" align="center" prop="king_name"> </el-table-column>
       <el-table-column label="資金" align="center" prop="gold"> </el-table-column>
-      <el-table-column label="城鎮數" align="center" prop="town_count"> </el-table-column>
+      <el-table-column label="領土數" align="center" prop="location_count"> </el-table-column>
       <el-table-column label="建立時間" align="center" prop="created_at">
         <template slot-scope="scope">
           {{ scope.row.created_at | datetime_display }}

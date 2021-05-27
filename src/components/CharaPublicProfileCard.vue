@@ -9,7 +9,7 @@
         </div>
         <div>
           <div>國籍</div>
-          <div>{{ data.country === null ? "無所屬" : data.country.name }}</div>
+          <div>{{ data.country | country_name }}</div>
         </div>
         <div>
           <div>職業</div>

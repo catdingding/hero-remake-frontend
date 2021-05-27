@@ -10,6 +10,10 @@
               <div>({{ chara_location.x }},{{ chara_location.y }})</div>
             </div>
             <div class="attr">
+              <div>國家</div>
+              <div>{{ chara_location.country | country_name }}</div>
+            </div>
+            <div class="attr">
               <div>
                 <el-tooltip effect="dark" content="若位於無城鎮地點，無法使用城鎮設施" placement="top">
                   <span>城鎮</span>
@@ -42,7 +46,7 @@
             </div>
             <div class="attr">
               <div>國籍</div>
-              <div>{{ chara_country === null ? "無所屬" : chara_country.name }}</div>
+              <div>{{ chara_country | country_name }}</div>
             </div>
             <div class="attr">
               <div>職業</div>

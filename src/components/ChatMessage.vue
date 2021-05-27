@@ -6,12 +6,12 @@
         <span>[{{ channel_name_mapping[message.channel] }}]</span>
         <span>
           <CharaLink :chara_name="message.sender.name" :chara_id="message.sender.id"></CharaLink>
-          @{{ message.sender.country ? message.sender.country.name : "無所屬" }}
+          @{{ message.sender.country | country_name }}
         </span>
         <span v-if="message.receiver">傳送給</span>
         <span v-if="message.receiver">
           {{ message.receiver.name }}
-          @{{ message.receiver.country ? message.receiver.country.name : "無所屬" }}
+          @{{ message.receiver.country | country_name }}
         </span>
       </div>
       <div class="content">

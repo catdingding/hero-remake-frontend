@@ -3,7 +3,8 @@
     <div class="map small-font" v-if="map">
       <div class="location" v-for="(location, index) in map" :key="index">
         <el-popover placement="top" title="詳細資訊" width="200" trigger="hover">
-          屬性：{{ location.element_type.name }}
+          屬性：{{ location.element_type.name }}<br />
+          國家：{{ location.country | country_name }}
           <i slot="reference" class="info el-icon-info"></i>
         </el-popover>
 

@@ -72,3 +72,8 @@ Vue.filter("item_string", (item) => {
     item.number
   })`;
 });
+
+//country
+Vue.filter("country_name", (country) => {
+  return country === null ? "無所屬" : country.name;
+});
