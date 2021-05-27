@@ -16,7 +16,7 @@ export default {
   actions: {
     async use_item({ state, commit, dispatch, rootState }, data) {
       await api.post("chara/item/use/", data);
-      dispatch("chara/get_chara_profile", { fields: "bag_items,bag_item_limit" }, { root: true });
+      dispatch("chara/get_chara_profile", { fields: "slots,bag_items,bag_item_limit" }, { root: true });
     },
     async equip_item({ state, commit, dispatch, rootState }, data) {
       await api.post("chara/slot/equip/", data);
