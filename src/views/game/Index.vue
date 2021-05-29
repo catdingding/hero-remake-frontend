@@ -139,6 +139,10 @@
                   <div>總戰數</div>
                   <div>{{ chara_record.total_battle }}</div>
                 </div>
+                <div class="attr" v-if="chara_record">
+                  <div>今日戰數</div>
+                  <div>{{ chara_record.today_battle }}</div>
+                </div>
               </el-collapse-item>
             </el-collapse>
           </div>
