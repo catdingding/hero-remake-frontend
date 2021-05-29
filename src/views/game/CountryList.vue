@@ -2,7 +2,7 @@
   <div>
     <el-table :data="search_result_countries">
       <el-table-column label="國家名稱" align="center" prop="name"> </el-table-column>
-      <el-table-column label="國王" align="center" prop="king_name"> </el-table-column>
+      <el-table-column label="國王" align="center" prop="king.name"> </el-table-column>
       <el-table-column label="資金" align="center" prop="gold"> </el-table-column>
       <el-table-column label="領土數" align="center" prop="location_count"> </el-table-column>
       <el-table-column label="建立時間" align="center" prop="created_at">
@@ -29,7 +29,7 @@
     computed: { ...mapState("search", ["search_result_countries"]), ...mapState("chara", ["chara_country"]) },
     methods: { ...mapActions("country", ["create_country_join_request"]) },
     mounted() {
-      this.$store.dispatch("search/search_countries", {});
+      this.$store.dispatch("search/search_countries", { expand: "king" });
       this.$store.dispatch("chara/get_chara_profile", { fields: "country" });
     },
   };

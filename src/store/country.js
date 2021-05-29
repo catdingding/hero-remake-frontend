@@ -6,12 +6,16 @@ export default {
   namespaced: true,
   state() {
     return {
+      country_profile: null,
       country_storage_items: [],
       country_join_requests: [],
       country_citizens: [],
     };
   },
   mutations: {
+    set_country_profile(state, data) {
+      state.country_profile = data;
+    },
     set_country_storage_items(state, data) {
       state.country_storage_items = data;
     },
@@ -23,10 +27,23 @@ export default {
     },
   },
   actions: {
+    async get_country_profile({ state, commit, dispatch, rootState }) {
+      var country = rootState.chara.chara_country.id;
+      var res = await api.get(`countries/${country}/?expand=*`);
+      commit("set_country_profile", res.data);
+    },
     async found_country({ state, commit, dispatch, rootState }, data) {
       return api.post(`country/found/`, data).then((res) => {
         dispatch("chara/get_chara_profile", { fields: "country" }, { root: true });
       });
+    },
+    async occupy_location({ state, commit, dispatch, rootState }, data) {
+      await api.post(`country/occupy-location/`);
+      router.push("/game");
+    },
+    async abandon_location({ state, commit, dispatch, rootState }, data) {
+      await api.post(`country/abandon-location/`);
+      router.push("/game");
     },
     async get_country_storage_items({ state, commit, dispatch, rootState }) {
       return api.get("country/storage/items/").then((res) => {

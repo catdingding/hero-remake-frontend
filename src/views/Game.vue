@@ -60,6 +60,13 @@
             <el-menu-item index="country-storage" :route="{ path: '/game/country/storage' }" v-show="chara_country">
               國庫
             </el-menu-item>
+            <el-menu-item
+              index="country-location-control"
+              :route="{ path: '/game/country/location-control' }"
+              v-show="chara_is_king"
+            >
+              領土控制
+            </el-menu-item>
           </el-submenu>
           <el-submenu index="other">
             <template slot="title">

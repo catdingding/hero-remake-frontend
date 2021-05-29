@@ -68,7 +68,7 @@ export default {
         (acc, current) => (current.battle_map.id === rootState.battle.battle_map_id ? acc + current.value : acc),
         0
       );
-      if (remain_tickets === 0) {
+      if (remain_tickets === 0 && state.chara_location) {
         commit("battle/updateField", { path: "battle_map_id", value: state.chara_location.battle_map }, { root: true });
       }
     },

@@ -7,7 +7,7 @@
           <table v-if="chara_country">
             <tr>
               <td>國王</td>
-              <td>{{ chara_country.king_name }}</td>
+              <td>{{ _.get(country_profile, "king.name") }}</td>
               <td>
                 <el-button type="primary" @click="change_king_dialog_visiable = true" v-show="chara_is_king">
                   禪讓
@@ -16,8 +16,13 @@
             </tr>
             <tr>
               <td>國家資金</td>
-              <td>{{ chara_country.gold | currency }}</td>
+              <td>{{ _.get(country_profile, "gold") | currency }}</td>
               <td><el-button type="primary" @click="donate_dialog_visible = true">捐獻</el-button></td>
+            </tr>
+            <tr>
+              <td>領土數量</td>
+              <td>{{ _.get(country_profile, "location_count") }}</td>
+              <td></td>
             </tr>
           </table>
 
@@ -153,7 +158,7 @@
     },
     computed: {
       ...mapState("chara", ["chara_gold", "chara_country", "chara_official", "chara_is_king"]),
-      ...mapState("country", ["country_citizens"]),
+      ...mapState("country", ["country_profile", "country_citizens"]),
     },
     methods: {
       ...mapActions("country", [
@@ -167,6 +172,7 @@
     },
     mounted() {
       this.$store.dispatch("chara/get_chara_profile", { fields: "country,gold,official,is_king" }).then(() => {
+        this.$store.dispatch("country/get_country_profile");
         this.$store.dispatch("country/get_country_citizens");
       });
     },
