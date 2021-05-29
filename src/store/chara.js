@@ -85,5 +85,9 @@ export default {
       await api.post("/chara/increase-hp-mp-max/");
       return dispatch("chara/get_chara_profile", { fields: "gold,hp_max,mp_max" }, { root: true });
     },
+    async hand_in_quest({ commit, dispatch }, quest) {
+      await api.post("/chara/quest/hand-in/", { quest });
+      await dispatch("get_chara_profile", { fields: "record" });
+    },
   },
 };

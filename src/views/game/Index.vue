@@ -1,5 +1,20 @@
 <template>
   <div>
+    <QuestProgressBlock
+      title="世界討伐任務"
+      :value="chara_record ? chara_record.world_monster_quest_counter : 0"
+      :max-value="100"
+      color="#67c23a"
+      @submit="hand_in_quest('world_monster_quest')"
+    ></QuestProgressBlock>
+    <QuestProgressBlock
+      v-show="_.get(chara_country, 'id') == _.get(chara_location, 'country.id')"
+      title="國家討伐任務"
+      :value="chara_record ? chara_record.country_monster_quest_counter : 0"
+      :max-value="400"
+      color="#67c23a"
+      @submit="hand_in_quest('country_monster_quest')"
+    ></QuestProgressBlock>
     <el-row type="flex" justify="space-between" style="width: 100%;">
       <el-col :span="7">
         <el-card class="profile-card">
@@ -208,6 +223,7 @@
   import PercentageDisplay from "@/components/PercentageDisplay.vue";
   import ChatMessageBlock from "@/components/ChatMessageBlock";
   import LogMessageBlock from "@/components/LogMessageBlock";
+  import QuestProgressBlock from "@/components/QuestProgressBlock";
   import Avatar from "@/components/Avatar";
   import CharaLink from "@/components/CharaLink";
 
@@ -220,7 +236,7 @@
     },
     methods: {
       ...mapActions(["get_online_charas"]),
-      ...mapActions("chara", ["rest"]),
+      ...mapActions("chara", ["rest", "hand_in_quest"]),
       fight_battle_map() {
         this.$store.dispatch("battle/fight_battle_map").then(() => this.$router.push("/game/battle-result"));
       },
@@ -254,7 +270,7 @@
       ...mapState("battle", ["battle_loots_log_messages"]),
       ...mapFields("battle", ["battle_map_id", "auto_fight_enabled"]),
     },
-    components: { PercentageDisplay, LogMessageBlock, ChatMessageBlock, Avatar, CharaLink },
+    components: { PercentageDisplay, LogMessageBlock, ChatMessageBlock, QuestProgressBlock, Avatar, CharaLink },
     mounted() {
       this.get_online_charas();
       this.online_charas_interval_id = setInterval(this.get_online_charas, 60000);
