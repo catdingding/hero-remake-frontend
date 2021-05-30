@@ -8,7 +8,7 @@
       @submit="hand_in_quest('world_monster_quest')"
     ></QuestProgressBlock>
     <QuestProgressBlock
-      v-show="_.get(chara_country, 'id') == _.get(chara_location, 'country.id')"
+      v-show="chara_country && _.get(chara_country, 'id') === _.get(chara_location, 'country.id')"
       title="國家討伐任務"
       :value="chara_record ? chara_record.country_monster_quest_counter : 0"
       :max-value="400"
