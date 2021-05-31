@@ -154,16 +154,17 @@
             omit: "bag_items,slots,skill_settings,introduction,main_ability,job_ability,live_ability",
           });
         } catch (e) {
-          this.auto_fight_error_times += 1;
-
-          if (this.auto_fight_error_times > 10) {
-            this.auto_fight_error_times = 0;
-            this.auto_fight_enabled = false;
-            this.$notify.error({
-              title: "提示",
-              message: "自動戰鬥失敗次數過多，請檢查背包空間或電腦時間設定",
-              duration: 0,
-            });
+          if (e.response && e.response.status >= 400 && e.response.status < 500) {
+            this.auto_fight_error_times += 1;
+            if (this.auto_fight_error_times > 10) {
+              this.auto_fight_error_times = 0;
+              this.auto_fight_enabled = false;
+              this.$notify.error({
+                title: "提示",
+                message: "自動戰鬥失敗次數過多，請檢查背包空間或電腦時間設定",
+                duration: 0,
+              });
+            }
           }
         }
         this.waiting_battle_result = false;
