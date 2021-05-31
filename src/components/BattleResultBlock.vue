@@ -5,44 +5,46 @@
         <div>攻擊方</div>
         <div>防禦方</div>
       </div>
-      <RecycleScroller class="scroller" :items="filtered_logs" key-field="index" :item-size="125">
-        <template v-slot="{ item }">
-          <div class="round">
-            <div class="attackers">
-              <div class="charas">
-                <div
-                  class="chara"
-                  v-for="(chara, chara_index) in item.charas.filter((x) => x.team === 'attacker')"
-                  :key="chara_index"
-                >
-                  <BattleCharaStatus :chara="chara" />
+      <DynamicScroller class="scroller" :items="filtered_logs" key-field="index" :min-item-size="125">
+        <template v-slot="{ item, index, active }">
+          <DynamicScrollerItem :item="item" :active="active" :size-dependencies="[item.actions]" :data-index="index">
+            <div class="round">
+              <div class="attackers">
+                <div class="charas">
+                  <div
+                    class="chara"
+                    v-for="(chara, chara_index) in item.charas.filter((x) => x.team === 'attacker')"
+                    :key="chara_index"
+                  >
+                    <BattleCharaStatus :chara="chara" />
+                  </div>
+                </div>
+                <div class="actions">
+                  <div v-for="(action, action_index) in item.actions" :key="action_index" class="action">
+                    <span v-if="action.team === 'attacker'">{{ action.message }}</span>
+                  </div>
                 </div>
               </div>
-              <div class="actions">
-                <div v-for="(action, action_index) in item.actions" :key="action_index" class="action">
-                  <span v-if="action.team === 'attacker'">{{ action.message }}</span>
+              <div class="defenders">
+                <div class="charas">
+                  <div
+                    class="chara"
+                    v-for="(chara, chara_index) in item.charas.filter((x) => x.team === 'defender')"
+                    :key="chara_index"
+                  >
+                    <BattleCharaStatus :chara="chara" />
+                  </div>
+                </div>
+                <div class="actions">
+                  <div v-for="(action, action_index) in item.actions" :key="action_index" class="action">
+                    <span v-if="action.team === 'defender'">{{ action.message }}</span>
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="defenders">
-              <div class="charas">
-                <div
-                  class="chara"
-                  v-for="(chara, chara_index) in item.charas.filter((x) => x.team === 'defender')"
-                  :key="chara_index"
-                >
-                  <BattleCharaStatus :chara="chara" />
-                </div>
-              </div>
-              <div class="actions">
-                <div v-for="(action, action_index) in item.actions" :key="action_index" class="action">
-                  <span v-if="action.team === 'defender'">{{ action.message }}</span>
-                </div>
-              </div>
-            </div>
-          </div>
+          </DynamicScrollerItem>
         </template>
-      </RecycleScroller>
+      </DynamicScroller>
       <div class="result">
         {{ winner_mesasage[battle_result.winner] }}<br />
         <div>
