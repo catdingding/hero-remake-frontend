@@ -62,9 +62,11 @@ export default {
         }
       };
       ws.onclose = function(e) {
-        setTimeout(() => {
-          dispatch("start_ws");
-        }, 5000);
+        if (rootState.access_token) {
+          setTimeout(() => {
+            dispatch("start_ws");
+          }, 5000);
+        }
       };
       ws.onerror = function(err) {
         ws.close();
