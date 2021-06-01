@@ -21,7 +21,7 @@
             <el-menu-item index="send-item-gold" :route="{ path: '/game/send-item-gold' }">傳送道具/金錢</el-menu-item>
             <el-menu-item index="chara-introduction" :route="{ path: '/game/chara-introduction' }">自傳</el-menu-item>
           </el-submenu>
-          <el-submenu index="town" v-show="chara_location && chara_location.town_name">
+          <el-submenu index="town" v-show="chara_location && chara_location.town">
             <template slot="title">
               城鎮
             </template>
@@ -67,6 +67,17 @@
               v-show="chara_is_king"
             >
               領土控制
+            </el-menu-item>
+            <el-menu-item
+              index="country-town-build"
+              :route="{ path: '/game/country/town-build' }"
+              v-show="
+                chara_is_king &&
+                  !_.get(chara_location, 'town') &&
+                  _.get(chara_country, 'id') === _.get(chara_location, 'country.id')
+              "
+            >
+              建立城鎮
             </el-menu-item>
           </el-submenu>
           <el-submenu index="other">

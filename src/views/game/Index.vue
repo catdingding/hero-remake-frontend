@@ -34,7 +34,7 @@
                   <span>城鎮</span>
                 </el-tooltip>
               </div>
-              <div>{{ chara_location.town_name || "無" }}</div>
+              <div>{{ chara_location.town ? chara_location.town.name : "無城鎮" }}</div>
             </div>
             <div class="attr">
               <div>屬性</div>

@@ -8,7 +8,7 @@
           <i slot="reference" class="info el-icon-info"></i>
         </el-popover>
 
-        <span :class="{ 'no-town': !location.town_name }">{{ location.town_name || "無城鎮" }}</span>
+        <span :class="{ 'no-town': !location.town }">{{ location.town ? location.town.name : "無城鎮" }}</span>
         <br />
         <span>{{ location.battle_map_name }}</span>
         <br />

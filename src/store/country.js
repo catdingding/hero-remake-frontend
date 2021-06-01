@@ -41,6 +41,10 @@ export default {
       await api.post(`country/occupy-location/`);
       router.push("/game");
     },
+    async build_town({ state, commit, dispatch, rootState }, data) {
+      await api.post(`country/build-town/`, data);
+      router.push("/game");
+    },
     async abandon_location({ state, commit, dispatch, rootState }, data) {
       await api.post(`country/abandon-location/`);
       router.push("/game");

@@ -26,6 +26,7 @@ import CountryFound from "@/views/game/CountryFound.vue";
 import CountryStorage from "@/views/game/CountryStorage.vue";
 import CountryPanel from "@/views/game/CountryPanel.vue";
 import CountryLocationControl from "@/views/game/CountryLocationControl.vue";
+import CountryTownBuild from "@/views/game/CountryTownBuild.vue";
 
 import AuctionHouse from "@/views/game/AuctionHouse.vue";
 import SaleHouse from "@/views/game/SaleHouse.vue";
@@ -57,6 +58,7 @@ export default [
   { path: "country/join-request", component: CountryJoinRequest, meta: { title: "入國申請" } },
   { path: "country/panel", component: CountryPanel, meta: { title: "國家面板" } },
   { path: "country/location-control", component: CountryLocationControl, meta: { title: "領土控制" } },
+  { path: "country/town-build", component: CountryTownBuild, meta: { title: "建立城鎮" } },
   { path: "pet-store", component: PetStore, meta: { title: "寵物店" } },
   { path: "exchange-house", component: ExchangeHouse, meta: { title: "兌換屋" } },
   { path: "auction-house", component: AuctionHouse, meta: { title: "拍賣所" } },
