@@ -103,6 +103,18 @@
         });
       },
       change_chara_avatar(file, fileList) {
+        const type_check = file.raw.type === "image/jpeg" || file.raw.type === "image/png";
+        const size_check = file.raw.size / 1024 / 1024 < 2;
+
+        if (!type_check) {
+          this.$message.error("頭像只能使用jpg或png格式");
+          return;
+        }
+        if (!size_check) {
+          this.$message.error("圖片不能超過2MB");
+          return;
+        }
+
         this.chara_avatar_object_url = URL.createObjectURL(file.raw);
         this.register_data.chara_avatar = file.raw;
       },
