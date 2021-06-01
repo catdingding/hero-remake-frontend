@@ -63,6 +63,9 @@ Vue.filter("item_attr", (item) => {
     return "";
   }
 });
+Vue.filter("item_element_type", (item) => {
+  return item.equipment ? item.equipment.element_type.name : "";
+});
 Vue.filter("item_field_value", (item, field) => {
   return item[field];
 });

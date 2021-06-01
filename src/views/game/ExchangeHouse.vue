@@ -11,7 +11,7 @@
               </div>
             </template>
           </el-table-column>
-          <el-table-column label="兌換" align="center" width="150px">
+          <el-table-column label="兌換" align="center" width="120px">
             <template slot-scope="scope">
               <InputNumberWithButton text="兌換" @click="buy_exchange_option({ id: scope.row.id, number: $event })">
               </InputNumberWithButton>

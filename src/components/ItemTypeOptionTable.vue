@@ -8,9 +8,14 @@
         {{ scope.row.item_type.name }}
       </template>
     </el-table-column>
-    <el-table-column label="類型" align="center" width="60px">
+    <el-table-column label="類型" align="center" width="50px">
       <template slot-scope="scope">
         {{ scope.row.item_type.slot_type ? scope.row.item_type.slot_type.name : "道具" }}
+      </template>
+    </el-table-column>
+    <el-table-column label="屬" align="center" width="35px">
+      <template slot-scope="scope">
+        {{ scope.row.item_type.slot_type ? scope.row.item_type.element_type.name : "" }}
       </template>
     </el-table-column>
     <el-table-column label="攻/防/重量" align="center" width="100px">
@@ -42,4 +47,9 @@
   };
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+  .el-table /deep/ .cell {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+</style>

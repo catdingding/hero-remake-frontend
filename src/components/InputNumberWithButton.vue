@@ -23,4 +23,8 @@
   };
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+  .el-input-number {
+    width: 100px;
+  }
+</style>

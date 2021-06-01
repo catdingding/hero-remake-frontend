@@ -9,7 +9,7 @@
               {{ scope.row.item_type.value | currency }}
             </template>
           </el-table-column>
-          <el-table-column label="購買" align="center" width="150px">
+          <el-table-column label="購買" align="center" width="120px">
             <template slot-scope="scope">
               <InputNumberWithButton text="購買" @click="buy_store_option({ id: scope.row.id, number: $event })">
               </InputNumberWithButton>
@@ -28,7 +28,7 @@
               {{ (scope.row.type.value / 2) | currency }}
             </template>
           </el-table-column>
-          <el-table-column label="出售" align="center" width="150px">
+          <el-table-column label="出售" align="center" width="120px">
             <template slot-scope="scope">
               <InputNumberWithButton
                 text="出售"

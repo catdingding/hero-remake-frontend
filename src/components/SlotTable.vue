@@ -10,6 +10,11 @@
         {{ scope.row.item ? scope.row.item.equipment.display_name : "" }}
       </template>
     </el-table-column>
+    <el-table-column label="屬" align="center" width="35px">
+      <template slot-scope="scope">
+        {{ scope.row.item ? scope.row.item.equipment.element_type.name : "" }}
+      </template>
+    </el-table-column>
     <el-table-column label="攻/防/重量" align="center" width="110px">
       <template slot-scope="scope">
         {{ scope.row.item ? scope.row.item.equipment.attack : "" }}
@@ -39,4 +44,9 @@
   };
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+  .el-table /deep/ .cell {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+</style>

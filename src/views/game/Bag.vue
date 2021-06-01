@@ -21,7 +21,7 @@
     <div class="bag">
       <ItemTable :data="chara_bag_items">
         <template v-slot:extra-column>
-          <el-table-column label="使用/裝備" align="center" :width="150">
+          <el-table-column label="使用/裝備" align="center" :width="120">
             <template slot-scope="scope">
               <div v-if="scope.row.type.use_effect">
                 <InputNumberWithButton

@@ -4,7 +4,7 @@
       <h2 class="page-block-title">倉庫（{{ storage_items.length }}/{{ chara_storage_item_limit }}）</h2>
       <ItemTable :data="storage_items">
         <template v-slot:extra-column>
-          <el-table-column label="取出" align="center" :width="150">
+          <el-table-column label="取出" align="center" width="120px">
             <template slot-scope="scope">
               <InputNumberWithButton
                 text="取出"
@@ -21,7 +21,7 @@
       <h2 class="page-block-title">背包（{{ chara_bag_items.length }}/{{ chara_bag_item_limit }}）</h2>
       <ItemTable :data="chara_bag_items">
         <template v-slot:extra-column>
-          <el-table-column label="存入" align="center" :width="150">
+          <el-table-column label="存入" align="center" width="120px">
             <template slot-scope="scope">
               <InputNumberWithButton
                 text="存入"
