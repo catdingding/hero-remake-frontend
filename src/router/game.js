@@ -31,6 +31,7 @@ import AuctionHouse from "@/views/game/AuctionHouse.vue";
 import SaleHouse from "@/views/game/SaleHouse.vue";
 
 import Inn from "@/views/game/Inn.vue";
+import NameChange from "@/views/game/NameChange.vue";
 
 export default [
   { path: "", component: Index, meta: { title: "主面板" } },
@@ -61,6 +62,7 @@ export default [
   { path: "auction-house", component: AuctionHouse, meta: { title: "拍賣所" } },
   { path: "sale-house", component: SaleHouse, meta: { title: "出售所" } },
   { path: "inn", component: Inn, meta: { title: "旅館" } },
+  { path: "name-change", component: NameChange, meta: { title: "改名神殿" } },
   { path: "point-store", component: PointStore, meta: { title: "贊助商店" } },
   { path: "log", component: Log, meta: { title: "事件查詢" } },
 ];
