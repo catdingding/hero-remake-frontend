@@ -25,7 +25,7 @@
           <el-input placeholder type="password" v-model="register_data.password2"></el-input>
         </el-form-item>
         <el-form-item label="昵稱" prop="chara.name">
-          <el-input placeholder v-model="register_data.chara.name"></el-input>
+          <el-input placeholder v-model="register_data.chara.name" maxlength="10" show-word-limit></el-input>
         </el-form-item>
         <el-form-item label="元素屬性" prop="chara.element_type">
           <el-select v-model="register_data.chara.element_type" style="width:200px">

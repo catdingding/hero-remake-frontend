@@ -5,7 +5,7 @@
     </div>
     <el-form :model="form_data" class="form">
       <el-form-item label="城鎮名稱" prop="name" required>
-        <el-input v-model="form_data.name"></el-input>
+        <el-input v-model="form_data.name" maxlength="10" show-word-limit></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="build_town(form_data)">建立城鎮</el-button>

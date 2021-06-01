@@ -14,7 +14,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="新名稱" prop="name" required>
-        <el-input v-model="form_data.name"></el-input>
+        <el-input v-model="form_data.name" maxlength="10" show-word-limit></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="change_name(form_data)">改名</el-button>
