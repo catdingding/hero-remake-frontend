@@ -9,8 +9,8 @@
           <th>攻擊</th>
           <th>防禦</th>
           <th>重量</th>
-          <th>奧義1<br />（裝備注入）</th>
-          <th>奧義2<br />（奧義石注入）</th>
+          <th>奧義1</th>
+          <th>奧義2</th>
           <th>強化</th>
         </tr>
         <tr class="item" v-for="(slot, index) in chara_slots" :key="index">
@@ -23,12 +23,26 @@
             <div v-if="slot.item">
               {{ slot.item && slot.item.equipment.ability_1 ? slot.item.equipment.ability_1.name : "無" }}
               <br />
-              <el-select placeholder="請選擇裝備" v-model="slot.source_item_1">
+              <el-select v-if="slot.type.id != 4" placeholder="請選擇裝備" v-model="slot.source_item_1">
                 <template v-for="item in chara_bag_items">
                   <el-option
                     :key="item.id"
                     v-if="item.type.category == 1 && item.type.slot_type.id == slot.type.id && item.equipment.ability_1"
                     :label="item.name + '（' + item.equipment.ability_1.name + '）'"
+                    :value="item.id"
+                  >
+                  </el-option>
+                </template>
+              </el-select>
+              <el-select v-else placeholder="請選擇寵物/飾奧石" v-model="slot.source_item_1">
+                <template v-for="item in chara_bag_items">
+                  <el-option
+                    :key="item.id"
+                    v-if="
+                      (item.type.category == 3 && item.type.slot_type.id == 3) ||
+                        (item.type.category == 1 && item.type.slot_type.id == slot.type.id && item.equipment.ability_1)
+                    "
+                    :label="item.name + (item.equipment ? '（' + item.equipment.ability_1.name + '）' : '')"
                     :value="item.id"
                   >
                   </el-option>
@@ -68,7 +82,7 @@
             </div>
           </td>
           <td>
-            <div v-if="slot.item">
+            <div v-if="slot.item && slot.type.id != 4">
               {{ slot.item.equipment.upgrade_times }}/{{ slot.item.equipment.upgrade_times_limit }}
               <br />
               <el-button type="primary" @click="smith_upgrade({ slot_type: slot.type.id, times: 1 })">
