@@ -1,21 +1,28 @@
 <template>
   <div>
+    <div style="width: 100%;">
+      奧義注入：以奧義石注入固定消耗25000熟練值，以裝備注入所消耗的熟練會依照攻防重而不同<br />
+      強化：消耗與裝備同屬性的原料*3與1500萬金錢
+    </div>
     <div class="slots">
       <CharaWallet></CharaWallet>
       <table>
         <tr>
-          <th>裝備欄</th>
+          <th style="width:60px">裝備欄</th>
           <th>名稱</th>
+          <th>屬性</th>
           <th>攻擊</th>
           <th>防禦</th>
           <th>重量</th>
           <th>奧義1</th>
           <th>奧義2</th>
           <th>強化</th>
+          <th>轉屬</th>
         </tr>
         <tr class="item" v-for="(slot, index) in chara_slots" :key="index">
           <td>{{ slot.type.name }}</td>
           <td>{{ slot.item ? slot.item.name : "" }}</td>
+          <td>{{ slot.item ? slot.item.equipment.element_type.name : "" }}</td>
           <td>{{ slot.item ? slot.item.equipment.attack : "" }}</td>
           <td>{{ slot.item ? slot.item.equipment.defense : "" }}</td>
           <td>{{ slot.item ? slot.item.equipment.weight : "" }}</td>
@@ -28,7 +35,7 @@
                   <el-option
                     :key="item.id"
                     v-if="item.type.category == 1 && item.type.slot_type.id == slot.type.id && item.equipment.ability_1"
-                    :label="item.name + '（' + item.equipment.ability_1.name + '）'"
+                    :label="item.name + '(' + item.equipment.ability_1.name + ')'"
                     :value="item.id"
                   >
                   </el-option>
@@ -42,7 +49,7 @@
                       (item.type.category == 3 && item.type.slot_type.id == 3) ||
                         (item.type.category == 1 && item.type.slot_type.id == slot.type.id && item.equipment.ability_1)
                     "
-                    :label="item.name + (item.equipment ? '（' + item.equipment.ability_1.name + '）' : '')"
+                    :label="item.name + (item.equipment ? '(' + item.equipment.ability_1.name + ')' : '')"
                     :value="item.id"
                   >
                   </el-option>
@@ -53,7 +60,7 @@
                 type="primary"
                 @click="smith_replace_ability({ slot_type: slot.type.id, source_item: slot.source_item_1 })"
               >
-                注入（消耗{{ compute_replace_ability_cost(slot.item, slot.source_item_1) }}熟練）
+                注入(消耗{{ compute_replace_ability_cost(slot.item, slot.source_item_1) }}熟練)
               </el-button>
             </div>
           </td>
@@ -77,7 +84,7 @@
                 type="primary"
                 @click="smith_replace_ability({ slot_type: slot.type.id, source_item: slot.source_item_2 })"
               >
-                注入（消耗{{ compute_replace_ability_cost(slot.item, slot.source_item_2) }}熟練）
+                注入(消耗{{ compute_replace_ability_cost(slot.item, slot.source_item_2) }}熟練)
               </el-button>
             </div>
           </td>
@@ -86,8 +93,30 @@
               {{ slot.item.equipment.upgrade_times }}/{{ slot.item.equipment.upgrade_times_limit }}
               <br />
               <el-button type="primary" @click="smith_upgrade({ slot_type: slot.type.id, times: 1 })">
-                強化（消耗{{ slot.item.equipment.element_type.name }}原料*3、1500萬金錢）
+                強化
               </el-button>
+            </div>
+          </td>
+          <td>
+            <div v-if="slot.item && slot.type.id != 4">
+              <el-select v-model="slot.new_element_type" style="width:200px">
+                <el-option
+                  v-for="item in element_types"
+                  :value="item.id"
+                  :key="item.id"
+                  :label="item.name"
+                ></el-option> </el-select
+              ><br />
+              <el-button
+                v-if="slot.item.equipment.upgrade_times === slot.item.equipment.upgrade_times_limit"
+                type="primary"
+                @click="
+                  smith_replace_element_type({ slot_type: slot.type.id, new_element_type: slot.new_element_type })
+                "
+              >
+                更改屬性(強化歸零)
+              </el-button>
+              <el-button v-else disabled>需強化滿級</el-button>
             </div>
           </td>
         </tr>
@@ -104,9 +133,12 @@
     data() {
       return {};
     },
-    computed: { ...mapState("chara", ["chara_slots", "chara_bag_items", "chara_element_type"]) },
+    computed: {
+      ...mapState("chara", ["chara_slots", "chara_bag_items", "chara_element_type"]),
+      ...mapState(["element_types"]),
+    },
     methods: {
-      ...mapActions("item", ["smith_upgrade", "smith_replace_ability"]),
+      ...mapActions("item", ["smith_upgrade", "smith_replace_ability", "smith_replace_element_type"]),
       compute_replace_ability_cost(target, source_id) {
         for (let item of this.chara_bag_items) {
           if (item.id === source_id) {
@@ -132,6 +164,7 @@
       },
     },
     mounted() {
+      this.$store.dispatch("refresh_element_types");
       this.$store.dispatch("chara/get_chara_profile", { fields: "slots,bag_items,proficiency,gold" });
     },
     components: { CharaWallet },

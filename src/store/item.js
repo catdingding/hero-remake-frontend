@@ -68,5 +68,9 @@ export default {
         dispatch("chara/get_chara_profile", { fields: "slots,proficiency,gold" }, { root: true });
       });
     },
+    async smith_replace_element_type({ state, commit, dispatch, rootState }, data) {
+      await api.post("smith/replace-element-type/", data);
+      await dispatch("chara/get_chara_profile", { fields: "slots" }, { root: true });
+    },
   },
 };
