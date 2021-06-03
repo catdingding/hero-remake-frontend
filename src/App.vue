@@ -26,6 +26,7 @@
   }
 
   .page-block-title {
+    width: 100%;
     text-align: center;
     padding: 10px;
   }

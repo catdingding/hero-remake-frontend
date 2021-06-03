@@ -1,6 +1,7 @@
 <template>
   <div>
     <div class="slots">
+      <h2 class="page-block-title">裝備欄</h2>
       <SlotTable :slots="chara_slots">
         <template v-slot:extra-column>
           <el-table-column label="卸下" align="center">
@@ -19,6 +20,7 @@
       </SlotTable>
     </div>
     <div class="bag">
+      <h2 class="page-block-title">背包（{{ chara_bag_items.length }}/{{ chara_bag_item_limit }}）</h2>
       <ItemTable :data="chara_bag_items">
         <template v-slot:extra-column>
           <el-table-column label="使用/裝備" align="center" :width="120">
@@ -53,12 +55,20 @@
     data() {
       return {};
     },
-    computed: { ...mapState("chara", ["chara_gold", "chara_proficiency", "chara_slots", "chara_bag_items"]) },
+    computed: {
+      ...mapState("chara", [
+        "chara_gold",
+        "chara_proficiency",
+        "chara_slots",
+        "chara_bag_items",
+        "chara_bag_item_limit",
+      ]),
+    },
     methods: {
       ...mapActions("item", ["use_item", "equip_item", "divest_slot"]),
     },
     mounted() {
-      this.$store.dispatch("chara/get_chara_profile", { fields: "gold,proficiency,slots,bag_items" });
+      this.$store.dispatch("chara/get_chara_profile", { fields: "gold,proficiency,slots,bag_items,bag_item_limit" });
     },
     components: { ItemTable, SlotTable, InputNumberWithButton },
   };
