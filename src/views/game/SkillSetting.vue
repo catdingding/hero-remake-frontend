@@ -4,20 +4,20 @@
       <tr>
         <th>優先序</th>
         <th>技能</th>
-        <th>HP&lt;=</th>
-        <th>MP&lt;=</th>
+        <th>HP(%)&lt;=</th>
+        <th>MP(%)&lt;=</th>
         <th>增加</th>
         <th>刪除</th>
       </tr>
       <tr v-for="(setting, index) in settings" :key="index">
         <td>{{ index }}</td>
         <td>
-          <el-select v-model="setting.skill">
+          <el-select v-model="setting.skill" style="width:250px">
             <el-option
               v-for="(skill, index) in available_skills"
               :key="index"
               :value="skill.id"
-              :label="skill.name"
+              :label="skill.name + `(mp:${skill.mp_cost},威力:${skill.power})`"
             ></el-option>
           </el-select>
         </td>
