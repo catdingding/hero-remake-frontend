@@ -46,7 +46,7 @@ export default {
       commit("append_loots_log", res.data);
     },
     async get_pvp_opponents({ state, commit, dispatch, rootState }) {
-      return api.get(`/charas/?ordering=-pvp_points`).then((res) => {
+      return api.get(`/charas/?fields=id,name,pvp_points&ordering=-pvp_points`).then((res) => {
         commit("set_pvp_opponents", res.data);
       });
     },

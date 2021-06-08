@@ -116,7 +116,7 @@ export default new Vuex.Store({
       });
     },
     async get_online_charas({ commit }) {
-      var res = await api.get("/charas/online/");
+      var res = await api.get("/charas/online/?fields=id,name");
       commit("set_online_charas", res.data);
     },
   },

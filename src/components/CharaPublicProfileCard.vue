@@ -23,6 +23,10 @@
           <div>等級</div>
           <div>{{ data.level }}</div>
         </div>
+        <div>
+          <div>總戰數</div>
+          <div>{{ data.record.total_battle }}</div>
+        </div>
       </div>
       <!-- 屬性 -->
       <div>

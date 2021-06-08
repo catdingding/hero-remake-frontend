@@ -73,7 +73,7 @@ export default {
     },
     async get_country_citizens({ state, commit, dispatch, rootState }) {
       var country = rootState.chara.chara_country.id;
-      return api.get(`charas/?country=${country}`).then((res) => {
+      return api.get(`charas/?fields=id,name,official&country=${country}`).then((res) => {
         commit("set_country_citizens", res.data);
       });
     },
