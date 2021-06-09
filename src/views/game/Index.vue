@@ -143,10 +143,6 @@
                   <div>今日戰數</div>
                   <div>{{ chara_record.today_battle }}</div>
                 </div>
-                <div class="attr" v-if="chara_record">
-                  <div>本月升級</div>
-                  <div>{{ chara_record.monthly_level_up }}</div>
-                </div>
               </el-collapse-item>
             </el-collapse>
           </div>
