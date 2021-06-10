@@ -49,6 +49,10 @@ export default {
       await api.post(`country/abandon-location/`);
       router.push("/game");
     },
+    async upgrade_storage({ state, commit, dispatch, rootState }) {
+      await api.post(`country/upgrade-storage/`);
+      dispatch("get_country_profile");
+    },
     async get_country_storage_items({ state, commit, dispatch, rootState }) {
       return api.get("country/storage/items/").then((res) => {
         commit("set_country_storage_items", res.data);
