@@ -118,5 +118,13 @@ export default {
         dispatch("get_todo_sales");
       });
     },
+    async buy_member_shop({ state, commit, dispatch, rootState }, { option, ...data }) {
+      await api.post(`trade/member-shop/${option}/`, data);
+      dispatch(
+        "chara/get_chara_profile",
+        { fields: "record,bag_item_limit,member_point,has_cold_down_bonus,has_quest_bonus,has_auto_heal_bonus" },
+        { root: true }
+      );
+    },
   },
 };

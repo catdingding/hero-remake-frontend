@@ -35,9 +35,13 @@ export default {
       chara_official: null,
       chara_is_king: false,
       chara_introduction: null,
-      chara_record: null,
+      chara_record: {},
       chara_bag_item_limit: null,
       chara_storage_item_limit: null,
+      chara_member_point: null,
+      chara_has_cold_down_bonus: null,
+      chara_has_quest_bonus: null,
+      chara_has_auto_heal_bonus: null,
     };
   },
   getters: {
