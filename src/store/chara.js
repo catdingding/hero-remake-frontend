@@ -41,7 +41,7 @@ export default {
       chara_member_point: null,
       chara_has_cold_down_bonus: null,
       chara_has_quest_bonus: null,
-      chara_has_auto_heal_bonus: null,
+      chara_has_auto_heal: null,
     };
   },
   getters: {

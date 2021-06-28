@@ -27,7 +27,7 @@
           <el-button
             type="primary"
             size="mini"
-            :disabled="chara_has_auto_heal_bonus"
+            :disabled="chara_has_auto_heal"
             @click="buy_member_shop({ option: 'buy-auto-heal' })"
             >購買</el-button
           >
@@ -91,13 +91,13 @@
         "chara_member_point",
         "chara_has_cold_down_bonus",
         "chara_has_quest_bonus",
-        "chara_has_auto_heal_bonus",
+        "chara_has_auto_heal",
       ]),
     },
     methods: { ...mapActions("trade", ["buy_member_shop"]) },
     mounted() {
       this.$store.dispatch("chara/get_chara_profile", {
-        fields: "record,bag_item_limit,member_point,has_cold_down_bonus,has_quest_bonus,has_auto_heal_bonus",
+        fields: "record,bag_item_limit,member_point,has_cold_down_bonus,has_quest_bonus,has_auto_heal",
       });
     },
     components: { InputNumberWithButton },
