@@ -7,7 +7,10 @@
           <el-table-column label="需求" align="center">
             <template slot-scope="scope">
               <div v-for="(requirement, index) in scope.row.requirements" :key="index">
-                {{ requirement.item_type.name }}×{{ requirement.number }}
+                <el-tooltip effect="dark" :content="requirement.item_type.description" placement="top">
+                  <i class="el-icon-info"></i>
+                </el-tooltip>
+                {{ requirement.item_type.name }}×{{ requirement.number }}<br />
               </div>
             </template>
           </el-table-column>
