@@ -37,6 +37,9 @@ export default {
         dispatch("chara/get_chara_profile", { fields: "country" }, { root: true });
       });
     },
+    async set_country_setting({ state, commit, dispatch, rootState }, data) {
+      await api.post(`country/set-setting/`, data);
+    },
     async occupy_location({ state, commit, dispatch, rootState }, data) {
       await api.post(`country/occupy-location/`);
       router.push("/game");

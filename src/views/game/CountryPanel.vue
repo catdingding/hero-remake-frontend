@@ -33,46 +33,68 @@
       </el-col>
       <el-col :span="14">
         <el-card>
-          <div slot="header">國民名冊</div>
-          <table>
-            <tr>
-              <th>角色名稱</th>
-              <th>官職</th>
-              <th>操作</th>
-            </tr>
-            <tr v-for="chara in country_citizens" :key="chara.id">
-              <td>{{ chara.name }}</td>
-              <td>{{ chara.official ? chara.official.title : "無" }}</td>
-              <td>
-                <el-button
-                  v-if="!chara.official"
-                  v-show="chara_is_king"
-                  type="primary"
-                  @click="
-                    create_official_form_data.chara = chara.id;
-                    create_official_dialog_visiable = true;
-                  "
-                >
-                  授予官職
-                </el-button>
-                <el-button
-                  v-else
-                  v-show="chara_is_king"
-                  type="primary"
-                  @click="delete_country_official(chara.official.id)"
-                >
-                  取消官職
-                </el-button>
-                <el-button
-                  v-show="(!chara.official && chara_official) || chara_is_king"
-                  type="danger"
-                  @click="dismiss_citizen({ chara: chara.id })"
-                >
-                  驅逐
-                </el-button>
-              </td>
-            </tr>
-          </table>
+          <el-tabs value="first">
+            <el-tab-pane label="國民名冊" name="first">
+              <table>
+                <tr>
+                  <th>角色名稱</th>
+                  <th>官職</th>
+                  <th>操作</th>
+                </tr>
+                <tr v-for="chara in country_citizens" :key="chara.id">
+                  <td>{{ chara.name }}</td>
+                  <td>{{ chara.official ? chara.official.title : "無" }}</td>
+                  <td>
+                    <el-button
+                      v-if="!chara.official"
+                      v-show="chara_is_king"
+                      type="primary"
+                      @click="
+                        create_official_form_data.chara = chara.id;
+                        create_official_dialog_visiable = true;
+                      "
+                    >
+                      授予官職
+                    </el-button>
+                    <el-button
+                      v-else
+                      v-show="chara_is_king"
+                      type="primary"
+                      @click="delete_country_official(chara.official.id)"
+                    >
+                      取消官職
+                    </el-button>
+                    <el-button
+                      v-show="(!chara.official && chara_official) || chara_is_king"
+                      type="danger"
+                      @click="dismiss_citizen({ chara: chara.id })"
+                    >
+                      驅逐
+                    </el-button>
+                  </td>
+                </tr>
+              </table>
+            </el-tab-pane>
+            <el-tab-pane label="領土清單" name="second">
+              <table>
+                <tr v-for="location in country_profile.locations" :key="location.id">
+                  <td>({{ location.x }},{{ location.y }})</td>
+                </tr>
+              </table>
+            </el-tab-pane>
+            <el-tab-pane label="其他" name="third">
+              <div v-show="chara_is_king">
+                <el-divider>國家簡介</el-divider>
+                <el-input type="textarea" :rows="10" v-model="country_profile.setting.introduction"></el-input>
+                <el-divider>儲存</el-divider>
+                <el-button type="primary" @click="set_country_setting(country_profile.setting)">儲存</el-button>
+              </div>
+              <div v-show="!chara_is_king">
+                <el-divider>國家簡介</el-divider>
+                {{ country_profile.setting.introduction }}
+              </div>
+            </el-tab-pane>
+          </el-tabs>
         </el-card>
       </el-col>
     </el-row>
@@ -168,6 +190,7 @@
         "change_king",
         "leave_country",
         "dismiss_citizen",
+        "set_country_setting",
       ]),
     },
     mounted() {
