@@ -13,6 +13,7 @@
           {{ message.receiver.name }}
           @{{ message.receiver.country | country_name }}
         </span>
+        <span v-if="message.is_system_generated" style="color:#999999">(系統訊息)</span>
       </div>
       <div class="content">
         「
