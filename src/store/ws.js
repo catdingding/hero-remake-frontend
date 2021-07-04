@@ -48,7 +48,8 @@ export default {
       }
 
       if (data.channel === "private" && !data.is_init && data.sender.id != this.state.chara_id) {
-        Notification({ title: data.sender.name, message: data.content, position: "top-left", duration: 10000 });
+        var duration = data.is_system_generated ? 0 : 60000;
+        Notification({ title: data.sender.name, message: data.content, position: "top-left", duration: duration });
       }
     },
   },
