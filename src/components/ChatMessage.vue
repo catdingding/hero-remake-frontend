@@ -1,5 +1,12 @@
 <template>
-  <div class="chat-message">
+  <div
+    class="chat-message"
+    :class="{
+      public: message.channel == 'public',
+      country: message.channel == 'country',
+      private: message.channel == 'private',
+    }"
+  >
     <Avatar class="avatar" :chara_id="message.sender.id"></Avatar>
     <div class="message">
       <div class="title">
@@ -54,6 +61,15 @@
     padding: 5px 0px 5px 0px;
     font-size: 14px;
     border-bottom: 1px solid #666;
+    &.public {
+      background-color: #ffffff;
+    }
+    &.country {
+      background-color: #d1ecf7;
+    }
+    &.private {
+      background-color: #fff7b3;
+    }
   }
   .message {
     padding: 0px 5px 0px 5px;
