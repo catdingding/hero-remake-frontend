@@ -1,3 +1,5 @@
+import { Notification } from "element-ui";
+
 export default {
   namespaced: true,
   state() {
@@ -43,6 +45,10 @@ export default {
         if (messages.length > 50) {
           messages.pop();
         }
+      }
+
+      if (data.channel === "private" && !data.is_init && data.sender.id != this.state.chara_id) {
+        Notification({ title: data.sender.name, message: data.content, position: "top-left", duration: 10000 });
       }
     },
   },
