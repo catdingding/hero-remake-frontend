@@ -16,6 +16,7 @@ import SendItemGold from "@/views/game/SendItemGold.vue";
 import Exercise from "@/views/game/Exercise.vue";
 import PvP from "@/views/game/PvP.vue";
 import MemberShop from "@/views/game/MemberShop.vue";
+import AvatarChange from "@/views/game/AvatarChange.vue";
 import Smith from "@/views/game/Smith.vue";
 import PetStore from "@/views/game/PetStore.vue";
 import PasswordChange from "@/views/game/PasswordChange.vue";
@@ -52,6 +53,7 @@ export default [
   { path: "exercise", component: Exercise, meta: { title: "修煉" } },
   { path: "pvp", component: PvP, meta: { title: "PvP" } },
   { path: "member-shop", component: MemberShop, meta: { title: "贊助商店" } },
+  { path: "avatar-change", component: AvatarChange, meta: { title: "更換頭像" } },
   { path: "smith", component: Smith, meta: { title: "鐵匠鋪" } },
   { path: "country/found", component: CountryFound, meta: { title: "建國" } },
   { path: "country/storage", component: CountryStorage, meta: { title: "國庫" } },

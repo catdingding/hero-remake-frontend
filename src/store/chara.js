@@ -6,6 +6,7 @@ export default {
   state() {
     return {
       chara_id: null,
+      chara_avatar_version: 0,
       chara_location: null,
       chara_country: null,
       chara_element_type: null,
@@ -92,6 +93,14 @@ export default {
     async hand_in_quest({ commit, dispatch }, quest) {
       await api.post("/chara/quest/hand-in/", { quest });
       await dispatch("get_chara_profile", { fields: "gold,proficiency,record" });
+    },
+    async change_avatar({ commit, dispatch }, avatar) {
+      var form_data = new FormData();
+      form_data.append("avatar", avatar);
+
+      await api.post("/chara/change-avatar/", form_data, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
     },
   },
 };

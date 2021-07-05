@@ -7,7 +7,7 @@
       private: message.channel == 'private',
     }"
   >
-    <Avatar class="avatar" :chara_id="message.sender.id"></Avatar>
+    <Avatar class="avatar" :chara_id="message.sender.id" :avatar_version="message.sender.avatar_version"></Avatar>
     <div class="message">
       <div class="title">
         <span>[{{ channel_name_mapping[message.channel] }}]</span>

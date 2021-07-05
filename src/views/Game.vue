@@ -21,6 +21,7 @@
             <el-menu-item index="send-item-gold" :route="{ path: '/game/send-item-gold' }">傳送道具/金錢</el-menu-item>
             <el-menu-item index="chara-introduction" :route="{ path: '/game/chara-introduction' }">自傳</el-menu-item>
             <el-menu-item index="member-shop" :route="{ path: '/game/member-shop' }">贊助商店</el-menu-item>
+            <el-menu-item index="avatar-change" :route="{ path: '/game/avatar-change' }">更換頭像</el-menu-item>
           </el-submenu>
           <el-submenu index="town" v-show="chara_location && chara_location.town">
             <template slot="title">

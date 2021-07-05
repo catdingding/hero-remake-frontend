@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img :src="`/image/chara_avatar/${chara_id}.jpg`" />
+    <img :src="`/image/chara_avatar/${chara_id}.jpg?v=${avatar_version}`" />
   </div>
 </template>
 
@@ -11,7 +11,7 @@
     data() {
       return {};
     },
-    props: { chara_id: { type: Number } },
+    props: { chara_id: { type: Number }, avatar_version: { type: Number } },
   };
 </script>
 

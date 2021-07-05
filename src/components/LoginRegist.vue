@@ -33,16 +33,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="上傳頭像" prop="chara_avatar">
-          <el-upload
-            action=""
-            class="avatar-uploader"
-            :show-file-list="false"
-            :auto-upload="false"
-            :on-change="change_chara_avatar"
-          >
-            <img v-if="register_data.chara_avatar" :src="chara_avatar_object_url" class="avatar" />
-            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-          </el-upload>
+          <AvatarInput @change="register_data.chara_avatar = $event"></AvatarInput>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" size="medium" @click="register">註冊</el-button>
@@ -53,6 +44,7 @@
 </template>
 <script>
   import { mapState } from "vuex";
+  import AvatarInput from "@/components/AvatarInput";
   export default {
     data() {
       return {
@@ -102,54 +94,12 @@
           }
         });
       },
-      change_chara_avatar(file, fileList) {
-        const type_check = file.raw.type === "image/jpeg" || file.raw.type === "image/png";
-        const size_check = file.raw.size / 1024 / 1024 < 2;
-
-        if (!type_check) {
-          this.$message.error("頭像只能使用jpg或png格式");
-          return;
-        }
-        if (!size_check) {
-          this.$message.error("圖片不能超過2MB");
-          return;
-        }
-
-        this.chara_avatar_object_url = URL.createObjectURL(file.raw);
-        this.register_data.chara_avatar = file.raw;
-      },
     },
     computed: mapState(["element_types"]),
     mounted: function() {
       this.$store.dispatch("refresh_element_types");
     },
+    components: { AvatarInput },
   };
 </script>
-<style lang="less" scoped>
-  .avatar-uploader {
-    border: 1px dashed #d9d9d9;
-    border-radius: 6px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-    width: 250px;
-    height: 250px;
-  }
-  .avatar-uploader:hover {
-    border-color: #409eff;
-  }
-  .avatar-uploader-icon {
-    font-size: 28px;
-    color: #8c939d;
-    width: 250px;
-    height: 250px;
-    line-height: 250px;
-    text-align: center;
-  }
-  .avatar {
-    width: 250px;
-    height: 250px;
-    display: block;
-    object-fit: cover;
-  }
-</style>
+<style lang="less" scoped></style>

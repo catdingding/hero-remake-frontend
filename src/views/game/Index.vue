@@ -152,7 +152,7 @@
       <el-col :span="7">
         <el-card class="command-card">
           <div slot="header">指令</div>
-          <Avatar class="avatar" :chara_id="chara_id"></Avatar>
+          <Avatar class="avatar" :chara_id="chara_id" :avatar_version="chara_avatar_version"></Avatar>
           <div class="command">
             <el-divider>行動冷卻</el-divider>
             <RelativeTime :time_string="chara_next_action_time" :period="100"></RelativeTime>
@@ -250,6 +250,7 @@
       ...mapState("ws", ["channels", "log_messages"]),
       ...mapState("chara", [
         "chara_id",
+        "chara_avatar_version",
         "chara_location",
         "chara_battle_map_tickets",
         "chara_next_action_time",
