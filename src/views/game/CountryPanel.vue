@@ -78,7 +78,7 @@
             <el-tab-pane label="領土清單" name="second">
               <table>
                 <tr v-for="location in country_profile.locations" :key="location.id">
-                  <td>({{ location.x }},{{ location.y }})</td>
+                  <td>({{ location.x }},{{ location.y }})：{{ location.battle_map_name }}</td>
                 </tr>
               </table>
             </el-tab-pane>
