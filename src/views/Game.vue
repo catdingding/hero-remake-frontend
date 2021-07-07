@@ -93,7 +93,7 @@
         </el-menu>
       </el-header>
       <el-main class="content">
-        <keep-alive include="Index">
+        <keep-alive include="Index,Storage">
           <router-view class="router-view" />
         </keep-alive>
       </el-main>

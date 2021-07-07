@@ -54,7 +54,13 @@ Vue.filter("item_description", (item) => {
   return item.type.description;
 });
 Vue.filter("item_type", (item) => {
-  return item.equipment ? item.type.slot_type.name : "道具";
+  if (item.equipment) {
+    return item.type.slot_type.name;
+  } else if (item.type.category == 3) {
+    return "奧義石";
+  } else {
+    return "道具";
+  }
 });
 Vue.filter("item_attr", (item) => {
   if (item.equipment) {
