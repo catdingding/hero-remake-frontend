@@ -224,6 +224,12 @@
   }
   .el-header {
     padding: 0;
+    position: fixed;
+    width: 100%;
+    z-index: 1;
+  }
+  .el-main {
+    margin-top: 60px;
   }
   .footer {
     text-align: center;

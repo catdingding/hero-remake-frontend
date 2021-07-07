@@ -16,6 +16,7 @@
         { text: '武器', value: '武器' },
         { text: '防具', value: '防具' },
         { text: '飾品', value: '飾品' },
+        { text: '寵物', value: '寵物' },
         { text: '奧義石', value: '奧義石' },
         { text: '道具', value: '道具' },
       ]"
