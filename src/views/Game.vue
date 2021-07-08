@@ -87,6 +87,7 @@
               其他
             </template>
             <el-menu-item index="log" :route="{ path: '/game/log' }">事件查詢</el-menu-item>
+            <el-menu-item index="ability-list" :route="{ path: '/game/ability-list' }">奧義列表</el-menu-item>
             <el-menu-item index="password-change" :route="{ path: '/game/password-change' }">更改密碼</el-menu-item>
             <el-menu-item @click="logout">登出</el-menu-item>
           </el-submenu>
