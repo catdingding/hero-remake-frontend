@@ -22,6 +22,7 @@ import PetStore from "@/views/game/PetStore.vue";
 import PasswordChange from "@/views/game/PasswordChange.vue";
 import Log from "@/views/game/Log.vue";
 import AbilityList from "@/views/game/AbilityList.vue";
+import BattleMapTicketToItem from "@/views/game/BattleMapTicketToItem.vue";
 
 import CountryList from "@/views/game/CountryList.vue";
 import CountryJoinRequest from "@/views/game/CountryJoinRequest.vue";
@@ -73,4 +74,5 @@ export default [
   { path: "point-store", component: PointStore, meta: { title: "贊助商店" } },
   { path: "log", component: Log, meta: { title: "事件查詢" } },
   { path: "ability-list", component: AbilityList, meta: { title: "奧義列表" } },
+  { path: "battle-map-ticket-to-item", component: BattleMapTicketToItem, meta: { title: "地圖製作" } },
 ];

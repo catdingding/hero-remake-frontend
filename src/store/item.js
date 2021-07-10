@@ -72,5 +72,9 @@ export default {
       await api.post("smith/replace-element-type/", data);
       await dispatch("chara/get_chara_profile", { fields: "slots" }, { root: true });
     },
+    async battle_map_ticket_to_item({ state, commit, dispatch, rootState }, data) {
+      await api.post("chara/battle-map-ticket-to-item/", data);
+      await dispatch("chara/get_chara_profile", { fields: "battle_map_tickets" }, { root: true });
+    },
   },
 };

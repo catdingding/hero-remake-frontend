@@ -19,6 +19,9 @@
             <el-menu-item index="alchemy" :route="{ path: '/game/alchemy' }">鍊金</el-menu-item>
             <el-menu-item index="pvp" :route="{ path: '/game/pvp' }">PvP</el-menu-item>
             <el-menu-item index="send-item-gold" :route="{ path: '/game/send-item-gold' }">傳送道具/金錢</el-menu-item>
+            <el-menu-item index="battle-map-ticket-to-item" :route="{ path: '/game/battle-map-ticket-to-item' }">
+              地圖製作
+            </el-menu-item>
             <el-menu-item index="chara-introduction" :route="{ path: '/game/chara-introduction' }">自傳</el-menu-item>
             <el-menu-item index="member-shop" :route="{ path: '/game/member-shop' }">贊助商店</el-menu-item>
             <el-menu-item index="avatar-change" :route="{ path: '/game/avatar-change' }">更換頭像</el-menu-item>
