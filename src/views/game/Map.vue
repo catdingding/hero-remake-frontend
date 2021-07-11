@@ -29,7 +29,7 @@
 </template>
 
 <script>
-  import { mapState } from "vuex";
+  import { mapState, mapActions } from "vuex";
   export default {
     name: "Map",
     data() {
@@ -37,11 +37,7 @@
     },
     computed: { ...mapState("map", ["map"]), ...mapState("chara", ["chara_location"]) },
     methods: {
-      move(location) {
-        this.$store.dispatch("map/move", location).then(() => {
-          this.$router.push("./");
-        });
-      },
+      ...mapActions("map", ["move"]),
     },
     mounted() {
       this.$store.dispatch("map/get_map");

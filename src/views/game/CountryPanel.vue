@@ -78,7 +78,18 @@
             <el-tab-pane label="領土清單" name="second">
               <table>
                 <tr v-for="location in country_profile.locations" :key="location.id">
-                  <td>({{ location.x }},{{ location.y }})：{{ location.battle_map_name }}</td>
+                  <td>
+                    ({{ location.x }},{{ location.y }})：{{ location.battle_map_name }}
+                    <el-button
+                      v-if="location.x === chara_location.x && location.y === chara_location.y"
+                      type="info"
+                      size="mini"
+                      disabled
+                    >
+                      當前位置
+                    </el-button>
+                    <el-button v-else type="success" size="mini" @click="move(location)">前往</el-button>
+                  </td>
                 </tr>
               </table>
             </el-tab-pane>
@@ -179,7 +190,7 @@
       };
     },
     computed: {
-      ...mapState("chara", ["chara_gold", "chara_country", "chara_official", "chara_is_king"]),
+      ...mapState("chara", ["chara_gold", "chara_country", "chara_official", "chara_is_king", "chara_location"]),
       ...mapState("country", ["country_profile", "country_citizens"]),
     },
     methods: {
@@ -192,9 +203,10 @@
         "dismiss_citizen",
         "set_country_setting",
       ]),
+      ...mapActions("map", ["move"]),
     },
     mounted() {
-      this.$store.dispatch("chara/get_chara_profile", { fields: "country,gold,official,is_king" }).then(() => {
+      this.$store.dispatch("chara/get_chara_profile", { fields: "country,gold,official,is_king,location" }).then(() => {
         this.$store.dispatch("country/get_country_profile");
         this.$store.dispatch("country/get_country_citizens");
       });
