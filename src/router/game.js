@@ -32,6 +32,11 @@ import CountryPanel from "@/views/game/CountryPanel.vue";
 import CountryLocationControl from "@/views/game/CountryLocationControl.vue";
 import CountryTownBuild from "@/views/game/CountryTownBuild.vue";
 
+import TeamList from "@/views/game/TeamList.vue";
+import TeamJoinRequest from "@/views/game/TeamJoinRequest.vue";
+import TeamFound from "@/views/game/TeamFound.vue";
+import TeamPanel from "@/views/game/TeamPanel.vue";
+
 import AuctionHouse from "@/views/game/AuctionHouse.vue";
 import SaleHouse from "@/views/game/SaleHouse.vue";
 
@@ -65,6 +70,12 @@ export default [
   { path: "country/panel", component: CountryPanel, meta: { title: "國家面板" } },
   { path: "country/location-control", component: CountryLocationControl, meta: { title: "領土控制" } },
   { path: "country/town-build", component: CountryTownBuild, meta: { title: "建立城鎮" } },
+
+  { path: "team/list", component: TeamList, meta: { title: "隊伍列表" } },
+  { path: "team/join-request", component: TeamJoinRequest, meta: { title: "入隊申請審查" } },
+  { path: "team/found", component: TeamFound, meta: { title: "建立隊伍" } },
+  { path: "team/panel", component: TeamPanel, meta: { title: "隊伍面板" } },
+
   { path: "pet-store", component: PetStore, meta: { title: "寵物店" } },
   { path: "exchange-house", component: ExchangeHouse, meta: { title: "兌換屋" } },
   { path: "auction-house", component: AuctionHouse, meta: { title: "拍賣所" } },

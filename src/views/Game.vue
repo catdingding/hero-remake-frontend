@@ -85,6 +85,25 @@
               建立城鎮
             </el-menu-item>
           </el-submenu>
+          <el-submenu index="team">
+            <template slot="title">
+              隊伍
+            </template>
+            <el-menu-item index="team-list" :route="{ path: '/game/team/list' }">隊伍列表</el-menu-item>
+            <el-menu-item index="team-found" :route="{ path: '/game/team/found' }" v-show="!chara_team">
+              建立隊伍
+            </el-menu-item>
+            <el-menu-item index="team-panel" :route="{ path: '/game/team/panel' }" v-show="chara_team">
+              隊伍面板
+            </el-menu-item>
+            <el-menu-item
+              index="team-join-request"
+              :route="{ path: '/game/team/join-request' }"
+              v-show="chara_is_leader"
+            >
+              入隊申請審查
+            </el-menu-item>
+          </el-submenu>
           <el-submenu index="other">
             <template slot="title">
               其他
@@ -132,7 +151,15 @@
     },
     computed: {
       ...mapGetters(["is_loggedin"]),
-      ...mapState("chara", ["chara_country", "chara_official", "chara_is_king", "chara_hp", "chara_location"]),
+      ...mapState("chara", [
+        "chara_country",
+        "chara_team",
+        "chara_official",
+        "chara_is_king",
+        "chara_is_leader",
+        "chara_hp",
+        "chara_location",
+      ]),
       ...mapGetters("chara", ["able_to_action"]),
       ...mapFields("battle", ["auto_fight_enabled", "battle_result_dialog_visible"]),
       ...mapState("battle", ["battle_map_id"]),

@@ -21,6 +21,7 @@ export default {
     return {
       search_result_charas: [],
       search_result_countries: [],
+      search_result_teams: [],
       search_result_log_messages: [],
     };
   },
@@ -30,6 +31,9 @@ export default {
     },
     set_search_result_countries(state, data) {
       state.search_result_countries = data;
+    },
+    set_search_result_teams(state, data) {
+      state.search_result_teams = data;
     },
     search_result_log_messages(state, data) {
       state.search_result_log_messages = data;
@@ -47,6 +51,11 @@ export default {
       api.get(`countries/?${param}`).then((res) => {
         commit("set_search_result_countries", res.data);
       });
+    },
+    async search_teams({ state, commit, dispatch, rootState }, conditions) {
+      var param = conditions_to_query_param(conditions);
+      var res = await api.get(`teams/?${param}`);
+      commit("set_search_result_teams", res.data);
     },
     async search_logs({ state, commit, dispatch, rootState }, conditions) {
       var param = conditions_to_query_param(conditions);

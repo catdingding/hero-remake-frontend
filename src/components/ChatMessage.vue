@@ -4,6 +4,7 @@
     :class="{
       public: message.channel == 'public',
       country: message.channel == 'country',
+      team: message.channel == 'team',
       private: message.channel == 'private',
     }"
   >
@@ -45,6 +46,7 @@
         channel_name_mapping: {
           public: "公",
           country: "國",
+          team: "隊",
           private: "私",
         },
       };
@@ -66,6 +68,9 @@
     }
     &.country {
       background-color: #d1ecf7;
+    }
+    &.team {
+      background-color: #cee6b3;
     }
     &.private {
       background-color: #fff7b3;

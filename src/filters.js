@@ -86,3 +86,7 @@ Vue.filter("item_string", (item) => {
 Vue.filter("country_name", (country) => {
   return country === null ? "無所屬" : country.name;
 });
+//team
+Vue.filter("team_name", (team) => {
+  return team === null ? "無隊伍" : team.name;
+});

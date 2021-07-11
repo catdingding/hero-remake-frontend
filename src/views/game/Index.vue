@@ -64,6 +64,10 @@
               <div>{{ chara_country | country_name }}</div>
             </div>
             <div class="attr">
+              <div>隊伍</div>
+              <div>{{ chara_team | team_name }}</div>
+            </div>
+            <div class="attr">
               <div>職業</div>
               <div v-if="chara_job">{{ chara_job.name }}</div>
             </div>
@@ -270,6 +274,7 @@
         "chara_mp_limit",
         "chara_attributes",
         "chara_country",
+        "chara_team",
         "chara_record",
       ]),
       ...mapState("battle", ["battle_loots_log_messages"]),

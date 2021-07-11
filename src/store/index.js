@@ -13,6 +13,7 @@ import job from "./job";
 import ability from "./ability";
 import search from "./search";
 import country from "./country";
+import team from "./team";
 import town from "./town";
 import user from "./user";
 import dialog from "./dialog";
@@ -21,7 +22,7 @@ import ws from "./ws";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  modules: { chara, battle, map, item, trade, job, ability, search, country, town, user, dialog, ws },
+  modules: { chara, battle, map, item, trade, job, ability, search, country, team, town, user, dialog, ws },
   state: {
     access_token: localStorage.getItem("access_token") || "",
     refresh_token: localStorage.getItem("refresh_token") || "",
