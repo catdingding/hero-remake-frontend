@@ -1,5 +1,6 @@
 import api from "@/api";
 import { Message } from "element-ui";
+import _ from "lodash";
 
 export default {
   namespaced: true,
@@ -68,6 +69,9 @@ export default {
       if (fields) {
         url += "fields=" + fields;
       }
+      let chara_country = state.chara_country;
+      let chara_team = state.chara_team;
+
       let res = await api.get(url);
       commit("set_chara_profile", res.data);
 
@@ -77,6 +81,12 @@ export default {
       );
       if (remain_tickets === 0 && state.chara_location) {
         commit("battle/updateField", { path: "battle_map_id", value: state.chara_location.battle_map }, { root: true });
+      }
+      if (
+        _.get(state.chara_country, "id") !== _.get(chara_country, "id") ||
+        _.get(state.chara_team, "id") !== _.get(chara_team, "id")
+      ) {
+        commit("ws/close_ws", {}, { root: true });
       }
     },
     async rest({ commit, dispatch }) {

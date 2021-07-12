@@ -34,6 +34,11 @@ export default {
       }
       state.log_messages = [];
     },
+    close_ws(state) {
+      if (state.ws !== null) {
+        state.ws.close();
+      }
+    },
     receive_log_message(state, data) {
       state.log_messages.unshift(data);
       if (state.log_messages.length > 100) {

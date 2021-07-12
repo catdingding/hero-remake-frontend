@@ -225,10 +225,14 @@
         Message.error("請先登入");
         return;
       }
-      this.$store.dispatch("chara/get_chara_profile", {
-        omit: "bag_items,slots,skill_settings,introduction,main_ability,job_ability,live_ability",
-      });
-      this.$store.dispatch("ws/start_ws");
+      this.$store
+        .dispatch("chara/get_chara_profile", {
+          omit: "bag_items,slots,skill_settings,introduction,main_ability,job_ability,live_ability",
+        })
+        .then(() => {
+          this.$store.dispatch("ws/start_ws");
+        });
+
       this.auto_fight_interval_id = setInterval(this.try_auto_fight, 100);
 
       window.addEventListener("keydown", this.process_hot_key);
