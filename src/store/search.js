@@ -23,6 +23,7 @@ export default {
       search_result_countries: [],
       search_result_teams: [],
       search_result_log_messages: [],
+      search_result_battle_results: [],
     };
   },
   mutations: {
@@ -37,6 +38,9 @@ export default {
     },
     search_result_log_messages(state, data) {
       state.search_result_log_messages = data;
+    },
+    set_search_result_battle_results(state, data) {
+      state.search_result_battle_results = data;
     },
   },
   actions: {
@@ -61,6 +65,12 @@ export default {
       var param = conditions_to_query_param(conditions);
       api.get(`logs/?${param}`).then((res) => {
         commit("search_result_log_messages", res.data);
+      });
+    },
+    async search_battle_results({ state, commit, dispatch, rootState }, conditions) {
+      var param = conditions_to_query_param(conditions);
+      api.get(`battle/battle-results/?${param}`).then((res) => {
+        commit("set_search_result_battle_results", res.data);
       });
     },
   },

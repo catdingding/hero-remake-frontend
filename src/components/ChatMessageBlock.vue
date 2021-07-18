@@ -6,7 +6,7 @@
       placeholder="輸入訊息"
       :maxlength="100"
       show-word-limit
-      v-on:keyup.enter.native="send_chat_message"
+      v-on:keypress.enter.native="send_chat_message"
     ></el-input>
     <el-select v-if="channel === 'all'" v-model="target_channel" class="channel">
       <el-option

@@ -42,7 +42,9 @@ export default {
   actions: {
     async fight_battle_map({ state, commit, dispatch, rootState }) {
       let res = await api.post(`/battle/battle-maps/${state.battle_map_id}/fight/`);
-      commit("set_battle_result", res.data);
+      if (!state.battle_result_dialog_visible) {
+        commit("set_battle_result", res.data);
+      }
       commit("append_loots_log", res.data);
     },
     async get_pvp_opponents({ state, commit, dispatch, rootState }) {
@@ -56,6 +58,17 @@ export default {
       dispatch("get_pvp_opponents");
       commit("set_battle_result_dialog_visible", true);
       commit("set_battle_result", res.data);
+    },
+    async dungeon_fight({ state, commit, dispatch, rootState }, data) {
+      let res = await api.post(`/battle/dungeon-fight/`, data);
+      dispatch("team/get_team_profile", {}, { root: true });
+      commit("set_battle_result_dialog_visible", true);
+      commit("set_battle_result", res.data);
+    },
+    async get_battle_result({ state, commit, dispatch, rootState }, id) {
+      let res = await api.get(`/battle/battle-results/${id}`);
+      commit("set_battle_result_dialog_visible", true);
+      commit("set_battle_result", res.data.content);
     },
   },
 };

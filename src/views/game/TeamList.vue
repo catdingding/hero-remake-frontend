@@ -29,7 +29,7 @@
     computed: { ...mapState("search", ["search_result_teams"]), ...mapState("chara", ["chara_team"]) },
     methods: { ...mapActions("team", ["create_team_join_request"]) },
     mounted() {
-      this.$store.dispatch("search/search_teams", { omit: "members" });
+      this.$store.dispatch("search/search_teams", { omit: "members,dungeon_records" });
       this.$store.dispatch("chara/get_chara_profile", { fields: "team" });
     },
   };
