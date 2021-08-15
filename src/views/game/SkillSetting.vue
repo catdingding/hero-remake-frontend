@@ -17,7 +17,7 @@
               v-for="(skill, index) in available_skills"
               :key="index"
               :value="skill.id"
-              :label="skill.name + `(mp:${skill.mp_cost},威力:${skill.power})`"
+              :label="skill.name + `(mp:${skill.mp_cost},威力:${skill.power},發動率:${skill.rate}%)`"
             ></el-option>
           </el-select>
         </td>
