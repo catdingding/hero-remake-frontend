@@ -65,7 +65,7 @@ export default {
       var token = rootState.access_token;
       var chara_id = rootState.chara_id;
 
-      var ws = new WebSocket(`ws://${process.env.VUE_APP_API_ROOT}/ws/chat/?token=${token}&chara=${chara_id}`);
+      var ws = new WebSocket(`${process.env.VUE_APP_WS_ROOT}/ws/chat/?token=${token}&chara=${chara_id}`);
       commit("set_ws", ws);
       ws.onmessage = function(e) {
         var data = JSON.parse(e.data);

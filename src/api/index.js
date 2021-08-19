@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Message } from "element-ui";
 
-let api = axios.create({ baseURL: `http://${process.env.VUE_APP_API_ROOT}/` });
+let api = axios.create({ baseURL: `${process.env.VUE_APP_API_ROOT}/` });
 
 const token = localStorage.getItem("access_token");
 if (token) {
