@@ -40,6 +40,10 @@ api.interceptors.response.use(
     return res;
   },
   (err) => {
+    if (err.response.status === 401) {
+      localStorage.clear();
+      window.location.reload();
+    }
     Message.error(flat_data(err.response.data).join("<br/>"));
     return Promise.reject(err);
   }
