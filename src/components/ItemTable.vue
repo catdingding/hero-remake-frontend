@@ -1,6 +1,6 @@
 <template>
   <el-table :data="data" row-key="id">
-    <el-table-column label="名稱" align="center" sortable sort-by="get_item_name">
+    <el-table-column label="名稱" align="center" sortable sort-by="type.id">
       <template slot-scope="scope">
         <el-tooltip effect="dark" :content="extract_item(scope.row) | item_description" placement="top">
           <i class="el-icon-info"></i>
@@ -67,9 +67,6 @@
       },
       filter_item_type(value, row, column) {
         return this.$options.filters.item_type(this.extract_item(row)) == value;
-      },
-      get_item_name(row, index) {
-        return this.$options.filters.item_name(this.extract_item(row));
       },
     },
     props: { data: { type: Array }, item_field: { default: null } },
