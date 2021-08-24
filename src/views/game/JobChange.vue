@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-table :data="available_jobs">
+    <el-table :data="_.orderBy(available_jobs, ['is_available', 'rank'], ['desc', 'desc'])">
       <el-table-column label="系別" align="center" prop="attribute_type.class_name"></el-table-column>
       <el-table-column label="位階" align="center" prop="rank"></el-table-column>
       <el-table-column label="名稱" align="center" prop="name"></el-table-column>
