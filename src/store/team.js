@@ -52,8 +52,8 @@ export default {
       var res = await api.get(`team/join-requests/`);
       commit("set_team_join_requests", res.data);
     },
-    async approve_team_join_request({ state, commit, dispatch, rootState }, id) {
-      await api.post(`team/join-requests/${id}/approve/`);
+    async review_team_join_request({ state, commit, dispatch, rootState }, { id, action }) {
+      await api.post(`team/join-requests/${id}/review/`, { action });
       dispatch("get_team_join_requests");
     },
     async disband_team({ state, commit, dispatch, rootState }, data) {

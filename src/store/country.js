@@ -117,8 +117,8 @@ export default {
         commit("set_country_join_requests", res.data);
       });
     },
-    async approve_country_join_request({ state, commit, dispatch, rootState }, id) {
-      api.post(`country/join-requests/${id}/approve/`).then((res) => {
+    async review_country_join_request({ state, commit, dispatch, rootState }, { id, action }) {
+      api.post(`country/join-requests/${id}/review/`, { action }).then((res) => {
         dispatch("get_country_join_requests");
       });
     },
