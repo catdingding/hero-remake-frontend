@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>當前贊助點數：{{ chara_member_point }}</div>
+    <div>當前贊助點數：{{ chara_member_point }} <br /><a :href="donatoin_url" target="_blank">贊助方式</a></div>
     <table>
       <tr>
         <th style="width:50%">項目</th>
@@ -82,7 +82,9 @@
   export default {
     name: "MemberShop",
     data() {
-      return {};
+      return {
+        donatoin_url: process.env.VUE_APP_DONATION_URL,
+      };
     },
     computed: {
       ...mapState("chara", [
