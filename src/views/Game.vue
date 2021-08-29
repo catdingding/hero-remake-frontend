@@ -265,6 +265,9 @@
     position: fixed;
     width: 100%;
     z-index: 10;
+    @media (max-width: 768px) {
+      position: relative;
+    }
   }
   .el-main {
     margin-top: 60px;

@@ -15,8 +15,8 @@
       color="#67c23a"
       @submit="hand_in_quest('country_monster_quest')"
     ></QuestProgressBlock>
-    <el-row type="flex" justify="space-between" style="width: 100%;">
-      <el-col :span="7">
+    <el-row type="flex" justify="space-between" style="width: 100%;flex-wrap: wrap;">
+      <el-col :span="7" :xs="24">
         <el-card class="profile-card">
           <div slot="header">地點狀態</div>
           <div class="profile" v-if="chara_location">
@@ -51,7 +51,7 @@
           </div>
         </el-card>
       </el-col>
-      <el-col :span="7">
+      <el-col :span="7" :xs="24">
         <el-card class="profile-card">
           <div slot="header">角色狀態</div>
           <div class="profile">
@@ -153,7 +153,7 @@
         </el-card>
       </el-col>
 
-      <el-col :span="7">
+      <el-col :span="7" :xs="24">
         <el-card class="command-card">
           <div slot="header">指令</div>
           <Avatar class="avatar" :chara_id="chara_id" :avatar_version="chara_avatar_version"></Avatar>
@@ -297,7 +297,7 @@
 </script>
 
 <style lang="less" scoped>
-  .el-row {
+  .el-col {
     margin-bottom: 20px;
   }
   .profile {
