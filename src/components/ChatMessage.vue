@@ -22,6 +22,16 @@
           @{{ message.receiver.country | country_name }}
         </span>
         <span v-if="message.is_system_generated" style="color:#999999">(系統訊息)</span>
+        <span
+          class="reply"
+          @click="
+            $emit('reply', {
+              channel: message.channel,
+              receiver: message.channel === 'private' ? message.sender.id : null,
+            })
+          "
+          >回</span
+        >
       </div>
       <div class="content">
         「
@@ -96,5 +106,9 @@
   }
   .datetime {
     color: #999999;
+  }
+  .reply {
+    color: #2323f7;
+    cursor: pointer;
   }
 </style>

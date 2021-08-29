@@ -20,7 +20,8 @@
     <CharaSelect v-if="need_receiver" v-model="receiver"></CharaSelect>
     <el-button v-if="need_input" type="primary" @click="send_chat_message">送出</el-button>
     <div class="message-box">
-      <ChatMessage v-for="(message, index) in messages" :key="index" :message="message"> </ChatMessage>
+      <ChatMessage v-for="(message, index) in messages" :key="index" :message="message" @reply="set_reply_target">
+      </ChatMessage>
     </div>
   </div>
 </template>
@@ -39,6 +40,7 @@
       need_input: { type: Boolean },
     },
     methods: {
+      ...mapActions("search", ["search_charas"]),
       send_chat_message() {
         if (this.content === "" || (this.needReceiver && this.receiver === null)) {
           return;
@@ -50,6 +52,13 @@
         }
         this.$store.dispatch("ws/send_chat_message", data);
         this.content = "";
+      },
+      set_reply_target({ channel, receiver }) {
+        this.target_channel = channel;
+        if (receiver !== null) {
+          this.receiver = receiver;
+          this.search_charas({ id: receiver });
+        }
       },
     },
     computed: {
