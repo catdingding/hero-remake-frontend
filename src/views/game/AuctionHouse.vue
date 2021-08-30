@@ -25,9 +25,13 @@
                 <RelativeTime :time_string="scope.row.due_time" :period="1000"></RelativeTime>
               </template>
             </el-table-column>
-            <el-table-column label="出價" align="center" width="150px">
+            <el-table-column label="出價" align="center" width="200px">
               <template slot-scope="scope">
-                <InputNumberWithButton text="出價" @click="bid_auction({ id: scope.row.id, bid_price: $event })">
+                <InputNumberWithButton
+                  text="出價"
+                  width="160px"
+                  @click="bid_auction({ id: scope.row.id, bid_price: $event })"
+                >
                 </InputNumberWithButton>
               </template>
             </el-table-column>
