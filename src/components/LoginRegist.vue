@@ -35,6 +35,7 @@
         <el-form-item label="上傳頭像" prop="chara_avatar">
           <AvatarInput @change="register_data.chara_avatar = $event"></AvatarInput>
         </el-form-item>
+        <div style="text-align:center">註冊前請先閱讀<a :href="rule_url" target="_blank">遊戲規章</a></div>
         <el-form-item>
           <el-button type="primary" size="medium" @click="register">註冊</el-button>
         </el-form-item>
@@ -48,6 +49,7 @@
   export default {
     data() {
       return {
+        rule_url: process.env.VUE_APP_RULE_URL,
         login_data: {
           email: "",
           password: "",
