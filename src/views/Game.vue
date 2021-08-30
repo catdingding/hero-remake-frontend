@@ -121,7 +121,7 @@
               </a>
             </el-menu-item>
             <el-menu-item>
-              <a href="https://element.eleme.io/#/zh-CN/component/menu" target="_blank" style="color:#fff;">
+              <a :href="rule_url" target="_blank" style="color:#fff;">
                 <div style="width: 100%;height:100%;">遊戲規章</div>
               </a>
             </el-menu-item>
@@ -161,7 +161,12 @@
 
   export default {
     data() {
-      return { auto_fight_interval_id: null, waiting_battle_result: false, auto_fight_error_times: 0 };
+      return {
+        auto_fight_interval_id: null,
+        waiting_battle_result: false,
+        auto_fight_error_times: 0,
+        rule_url: process.env.VUE_APP_RULE_URL,
+      };
     },
     computed: {
       ...mapGetters(["is_loggedin"]),
