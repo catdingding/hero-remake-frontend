@@ -6,11 +6,15 @@ export default {
   state() {
     return {
       storage_items: [],
+      pet_types: [],
     };
   },
   mutations: {
     set_storage_items(state, data) {
       state.storage_items = data;
+    },
+    set_pet_types(state, data) {
+      state.pet_types = data;
     },
   },
   actions: {
@@ -75,6 +79,10 @@ export default {
     async battle_map_ticket_to_item({ state, commit, dispatch, rootState }, data) {
       await api.post("chara/battle-map-ticket-to-item/", data);
       await dispatch("chara/get_chara_profile", { fields: "battle_map_tickets" }, { root: true });
+    },
+    async get_pet_types({ state, commit, dispatch, rootState }) {
+      var res = await api.get("item/pet-types/");
+      commit("set_pet_types", res.data);
     },
   },
 };

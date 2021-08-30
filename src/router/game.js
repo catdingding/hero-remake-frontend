@@ -23,6 +23,7 @@ import PasswordChange from "@/views/game/PasswordChange.vue";
 import Log from "@/views/game/Log.vue";
 import BattleResultList from "@/views/game/BattleResultList.vue";
 import AbilityList from "@/views/game/AbilityList.vue";
+import PetList from "@/views/game/PetList.vue";
 import BattleMapTicketToItem from "@/views/game/BattleMapTicketToItem.vue";
 
 import CountryList from "@/views/game/CountryList.vue";
@@ -87,5 +88,6 @@ export default [
   { path: "log", component: Log, meta: { title: "事件查詢" } },
   { path: "battle-result-list", component: BattleResultList, meta: { title: "戰鬥記錄" } },
   { path: "ability-list", component: AbilityList, meta: { title: "奧義列表" } },
+  { path: "pet-list", component: PetList, meta: { title: "寵物列表" } },
   { path: "battle-map-ticket-to-item", component: BattleMapTicketToItem, meta: { title: "地圖製作" } },
 ];
