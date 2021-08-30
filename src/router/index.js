@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "@/views/Home.vue";
 import Game from "@/views/Game.vue";
+import Chat from "@/views/Chat.vue";
 
 import game_children from "./game";
 
@@ -18,6 +19,11 @@ const routes = [
     component: Game,
     meta: { title: "主面板" },
     children: game_children,
+  },
+  {
+    path: "/chat",
+    component: Chat,
+    meta: { title: "聊天室" },
   },
 ];
 

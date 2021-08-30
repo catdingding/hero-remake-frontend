@@ -116,6 +116,11 @@
             <el-menu-item index="pet-list" :route="{ path: '/game/pet-list' }">寵物列表</el-menu-item>
             <el-menu-item index="password-change" :route="{ path: '/game/password-change' }">更改密碼</el-menu-item>
             <el-menu-item>
+              <a href="/chat" target="_blank" style="color:#fff;">
+                <div style="width: 100%;height:100%;">聊天視窗</div>
+              </a>
+            </el-menu-item>
+            <el-menu-item>
               <a href="https://element.eleme.io/#/zh-CN/component/menu" target="_blank" style="color:#fff;">
                 <div style="width: 100%;height:100%;">遊戲規章</div>
               </a>
