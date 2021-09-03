@@ -178,6 +178,7 @@
         "chara_is_leader",
         "chara_hp",
         "chara_location",
+        "chara_record",
       ]),
       ...mapGetters("chara", ["able_to_action"]),
       ...mapFields("battle", ["auto_fight_enabled", "battle_result_dialog_visible"]),
@@ -213,9 +214,16 @@
         this.waiting_battle_result = true;
         try {
           await this.$store.dispatch("battle/fight_battle_map");
-          await this.$store.dispatch("chara/get_chara_profile", {
-            omit: "bag_items,slots,skill_settings,introduction,main_ability,job_ability,live_ability",
-          });
+          if (this.chara_record.total_battle % 10 === 1) {
+            await this.$store.dispatch("chara/get_chara_profile", {
+              omit: "bag_items,slots,skill_settings,introduction,main_ability,job_ability,live_ability",
+            });
+          } else {
+            await this.$store.dispatch("chara/get_chara_profile", {
+              fields:
+                "battle_map_tickets,attributes,exp,gold,health,hp,hp_max,hp_limit,mp,mp_max,mp_limit,level,next_action_time,proficiency,record",
+            });
+          }
         } catch (e) {
           if (e.response && e.response.status >= 400 && e.response.status < 500) {
             this.auto_fight_error_times += 1;
