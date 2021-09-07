@@ -130,7 +130,7 @@
     methods: {
       ...mapActions("trade", ["create_auction", "bid_auction", "receive_auction_item", "receive_auction_gold"]),
       bid_auction_check({ id, bid_price, row }) {
-        if (bid_price >= row.reserve_price * 10 || (row.bid_price && bid_price >= row.bid_price * 10)) {
+        if (bid_price >= row.reserve_price * 10 && (!row.bid_price || bid_price >= row.bid_price * 10)) {
           this.$confirm("你的出價>=底價/最高出價的10倍，是否確定出價？", "提醒", {
             confirmButtonText: "確定",
             cancelButtonText: "取消",

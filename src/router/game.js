@@ -15,6 +15,7 @@ import Alchemy from "@/views/game/Alchemy.vue";
 import SendItemGold from "@/views/game/SendItemGold.vue";
 import Exercise from "@/views/game/Exercise.vue";
 import PvP from "@/views/game/PvP.vue";
+import EquipmentLock from "@/views/game/EquipmentLock.vue";
 import MemberShop from "@/views/game/MemberShop.vue";
 import AvatarChange from "@/views/game/AvatarChange.vue";
 import Smith from "@/views/game/Smith.vue";
@@ -61,6 +62,7 @@ export default [
   { path: "send-item-gold", component: SendItemGold, meta: { title: "傳送物品/金錢" } },
   { path: "exercise", component: Exercise, meta: { title: "修煉" } },
   { path: "pvp", component: PvP, meta: { title: "PvP" } },
+  { path: "equipment-lock", component: EquipmentLock, meta: { title: "裝備綁定" } },
   { path: "member-shop", component: MemberShop, meta: { title: "贊助商店" } },
   { path: "avatar-change", component: AvatarChange, meta: { title: "更換頭像" } },
   { path: "smith", component: Smith, meta: { title: "鐵匠鋪" } },

@@ -48,7 +48,7 @@ Vue.filter("datetime_display", (date) => {
 // item
 
 Vue.filter("item_name", (item) => {
-  return item.equipment ? item.equipment.display_name : item.type.name;
+  return item.equipment ? item.equipment.display_name + (item.equipment.is_locked ? "[綁]" : "") : item.type.name;
 });
 Vue.filter("item_description", (item) => {
   return item.type.description;

@@ -80,6 +80,10 @@ export default {
       await api.post("chara/battle-map-ticket-to-item/", data);
       await dispatch("chara/get_chara_profile", { fields: "battle_map_tickets" }, { root: true });
     },
+    async toggle_equipment_lock({ state, commit, dispatch, rootState }, slot_type) {
+      await api.post("chara/item/toggle-equipment-lock/", { slot_type });
+      await dispatch("chara/get_chara_profile", { fields: "slots" }, { root: true });
+    },
     async get_pet_types({ state, commit, dispatch, rootState }) {
       var res = await api.get("item/pet-types/");
       commit("set_pet_types", res.data);

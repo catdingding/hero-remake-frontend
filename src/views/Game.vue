@@ -22,6 +22,7 @@
             <el-menu-item index="battle-map-ticket-to-item" :route="{ path: '/game/battle-map-ticket-to-item' }">
               地圖製作
             </el-menu-item>
+            <el-menu-item index="equipment-lock" :route="{ path: '/game/equipment-lock' }">裝備綁定</el-menu-item>
             <el-menu-item index="chara-introduction" :route="{ path: '/game/chara-introduction' }">自傳</el-menu-item>
             <el-menu-item index="member-shop" :route="{ path: '/game/member-shop' }">贊助商店</el-menu-item>
             <el-menu-item index="avatar-change" :route="{ path: '/game/avatar-change' }">更換頭像</el-menu-item>

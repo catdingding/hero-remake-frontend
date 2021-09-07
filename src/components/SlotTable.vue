@@ -7,7 +7,11 @@
     </el-table-column>
     <el-table-column label="名稱" align="center">
       <template slot-scope="scope">
-        {{ scope.row.item ? scope.row.item.equipment.display_name : "" }}
+        {{
+          scope.row.item
+            ? scope.row.item.equipment.display_name + (scope.row.item.equipment.is_locked ? "[綁]" : "")
+            : ""
+        }}
       </template>
     </el-table-column>
     <el-table-column label="屬" align="center" width="35px">
