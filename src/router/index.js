@@ -35,7 +35,7 @@ const router = new VueRouter({
 
 router.afterEach((to, from) => {
   Vue.nextTick(() => {
-    document.title = to.meta.title;
+    document.title = `${to.meta.title}-無限冒險重製版`;
   });
 });
 
