@@ -24,13 +24,10 @@ Vue.filter("object_ability", (object) => {
   if (!object) {
     return "";
   }
-  var abilities = [];
-  if (object.ability_1) {
-    abilities.push(object.ability_1.name);
-  }
-  if (object.ability_2) {
-    abilities.push(object.ability_2.name);
-  }
+  var abilities = [
+    object.ability_1 ? object.ability_1.name : "(無)",
+    object.ability_2 ? object.ability_2.name : "(無)",
+  ];
   return abilities.join("/");
 });
 

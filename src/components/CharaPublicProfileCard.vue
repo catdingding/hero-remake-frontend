@@ -48,7 +48,9 @@
         <div v-for="slot in data.slots" :key="slot.id" class="slot">
           <div>{{ slot.type.name }}</div>
           <div v-if="slot.item">
-            {{ slot.item | item_name }}{{ slot.item | item_attr }}<br />{{ slot.item | item_ability }}
+            {{ slot.item | item_name }}-{{ slot.item | item_element_type }}<br />
+            {{ slot.item | item_attr }}<br />
+            {{ slot.item | item_ability }}
           </div>
           <div v-else>無</div>
         </div>
