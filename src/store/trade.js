@@ -11,6 +11,7 @@ export default {
       todo_auctions: [],
       active_sales: [],
       todo_sales: [],
+      lotteries: [],
     };
   },
   mutations: {
@@ -31,6 +32,9 @@ export default {
     },
     set_todo_sales(state, data) {
       state.todo_sales = data;
+    },
+    set_lotteries(state, data) {
+      state.lotteries = data;
     },
   },
   actions: {
@@ -125,6 +129,14 @@ export default {
         { fields: "record,bag_item_limit,member_point,has_cold_down_bonus,has_quest_bonus,has_auto_heal_bonus" },
         { root: true }
       );
+    },
+    async get_lotteries({ state, commit, dispatch, rootState }) {
+      var res = await api.get(`trade/lotteries/`);
+      commit("set_lotteries", res.data);
+    },
+    async buy_lottery({ state, commit, dispatch, rootState }, data) {
+      await api.post(`trade/lottery/buy/`, data);
+      dispatch("get_lotteries");
     },
   },
 };

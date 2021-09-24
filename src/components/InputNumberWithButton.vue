@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-input-number size="mini" :min="1" :max="max" v-model="value" :style="{ width }"></el-input-number>
+    <el-input-number size="mini" :min="min" :max="max" v-model="value" :style="{ width }"></el-input-number>
     <el-button type="primary" size="mini" @click="$emit('click', value)">
       {{ text }}
     </el-button>
@@ -17,9 +17,14 @@
       };
     },
     props: {
+      default: { type: Number, default: 1 },
+      min: { type: Number, default: 1 },
       max: { type: Number, default: Infinity },
       text: { type: String, default: "" },
       width: { type: String, default: "100px" },
+    },
+    mounted() {
+      this.value = this.default;
     },
   };
 </script>
