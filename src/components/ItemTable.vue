@@ -26,7 +26,22 @@
         {{ extract_item(scope.row) | item_type }}
       </template>
     </el-table-column>
-    <el-table-column label="屬" align="center" width="35px">
+    <el-table-column
+      label="屬"
+      align="center"
+      width="50px"
+      :filters="[
+        { text: '無', value: '無' },
+        { text: '火', value: '火' },
+        { text: '水', value: '水' },
+        { text: '風', value: '風' },
+        { text: '星', value: '星' },
+        { text: '雷', value: '雷' },
+        { text: '光', value: '光' },
+        { text: '暗', value: '暗' },
+      ]"
+      :filter-method="filter_element_type"
+    >
       <template slot-scope="scope">
         {{ extract_item(scope.row) | item_element_type }}
       </template>
@@ -67,6 +82,9 @@
       },
       filter_item_type(value, row, column) {
         return this.$options.filters.item_type(this.extract_item(row)) == value;
+      },
+      filter_element_type(value, row, column) {
+        return this.$options.filters.item_element_type(this.extract_item(row)) == value;
       },
     },
     props: { data: { type: Array }, item_field: { default: null } },
