@@ -11,6 +11,7 @@ export default {
       pvp_opponents: [],
       battle_result_dialog_visible: false,
       battle_loots_log_messages: [],
+      world_bosses: [],
     };
   },
   getters: {
@@ -26,6 +27,9 @@ export default {
     },
     set_battle_result_dialog_visible(state, data) {
       state.battle_result_dialog_visible = data;
+    },
+    set_world_bosses(state, data) {
+      state.world_bosses = data;
     },
     append_loots_log(state, data) {
       if (data.loots.length !== 0) {
@@ -69,6 +73,16 @@ export default {
       let res = await api.get(`/battle/battle-results/${id}`);
       commit("set_battle_result_dialog_visible", true);
       commit("set_battle_result", res.data.content);
+    },
+    async get_world_bosses({ state, commit, dispatch, rootState }) {
+      let res = await api.get(`/world-bosses/`);
+      commit("set_world_bosses", res.data);
+    },
+    async world_boss_fight({ state, commit, dispatch, rootState }, data) {
+      let res = await api.post(`/battle/world-boss-fight/`, data);
+      dispatch("get_world_bosses");
+      commit("set_battle_result_dialog_visible", true);
+      commit("set_battle_result", res.data);
     },
   },
 };

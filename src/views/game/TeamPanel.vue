@@ -74,6 +74,30 @@
                 </tr>
               </table>
             </el-tab-pane>
+            <el-tab-pane label="神獸" name="third">
+              <table>
+                <tr>
+                  <th>神獸名稱</th>
+                  <th>屬性</th>
+                  <th>HP</th>
+                  <th>MP</th>
+                  <th>座標</th>
+                  <th>行動</th>
+                </tr>
+                <tr v-for="row in world_bosses" :key="row.id">
+                  <td>{{ row.name }}</td>
+                  <td>{{ row.element_type.name }}</td>
+                  <td>{{ row.hp }}/{{ row.hp_max }}</td>
+                  <td>{{ row.mp }}/{{ row.mp_max }}</td>
+                  <td>({{ row.location.x }},{{ row.location.y }})</td>
+                  <td>
+                    <el-button type="primary" @click="world_boss_fight({ world_boss: row.id })">
+                      挑戰(神獸線索*1)
+                    </el-button>
+                  </td>
+                </tr>
+              </table>
+            </el-tab-pane>
           </el-tabs>
         </el-card>
       </el-col>
@@ -92,16 +116,18 @@
     computed: {
       ...mapState("chara", ["chara_team", "chara_is_leader", "chara_id"]),
       ...mapState("team", ["team_profile", "team_members"]),
+      ...mapState("battle", ["world_bosses"]),
     },
     methods: {
       ...mapActions("team", ["leave_team", "dismiss_member", "disband_team", "change_dungeon_record_status"]),
-      ...mapActions("battle", ["dungeon_fight"]),
+      ...mapActions("battle", ["dungeon_fight", "world_boss_fight"]),
     },
     mounted() {
       this.$store.dispatch("chara/get_chara_profile", { fields: "team,is_leader" }).then(() => {
         this.$store.dispatch("team/get_team_profile");
         this.$store.dispatch("team/get_team_members");
       });
+      this.$store.dispatch("battle/get_world_bosses");
     },
     components: {},
   };
