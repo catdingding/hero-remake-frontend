@@ -20,6 +20,13 @@
                     >
                       驅逐
                     </el-button>
+                    <el-button
+                      v-if="chara_is_leader && chara.id != chara_id"
+                      type="primary"
+                      @click="change_leader({ chara: chara.id })"
+                    >
+                      指派為隊長
+                    </el-button>
                     <el-button v-if="!chara_is_leader && chara.id == chara_id" type="danger" @click="leave_team">
                       離隊
                     </el-button>
@@ -119,7 +126,13 @@
       ...mapState("battle", ["world_bosses"]),
     },
     methods: {
-      ...mapActions("team", ["leave_team", "dismiss_member", "disband_team", "change_dungeon_record_status"]),
+      ...mapActions("team", [
+        "leave_team",
+        "dismiss_member",
+        "disband_team",
+        "change_dungeon_record_status",
+        "change_leader",
+      ]),
       ...mapActions("battle", ["dungeon_fight", "world_boss_fight"]),
     },
     mounted() {
