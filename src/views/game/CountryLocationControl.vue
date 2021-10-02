@@ -7,8 +7,13 @@
       </div>
       <el-button type="success" @click="occupy_location">佔領領土</el-button>
     </div>
-    <div v-else>
+    <div v-if="_.get(chara_country, 'id') === _.get(chara_location, 'country.id')" style="width: 100%;">
       <el-button type="danger" @click="abandon_location">放棄領土</el-button>
+      <div v-if="chara_location.town">
+        <el-divider>重新命名城鎮</el-divider>
+        <el-input v-model="town_name" style="width: 200px" maxlength="10" show-word-limit></el-input>
+        <el-button type="primary" @click="rename_town({ name: town_name })">重新命名(5億)</el-button>
+      </div>
     </div>
   </div>
 </template>
@@ -19,14 +24,14 @@
   export default {
     name: "CountryLocationControl",
     data() {
-      return {};
+      return { town_name: "" };
     },
     computed: {
       ...mapState("chara", ["chara_country", "chara_location"]),
       ...mapState("country", ["country_profile"]),
     },
     methods: {
-      ...mapActions("country", ["occupy_location", "abandon_location"]),
+      ...mapActions("country", ["occupy_location", "abandon_location", "rename_town"]),
     },
     mounted() {
       this.$store.dispatch("chara/get_chara_profile", { fields: "location,country" }).then(() => {

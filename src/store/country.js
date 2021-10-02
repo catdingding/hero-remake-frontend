@@ -48,6 +48,10 @@ export default {
       await api.post(`country/build-town/`, data);
       router.push("/game");
     },
+    async rename_town({ state, commit, dispatch, rootState }, data) {
+      await api.post(`country/rename-town/`, data);
+      router.push("/game");
+    },
     async abandon_location({ state, commit, dispatch, rootState }, data) {
       await api.post(`country/abandon-location/`);
       router.push("/game");

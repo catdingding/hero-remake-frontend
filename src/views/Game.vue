@@ -73,7 +73,7 @@
               :route="{ path: '/game/country/location-control' }"
               v-show="chara_is_king"
             >
-              領土控制
+              領土管理
             </el-menu-item>
             <el-menu-item
               index="country-town-build"

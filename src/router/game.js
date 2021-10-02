@@ -73,7 +73,7 @@ export default [
   { path: "country/list", component: CountryList, meta: { title: "國家列表" } },
   { path: "country/join-request", component: CountryJoinRequest, meta: { title: "入國申請" } },
   { path: "country/panel", component: CountryPanel, meta: { title: "國家面板" } },
-  { path: "country/location-control", component: CountryLocationControl, meta: { title: "領土控制" } },
+  { path: "country/location-control", component: CountryLocationControl, meta: { title: "領土管理" } },
   { path: "country/town-build", component: CountryTownBuild, meta: { title: "建立城鎮" } },
 
   { path: "team/list", component: TeamList, meta: { title: "隊伍列表" } },
