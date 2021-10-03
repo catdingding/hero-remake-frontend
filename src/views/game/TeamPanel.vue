@@ -98,9 +98,14 @@
                   <td>{{ row.mp }}/{{ row.mp_max }}</td>
                   <td>({{ row.location.x }},{{ row.location.y }})</td>
                   <td>
-                    <el-button type="primary" @click="world_boss_fight({ world_boss: row.id })">
+                    <el-button
+                      v-if="row.location.x === chara_location.x && row.location.y === chara_location.y"
+                      type="primary"
+                      @click="world_boss_fight({ world_boss: row.id })"
+                    >
                       挑戰(神獸線索*1)
                     </el-button>
+                    <el-button v-else type="success" @click="move(row.location)">前往</el-button>
                   </td>
                 </tr>
               </table>
@@ -121,7 +126,7 @@
       return {};
     },
     computed: {
-      ...mapState("chara", ["chara_team", "chara_is_leader", "chara_id"]),
+      ...mapState("chara", ["chara_team", "chara_is_leader", "chara_id", "chara_location"]),
       ...mapState("team", ["team_profile", "team_members"]),
       ...mapState("battle", ["world_bosses"]),
     },
@@ -134,9 +139,10 @@
         "change_leader",
       ]),
       ...mapActions("battle", ["dungeon_fight", "world_boss_fight"]),
+      ...mapActions("map", ["move"]),
     },
     mounted() {
-      this.$store.dispatch("chara/get_chara_profile", { fields: "team,is_leader" }).then(() => {
+      this.$store.dispatch("chara/get_chara_profile", { fields: "team,is_leader,location" }).then(() => {
         this.$store.dispatch("team/get_team_profile");
         this.$store.dispatch("team/get_team_members");
       });
