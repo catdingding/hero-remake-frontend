@@ -24,6 +24,7 @@ export default {
       search_result_teams: [],
       search_result_log_messages: [],
       search_result_battle_results: [],
+      search_result_item_types: [],
     };
   },
   mutations: {
@@ -41,6 +42,9 @@ export default {
     },
     set_search_result_battle_results(state, data) {
       state.search_result_battle_results = data;
+    },
+    set_search_result_item_types(state, data) {
+      state.search_result_item_types = data;
     },
   },
   actions: {
@@ -71,6 +75,12 @@ export default {
       var param = conditions_to_query_param(conditions);
       api.get(`battle/battle-results/?${param}`).then((res) => {
         commit("set_search_result_battle_results", res.data);
+      });
+    },
+    async search_item_types({ state, commit, dispatch, rootState }, conditions) {
+      var param = conditions_to_query_param(conditions);
+      api.get(`item/item-types/?${param}`).then((res) => {
+        commit("set_search_result_item_types", res.data);
       });
     },
   },

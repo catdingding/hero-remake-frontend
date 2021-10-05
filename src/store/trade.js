@@ -11,6 +11,8 @@ export default {
       todo_auctions: [],
       active_sales: [],
       todo_sales: [],
+      active_purchases: [],
+      todo_purchases: [],
       lotteries: [],
     };
   },
@@ -32,6 +34,12 @@ export default {
     },
     set_todo_sales(state, data) {
       state.todo_sales = data;
+    },
+    set_active_purchases(state, data) {
+      state.active_purchases = data;
+    },
+    set_todo_purchases(state, data) {
+      state.todo_purchases = data;
     },
     set_lotteries(state, data) {
       state.lotteries = data;
@@ -120,6 +128,32 @@ export default {
     async receive_sale_item({ state, commit, dispatch, rootState }, id) {
       api.post(`trade/sales/${id}/receive-item/`).then((res) => {
         dispatch("get_todo_sales");
+      });
+    },
+    // purchase
+    async get_active_purchases({ state, commit, dispatch, rootState }) {
+      api.get(`trade/purchases/active/`).then((res) => {
+        commit("set_active_purchases", res.data);
+      });
+    },
+    async get_todo_purchases({ state, commit, dispatch, rootState }) {
+      api.get(`trade/purchases/todo/`).then((res) => {
+        commit("set_todo_purchases", res.data);
+      });
+    },
+    async create_purchase({ state, commit, dispatch, rootState }, data) {
+      api.post(`trade/purchases/`, data).then((res) => {
+        dispatch("get_active_purchases");
+      });
+    },
+    async sell_purchase({ state, commit, dispatch, rootState }, id) {
+      api.post(`trade/purchases/${id}/sell/`).then((res) => {
+        dispatch("get_active_purchases");
+      });
+    },
+    async receive_purchase({ state, commit, dispatch, rootState }, id) {
+      api.post(`trade/purchases/${id}/receive/`).then((res) => {
+        dispatch("get_todo_purchases");
       });
     },
     async buy_member_shop({ state, commit, dispatch, rootState }, { option, ...data }) {
