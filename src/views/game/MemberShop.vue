@@ -71,6 +71,14 @@
           </InputNumberWithButton>
         </td>
       </tr>
+      <tr>
+        <td>抽寵物(機率參考<a :href="info_url" target="_blank">此處</a>)</td>
+        <td>25點</td>
+        <td>
+          <InputNumberWithButton text="購買" @click="buy_member_shop({ option: 'buy-pet', number: $event })">
+          </InputNumberWithButton>
+        </td>
+      </tr>
     </table>
   </div>
 </template>
@@ -84,6 +92,7 @@
     data() {
       return {
         donatoin_url: process.env.VUE_APP_DONATION_URL,
+        info_url: process.env.VUE_APP_INFO_URL,
       };
     },
     computed: {
