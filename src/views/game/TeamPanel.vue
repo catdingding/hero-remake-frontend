@@ -57,12 +57,22 @@
                   <td>{{ row.current_floor }} / {{ row.dungeon.is_infinite ? "∞" : row.dungeon.max_floor }}</td>
                   <td>
                     <el-button
-                      v-if="row.status === 'inactive'"
+                      v-if="row.status === 'inactive' && !row.dungeon.is_infinite"
                       type="primary"
                       @click="change_dungeon_record_status({ record: row.id, new_status: 'active' })"
                     >
                       進入地城
                     </el-button>
+                    <InputNumberWithButton
+                      v-if="row.status === 'inactive' && row.dungeon.is_infinite"
+                      type="primary"
+                      text="進入地城(開始層數)"
+                      size=""
+                      @click="
+                        change_dungeon_record_status({ record: row.id, new_status: 'active', start_floor: $event })
+                      "
+                    >
+                    </InputNumberWithButton>
                     <el-button
                       v-else-if="row.status === 'active'"
                       type="success"
@@ -119,6 +129,7 @@
 
 <script>
   import { mapState, mapActions } from "vuex";
+  import InputNumberWithButton from "@/components/InputNumberWithButton";
 
   export default {
     name: "TeamPanel",
@@ -148,7 +159,7 @@
       });
       this.$store.dispatch("battle/get_world_bosses");
     },
-    components: {},
+    components: { InputNumberWithButton },
   };
 </script>
 
