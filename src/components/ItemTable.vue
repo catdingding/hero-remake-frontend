@@ -1,6 +1,16 @@
 <template>
   <el-table :data="data" row-key="id">
-    <el-table-column label="名稱" align="center" sortable sort-by="type.id">
+    <el-table-column
+      label="名稱"
+      align="center"
+      sortable
+      sort-by="type.id"
+      :filters="[
+        { text: '綁定', value: true },
+        { text: '非綁定', value: false },
+      ]"
+      :filter-method="filter_item_is_locked"
+    >
       <template slot-scope="scope">
         <el-tooltip effect="dark" :content="extract_item(scope.row) | item_description" placement="top">
           <i class="el-icon-info"></i>
@@ -85,6 +95,10 @@
       },
       filter_element_type(value, row, column) {
         return this.$options.filters.item_element_type(this.extract_item(row)) == value;
+      },
+      filter_item_is_locked(value, row, column) {
+        var item = this.extract_item(row);
+        return (!!item.equipment && item.equipment.is_locked) === value;
       },
     },
     props: { data: { type: Array }, item_field: { default: null } },
