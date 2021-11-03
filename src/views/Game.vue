@@ -218,7 +218,7 @@
           await this.$store.dispatch("battle/fight_battle_map");
           if (this.chara_record.total_battle % 10 === 1) {
             await this.$store.dispatch("chara/get_chara_profile", {
-              omit: "bag_items,slots,skill_settings,introduction,main_ability,job_ability,live_ability",
+              omit: "bag_items,slots,skill_settings,introduction,main_ability,job_ability,live_ability,team,country",
             });
           } else {
             await this.$store.dispatch("chara/get_chara_profile", {

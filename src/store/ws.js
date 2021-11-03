@@ -73,13 +73,15 @@ export default {
           commit("receive_chat_message", data);
         } else if (data.type === "log_message") {
           commit("receive_log_message", data);
+        } else if (data.type === "refresh_chara_profile") {
+          dispatch("chara/get_chara_profile", { fields: "country,team" }, { root: true });
         }
       };
       ws.onclose = function(e) {
         if (rootState.access_token) {
           setTimeout(() => {
             dispatch("start_ws");
-          }, 5000);
+          }, 1000);
         }
       };
       ws.onerror = function(err) {
