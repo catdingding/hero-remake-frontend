@@ -35,6 +35,7 @@ export default {
       chara_mp: null,
       chara_hp_limit: null,
       chara_mp_limit: null,
+      chara_luck: null,
       chara_official: null,
       chara_is_king: false,
       chara_is_leader: false,

@@ -106,6 +106,20 @@
               <div>{{ chara_health }}</div>
             </div>
             <div class="attr">
+              <div>
+                <el-tooltip
+                  effect="dark"
+                  content="微妙的影響奧義注入、轉職能力繼承與普攻最小值，每小時會受到隨機加成"
+                  placement="top"
+                >
+                  <span>
+                    幸運
+                  </span>
+                </el-tooltip>
+              </div>
+              <div>{{ chara_luck }}</div>
+            </div>
+            <div class="attr">
               <div>HP</div>
               <div>
                 <PercentageDisplay color="red" :value="chara_hp" :max-value="chara_hp_max" />
@@ -117,6 +131,7 @@
                 <PercentageDisplay color="skyblue" :value="chara_mp" :max-value="chara_mp_max" />
               </div>
             </div>
+
             <el-collapse :simple="true">
               <el-collapse-item title="能力（上限值）">
                 <div class="attr">
@@ -272,6 +287,7 @@
         "chara_mp_max",
         "chara_hp_limit",
         "chara_mp_limit",
+        "chara_luck",
         "chara_attributes",
         "chara_country",
         "chara_team",
