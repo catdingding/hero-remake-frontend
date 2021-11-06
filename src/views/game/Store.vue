@@ -32,6 +32,7 @@
             <template slot-scope="scope">
               <InputNumberWithButton
                 text="出售"
+                type="danger"
                 :max="scope.row.number"
                 @click="sell_item({ item: scope.row.id, number: $event })"
               >

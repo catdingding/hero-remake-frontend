@@ -1,7 +1,7 @@
 <template>
   <div>
     <InputNumber size="mini" :min="min" :max="max" v-model="value" :style="{ width }"></InputNumber>
-    <el-button type="primary" :size="size" @click="$emit('click', value)">
+    <el-button :type="type" :size="size" @click="$emit('click', value)">
       {{ text }}
     </el-button>
   </div>
@@ -23,6 +23,7 @@
       text: { type: String, default: "" },
       width: { type: String, default: "100px" },
       size: { type: String, default: "mini" },
+      type: { type: String, default: "primary" },
     },
     mounted() {
       this.value = this.default;
