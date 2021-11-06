@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="display: inline-block;">
     <el-tooltip manual placement="top" :value="is_focused" :content="display_value | currency">
       <el-input-number
         :size="size"
