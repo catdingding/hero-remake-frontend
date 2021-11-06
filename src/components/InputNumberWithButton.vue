@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-input-number size="mini" :min="min" :max="max" v-model="value" :style="{ width }"></el-input-number>
+    <InputNumber size="mini" :min="min" :max="max" v-model="value" :style="{ width }"></InputNumber>
     <el-button type="primary" :size="size" @click="$emit('click', value)">
       {{ text }}
     </el-button>
@@ -8,7 +8,7 @@
 </template>
 
 <script>
-  import { mapState, mapActions } from "vuex";
+  import InputNumber from "@/components/InputNumber";
   export default {
     name: "InputNumberWithButton",
     data() {
@@ -27,11 +27,8 @@
     mounted() {
       this.value = this.default;
     },
+    components: { InputNumber },
   };
 </script>
 
-<style lang="less" scoped>
-  .el-input-number {
-    width: 100px;
-  }
-</style>
+<style lang="less" scoped></style>

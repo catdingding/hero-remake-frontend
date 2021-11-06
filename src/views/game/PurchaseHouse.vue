@@ -63,7 +63,7 @@
             <el-input-number v-model="purchase_form_data.number" :min="1"></el-input-number>
           </el-form-item>
           <el-form-item label="價格" required>
-            <el-input-number v-model="purchase_form_data.price" :min="1"></el-input-number>
+            <InputNumber v-model="purchase_form_data.price" :min="1" size="large" width="180px"></InputNumber>
           </el-form-item>
           <el-form-item label="時長（小時）" required>
             <el-input-number v-model="purchase_form_data.hours" :min="1"></el-input-number>
@@ -99,6 +99,7 @@
 
 <script>
   import { mapState, mapActions } from "vuex";
+  import InputNumber from "@/components/InputNumber";
 
   export default {
     name: "PurchaseHouse",
@@ -129,7 +130,7 @@
       this.$store.dispatch("chara/get_chara_profile", { fields: "gold,bag_items" });
       this.$store.dispatch("trade/get_todo_purchases");
     },
-    components: {},
+    components: { InputNumber },
   };
 </script>
 

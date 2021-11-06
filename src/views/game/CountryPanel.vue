@@ -113,7 +113,13 @@
     <el-dialog title="捐獻" :visible.sync="donate_dialog_visible">
       <el-form :model="donate_form_data" class="form">
         <el-form-item label="捐獻金額" prop="gold" required>
-          <el-input-number :min="1" :max="chara_gold" v-model="donate_form_data.gold"></el-input-number>
+          <InputNumber
+            :min="1"
+            :max="chara_gold"
+            v-model="donate_form_data.gold"
+            size="large"
+            width="180px"
+          ></InputNumber>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -176,6 +182,7 @@
 <script>
   import { mapState, mapActions } from "vuex";
   import CharaSelect from "@/components/CharaSelect.vue";
+  import InputNumber from "@/components/InputNumber";
 
   export default {
     name: "CountryPanel",
@@ -211,7 +218,7 @@
         this.$store.dispatch("country/get_country_citizens");
       });
     },
-    components: { CharaSelect },
+    components: { CharaSelect, InputNumber },
   };
 </script>
 

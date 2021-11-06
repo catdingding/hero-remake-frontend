@@ -56,7 +56,7 @@
             <el-input-number v-model="auction_form_data.number" :min="1"></el-input-number>
           </el-form-item>
           <el-form-item label="底價" required>
-            <el-input-number v-model="auction_form_data.reserve_price" :min="1"></el-input-number>
+            <InputNumber v-model="auction_form_data.reserve_price" :min="1" size="large" width="180px"></InputNumber>
           </el-form-item>
           <el-form-item label="時長（小時）" required>
             <el-input-number v-model="auction_form_data.hours" :min="1"></el-input-number>
@@ -110,6 +110,7 @@
   import { mapState, mapActions } from "vuex";
   import ItemTable from "@/components/ItemTable.vue";
   import InputNumberWithButton from "@/components/InputNumberWithButton";
+  import InputNumber from "@/components/InputNumber";
 
   export default {
     name: "AuctionHouse",
@@ -148,7 +149,7 @@
       this.$store.dispatch("chara/get_chara_profile", { fields: "gold,bag_items" });
       this.$store.dispatch("trade/get_todo_auctions");
     },
-    components: { ItemTable, InputNumberWithButton },
+    components: { ItemTable, InputNumberWithButton, InputNumber },
   };
 </script>
 

@@ -7,9 +7,7 @@
       </el-card>
       <el-card class="send-gold">
         <div slot="header">傳送金錢</div>
-        <el-input-number v-model="gold" @input.native="gold = $refs.gold_input.displayValue" :min="0" ref="gold_input"></el-input-number>
-        <br /><br />
-        {{ gold | currency }}
+        <InputNumber v-model="gold" :min="0" size="large" width="180px"></InputNumber>
         <br /><br />
         <el-button type="primary" @click="send_gold({ gold: gold, receiver: receiver })">傳送</el-button>
       </el-card>
@@ -40,6 +38,7 @@
   import ItemTable from "@/components/ItemTable.vue";
   import CharaSelect from "@/components/CharaSelect.vue";
   import InputNumberWithButton from "@/components/InputNumberWithButton";
+  import InputNumber from "@/components/InputNumber";
 
   export default {
     name: "SendItemGold",
@@ -58,7 +57,7 @@
     mounted() {
       this.$store.dispatch("chara/get_chara_profile", { fields: "bag_items,gold" });
     },
-    components: { ItemTable, CharaSelect, InputNumberWithButton },
+    components: { ItemTable, CharaSelect, InputNumberWithButton, InputNumber },
   };
 </script>
 
