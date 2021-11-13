@@ -44,6 +44,7 @@ import TeamPanel from "@/views/game/TeamPanel.vue";
 import AuctionHouse from "@/views/game/AuctionHouse.vue";
 import SaleHouse from "@/views/game/SaleHouse.vue";
 import PurchaseHouse from "@/views/game/PurchaseHouse.vue";
+import Parcel from "@/views/game/Parcel.vue";
 
 import Inn from "@/views/game/Inn.vue";
 import NameChange from "@/views/game/NameChange.vue";
@@ -62,6 +63,7 @@ export default [
   { path: "ability-setting", component: AbilitySetting, meta: { title: "奧義設定" } },
   { path: "alchemy", component: Alchemy, meta: { title: "鍊金" } },
   { path: "send-item-gold", component: SendItemGold, meta: { title: "傳送物品/金錢" } },
+  { path: "parcel", component: Parcel, meta: { title: "包裹" } },
   { path: "exercise", component: Exercise, meta: { title: "修煉" } },
   { path: "pvp", component: PvP, meta: { title: "PvP" } },
   { path: "equipment-lock", component: EquipmentLock, meta: { title: "裝備綁定" } },

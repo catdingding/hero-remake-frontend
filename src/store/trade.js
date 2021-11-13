@@ -14,6 +14,7 @@ export default {
       active_purchases: [],
       todo_purchases: [],
       lotteries: [],
+      todo_parcels: [],
     };
   },
   mutations: {
@@ -43,6 +44,9 @@ export default {
     },
     set_lotteries(state, data) {
       state.lotteries = data;
+    },
+    set_todo_parcels(state, data) {
+      state.todo_parcels = data;
     },
   },
   actions: {
@@ -171,6 +175,23 @@ export default {
     async buy_lottery({ state, commit, dispatch, rootState }, data) {
       await api.post(`trade/lottery/buy/`, data);
       dispatch("get_lotteries");
+    },
+    //parcel
+    async get_todo_parcels({ state, commit, dispatch, rootState }) {
+      var res = await api.get(`trade/parcels/todo/`);
+      commit("set_todo_parcels", res.data);
+    },
+    async create_parcel({ state, commit, dispatch, rootState }, data) {
+      await api.post(`trade/parcels/`, data);
+      await dispatch("get_todo_parcels");
+    },
+    async receive_parcel({ state, commit, dispatch, rootState }, id) {
+      await api.post(`trade/parcels/${id}/receive/`);
+      await dispatch("get_todo_parcels");
+    },
+    async cancel_parcel({ state, commit, dispatch, rootState }, id) {
+      await api.post(`trade/parcels/${id}/cancel/`);
+      await dispatch("get_todo_parcels");
     },
   },
 };

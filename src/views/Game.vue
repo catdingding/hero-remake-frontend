@@ -19,6 +19,7 @@
             <el-menu-item index="alchemy" :route="{ path: '/game/alchemy' }">鍊金</el-menu-item>
             <el-menu-item index="pvp" :route="{ path: '/game/pvp' }">PvP</el-menu-item>
             <el-menu-item index="send-item-gold" :route="{ path: '/game/send-item-gold' }">傳送道具/金錢</el-menu-item>
+            <el-menu-item index="parcel" :route="{ path: '/game/parcel' }">包裹</el-menu-item>
             <el-menu-item index="battle-map-ticket-to-item" :route="{ path: '/game/battle-map-ticket-to-item' }">
               地圖製作
             </el-menu-item>
