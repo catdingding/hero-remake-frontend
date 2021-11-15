@@ -35,6 +35,9 @@
             <el-menu-item index="inn" :route="{ path: '/game/inn' }">旅店</el-menu-item>
             <el-menu-item index="storage" :route="{ path: '/game/storage' }">倉庫</el-menu-item>
             <el-menu-item index="smith" :route="{ path: '/game/smith' }">鍛造屋</el-menu-item>
+            <el-menu-item index="equipment-transform" :route="{ path: '/game/equipment-transform' }"
+              >裝備轉換所</el-menu-item
+            >
             <el-menu-item index="pet-store" :route="{ path: '/game/pet-store' }">寵物店</el-menu-item>
             <el-menu-item index="store-weapon" :route="{ path: '/game/store/weapon' }">武器店</el-menu-item>
             <el-menu-item index="store-armor" :route="{ path: '/game/store/armor' }">防具店</el-menu-item>

@@ -88,5 +88,9 @@ export default {
       var res = await api.get("item/pet-types/");
       commit("set_pet_types", res.data);
     },
+    async transform_quipment({ state, commit, dispatch, rootState }, data) {
+      await api.post("smith/transform-quipment/", data);
+      dispatch("chara/get_chara_profile", { fields: "bag_items" }, { root: true });
+    },
   },
 };

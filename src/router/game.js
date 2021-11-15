@@ -19,6 +19,7 @@ import EquipmentLock from "@/views/game/EquipmentLock.vue";
 import MemberShop from "@/views/game/MemberShop.vue";
 import AvatarChange from "@/views/game/AvatarChange.vue";
 import Smith from "@/views/game/Smith.vue";
+import EquipmentTransform from "@/views/game/EquipmentTransform.vue";
 import PetStore from "@/views/game/PetStore.vue";
 import PasswordChange from "@/views/game/PasswordChange.vue";
 import Log from "@/views/game/Log.vue";
@@ -70,6 +71,7 @@ export default [
   { path: "member-shop", component: MemberShop, meta: { title: "贊助商店" } },
   { path: "avatar-change", component: AvatarChange, meta: { title: "更換頭像" } },
   { path: "smith", component: Smith, meta: { title: "鐵匠鋪" } },
+  { path: "equipment-transform", component: EquipmentTransform, meta: { title: "裝備轉換所" } },
   { path: "country/found", component: CountryFound, meta: { title: "建國" } },
   { path: "country/storage", component: CountryStorage, meta: { title: "國庫" } },
   { path: "password-change", component: PasswordChange, meta: { title: "更改密碼" } },
