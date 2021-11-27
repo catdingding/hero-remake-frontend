@@ -98,9 +98,6 @@
       },
     },
     computed: mapState(["element_types"]),
-    mounted: function() {
-      this.$store.dispatch("refresh_element_types");
-    },
     components: { AvatarInput },
   };
 </script>

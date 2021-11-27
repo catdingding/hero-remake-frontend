@@ -27,7 +27,28 @@ export default new Vuex.Store({
     access_token: localStorage.getItem("access_token") || "",
     refresh_token: localStorage.getItem("refresh_token") || "",
     chara_id: localStorage.getItem("chara_id") || null,
-    element_types: [],
+    element_types: [
+      { id: 1, name: "無" },
+      { id: 2, name: "火" },
+      { id: 3, name: "水" },
+      { id: 4, name: "風" },
+      { id: 5, name: "星" },
+      { id: 6, name: "雷" },
+      { id: 7, name: "光" },
+      { id: 8, name: "暗" },
+    ],
+    slot_types: [
+      { id: 1, name: "武器" },
+      { id: 2, name: "防具" },
+      { id: 3, name: "飾品" },
+      { id: 4, name: "寵物" },
+    ],
+    item_categories: [
+      { id: 1, name: "裝備" },
+      { id: 2, name: "道具" },
+      { id: 3, name: "奧義石" },
+      { id: 4, name: "原料" },
+    ],
     available_charas: [],
     online_charas: [],
   },
@@ -51,9 +72,6 @@ export default new Vuex.Store({
       state.refresh_token = "";
       localStorage.removeItem("access_token");
       localStorage.removeItem("refresh_token");
-    },
-    set_element_types(state, data) {
-      state.element_types = data;
     },
     set_available_charas(state, data) {
       state.available_charas = data;
@@ -105,11 +123,6 @@ export default new Vuex.Store({
       await dispatch("get_available_charas");
       commit("set_chara");
       router.push("game/");
-    },
-    async refresh_element_types({ commit }) {
-      return api.get("/world/element-types/").then((res) => {
-        commit("set_element_types", res.data);
-      });
     },
     async get_available_charas({ commit }) {
       return api.get("/user/charas/").then((res) => {

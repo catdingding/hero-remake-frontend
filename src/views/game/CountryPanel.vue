@@ -35,45 +35,49 @@
         <el-card>
           <el-tabs value="first">
             <el-tab-pane label="國民名冊" name="first">
-              <table>
-                <tr>
-                  <th>角色名稱</th>
-                  <th>官職</th>
-                  <th>操作</th>
-                </tr>
-                <tr v-for="chara in country_citizens" :key="chara.id">
-                  <td>{{ chara.name }}</td>
-                  <td>{{ chara.official ? chara.official.title : "無" }}</td>
-                  <td>
-                    <el-button
-                      v-if="!chara.official"
-                      v-show="chara_is_king"
-                      type="primary"
-                      @click="
-                        create_official_form_data.chara = chara.id;
-                        create_official_dialog_visiable = true;
-                      "
-                    >
-                      授予官職
-                    </el-button>
-                    <el-button
-                      v-else
-                      v-show="chara_is_king"
-                      type="primary"
-                      @click="delete_country_official(chara.official.id)"
-                    >
-                      取消官職
-                    </el-button>
-                    <el-button
-                      v-show="(!chara.official && chara_official) || chara_is_king"
-                      type="danger"
-                      @click="dismiss_citizen({ chara: chara.id })"
-                    >
-                      驅逐
-                    </el-button>
-                  </td>
-                </tr>
-              </table>
+              <Pagination :fetch-method="get_country_citizens" ref="citizen_table">
+                <template v-slot:main="slot_props">
+                  <table>
+                    <tr>
+                      <th>角色名稱</th>
+                      <th>官職</th>
+                      <th>操作</th>
+                    </tr>
+                    <tr v-for="chara in slot_props.records" :key="chara.id">
+                      <td>{{ chara.name }}</td>
+                      <td>{{ chara.official ? chara.official.title : "無" }}</td>
+                      <td>
+                        <el-button
+                          v-if="!chara.official"
+                          v-show="chara_is_king"
+                          type="primary"
+                          @click="
+                            create_official_form_data.chara = chara.id;
+                            create_official_dialog_visiable = true;
+                          "
+                        >
+                          授予官職
+                        </el-button>
+                        <el-button
+                          v-else
+                          v-show="chara_is_king"
+                          type="primary"
+                          @click="delete_country_official(chara.official.id).then(() => $refs.citizen_table.fetch())"
+                        >
+                          取消官職
+                        </el-button>
+                        <el-button
+                          v-show="(!chara.official && chara_official) || chara_is_king"
+                          type="danger"
+                          @click="dismiss_citizen({ chara: chara.id }).then(() => $refs.citizen_table.fetch())"
+                        >
+                          驅逐
+                        </el-button>
+                      </td>
+                    </tr>
+                  </table>
+                </template>
+              </Pagination>
             </el-tab-pane>
             <el-tab-pane label="領土清單" name="second">
               <table>
@@ -169,7 +173,7 @@
         <el-button
           type="primary"
           @click="
-            create_country_official(create_official_form_data);
+            create_country_official(create_official_form_data).then(() => $refs.citizen_table.fetch());
             create_official_dialog_visiable = false;
           "
           >確認
@@ -183,6 +187,7 @@
   import { mapState, mapActions } from "vuex";
   import CharaSelect from "@/components/CharaSelect.vue";
   import InputNumber from "@/components/InputNumber";
+  import Pagination from "@/components/Pagination";
 
   export default {
     name: "CountryPanel",
@@ -198,10 +203,11 @@
     },
     computed: {
       ...mapState("chara", ["chara_gold", "chara_country", "chara_official", "chara_is_king", "chara_location"]),
-      ...mapState("country", ["country_profile", "country_citizens"]),
+      ...mapState("country", ["country_profile"]),
     },
     methods: {
       ...mapActions("country", [
+        "get_country_citizens",
         "donate_country",
         "create_country_official",
         "delete_country_official",
@@ -215,10 +221,9 @@
     mounted() {
       this.$store.dispatch("chara/get_chara_profile", { fields: "country,gold,official,is_king,location" }).then(() => {
         this.$store.dispatch("country/get_country_profile");
-        this.$store.dispatch("country/get_country_citizens");
       });
     },
-    components: { CharaSelect, InputNumber },
+    components: { CharaSelect, InputNumber, Pagination },
   };
 </script>
 

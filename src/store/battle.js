@@ -8,7 +8,6 @@ export default {
       battle_map_id: null,
       battle_result: null,
       auto_fight_enabled: false,
-      pvp_opponents: [],
       battle_result_dialog_visible: false,
       battle_loots_log_messages: [],
       world_bosses: [],
@@ -22,9 +21,7 @@ export default {
     set_battle_result(state, data) {
       state.battle_result = data;
     },
-    set_pvp_opponents(state, data) {
-      state.pvp_opponents = data;
-    },
+
     set_battle_result_dialog_visible(state, data) {
       state.battle_result_dialog_visible = data;
     },
@@ -51,17 +48,16 @@ export default {
       }
       commit("append_loots_log", res.data);
     },
-    async get_pvp_opponents({ state, commit, dispatch, rootState }) {
-      return api.get(`/charas/?fields=id,name,pvp_points&ordering=-pvp_points`).then((res) => {
-        commit("set_pvp_opponents", res.data);
-      });
+    async get_pvp_opponents({ state, commit, dispatch, rootState }, { conditions }) {
+      var res = await api.get(`/charas/?fields=id,name,pvp_points&ordering=-pvp_points`, { params: conditions });
+      return res.data;
     },
     async pvp_fight({ state, commit, dispatch, rootState }, opponent) {
-      let res = await api.post(`/battle/pvp-fight/`, { opponent });
-      dispatch("chara/get_chara_profile", { fields: "pvp_point,next_action_time" }, { root: true });
-      dispatch("get_pvp_opponents");
-      commit("set_battle_result_dialog_visible", true);
-      commit("set_battle_result", res.data);
+      return api.post(`/battle/pvp-fight/`, { opponent }).then((res) => {
+        dispatch("chara/get_chara_profile", { fields: "pvp_point,next_action_time" }, { root: true });
+        commit("set_battle_result_dialog_visible", true);
+        commit("set_battle_result", res.data);
+      });
     },
     async dungeon_fight({ state, commit, dispatch, rootState }, data) {
       let res = await api.post(`/battle/dungeon-fight/`, data);

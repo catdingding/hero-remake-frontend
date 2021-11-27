@@ -6,68 +6,79 @@
       </el-button>
     </div>
     <div class="storage">
-      <h2 class="page-block-title">
-        國庫（{{ country_storage_items.length }}/{{ _.get(country_profile, "item_limit") }}）
-      </h2>
-      <ItemTable :data="country_storage_items">
+      <h2 class="page-block-title">國庫（{{ country_item_total }}/{{ _.get(country_profile, "item_limit") }}）</h2>
+      <PaginationItemTable
+        :fetch-method="get_country_storage_items"
+        ref="country_item_table"
+        @change="country_item_total = $refs.country_item_table.total"
+      >
         <template v-slot:extra-column>
           <el-table-column label="取出" align="center" :width="150">
             <template slot-scope="scope">
               <InputNumberWithButton
                 text="取出"
                 :max="scope.row.number"
-                @click="take_item_from_country_storage({ item: scope.row.id, number: $event })"
+                @click="take_item_from_country_storage({ item: scope.row.id, number: $event }).then(() => refresh())"
               >
               </InputNumberWithButton>
             </template>
           </el-table-column>
         </template>
-      </ItemTable>
+      </PaginationItemTable>
     </div>
     <div class="bag">
       <h2 class="page-block-title">背包</h2>
-      <ItemTable :data="chara_bag_items">
+      <PaginationItemTable :fetch-method="get_bag_items" ref="bag_item_table">
         <template v-slot:extra-column>
           <el-table-column label="存入" align="center" :width="150">
             <template slot-scope="scope">
               <InputNumberWithButton
                 text="存入"
                 :max="scope.row.number"
-                @click="put_item_to_country_storage({ item: scope.row.id, number: $event })"
+                @click="put_item_to_country_storage({ item: scope.row.id, number: $event }).then(() => refresh())"
               >
               </InputNumberWithButton>
             </template>
           </el-table-column>
         </template>
-      </ItemTable>
+      </PaginationItemTable>
     </div>
   </div>
 </template>
 
 <script>
   import { mapState, mapActions } from "vuex";
-  import ItemTable from "@/components/ItemTable.vue";
   import InputNumberWithButton from "@/components/InputNumberWithButton";
+  import PaginationItemTable from "@/components/PaginationItemTable";
 
   export default {
     name: "CountryStorage",
     data() {
-      return {};
+      return { country_item_total: 0 };
     },
     computed: {
-      ...mapState("chara", ["chara_bag_items", "chara_is_king", "chara_official"]),
-      ...mapState("country", ["country_storage_items", "country_profile"]),
+      ...mapState("chara", ["chara_is_king", "chara_official"]),
+      ...mapState("country", ["country_profile"]),
     },
     methods: {
-      ...mapActions("country", ["take_item_from_country_storage", "put_item_to_country_storage", "upgrade_storage"]),
+      ...mapActions("country", [
+        "get_country_storage_items",
+        "take_item_from_country_storage",
+        "put_item_to_country_storage",
+        "upgrade_storage",
+      ]),
+      ...mapActions("item", ["get_bag_items"]),
+      refresh() {
+        this.$refs.country_item_table.fetch();
+        this.$refs.bag_item_table.fetch();
+      },
     },
     mounted() {
-      this.$store.dispatch("chara/get_chara_profile", { fields: "bag_items,is_king,official,country" }).then(() => {
+      this.$store.dispatch("chara/get_chara_profile", { fields: "is_king,official,country" }).then(() => {
         this.$store.dispatch("country/get_country_profile");
-        this.$store.dispatch("country/get_country_storage_items");
       });
     },
-    components: { ItemTable, InputNumberWithButton },
+    components: { InputNumberWithButton, PaginationItemTable },
   };
 </script>
 

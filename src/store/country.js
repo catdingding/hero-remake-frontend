@@ -7,23 +7,15 @@ export default {
   state() {
     return {
       country_profile: null,
-      country_storage_items: [],
       country_join_requests: [],
-      country_citizens: [],
     };
   },
   mutations: {
     set_country_profile(state, data) {
       state.country_profile = data;
     },
-    set_country_storage_items(state, data) {
-      state.country_storage_items = data;
-    },
     set_country_join_requests(state, data) {
       state.country_join_requests = data;
-    },
-    set_country_citizens(state, data) {
-      state.country_citizens = data;
     },
   },
   actions: {
@@ -60,43 +52,31 @@ export default {
       await api.post(`country/upgrade-storage/`);
       dispatch("get_country_profile");
     },
-    async get_country_storage_items({ state, commit, dispatch, rootState }) {
-      return api.get("country/storage/items/").then((res) => {
-        commit("set_country_storage_items", res.data);
-      });
+    async get_country_storage_items({ state, commit, dispatch, rootState }, { conditions }) {
+      var res = await api.get("country/storage/items/", { params: conditions });
+      return res.data;
     },
     async put_item_to_country_storage({ state, commit, dispatch, rootState }, data) {
-      return api.post("country/storage/put/", data).then((res) => {
-        dispatch("get_country_storage_items");
-        dispatch("chara/get_chara_profile", { fields: "bag_items" }, { root: true });
-      });
+      return api.post("country/storage/put/", data);
     },
     async take_item_from_country_storage({ state, commit, dispatch, rootState }, data) {
-      return api.post("country/storage/take/", data).then((res) => {
-        dispatch("get_country_storage_items");
-        dispatch("chara/get_chara_profile", { fields: "bag_items" }, { root: true });
-      });
+      return api.post("country/storage/take/", data);
     },
     async donate_country({ state, commit, dispatch, rootState }, data) {
       return api.post(`country/donate/`, data).then((res) => {
         dispatch("chara/get_chara_profile", { fields: "country,gold" }, { root: true });
       });
     },
-    async get_country_citizens({ state, commit, dispatch, rootState }) {
+    async get_country_citizens({ state, commit, dispatch, rootState }, { conditions }) {
       var country = rootState.chara.chara_country.id;
-      return api.get(`charas/?fields=id,name,official&country=${country}`).then((res) => {
-        commit("set_country_citizens", res.data);
-      });
+      var res = await api.get(`charas/?fields=id,name,official&country=${country}`, { params: conditions });
+      return res.data;
     },
     async create_country_official({ state, commit, dispatch, rootState }, data) {
-      return api.post(`country/officials/`, data).then((res) => {
-        dispatch("get_country_citizens");
-      });
+      return api.post(`country/officials/`, data);
     },
     async delete_country_official({ state, commit, dispatch, rootState }, id) {
-      return api.delete(`country/officials/${id}/`).then((res) => {
-        dispatch("get_country_citizens");
-      });
+      return api.delete(`country/officials/${id}/`);
     },
     async change_king({ state, commit, dispatch, rootState }, data) {
       return api.post(`country/change-king/`, data).then((res) => {
@@ -109,9 +89,7 @@ export default {
       });
     },
     async dismiss_citizen({ state, commit, dispatch, rootState }, data) {
-      return api.post(`country/dismiss/`, data).then((res) => {
-        dispatch("get_country_citizens");
-      });
+      return api.post(`country/dismiss/`, data);
     },
     async create_country_join_request({ state, commit, dispatch, rootState }, data) {
       return api.post(`country/join-requests/`, data);

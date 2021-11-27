@@ -3,7 +3,7 @@
     <el-tabs value="first">
       <!-- 進行中拍賣 -->
       <el-tab-pane label="進行中拍賣" name="first">
-        <ItemTable :data="active_auctions" item_field="item">
+        <PaginationItemTable :fetch-method="get_active_auctions" item-field="item">
           <template v-slot:extra-column>
             <el-table-column label="出售者" align="center">
               <template slot-scope="scope">
@@ -36,7 +36,7 @@
               </template>
             </el-table-column>
           </template>
-        </ItemTable>
+        </PaginationItemTable>
       </el-tab-pane>
       <!-- 拍賣物品 -->
       <el-tab-pane label="出售物品" name="second">
@@ -108,9 +108,9 @@
 
 <script>
   import { mapState, mapActions } from "vuex";
-  import ItemTable from "@/components/ItemTable.vue";
   import InputNumberWithButton from "@/components/InputNumberWithButton";
   import InputNumber from "@/components/InputNumber";
+  import PaginationItemTable from "@/components/PaginationItemTable";
 
   export default {
     name: "AuctionHouse",
@@ -129,7 +129,13 @@
       ...mapState("chara", ["chara_id", "chara_bag_items"]),
     },
     methods: {
-      ...mapActions("trade", ["create_auction", "bid_auction", "receive_auction_item", "receive_auction_gold"]),
+      ...mapActions("trade", [
+        "get_active_auctions",
+        "create_auction",
+        "bid_auction",
+        "receive_auction_item",
+        "receive_auction_gold",
+      ]),
       bid_auction_check({ id, bid_price, row }) {
         if (bid_price >= row.reserve_price * 10 && (!row.bid_price || bid_price >= row.bid_price * 10)) {
           this.$confirm("你的出價>=底價/最高出價的10倍，是否確定出價？", "提醒", {
@@ -145,11 +151,10 @@
       },
     },
     mounted() {
-      this.$store.dispatch("trade/get_active_auctions");
       this.$store.dispatch("chara/get_chara_profile", { fields: "gold,bag_items" });
       this.$store.dispatch("trade/get_todo_auctions");
     },
-    components: { ItemTable, InputNumberWithButton, InputNumber },
+    components: { PaginationItemTable, InputNumberWithButton, InputNumber },
   };
 </script>
 

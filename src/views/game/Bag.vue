@@ -10,7 +10,7 @@
                 v-if="scope.row.item"
                 type="primary"
                 size="mini"
-                @click="divest_slot({ slot_type: scope.row.type.id })"
+                @click="divest_slot({ slot_type: scope.row.type.id }).then(() => refresh())"
               >
                 卸下
               </el-button>
@@ -20,8 +20,12 @@
       </SlotTable>
     </div>
     <div class="bag">
-      <h2 class="page-block-title">背包（{{ chara_bag_items.length }}/{{ chara_bag_item_limit }}）</h2>
-      <ItemTable :data="chara_bag_items">
+      <h2 class="page-block-title">背包（{{ bag_item_total }}/{{ chara_bag_item_limit }}）</h2>
+      <PaginationItemTable
+        :fetch-method="get_bag_items"
+        ref="bag_item_table"
+        @change="bag_item_total = $refs.bag_item_table.total"
+      >
         <template v-slot:extra-column>
           <el-table-column label="使用/裝備" align="center" :width="120">
             <template slot-scope="scope">
@@ -29,48 +33,48 @@
                 <InputNumberWithButton
                   text="使用"
                   :max="scope.row.number"
-                  @click="use_item({ item: scope.row.id, number: $event })"
+                  @click="use_item({ item: scope.row.id, number: $event }).then(() => refresh())"
                 >
                 </InputNumberWithButton>
               </div>
               <div v-if="scope.row.equipment">
-                <el-button type="primary" size="mini" @click="equip_item({ item: scope.row.id })">裝備</el-button>
+                <el-button type="primary" size="mini" @click="equip_item({ item: scope.row.id }).then(() => refresh())">
+                  裝備
+                </el-button>
               </div>
             </template>
           </el-table-column>
         </template>
-      </ItemTable>
+      </PaginationItemTable>
     </div>
   </div>
 </template>
 
 <script>
   import { mapState, mapActions } from "vuex";
-  import ItemTable from "@/components/ItemTable.vue";
+  import PaginationItemTable from "@/components/PaginationItemTable.vue";
   import SlotTable from "@/components/SlotTable.vue";
   import InputNumberWithButton from "@/components/InputNumberWithButton";
 
   export default {
     name: "Bag",
     data() {
-      return {};
+      return { bag_item_total: 0 };
     },
     computed: {
-      ...mapState("chara", [
-        "chara_gold",
-        "chara_proficiency",
-        "chara_slots",
-        "chara_bag_items",
-        "chara_bag_item_limit",
-      ]),
+      ...mapState("chara", ["chara_gold", "chara_proficiency", "chara_slots", "chara_bag_item_limit"]),
     },
     methods: {
-      ...mapActions("item", ["use_item", "equip_item", "divest_slot"]),
+      ...mapActions("item", ["get_bag_items", "use_item", "equip_item", "divest_slot"]),
+      refresh() {
+        this.$refs.bag_item_table.fetch();
+        this.$store.dispatch("chara/get_chara_profile", { fields: "slots" });
+      },
     },
     mounted() {
-      this.$store.dispatch("chara/get_chara_profile", { fields: "gold,proficiency,slots,bag_items,bag_item_limit" });
+      this.$store.dispatch("chara/get_chara_profile", { fields: "gold,proficiency,slots,bag_item_limit" });
     },
-    components: { ItemTable, SlotTable, InputNumberWithButton },
+    components: { PaginationItemTable, SlotTable, InputNumberWithButton },
   };
 </script>
 

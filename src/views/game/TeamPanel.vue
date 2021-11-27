@@ -5,37 +5,41 @@
         <el-card>
           <el-tabs value="first">
             <el-tab-pane label="隊伍成員" name="first">
-              <table>
-                <tr>
-                  <th>角色名稱</th>
-                  <th>操作</th>
-                </tr>
-                <tr v-for="chara in team_members" :key="chara.id">
-                  <td>{{ chara.name }}</td>
-                  <td>
-                    <el-button
-                      v-if="chara_is_leader && chara.id != chara_id"
-                      type="danger"
-                      @click="dismiss_member({ chara: chara.id })"
-                    >
-                      驅逐
-                    </el-button>
-                    <el-button
-                      v-if="chara_is_leader && chara.id != chara_id"
-                      type="primary"
-                      @click="change_leader({ chara: chara.id })"
-                    >
-                      指派為隊長
-                    </el-button>
-                    <el-button v-if="!chara_is_leader && chara.id == chara_id" type="danger" @click="leave_team">
-                      離隊
-                    </el-button>
-                    <el-button type="danger" @click="disband_team" v-if="chara_is_leader && chara.id == chara_id">
-                      解散隊伍
-                    </el-button>
-                  </td>
-                </tr>
-              </table>
+              <Pagination :fetch-method="get_team_members" ref="member_table">
+                <template v-slot:main="slot_props">
+                  <table>
+                    <tr>
+                      <th>角色名稱</th>
+                      <th>操作</th>
+                    </tr>
+                    <tr v-for="chara in slot_props.records" :key="chara.id">
+                      <td>{{ chara.name }}</td>
+                      <td>
+                        <el-button
+                          v-if="chara_is_leader && chara.id != chara_id"
+                          type="danger"
+                          @click="dismiss_member({ chara: chara.id }).then(() => $refs.member_table.fetch())"
+                        >
+                          驅逐
+                        </el-button>
+                        <el-button
+                          v-if="chara_is_leader && chara.id != chara_id"
+                          type="primary"
+                          @click="change_leader({ chara: chara.id })"
+                        >
+                          指派為隊長
+                        </el-button>
+                        <el-button v-if="!chara_is_leader && chara.id == chara_id" type="danger" @click="leave_team">
+                          離隊
+                        </el-button>
+                        <el-button type="danger" @click="disband_team" v-if="chara_is_leader && chara.id == chara_id">
+                          解散隊伍
+                        </el-button>
+                      </td>
+                    </tr>
+                  </table>
+                </template>
+              </Pagination>
             </el-tab-pane>
             <el-tab-pane label="地城挑戰" name="second">
               <table>
@@ -130,6 +134,7 @@
 <script>
   import { mapState, mapActions } from "vuex";
   import InputNumberWithButton from "@/components/InputNumberWithButton";
+  import Pagination from "@/components/Pagination";
 
   export default {
     name: "TeamPanel",
@@ -138,11 +143,12 @@
     },
     computed: {
       ...mapState("chara", ["chara_team", "chara_is_leader", "chara_id", "chara_location"]),
-      ...mapState("team", ["team_profile", "team_members"]),
+      ...mapState("team", ["team_profile"]),
       ...mapState("battle", ["world_bosses"]),
     },
     methods: {
       ...mapActions("team", [
+        "get_team_members",
         "leave_team",
         "dismiss_member",
         "disband_team",
@@ -155,11 +161,10 @@
     mounted() {
       this.$store.dispatch("chara/get_chara_profile", { fields: "team,is_leader,location" }).then(() => {
         this.$store.dispatch("team/get_team_profile");
-        this.$store.dispatch("team/get_team_members");
       });
       this.$store.dispatch("battle/get_world_bosses");
     },
-    components: { InputNumberWithButton },
+    components: { InputNumberWithButton, Pagination },
   };
 </script>
 

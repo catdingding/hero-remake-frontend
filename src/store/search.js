@@ -51,7 +51,7 @@ export default {
     async search_charas({ state, commit, dispatch, rootState }, conditions) {
       var param = conditions_to_query_param(conditions);
       api.get(`charas/?fields=id,name&${param}`).then((res) => {
-        commit("set_search_result_charas", res.data);
+        commit("set_search_result_charas", res.data.results);
       });
     },
     async search_countries({ state, commit, dispatch, rootState }, conditions) {

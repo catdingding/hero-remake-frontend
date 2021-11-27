@@ -8,7 +8,6 @@ export default {
     return {
       team_profile: null,
       team_join_requests: [],
-      team_members: [],
     };
   },
   mutations: {
@@ -17,9 +16,6 @@ export default {
     },
     set_team_join_requests(state, data) {
       state.team_join_requests = data;
-    },
-    set_team_members(state, data) {
-      state.team_members = data;
     },
   },
   actions: {
@@ -32,18 +28,17 @@ export default {
       await api.post(`team/found/`, data);
       dispatch("chara/get_chara_profile", { fields: "team" }, { root: true });
     },
-    async get_team_members({ state, commit, dispatch, rootState }) {
+    async get_team_members({ state, commit, dispatch, rootState }, { conditions }) {
       var team = rootState.chara.chara_team.id;
-      var res = await api.get(`charas/?fields=id,name,official&team=${team}`);
-      commit("set_team_members", res.data);
+      var res = await api.get(`charas/?fields=id,name,official&team=${team}`, { params: conditions });
+      return res.data;
     },
     async leave_team({ state, commit, dispatch, rootState }) {
       await api.post(`team/leave/`);
       router.push("/game");
     },
     async dismiss_member({ state, commit, dispatch, rootState }, data) {
-      await api.post(`team/dismiss-member/`, data);
-      dispatch("get_team_members");
+      return api.post(`team/dismiss-member/`, data);
     },
     async create_team_join_request({ state, commit, dispatch, rootState }, data) {
       return api.post(`team/join-requests/`, data);
