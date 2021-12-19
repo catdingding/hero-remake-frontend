@@ -3,6 +3,7 @@ import BattleResult from "@/views/game/BattleResult.vue";
 import map from "@/views/game/Map.vue";
 import CharaIntroduction from "@/views/game/CharaIntroduction.vue";
 import Bag from "@/views/game/Bag.vue";
+import Farm from "@/views/game/Farm.vue";
 import Storage from "@/views/game/Storage.vue";
 import Store from "@/views/game/Store.vue";
 import PointStore from "@/views/game/PointStore.vue";
@@ -63,6 +64,7 @@ export default [
   { path: "ability-learn", component: AbilityLearn, meta: { title: "主面板" } },
   { path: "ability-setting", component: AbilitySetting, meta: { title: "奧義設定" } },
   { path: "alchemy", component: Alchemy, meta: { title: "鍊金" } },
+  { path: "farm", component: Farm, meta: { title: "農場" } },
   { path: "send-item-gold", component: SendItemGold, meta: { title: "傳送物品/金錢" } },
   { path: "parcel", component: Parcel, meta: { title: "包裹" } },
   { path: "exercise", component: Exercise, meta: { title: "修煉" } },

@@ -18,11 +18,12 @@ import town from "./town";
 import user from "./user";
 import dialog from "./dialog";
 import ws from "./ws";
+import home from "./home";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  modules: { chara, battle, map, item, trade, job, ability, search, country, team, town, user, dialog, ws },
+  modules: { chara, battle, map, item, trade, job, ability, search, country, team, town, user, dialog, ws, home },
   state: {
     access_token: localStorage.getItem("access_token") || "",
     refresh_token: localStorage.getItem("refresh_token") || "",

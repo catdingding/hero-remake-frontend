@@ -19,6 +19,7 @@
             <el-menu-item index="alchemy" :route="{ path: '/game/alchemy' }">鍊金</el-menu-item>
             <el-menu-item index="pvp" :route="{ path: '/game/pvp' }">PvP</el-menu-item>
             <el-menu-item index="send-item-gold" :route="{ path: '/game/send-item-gold' }">傳送道具/金錢</el-menu-item>
+            <el-menu-item index="farm" :route="{ path: '/game/farm' }">農場</el-menu-item>
             <el-menu-item index="parcel" :route="{ path: '/game/parcel' }">包裹</el-menu-item>
             <el-menu-item index="battle-map-ticket-to-item" :route="{ path: '/game/battle-map-ticket-to-item' }">
               地圖製作
@@ -222,7 +223,8 @@
           await this.$store.dispatch("battle/fight_battle_map");
           if (this.chara_record.total_battle % 10 === 1) {
             await this.$store.dispatch("chara/get_chara_profile", {
-              omit: "bag_items,slots,skill_settings,introduction,main_ability,job_ability,live_ability,team,country",
+              omit:
+                "bag_items,slots,skill_settings,introduction,main_ability,job_ability,live_ability,team,country,farms",
             });
           } else {
             await this.$store.dispatch("chara/get_chara_profile", {
@@ -260,7 +262,7 @@
       }
       this.$store
         .dispatch("chara/get_chara_profile", {
-          omit: "bag_items,slots,skill_settings,introduction,main_ability,job_ability,live_ability",
+          omit: "bag_items,slots,skill_settings,introduction,main_ability,job_ability,live_ability,farms",
         })
         .then(() => {
           this.$store.dispatch("ws/start_ws");

@@ -153,6 +153,17 @@
                   <div>{{ attr.proficiency }}</div>
                 </div>
               </el-collapse-item>
+              <el-collapse-item title="當前buff">
+                <div class="attr buff" v-for="buff in chara_buffs" :key="buff.id">
+                  <div>
+                    <el-tooltip effect="dark" :content="buff.type.description" placement="top">
+                      <i class="el-icon-info"></i>
+                    </el-tooltip>
+                    {{ buff.type.name }}
+                  </div>
+                  <div><RelativeTime :time_string="buff.due_time" :period="1000" /></div>
+                </div>
+              </el-collapse-item>
               <el-collapse-item title="其他數據">
                 <div class="attr" v-if="chara_record">
                   <div>總戰數</div>
@@ -289,6 +300,7 @@
         "chara_mp_limit",
         "chara_luck",
         "chara_attributes",
+        "chara_buffs",
         "chara_country",
         "chara_team",
         "chara_record",
@@ -331,6 +343,13 @@
         width: 70%;
 
         text-align: right;
+      }
+
+      &.buff > div:nth-child(1) {
+        width: 60%;
+      }
+      &.buff > div:nth-child(2) {
+        width: 40%;
       }
     }
   }
