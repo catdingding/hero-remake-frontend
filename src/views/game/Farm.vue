@@ -3,9 +3,10 @@ Farm<template>
     <CharaWallet></CharaWallet>
     <div style="width: 100%;text-align: center">
       <el-button type="success" @click="expand_farm">
-        擴充農場(上限為8)
+        擴充農場(1億)
       </el-button>
     </div>
+    <div>請自行斟酌什麼物品適合放置</div>
     <table>
       <tr>
         <th style="width:60%">物品</th>
