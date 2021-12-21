@@ -6,7 +6,7 @@
         <template v-slot:extra-column>
           <el-table-column label="價格" align="center">
             <template slot-scope="scope">
-              {{ scope.row.item_type.value | currency }}
+              {{ scope.row.price | currency }}
             </template>
           </el-table-column>
           <el-table-column label="購買" align="center" width="120px">
