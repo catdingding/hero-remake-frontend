@@ -12,18 +12,24 @@
             </template>
             <el-menu-item index="bag" :route="{ path: '/game/bag' }">背包/裝備</el-menu-item>
             <el-menu-item index="excercise" :route="{ path: '/game/exercise' }">修煉</el-menu-item>
-            <el-menu-item index="ability-learn" :route="{ path: '/game/ability-learn' }">學習奧義</el-menu-item>
-            <el-menu-item index="ability-setting" :route="{ path: '/game/ability-setting' }">設置奧義</el-menu-item>
-            <el-menu-item index="skill" :route="{ path: '/game/skill-setting' }">技能</el-menu-item>
             <el-menu-item index="job-change" :route="{ path: '/game/job-change' }">轉職</el-menu-item>
-            <el-menu-item index="alchemy" :route="{ path: '/game/alchemy' }">鍊金</el-menu-item>
+            <el-submenu index="ability-skill">
+              <template slot="title">奧義/技能</template>
+              <el-menu-item index="ability-learn" :route="{ path: '/game/ability-learn' }">學習奧義</el-menu-item>
+              <el-menu-item index="ability-setting" :route="{ path: '/game/ability-setting' }">設置奧義</el-menu-item>
+              <el-menu-item index="skill" :route="{ path: '/game/skill-setting' }">技能</el-menu-item>
+            </el-submenu>
+            <el-submenu index="make-item">
+              <template slot="title">製作物品</template>
+              <el-menu-item index="alchemy" :route="{ path: '/game/alchemy' }">鍊金</el-menu-item>
+              <el-menu-item index="battle-map-ticket-to-item" :route="{ path: '/game/battle-map-ticket-to-item' }">
+                地圖製作
+              </el-menu-item>
+            </el-submenu>
             <el-menu-item index="pvp" :route="{ path: '/game/pvp' }">PvP</el-menu-item>
             <el-menu-item index="send-item-gold" :route="{ path: '/game/send-item-gold' }">傳送道具/金錢</el-menu-item>
             <el-menu-item index="farm" :route="{ path: '/game/farm' }">農場</el-menu-item>
             <el-menu-item index="parcel" :route="{ path: '/game/parcel' }">包裹</el-menu-item>
-            <el-menu-item index="battle-map-ticket-to-item" :route="{ path: '/game/battle-map-ticket-to-item' }">
-              地圖製作
-            </el-menu-item>
             <el-menu-item index="equipment-lock" :route="{ path: '/game/equipment-lock' }">裝備綁定</el-menu-item>
             <el-menu-item index="chara-introduction" :route="{ path: '/game/chara-introduction' }">自傳</el-menu-item>
             <el-menu-item index="member-shop" :route="{ path: '/game/member-shop' }">贊助商店</el-menu-item>
