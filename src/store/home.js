@@ -16,6 +16,10 @@ export default {
       await api.post("chara/farm/place-item/", data);
       await dispatch("chara/get_chara_profile", { fields: "farms" }, { root: true });
     },
+    async remove_item_from_farm({ state, commit, dispatch, rootState }, data) {
+      await api.post("chara/farm/remove-item/", data);
+      await dispatch("chara/get_chara_profile", { fields: "farms" }, { root: true });
+    },
     async harvest_farm({ state, commit, dispatch, rootState }, data) {
       await api.post("chara/farm/harvest/", data);
       await dispatch("chara/get_chara_profile", { fields: "farms" }, { root: true });

@@ -34,6 +34,9 @@ Farm<template>
             <el-button type="primary" @click="harvest_farm({ farm: farm.id })">
               收穫(尚餘<RelativeTime :time_string="farm.due_time" :period="1000"></RelativeTime>)
             </el-button>
+            <el-button type="danger" @click="remove_item_from_farm({ farm: farm.id })">
+              移除
+            </el-button>
           </div>
         </td>
       </tr>
@@ -53,7 +56,7 @@ Farm<template>
       ...mapState("chara", ["chara_farms", "chara_bag_items"]),
     },
     methods: {
-      ...mapActions("home", ["expand_farm", "place_item_to_farm", "harvest_farm"]),
+      ...mapActions("home", ["expand_farm", "place_item_to_farm", "remove_item_from_farm", "harvest_farm"]),
     },
     mounted() {
       this.$store.dispatch("chara/get_chara_profile", { fields: "farms,bag_items,gold" });
