@@ -33,6 +33,9 @@
             <el-option v-for="slot in slot_types" :key="slot.id" :label="slot.name" :value="slot.id"></el-option>
           </el-select>
         </el-form-item>
+        <el-form-item>
+          <el-input clearable v-model="slot_props.conditions.name_like" placeholder="名稱" />
+        </el-form-item>
       </el-form>
     </template>
     <template v-slot:main="slot_props">
@@ -78,6 +81,9 @@
 
 <style lang="less" scoped>
   .el-select {
-    width: 100px;
+    width: 80px;
+  }
+  .el-input {
+    width: 120px;
   }
 </style>
