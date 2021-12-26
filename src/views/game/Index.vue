@@ -147,12 +147,6 @@
                   <div>{{ attr.value }}（{{ attr.limit }}）</div>
                 </div>
               </el-collapse-item>
-              <el-collapse-item title="職業熟練">
-                <div class="attr" v-for="attr in chara_attributes" :key="attr.id">
-                  <div>{{ attr.type.class_name }}</div>
-                  <div>{{ attr.proficiency }}</div>
-                </div>
-              </el-collapse-item>
               <el-collapse-item title="當前buff">
                 <div class="attr buff" v-for="buff in chara_buffs" :key="buff.id">
                   <div>
@@ -172,6 +166,10 @@
                 <div class="attr" v-if="chara_record">
                   <div>今日戰數</div>
                   <div>{{ chara_record.today_battle }}</div>
+                </div>
+                <div class="attr" v-for="attr in chara_attributes" :key="attr.id">
+                  <div>{{ attr.type.class_name }}熟練度</div>
+                  <div>{{ attr.proficiency }}</div>
                 </div>
               </el-collapse-item>
             </el-collapse>
