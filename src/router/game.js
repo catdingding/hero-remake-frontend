@@ -29,6 +29,7 @@ import AbilityList from "@/views/game/AbilityList.vue";
 import PetList from "@/views/game/PetList.vue";
 import BattleMapTicketToItem from "@/views/game/BattleMapTicketToItem.vue";
 import Lottery from "@/views/game/Lottery.vue";
+import Arena from "@/views/game/Arena.vue";
 
 import CountryList from "@/views/game/CountryList.vue";
 import CountryJoinRequest from "@/views/game/CountryJoinRequest.vue";
@@ -96,6 +97,7 @@ export default [
   { path: "lottery-house", component: Lottery, meta: { title: "彩券行" } },
   { path: "inn", component: Inn, meta: { title: "旅館" } },
   { path: "name-change", component: NameChange, meta: { title: "改名神殿" } },
+  { path: "arena", component: Arena, meta: { title: "競技場" } },
   { path: "point-store", component: PointStore, meta: { title: "贊助商店" } },
   { path: "log", component: Log, meta: { title: "事件查詢" } },
   { path: "battle-result-list", component: BattleResultList, meta: { title: "戰鬥記錄" } },

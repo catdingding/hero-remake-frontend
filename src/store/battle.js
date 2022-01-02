@@ -11,6 +11,7 @@ export default {
       battle_result_dialog_visible: false,
       battle_loots_log_messages: [],
       world_bosses: [],
+      arenas: [],
     };
   },
   getters: {
@@ -27,6 +28,9 @@ export default {
     },
     set_world_bosses(state, data) {
       state.world_bosses = data;
+    },
+    set_arenas(state, data) {
+      state.arenas = data;
     },
     append_loots_log(state, data) {
       if (data.loots.length !== 0) {
@@ -53,10 +57,22 @@ export default {
       return res.data;
     },
     async pvp_fight({ state, commit, dispatch, rootState }, opponent) {
-      return api.post(`/battle/pvp-fight/`, { opponent }).then((res) => {
-        dispatch("chara/get_chara_profile", { fields: "pvp_point,next_action_time" }, { root: true });
-        commit("set_battle_result_dialog_visible", true);
-        commit("set_battle_result", res.data);
+      let res = await api.post(`/battle/pvp-fight/`, { opponent });
+      dispatch("chara/get_chara_profile", { fields: "pvp_point,next_action_time" }, { root: true });
+      commit("set_battle_result_dialog_visible", true);
+      commit("set_battle_result", res.data);
+    },
+    async get_arenas({ state, commit, dispatch, rootState }) {
+      var res = await api.get(`/battle/arenas/`);
+      commit("set_arenas", res.data);
+    },
+    async arena_fight({ state, commit, dispatch, rootState }, arena) {
+      return api.post(`/battle/arena-fight/`, { arena }).then((res) => {
+        dispatch("get_arenas");
+        if (res.data.logs) {
+          commit("set_battle_result_dialog_visible", true);
+          commit("set_battle_result", res.data);
+        }
       });
     },
     async dungeon_fight({ state, commit, dispatch, rootState }, data) {
