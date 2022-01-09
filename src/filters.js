@@ -87,3 +87,14 @@ Vue.filter("country_name", (country) => {
 Vue.filter("team_name", (team) => {
   return team === null ? "無隊伍" : team.name;
 });
+//partner
+Vue.filter("partner", (partner) => {
+  if (!partner) {
+    return "";
+  }
+  var due_time = `至${Vue.filter("datetime_display")(partner.due_time)}`;
+  if (new Date(partner.due_time) < new Date()) {
+    due_time = "已失效";
+  }
+  return (partner.target_monster || partner.target_chara).name + `(${due_time})`;
+});

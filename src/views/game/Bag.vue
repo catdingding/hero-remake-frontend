@@ -18,6 +18,18 @@
           </el-table-column>
         </template>
       </SlotTable>
+      <el-divider></el-divider>
+      <h2 class="page-block-title">同伴</h2>
+      <div>
+        當前同伴：
+        {{ chara_partner | partner }}
+      </div>
+      <el-select v-model="selected_partner" style="width:300px">
+        <el-option v-for="partner in chara_partners" :key="partner.id" :label="partner | partner" :value="partner.id" />
+      </el-select>
+      <el-button type="primary" @click="assign_partner({ partner: selected_partner }).then(() => refresh())">
+        更換同伴
+      </el-button>
     </div>
     <div class="bag">
       <h2 class="page-block-title">背包（{{ bag_item_total }}/{{ chara_bag_item_limit }}）</h2>
@@ -59,20 +71,30 @@
   export default {
     name: "Bag",
     data() {
-      return { bag_item_total: 0 };
+      return { bag_item_total: 0, selected_partner: null };
     },
     computed: {
-      ...mapState("chara", ["chara_gold", "chara_proficiency", "chara_slots", "chara_bag_item_limit"]),
+      ...mapState("chara", [
+        "chara_gold",
+        "chara_proficiency",
+        "chara_slots",
+        "chara_bag_item_limit",
+        "chara_partner",
+        "chara_partners",
+      ]),
     },
     methods: {
       ...mapActions("item", ["get_bag_items", "use_item", "equip_item", "divest_slot"]),
+      ...mapActions("chara", ["assign_partner"]),
       refresh() {
         this.$refs.bag_item_table.fetch();
-        this.$store.dispatch("chara/get_chara_profile", { fields: "slots" });
+        this.$store.dispatch("chara/get_chara_profile", { fields: "slots,partners,partner" });
       },
     },
     mounted() {
-      this.$store.dispatch("chara/get_chara_profile", { fields: "gold,proficiency,slots,bag_item_limit" });
+      this.$store.dispatch("chara/get_chara_profile", {
+        fields: "gold,proficiency,slots,bag_item_limit,partner,partners",
+      });
     },
     components: { PaginationItemTable, SlotTable, InputNumberWithButton },
   };

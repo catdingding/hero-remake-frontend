@@ -17,6 +17,7 @@ export default {
       chara_main_ability: null,
       chara_job_ability: null,
       chara_live_ability: null,
+      chara_partner: null,
       chara_slots: [],
       chara_bag_items: [],
       chara_skill_settings: [],
@@ -38,6 +39,7 @@ export default {
       chara_luck: null,
       chara_farms: [],
       chara_buffs: [],
+      chara_partners: [],
       chara_official: null,
       chara_is_king: false,
       chara_is_leader: false,
@@ -94,9 +96,11 @@ export default {
     },
     async rest({ commit, dispatch }) {
       return api.post("/chara/rest/").then((res) => {
-        Message.success("體力已恢復");
         dispatch("chara/get_chara_profile", { fields: "hp,mp" }, { root: true });
       });
+    },
+    async assign_partner({ commit, dispatch }, data) {
+      return api.post("/chara/partner/assign/", data);
     },
     async set_introduction({ commit, dispatch }, data) {
       return api.put("/chara/introduction/", data);

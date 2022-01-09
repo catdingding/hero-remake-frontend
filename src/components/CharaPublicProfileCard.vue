@@ -38,14 +38,14 @@
           <div>MP</div>
           <div>{{ data.mp }}/ {{ data.mp_max }}</div>
         </div>
-        <div class="attr" v-for="attr in data.attributes" :key="attr.id">
+        <div v-for="attr in data.attributes" :key="attr.id">
           <div>{{ attr.type.name }}</div>
           <div>{{ attr.value }}</div>
         </div>
       </div>
       <!-- 裝備 -->
       <div>
-        <div v-for="slot in data.slots" :key="slot.id" class="slot">
+        <div v-for="slot in data.slots" :key="slot.id">
           <div>{{ slot.type.name }}</div>
           <div v-if="slot.item">
             {{ slot.item | item_name }}-{{ slot.item | item_element_type }}<br />
@@ -53,6 +53,10 @@
             {{ slot.item | item_ability }}
           </div>
           <div v-else>無</div>
+        </div>
+        <div>
+          <div>同伴</div>
+          <div>{{ data.partner | partner }}</div>
         </div>
       </div>
     </div>
