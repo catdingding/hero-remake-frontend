@@ -54,8 +54,8 @@ export default {
     };
   },
   getters: {
-    able_to_action: (state) => () => {
-      return Date.parse(state.chara_next_action_time) - new Date() <= 0;
+    able_to_action: (state, getters, rootState, rootGetters) => () => {
+      return Date.parse(state.chara_next_action_time) - rootGetters.get_client_time() <= 0;
     },
   },
   mutations: {
@@ -78,6 +78,7 @@ export default {
       let chara_team = state.chara_team;
 
       let res = await api.get(url);
+      commit("set_client_offset", res, { root: true });
       commit("set_chara_profile", res.data);
 
       let remain_tickets = state.chara_battle_map_tickets.reduce(

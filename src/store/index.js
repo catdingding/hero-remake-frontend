@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import { Message } from "element-ui";
 import router from "@/router";
+import { getField, updateField } from "vuex-map-fields";
 
 import api from "@/api";
 import chara from "./chara";
@@ -52,13 +53,20 @@ export default new Vuex.Store({
     ],
     available_charas: [],
     online_charas: [],
+    client_offset: 0,
+    action_offset_enabled: false,
   },
   getters: {
+    getField,
     is_loggedin(state) {
       return !!state.access_token;
     },
+    get_client_time: (state) => () => {
+      return new Date() - (state.action_offset_enabled ? state.client_offset : 0);
+    },
   },
   mutations: {
+    updateField,
     set_access_token(state, token) {
       state.access_token = token;
       api.defaults.headers.common["Authorization"] = "Bearer " + token;
@@ -85,6 +93,9 @@ export default new Vuex.Store({
     },
     set_online_charas(state, data) {
       state.online_charas = data;
+    },
+    set_client_offset(state, res) {
+      state.client_offset = new Date() - new Date(res.headers.date);
     },
   },
   actions: {

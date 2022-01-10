@@ -5,17 +5,17 @@
 </template>
 
 <script>
-  import { mapState, mapActions } from "vuex";
+  import { mapGetters } from "vuex";
   export default {
     name: "RelativeTime",
     data() {
       return { relative_time: "", interval_id: null };
     },
     props: { time_string: { type: String }, period: { type: Number, default: 1000 } },
-    computed: {},
+    computed: { ...mapGetters(["get_client_time"]) },
     methods: {
       compute_relative_time() {
-        var ms = Date.parse(this.time_string) - new Date();
+        var ms = Date.parse(this.time_string) - this.get_client_time();
         if (ms > 3600000) {
           return Math.floor(ms / 3600000) + "小時" + Math.floor((ms % 3600000) / 60000) + "分鐘";
         }

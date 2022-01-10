@@ -201,6 +201,9 @@
             </el-select>
             <el-button size="medium" type="primary" @click="fight_battle_map">戰鬥</el-button>
             <el-switch v-model="auto_fight_enabled" active-text="自動戰鬥" inactive-text="手動戰鬥"></el-switch>
+            <el-tooltip effect="dark" content="若本機時間無法與網路時間同步，可切換至伺服器時間的選項" placement="top">
+              <el-switch v-model="action_offset_enabled" active-text="伺服器時間" inactive-text="本機時間"></el-switch>
+            </el-tooltip>
             <el-divider />
             <el-tooltip effect="dark" content="恢復HP與MP，恢復上限受健康度影響" placement="top">
               <el-button size="medium" type="success" @click="rest">休息</el-button>
@@ -305,6 +308,7 @@
       ]),
       ...mapState("battle", ["battle_loots_log_messages"]),
       ...mapFields("battle", ["battle_map_id", "auto_fight_enabled"]),
+      ...mapFields(["action_offset_enabled"]),
     },
     components: { PercentageDisplay, LogMessageBlock, ChatMessageBlock, QuestProgressBlock, Avatar, CharaLink },
     mounted() {
