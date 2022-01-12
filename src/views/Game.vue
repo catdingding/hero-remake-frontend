@@ -128,6 +128,7 @@
             </el-menu-item>
             <el-menu-item index="ability-list" :route="{ path: '/game/ability-list' }">奧義列表</el-menu-item>
             <el-menu-item index="pet-list" :route="{ path: '/game/pet-list' }">寵物列表</el-menu-item>
+            <el-menu-item index="change-log" :route="{ path: '/game/change-log' }">更新日誌</el-menu-item>
             <el-menu-item index="password-change" :route="{ path: '/game/password-change' }">更改密碼</el-menu-item>
             <el-menu-item>
               <a href="/chat" target="_blank" style="color:#fff;">

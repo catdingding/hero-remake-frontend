@@ -25,6 +25,7 @@ export default {
       search_result_log_messages: [],
       search_result_battle_results: [],
       search_result_item_types: [],
+      search_result_change_logs: [],
     };
   },
   mutations: {
@@ -45,6 +46,9 @@ export default {
     },
     set_search_result_item_types(state, data) {
       state.search_result_item_types = data;
+    },
+    set_search_result_change_logs(state, data) {
+      state.search_result_change_logs = data;
     },
   },
   actions: {
@@ -82,6 +86,11 @@ export default {
       api.get(`item/item-types/?${param}`).then((res) => {
         commit("set_search_result_item_types", res.data);
       });
+    },
+    async search_change_logs({ state, commit, dispatch, rootState }, conditions) {
+      var param = conditions_to_query_param(conditions);
+      var res = await api.get(`change-logs/?${param}`);
+      commit("set_search_result_change_logs", res.data);
     },
   },
 };
