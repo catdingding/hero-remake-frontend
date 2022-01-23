@@ -42,21 +42,25 @@
             <el-menu-item index="inn" :route="{ path: '/game/inn' }">旅店</el-menu-item>
             <el-menu-item index="storage" :route="{ path: '/game/storage' }">倉庫</el-menu-item>
             <el-menu-item index="smith" :route="{ path: '/game/smith' }">鍛造屋</el-menu-item>
-            <el-menu-item index="equipment-transform" :route="{ path: '/game/equipment-transform' }"
-              >裝備轉換所</el-menu-item
-            >
+            <el-menu-item index="equipment-transform" :route="{ path: '/game/equipment-transform' }">
+              裝備轉換所
+            </el-menu-item>
+            <el-submenu index="store">
+              <template slot="title">商店</template>
+              <el-menu-item index="store-weapon" :route="{ path: '/game/store/weapon' }">武器店</el-menu-item>
+              <el-menu-item index="store-armor" :route="{ path: '/game/store/armor' }">防具店</el-menu-item>
+              <el-menu-item index="store-jewelry" :route="{ path: '/game/store/jewelry' }">飾品店</el-menu-item>
+              <el-menu-item index="store-item" :route="{ path: '/game/store/item' }">道具店</el-menu-item>
+              <el-menu-item index="exchange-house" :route="{ path: '/game/exchange-house' }">兌換屋</el-menu-item>
+            </el-submenu>
             <el-menu-item index="pet-store" :route="{ path: '/game/pet-store' }">寵物店</el-menu-item>
-            <el-menu-item index="store-weapon" :route="{ path: '/game/store/weapon' }">武器店</el-menu-item>
-            <el-menu-item index="store-armor" :route="{ path: '/game/store/armor' }">防具店</el-menu-item>
-            <el-menu-item index="store-jewelry" :route="{ path: '/game/store/jewelry' }">飾品店</el-menu-item>
-            <el-menu-item index="store-item" :route="{ path: '/game/store/item' }">道具店</el-menu-item>
-            <el-menu-item index="exchange-house" :route="{ path: '/game/exchange-house' }">兌換屋</el-menu-item>
             <el-menu-item index="auction-house" :route="{ path: '/game/auction-house' }">拍賣所</el-menu-item>
             <el-menu-item index="sale-house" :route="{ path: '/game/sale-house' }">出售所</el-menu-item>
             <el-menu-item index="purchase-house" :route="{ path: '/game/purchase-house' }">收購所</el-menu-item>
             <el-menu-item index="name-change" :route="{ path: '/game/name-change' }">改名神殿</el-menu-item>
             <el-menu-item index="lottery-house" :route="{ path: '/game/lottery-house' }">彩券行</el-menu-item>
             <el-menu-item index="arena" :route="{ path: '/game/arena' }">競技場</el-menu-item>
+            <el-menu-item index="npc-list" :route="{ path: '/game/npc-list' }">NPC列表</el-menu-item>
           </el-submenu>
           <el-submenu index="country">
             <template slot="title">
@@ -145,7 +149,7 @@
         </el-menu>
       </el-header>
       <el-main class="content">
-        <keep-alive include="Index,Storage">
+        <keep-alive include="Index">
           <router-view class="router-view" />
         </keep-alive>
       </el-main>
@@ -161,6 +165,9 @@
     <el-dialog title="角色資料" :visible.sync="chara_profile_dialog_visible" width="50%">
       <CharaPublicProfileCard :data="chara_profile_dialog_data"></CharaPublicProfileCard>
     </el-dialog>
+    <el-dialog title="NPC資料" :visible.sync="npc_profile_dialog_visible" width="50%">
+      <NPCProfileCard :data="npc_profile"></NPCProfileCard>
+    </el-dialog>
     <el-dialog title="戰鬥結果" :visible.sync="battle_result_dialog_visible" width="90%">
       <BattleResultBlock></BattleResultBlock>
     </el-dialog>
@@ -172,6 +179,7 @@
   import { mapFields } from "vuex-map-fields";
   import { Message } from "element-ui";
   import CharaPublicProfileCard from "@/components/CharaPublicProfileCard.vue";
+  import NPCProfileCard from "@/components/NPCProfileCard.vue";
   import BattleResultBlock from "@/components/BattleResultBlock.vue";
 
   export default {
@@ -199,6 +207,8 @@
       ...mapFields("battle", ["auto_fight_enabled", "battle_result_dialog_visible"]),
       ...mapState("battle", ["battle_map_id"]),
       ...mapFields("dialog", ["chara_profile_dialog_visible"]),
+      ...mapFields("npc", ["npc_profile_dialog_visible"]),
+      ...mapState("npc", ["npc_profile"]),
       ...mapState("dialog", ["chara_profile_dialog_data"]),
     },
     methods: {
@@ -284,7 +294,7 @@
       clearInterval(this.auto_fight_interval_id);
       window.removeEventListener("keydown", this.process_hot_key);
     },
-    components: { CharaPublicProfileCard, BattleResultBlock },
+    components: { CharaPublicProfileCard, NPCProfileCard, BattleResultBlock },
   };
 </script>
 

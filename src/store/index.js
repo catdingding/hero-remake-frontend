@@ -20,11 +20,12 @@ import user from "./user";
 import dialog from "./dialog";
 import ws from "./ws";
 import home from "./home";
+import npc from "./npc";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  modules: { chara, battle, map, item, trade, job, ability, search, country, team, town, user, dialog, ws, home },
+  modules: { chara, battle, map, item, trade, job, ability, search, country, team, town, user, dialog, ws, home, npc },
   state: {
     access_token: localStorage.getItem("access_token") || "",
     refresh_token: localStorage.getItem("refresh_token") || "",

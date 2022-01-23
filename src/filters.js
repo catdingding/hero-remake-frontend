@@ -96,5 +96,5 @@ Vue.filter("partner", (partner) => {
   if (new Date(partner.due_time) < new Date()) {
     due_time = "已失效";
   }
-  return (partner.target_monster || partner.target_chara).name + `(${due_time})`;
+  return (partner.target_monster || partner.target_chara || partner.target_npc).name + `(${due_time})`;
 });
