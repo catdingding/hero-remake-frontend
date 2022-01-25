@@ -85,9 +85,15 @@
 <style lang="less" scoped>
   .main {
     display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     & > div {
       flex: 1;
       padding: 15px;
+      @media (max-width: 768px) {
+        flex: 0 0 100%;
+        padding: 0;
+      }
       &.attribute > div {
         margin: 5px 0 5px 0;
         width: 100%;
