@@ -110,7 +110,10 @@
                   <td>{{ row.element_type.name }}</td>
                   <td>{{ row.hp }}/{{ row.hp_max }}</td>
                   <td>{{ row.mp }}/{{ row.mp_max }}</td>
-                  <td>({{ row.location.x }},{{ row.location.y }})</td>
+                  <td>
+                    <span>({{ row.location.x }},{{ row.location.y }})</span>
+                    <span>{{ row.location.battle_map_name }}</span>
+                  </td>
                   <td>
                     <el-button
                       v-if="row.location.x === chara_location.x && row.location.y === chara_location.y"
