@@ -22,7 +22,10 @@
       </PaginationItemTable>
     </div>
     <div class="bag">
-      <h2 class="page-block-title">背包（{{ bag_item_total }}/{{ chara_bag_item_limit }}）</h2>
+      <h2 class="page-block-title">
+        背包（{{ bag_item_total }}/{{ chara_bag_item_limit }}）
+        <el-switch v-model="is_sell_mode" active-text="出售" inactive-text="存放"></el-switch>
+      </h2>
       <PaginationItemTable
         :fetch-method="get_bag_items"
         ref="bag_item_table"
@@ -32,9 +35,18 @@
           <el-table-column label="存入" align="center" width="120px">
             <template slot-scope="scope">
               <InputNumberWithButton
+                v-show="!is_sell_mode"
                 text="存入"
                 :max="scope.row.number"
                 @click="put_item_to_storage({ item: scope.row.id, number: $event }).then(() => refresh())"
+              >
+              </InputNumberWithButton>
+              <InputNumberWithButton
+                v-show="is_sell_mode"
+                text="出售"
+                type="danger"
+                :max="scope.row.number"
+                @click="sell_item({ item: scope.row.id, number: $event }).then(() => $refs.bag_item_table.fetch())"
               >
               </InputNumberWithButton>
             </template>
@@ -53,13 +65,14 @@
   export default {
     name: "Storage",
     data() {
-      return { storage_item_total: 0, bag_item_total: 0 };
+      return { storage_item_total: 0, bag_item_total: 0, is_sell_mode: false };
     },
     computed: {
       ...mapState("chara", ["chara_storage_item_limit", "chara_bag_item_limit"]),
     },
     methods: {
       ...mapActions("item", ["get_bag_items", "get_storage_items", "take_item_from_storage", "put_item_to_storage"]),
+      ...mapActions("trade", ["sell_item"]),
       refresh() {
         this.$refs.storage_item_table.fetch();
         this.$refs.bag_item_table.fetch();
@@ -78,5 +91,13 @@
   }
   .bag {
     width: 48%;
+  }
+  .page-block-title {
+    position: relative;
+    .el-switch {
+      position: absolute;
+      right: 0px;
+      bottom: 0px;
+    }
   }
 </style>
