@@ -3,6 +3,11 @@
     <template v-slot:conditions="slot_props">
       <el-form inline :model="slot_props.conditions">
         <el-form-item>
+          <el-select clearable v-model="slot_props.conditions.ordering" placeholder="排序">
+            <el-option label="名稱" value="name"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item>
           <el-select clearable v-model="slot_props.conditions.element_type" placeholder="屬性">
             <el-option
               v-for="element_type in element_types"
@@ -81,7 +86,7 @@
 
 <style lang="less" scoped>
   .el-select {
-    width: 80px;
+    width: 75px;
   }
   .el-input {
     width: 120px;
