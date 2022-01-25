@@ -13,6 +13,14 @@
       <span>AP</span>
       <span><PercentageDisplay color="#8bc34a" :value="chara.action_points" :max-value="1000"/></span>
     </div>
+    <div class="attr">
+      <span>攻</span>
+      <span>{{ chara.attack }}</span>
+    </div>
+    <div class="attr">
+      <span>防</span>
+      <span>{{ chara.defense }}</span>
+    </div>
   </div>
 </template>
 
@@ -30,15 +38,16 @@
 
 <style lang="less" scoped>
   .battle-chara-status {
-    width: 125px;
+    width: 130;
     .name {
       text-align: center;
     }
     .attr {
-      margin: 5px 0 5px 0;
+      margin: 3px 0 3px 0;
       width: 100%;
       display: flex;
-
+      height: 18px;
+      line-height: 18px;
       span:nth-child(1) {
         width: 25px;
         display: inline-block;
