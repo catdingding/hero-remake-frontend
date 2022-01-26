@@ -58,6 +58,7 @@
             <el-menu-item index="sale-house" :route="{ path: '/game/sale-house' }">出售所</el-menu-item>
             <el-menu-item index="purchase-house" :route="{ path: '/game/purchase-house' }">收購所</el-menu-item>
             <el-menu-item index="name-change" :route="{ path: '/game/name-change' }">改名神殿</el-menu-item>
+            <el-menu-item index="altar" :route="{ path: '/game/altar' }">祭壇</el-menu-item>
             <el-menu-item index="lottery-house" :route="{ path: '/game/lottery-house' }">彩券行</el-menu-item>
             <el-menu-item index="arena" :route="{ path: '/game/arena' }">競技場</el-menu-item>
             <el-menu-item index="npc-list" :route="{ path: '/game/npc-list' }">NPC列表</el-menu-item>

@@ -15,5 +15,9 @@ export default {
     async change_name({ state, commit, dispatch }, data) {
       await api.post(`/town/change-name/`, data);
     },
+    async submit_altar({ state, commit, dispatch, rootState }, data) {
+      await api.post(`/town/altar/submit/`, data);
+      await dispatch("chara/get_chara_profile", { fields: "bag_items" }, { root: true });
+    },
   },
 };

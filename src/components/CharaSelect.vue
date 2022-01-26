@@ -4,7 +4,7 @@
     @change="$emit('input', $event)"
     filterable
     remote
-    placeholder="請輸入傳送對象名稱"
+    :placeholder="placeholder"
     :remote-method="search_charas_by_name"
   >
     <el-option v-for="chara in search_result_charas" :key="chara.id" :label="chara.name" :value="chara.id"></el-option>
@@ -24,16 +24,17 @@
         type: Object,
         default: function() {
           return {};
-        }
-      }
+        },
+      },
+      placeholder: { type: String, default: "請輸入傳送對象名稱" },
     },
     computed: { ...mapState("search", ["search_result_charas"]) },
     methods: {
       ...mapActions("search", ["search_charas"]),
       search_charas_by_name(name) {
         this.search_charas(Object.assign({ search: name }, this.conditions));
-      }
-    }
+      },
+    },
   };
 </script>
 

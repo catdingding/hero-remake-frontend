@@ -52,6 +52,7 @@ import Parcel from "@/views/game/Parcel.vue";
 
 import Inn from "@/views/game/Inn.vue";
 import NameChange from "@/views/game/NameChange.vue";
+import Altar from "@/views/game/Altar.vue";
 
 import NPCList from "@/views/game/NPCList.vue";
 
@@ -100,6 +101,7 @@ export default [
   { path: "lottery-house", component: Lottery, meta: { title: "彩券行" } },
   { path: "inn", component: Inn, meta: { title: "旅館" } },
   { path: "name-change", component: NameChange, meta: { title: "改名神殿" } },
+  { path: "altar", component: Altar, meta: { title: "祭壇" } },
   { path: "arena", component: Arena, meta: { title: "競技場" } },
   { path: "npc-list", component: NPCList, meta: { title: "NPC列表" } },
   { path: "point-store", component: PointStore, meta: { title: "贊助商店" } },
