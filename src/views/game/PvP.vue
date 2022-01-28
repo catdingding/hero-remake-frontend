@@ -1,5 +1,6 @@
 <template>
   <div>
+    <div><el-button type="primary" @click="mirror_fight">與自己的鏡像對戰</el-button></div>
     <Pagination :fetch-method="get_pvp_opponents" ref="pvp_table">
       <template v-slot:main="slot_props">
         <el-table :data="slot_props.records">
@@ -38,7 +39,7 @@
     },
     computed: { ...mapState("chara", ["chara_id", "chara_pvp_points"]) },
     methods: {
-      ...mapActions("battle", ["get_pvp_opponents", "pvp_fight"]),
+      ...mapActions("battle", ["get_pvp_opponents", "pvp_fight", "mirror_fight"]),
     },
     mounted() {
       this.$store.dispatch("chara/get_chara_profile", { fields: "id,pvp_points" });

@@ -62,6 +62,11 @@ export default {
       commit("set_battle_result_dialog_visible", true);
       commit("set_battle_result", res.data);
     },
+    async mirror_fight({ state, commit, dispatch, rootState }) {
+      let res = await api.post(`/battle/mirror-fight/`);
+      commit("set_battle_result_dialog_visible", true);
+      commit("set_battle_result", res.data);
+    },
     async get_arenas({ state, commit, dispatch, rootState }) {
       var res = await api.get(`/battle/arenas/`);
       commit("set_arenas", res.data);
