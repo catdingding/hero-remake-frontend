@@ -10,58 +10,65 @@
             <template slot="title">
               角色
             </template>
-            <el-menu-item index="bag" :route="{ path: '/game/bag' }">背包/裝備</el-menu-item>
-            <el-menu-item index="excercise" :route="{ path: '/game/exercise' }">修煉</el-menu-item>
-            <el-menu-item index="job-change" :route="{ path: '/game/job-change' }">轉職</el-menu-item>
+            <el-menu-item index="bag" :route="{ path: '/game/chara/bag' }">背包/裝備</el-menu-item>
+            <el-menu-item index="excercise" :route="{ path: '/game/chara/exercise' }">修煉</el-menu-item>
+            <el-menu-item index="job-change" :route="{ path: '/game/chara/job-change' }">轉職</el-menu-item>
             <el-submenu index="ability-skill">
               <template slot="title">奧義/技能</template>
-              <el-menu-item index="ability-learn" :route="{ path: '/game/ability-learn' }">學習奧義</el-menu-item>
-              <el-menu-item index="ability-setting" :route="{ path: '/game/ability-setting' }">設置奧義</el-menu-item>
-              <el-menu-item index="skill" :route="{ path: '/game/skill-setting' }">技能</el-menu-item>
+              <el-menu-item index="ability-learn" :route="{ path: '/game/chara/ability-learn' }">學習奧義</el-menu-item>
+              <el-menu-item index="ability-setting" :route="{ path: '/game/chara/ability-setting' }">
+                設置奧義
+              </el-menu-item>
+              <el-menu-item index="skill" :route="{ path: '/game/chara/skill-setting' }">技能</el-menu-item>
             </el-submenu>
             <el-submenu index="make-item">
               <template slot="title">製作物品</template>
-              <el-menu-item index="alchemy" :route="{ path: '/game/alchemy' }">鍊金</el-menu-item>
-              <el-menu-item index="battle-map-ticket-to-item" :route="{ path: '/game/battle-map-ticket-to-item' }">
+              <el-menu-item index="alchemy" :route="{ path: '/game/chara/alchemy' }">鍊金</el-menu-item>
+              <el-menu-item
+                index="battle-map-ticket-to-item"
+                :route="{ path: '/game/chara/battle-map-ticket-to-item' }"
+              >
                 地圖製作
               </el-menu-item>
             </el-submenu>
-            <el-menu-item index="pvp" :route="{ path: '/game/pvp' }">PvP</el-menu-item>
-            <el-menu-item index="send-item-gold" :route="{ path: '/game/send-item-gold' }">傳送道具/金錢</el-menu-item>
-            <el-menu-item index="farm" :route="{ path: '/game/farm' }">農場</el-menu-item>
-            <el-menu-item index="parcel" :route="{ path: '/game/parcel' }">包裹</el-menu-item>
-            <el-menu-item index="equipment-lock" :route="{ path: '/game/equipment-lock' }">裝備綁定</el-menu-item>
-            <el-menu-item index="chara-introduction" :route="{ path: '/game/chara-introduction' }">自傳</el-menu-item>
-            <el-menu-item index="member-shop" :route="{ path: '/game/member-shop' }">贊助商店</el-menu-item>
-            <el-menu-item index="avatar-change" :route="{ path: '/game/avatar-change' }">更換頭像</el-menu-item>
+            <el-menu-item index="pvp" :route="{ path: '/game/chara/pvp' }">PvP</el-menu-item>
+            <el-menu-item index="send-item-gold" :route="{ path: '/game/chara/send-item-gold' }">
+              傳送道具/金錢
+            </el-menu-item>
+            <el-menu-item index="farm" :route="{ path: '/game/chara/farm' }">農場</el-menu-item>
+            <el-menu-item index="parcel" :route="{ path: '/game/chara/parcel' }">包裹</el-menu-item>
+            <el-menu-item index="equipment-lock" :route="{ path: '/game/chara/equipment-lock' }">裝備綁定</el-menu-item>
+            <el-menu-item index="chara-introduction" :route="{ path: '/game/chara/introduction' }">自傳</el-menu-item>
+            <el-menu-item index="member-shop" :route="{ path: '/game/chara/member-shop' }">贊助商店</el-menu-item>
+            <el-menu-item index="avatar-change" :route="{ path: '/game/chara/avatar-change' }">更換頭像</el-menu-item>
           </el-submenu>
           <el-submenu index="town" v-show="chara_location && chara_location.town">
             <template slot="title">
               城鎮
             </template>
-            <el-menu-item index="inn" :route="{ path: '/game/inn' }">旅店</el-menu-item>
-            <el-menu-item index="storage" :route="{ path: '/game/storage' }">倉庫</el-menu-item>
-            <el-menu-item index="smith" :route="{ path: '/game/smith' }">鍛造屋</el-menu-item>
-            <el-menu-item index="equipment-transform" :route="{ path: '/game/equipment-transform' }">
+            <el-menu-item index="inn" :route="{ path: '/game/town/inn' }">旅店</el-menu-item>
+            <el-menu-item index="storage" :route="{ path: '/game/town/storage' }">倉庫</el-menu-item>
+            <el-menu-item index="smith" :route="{ path: '/game/town/smith' }">鍛造屋</el-menu-item>
+            <el-menu-item index="equipment-transform" :route="{ path: '/game/town/equipment-transform' }">
               裝備轉換所
             </el-menu-item>
             <el-submenu index="store">
               <template slot="title">商店</template>
-              <el-menu-item index="store-weapon" :route="{ path: '/game/store/weapon' }">武器店</el-menu-item>
-              <el-menu-item index="store-armor" :route="{ path: '/game/store/armor' }">防具店</el-menu-item>
-              <el-menu-item index="store-jewelry" :route="{ path: '/game/store/jewelry' }">飾品店</el-menu-item>
-              <el-menu-item index="store-item" :route="{ path: '/game/store/item' }">道具店</el-menu-item>
-              <el-menu-item index="exchange-house" :route="{ path: '/game/exchange-house' }">兌換屋</el-menu-item>
+              <el-menu-item index="store-weapon" :route="{ path: '/game/town/store/weapon' }">武器店</el-menu-item>
+              <el-menu-item index="store-armor" :route="{ path: '/game/town/store/armor' }">防具店</el-menu-item>
+              <el-menu-item index="store-jewelry" :route="{ path: '/game/town/store/jewelry' }">飾品店</el-menu-item>
+              <el-menu-item index="store-item" :route="{ path: '/game/town/store/item' }">道具店</el-menu-item>
+              <el-menu-item index="exchange-house" :route="{ path: '/game/town/exchange-house' }">兌換屋</el-menu-item>
             </el-submenu>
-            <el-menu-item index="pet-store" :route="{ path: '/game/pet-store' }">寵物店</el-menu-item>
-            <el-menu-item index="auction-house" :route="{ path: '/game/auction-house' }">拍賣所</el-menu-item>
-            <el-menu-item index="sale-house" :route="{ path: '/game/sale-house' }">出售所</el-menu-item>
-            <el-menu-item index="purchase-house" :route="{ path: '/game/purchase-house' }">收購所</el-menu-item>
-            <el-menu-item index="name-change" :route="{ path: '/game/name-change' }">改名神殿</el-menu-item>
-            <el-menu-item index="altar" :route="{ path: '/game/altar' }">祭壇</el-menu-item>
-            <el-menu-item index="lottery-house" :route="{ path: '/game/lottery-house' }">彩券行</el-menu-item>
-            <el-menu-item index="arena" :route="{ path: '/game/arena' }">競技場</el-menu-item>
-            <el-menu-item index="npc-list" :route="{ path: '/game/npc-list' }">NPC列表</el-menu-item>
+            <el-menu-item index="pet-store" :route="{ path: '/game/town/pet-store' }">寵物店</el-menu-item>
+            <el-menu-item index="auction-house" :route="{ path: '/game/town/auction-house' }">拍賣所</el-menu-item>
+            <el-menu-item index="sale-house" :route="{ path: '/game/town/sale-house' }">出售所</el-menu-item>
+            <el-menu-item index="purchase-house" :route="{ path: '/game/town/purchase-house' }">收購所</el-menu-item>
+            <el-menu-item index="name-change" :route="{ path: '/game/town/name-change' }">改名神殿</el-menu-item>
+            <el-menu-item index="altar" :route="{ path: '/game/town/altar' }">祭壇</el-menu-item>
+            <el-menu-item index="lottery-house" :route="{ path: '/game/town/lottery-house' }">彩券行</el-menu-item>
+            <el-menu-item index="arena" :route="{ path: '/game/town/arena' }">競技場</el-menu-item>
+            <el-menu-item index="npc-list" :route="{ path: '/game/town/npc-list' }">NPC列表</el-menu-item>
           </el-submenu>
           <el-submenu index="country">
             <template slot="title">
