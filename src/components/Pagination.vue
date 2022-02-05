@@ -28,7 +28,12 @@
     methods: {
       async fetch() {
         var data = await this.fetchMethod({
-          conditions: { ...this.conditions, page: this.current_page, page_size: this.pageSize },
+          conditions: {
+            ...this.fixed_conditions,
+            ...this.conditions,
+            page: this.current_page,
+            page_size: this.pageSize,
+          },
         });
         this.records = data.results;
         this.total = data.count;
@@ -42,8 +47,18 @@
           this.fetch();
         },
       },
+      fixed_conditions: {
+        deep: true,
+        handler() {
+          this.fetch();
+        },
+      },
     },
-    props: { pageSize: { type: Number, default: 50 }, fetchMethod: { type: Function } },
+    props: {
+      pageSize: { type: Number, default: 50 },
+      fetchMethod: { type: Function },
+      fixed_conditions: { type: Object, default: () => ({}) },
+    },
     async mounted() {
       this.fetch();
     },

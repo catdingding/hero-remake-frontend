@@ -7,6 +7,7 @@ export default {
     return {
       available_jobs: [],
       available_skills: [],
+      skills: [],
       exercise_rewards: [],
     };
   },
@@ -16,6 +17,9 @@ export default {
     },
     set_available_skills(state, data) {
       state.available_skills = data;
+    },
+    set_skills(state, data) {
+      state.skills = data;
     },
     set_exercise_rewards(state, data) {
       state.exercise_rewards = data;
@@ -44,6 +48,10 @@ export default {
       api.get(`chara/skill/available/`).then((res) => {
         commit("set_available_skills", res.data);
       });
+    },
+    async get_skills({ state, commit, dispatch, rootState }) {
+      let res = await api.get(`skills/`);
+      commit("set_skills", res.data);
     },
     async set_skill_settings({ state, commit, dispatch, rootState }, data) {
       for (let [index, row] of data.entries()) {

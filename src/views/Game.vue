@@ -154,6 +154,13 @@
             </el-menu-item>
             <el-menu-item @click="logout">登出</el-menu-item>
           </el-submenu>
+          <el-submenu index="ugc">
+            <template slot="title">
+              自訂
+            </template>
+            <el-menu-item index="ugc-dungeon-panel" :route="{ path: '/game/ugc/panel' }">管理面板</el-menu-item>
+            <el-menu-item index="ugc-dungeon-list" :route="{ path: '/game/ugc/dungeon-list' }">地城列表</el-menu-item>
+          </el-submenu>
         </el-menu>
       </el-header>
       <el-main class="content">

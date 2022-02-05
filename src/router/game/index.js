@@ -12,12 +12,14 @@ import chara_routers from "./chara";
 import country_routers from "./country";
 import town_routers from "./town";
 import team_routers from "./team";
+import ugc_routers from "./ugc";
 
 export default [
   ...chara_routers,
   ...country_routers,
   ...town_routers,
   ...team_routers,
+  ...ugc_routers,
   { path: "", component: Index, meta: { title: "主面板" } },
   { path: "battle-result", component: BattleResult, meta: { title: "戰鬥結果" } },
   { path: "map", component: map, meta: { title: "地圖" } },

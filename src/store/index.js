@@ -21,11 +21,30 @@ import dialog from "./dialog";
 import ws from "./ws";
 import home from "./home";
 import npc from "./npc";
+import ugc from "./ugc";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  modules: { chara, battle, map, item, trade, job, ability, search, country, team, town, user, dialog, ws, home, npc },
+  modules: {
+    chara,
+    battle,
+    map,
+    item,
+    trade,
+    job,
+    ability,
+    search,
+    country,
+    team,
+    town,
+    user,
+    dialog,
+    ws,
+    home,
+    npc,
+    ugc,
+  },
   state: {
     access_token: localStorage.getItem("access_token") || "",
     refresh_token: localStorage.getItem("refresh_token") || "",
@@ -51,6 +70,14 @@ export default new Vuex.Store({
       { id: 2, name: "道具" },
       { id: 3, name: "奧義石" },
       { id: 4, name: "原料" },
+    ],
+    attribute_types: [
+      { id: 1, name: "力量" },
+      { id: 2, name: "耐力" },
+      { id: 3, name: "智力" },
+      { id: 4, name: "精神" },
+      { id: 5, name: "靈巧" },
+      { id: 6, name: "敏捷" },
     ],
     available_charas: [],
     online_charas: [],
