@@ -122,5 +122,9 @@ export default {
         headers: { "Content-Type": "multipart/form-data" },
       });
     },
+    async get_chara_achievement_types({ state, commit, dispatch, rootState }, { conditions }) {
+      var res = await api.get("chara/achievement-types/", { params: conditions });
+      return res.data;
+    },
   },
 };

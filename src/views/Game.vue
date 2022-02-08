@@ -41,6 +41,9 @@
             <el-menu-item index="chara-introduction" :route="{ path: '/game/chara/introduction' }">自傳</el-menu-item>
             <el-menu-item index="member-shop" :route="{ path: '/game/chara/member-shop' }">贊助商店</el-menu-item>
             <el-menu-item index="avatar-change" :route="{ path: '/game/chara/avatar-change' }">更換頭像</el-menu-item>
+            <el-menu-item index="chara-achievement-types" :route="{ path: '/game/chara/achievement-types' }"
+              >成就</el-menu-item
+            >
           </el-submenu>
           <el-submenu index="town" v-show="chara_location && chara_location.town">
             <template slot="title">

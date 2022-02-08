@@ -14,6 +14,7 @@ import MemberShop from "@/views/game/chara/MemberShop.vue";
 import AvatarChange from "@/views/game/chara/AvatarChange.vue";
 import BattleMapTicketToItem from "@/views/game/chara/BattleMapTicketToItem.vue";
 import Parcel from "@/views/game/chara/Parcel.vue";
+import CharaChievementTypeList from "@/views/game/chara/CharaChievementTypeList.vue";
 
 export default [
   { path: "chara/introduction", component: CharaIntroduction, meta: { title: "自傳" } },
@@ -32,4 +33,5 @@ export default [
   { path: "chara/member-shop", component: MemberShop, meta: { title: "贊助商店" } },
   { path: "chara/avatar-change", component: AvatarChange, meta: { title: "更換頭像" } },
   { path: "chara/battle-map-ticket-to-item", component: BattleMapTicketToItem, meta: { title: "地圖製作" } },
+  { path: "chara/achievement-types", component: CharaChievementTypeList, meta: { title: "成就" } },
 ];

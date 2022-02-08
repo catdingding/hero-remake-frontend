@@ -1,4 +1,4 @@
-import { Notification } from "element-ui";
+import { Notification, Message } from "element-ui";
 
 export default {
   namespaced: true,
@@ -59,6 +59,9 @@ export default {
         Notification({ title: data.sender.name, message: data.content, position: "top-left", duration: duration });
       }
     },
+    receive_info_message(state, data) {
+      Message({ message: data.content, type: data.message_type });
+    },
   },
   actions: {
     async start_ws({ state, commit, dispatch, rootState }) {
@@ -75,6 +78,8 @@ export default {
           commit("receive_log_message", data);
         } else if (data.type === "refresh_chara_profile") {
           dispatch("chara/get_chara_profile", { fields: "country,team" }, { root: true });
+        } else if (data.type === "info_message") {
+          commit("receive_info_message", data);
         }
       };
       ws.onclose = function(e) {
