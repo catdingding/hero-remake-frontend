@@ -6,6 +6,7 @@ import Log from "@/views/game/Log.vue";
 import ChangeLog from "@/views/game/ChangeLog.vue";
 import BattleResultList from "@/views/game/BattleResultList.vue";
 import AbilityList from "@/views/game/AbilityList.vue";
+import SkillList from "@/views/game/SkillList.vue";
 import PetList from "@/views/game/PetList.vue";
 
 import chara_routers from "./chara";
@@ -29,5 +30,6 @@ export default [
   { path: "change-log", component: ChangeLog, meta: { title: "更新日誌" } },
   { path: "battle-result-list", component: BattleResultList, meta: { title: "戰鬥記錄" } },
   { path: "ability-list", component: AbilityList, meta: { title: "奧義列表" } },
+  { path: "skill-list", component: SkillList, meta: { title: "技能列表" } },
   { path: "pet-list", component: PetList, meta: { title: "寵物列表" } },
 ];
