@@ -261,7 +261,7 @@
           if (this.chara_record.total_battle % 10 === 1) {
             await this.$store.dispatch("chara/get_chara_profile", {
               omit:
-                "bag_items,slots,skill_settings,introduction,main_ability,job_ability,live_ability,team,country,farms",
+                "bag_items,slots,skill_settings,introduction,main_ability,job_ability,live_ability,team,country,farms,title,titles,partner,partners",
             });
           } else {
             await this.$store.dispatch("chara/get_chara_profile", {
@@ -299,7 +299,8 @@
       }
       this.$store
         .dispatch("chara/get_chara_profile", {
-          omit: "bag_items,slots,skill_settings,introduction,main_ability,job_ability,live_ability,farms",
+          omit:
+            "bag_items,slots,skill_settings,introduction,main_ability,job_ability,live_ability,farms,title,titles,partner,partners",
         })
         .then(() => {
           this.$store.dispatch("ws/start_ws");

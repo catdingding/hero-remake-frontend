@@ -14,7 +14,7 @@
         <span>[{{ channel_name_mapping[message.channel] }}]</span>
         <span>
           <CharaLink :chara_name="message.sender.name" :chara_id="message.sender.id"></CharaLink>
-          @{{ message.sender.country | country_name }}
+          {{ message.sender.title ? message.sender.title.type.name : "" }}@{{ message.sender.country | country_name }}
         </span>
         <span v-if="message.receiver">傳送給</span>
         <span v-if="message.receiver">

@@ -4,6 +4,7 @@
       <template v-slot:main="slot_props">
         <el-table :data="slot_props.records">
           <el-table-column label="成就名稱" align="center" prop="name"></el-table-column>
+          <el-table-column label="稱號" align="center" prop="title_type.name"></el-table-column>
           <el-table-column label="已取得" align="center">
             <template slot-scope="scope">
               <span v-if="scope.row.obtained">已取得</span>

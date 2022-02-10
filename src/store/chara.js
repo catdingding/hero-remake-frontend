@@ -18,6 +18,7 @@ export default {
       chara_job_ability: null,
       chara_live_ability: null,
       chara_partner: null,
+      chara_title: null,
       chara_slots: [],
       chara_bag_items: [],
       chara_skill_settings: [],
@@ -40,6 +41,7 @@ export default {
       chara_farms: [],
       chara_buffs: [],
       chara_partners: [],
+      chara_titles: [],
       chara_official: null,
       chara_is_king: false,
       chara_is_leader: false,
@@ -102,6 +104,9 @@ export default {
     },
     async assign_partner({ commit, dispatch }, data) {
       return api.post("/chara/partner/assign/", data);
+    },
+    async set_title({ commit, dispatch }, data) {
+      return api.post("/chara/title/set/", data);
     },
     async set_introduction({ commit, dispatch }, data) {
       return api.put("/chara/introduction/", data);

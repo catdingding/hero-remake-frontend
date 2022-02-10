@@ -24,11 +24,23 @@
         當前同伴：
         {{ chara_partner | partner }}
       </div>
-      <el-select v-model="selected_partner" style="width:300px">
+      <el-select v-model="selected_partner" clearable style="width:300px">
         <el-option v-for="partner in chara_partners" :key="partner.id" :label="partner | partner" :value="partner.id" />
       </el-select>
       <el-button type="primary" @click="assign_partner({ partner: selected_partner }).then(() => refresh())">
         更換同伴
+      </el-button>
+      <el-divider></el-divider>
+      <h2 class="page-block-title">稱號</h2>
+      <div>
+        當前稱號：
+        {{ chara_title ? chara_title.type.name : 無 }}
+      </div>
+      <el-select v-model="selected_title" clearable style="width:300px">
+        <el-option v-for="title in chara_titles" :key="title.id" :label="title.type.name" :value="title.id" />
+      </el-select>
+      <el-button type="primary" @click="set_title({ title: selected_title }).then(() => refresh())">
+        更換稱號
       </el-button>
     </div>
     <div class="bag">
@@ -71,7 +83,7 @@
   export default {
     name: "Bag",
     data() {
-      return { bag_item_total: 0, selected_partner: null };
+      return { bag_item_total: 0, selected_partner: null, selected_title: null };
     },
     computed: {
       ...mapState("chara", [
@@ -81,19 +93,21 @@
         "chara_bag_item_limit",
         "chara_partner",
         "chara_partners",
+        "chara_title",
+        "chara_titles",
       ]),
     },
     methods: {
       ...mapActions("item", ["get_bag_items", "use_item", "equip_item", "divest_slot"]),
-      ...mapActions("chara", ["assign_partner"]),
+      ...mapActions("chara", ["assign_partner", "set_title"]),
       refresh() {
         this.$refs.bag_item_table.fetch();
-        this.$store.dispatch("chara/get_chara_profile", { fields: "slots,partners,partner" });
+        this.$store.dispatch("chara/get_chara_profile", { fields: "slots,partners,partner,title,titles" });
       },
     },
     mounted() {
       this.$store.dispatch("chara/get_chara_profile", {
-        fields: "gold,proficiency,slots,bag_item_limit,partner,partners",
+        fields: "gold,proficiency,slots,bag_item_limit,partner,partners,title,titles",
       });
     },
     components: { PaginationItemTable, SlotTable, InputNumberWithButton },
