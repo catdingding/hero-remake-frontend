@@ -165,6 +165,7 @@
             <el-menu-item index="ugc-dungeon-panel" :route="{ path: '/game/ugc/panel' }">管理面板</el-menu-item>
             <el-menu-item index="ugc-dungeon-list" :route="{ path: '/game/ugc/dungeon-list' }">地城列表</el-menu-item>
           </el-submenu>
+          <el-button @click="toggle_dart_theme">dark theme</el-button>
         </el-menu>
       </el-header>
       <el-main class="content">
@@ -290,6 +291,9 @@
           this.$router.push("/game");
         }
       },
+      toggle_dart_theme() {
+        document.body.classList.toggle("dark-theme");
+      },
     },
     mounted() {
       if (!this.is_loggedin) {
@@ -338,6 +342,11 @@
     @media (max-width: 768px) {
       position: relative;
     }
+  }
+  .el-menu {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
   }
   .el-main {
     margin-top: 60px;

@@ -1,7 +1,8 @@
 import Vue from "vue";
 import "element-ui/lib/theme-chalk/index.css";
+import "./assets/dark-theme/index.css";
 import "vue-virtual-scroller/dist/vue-virtual-scroller.css";
-import "./style.css";
+import "./style.less";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
@@ -24,6 +25,6 @@ Vue.component("RelativeTime", RelativeTime);
 new Vue({
   router,
   store,
-  render: h => h(App),
-  mounted() {}
+  render: (h) => h(App),
+  mounted() {},
 }).$mount("#app");

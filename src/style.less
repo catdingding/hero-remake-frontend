@@ -1,0 +1,71 @@
+* {
+  --color-text-primary: #303133;
+  --color-text-regular: #606266;
+  --color-text-secondary: #909399;
+  --color-text-placeholder: #c0c4cc;
+  --color-white: #ffffff;
+
+  .dark-theme &,
+  .dark-theme {
+    --color-text-primary: #faffff;
+    --color-text-regular: #faffff;
+    --color-text-secondary: #faffff;
+    --color-text-placeholder: #faffff;
+    --color-white: #36393f;
+  }
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-white);
+}
+
+h2 {
+  color: var(--color-text-primary);
+}
+.small-font {
+  font-size: 14px;
+}
+
+.el-card__header {
+  text-align: center;
+}
+
+.dark-theme table:not(.el-table__body),
+table:not(.el-table__body) {
+  border-collapse: collapse;
+  width: 100%;
+  text-align: center;
+  border-radius: 10px;
+  padding: 10px;
+  td,
+  th {
+    padding: 5px;
+    height: 43px;
+  }
+  tr:not(:last-child) {
+    border-bottom: 1px solid #ccc;
+  }
+}
+
+.page-block-title {
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+}
+
+.save-panel {
+  margin-top: 50px;
+  text-align: center;
+}
+
+.el-table {
+  td,
+  th {
+    background-color: transparent;
+  }
+}
+
+.dark-theme .el-table--enable-row-hover .el-table__body tr:hover > td {
+  background-color: #777777;
+}

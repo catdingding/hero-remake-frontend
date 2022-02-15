@@ -74,7 +74,11 @@
     font-size: 14px;
     border-bottom: 1px solid #666;
     &.public {
-      background-color: #ffffff;
+      background-color: transparent;
+      color: var(--color-text-primary);
+      .datetime {
+        color: var(--color-text-primary);
+      }
     }
     &.country {
       background-color: #d1ecf7;
@@ -84,6 +88,12 @@
     }
     &.private {
       background-color: #fff7b3;
+    }
+    .datetime {
+      color: var(--color-text-secondary);
+      .dark-theme & {
+        color: #000000;
+      }
     }
   }
   .message {
@@ -103,9 +113,6 @@
   }
   .content {
     word-break: break-all;
-  }
-  .datetime {
-    color: #999999;
   }
   .reply {
     color: #2323f7;
