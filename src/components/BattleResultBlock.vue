@@ -97,7 +97,7 @@
   .round {
     display: flex;
     padding: 10px;
-    background-color: #fff;
+    background-color: var(--color-white);
     border-bottom: 1px solid #999;
 
     & > .defenders {
@@ -125,7 +125,7 @@
     padding: 15px;
     font-size: 16px;
     font-weight: 700;
-    background-color: #fff;
+    background-color: var(--color-white);
     margin-bottom: 10px;
 
     div {
