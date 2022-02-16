@@ -75,14 +75,14 @@
     data() {
       return {};
     },
-    props: { available_skills: { type: Array, default: () => [] }, value: { type: Array, default: () => [] } },
+    props: { available_skills: { type: Array, default: () => [] }, modelValue: { type: Array, default: () => [] } },
     computed: {
       settings: {
         set(value) {
           this.$emit("input", value);
         },
         get() {
-          return this.value;
+          return this.modelValue;
         },
       },
     },
