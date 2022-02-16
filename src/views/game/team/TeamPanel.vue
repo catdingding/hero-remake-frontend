@@ -3,7 +3,7 @@
     <el-row type="flex" justify="space-around" style="width: 100%;" v-if="team_profile">
       <el-col :span="24">
         <el-card>
-          <el-tabs value="first">
+          <el-tabs model-value="first">
             <el-tab-pane label="隊伍成員" name="first">
               <Pagination :fetch-method="get_team_members" ref="member_table">
                 <template v-slot:main="slot_props">

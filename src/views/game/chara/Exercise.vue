@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>當前修煉消耗：{{ exercise_cost }}熟練度，當前擁有熟練度：{{ chara_proficiency | currency }}</div>
+    <div>當前修煉消耗：{{ exercise_cost }}熟練度，當前擁有熟練度：{{ $filters.currency(chara_proficiency) }}</div>
     <table>
       <tr>
         <th>職業</th>
@@ -26,13 +26,13 @@
 
     <el-divider></el-divider>
     <div style="text-align:center">
-      當前擁有金錢：{{ chara_gold | currency }}<br />
+      當前擁有金錢：{{ $filters.currency(chara_gold) }}<br />
       HP最大值/潛力上限：{{ chara_hp_max }}/{{ chara_hp_limit }}<br />
       MP最大值/潛力上限：{{ chara_mp_max }}/{{ chara_mp_limit }}<br />
     </div>
     <div style="width: 100%;text-align: center;margin-top:25px;">
       <el-button type="primary" @click="increase_hp_mp_max()">
-        提升HP、MP最大值(花費{{ increase_hp_mp_max_cost | currency }}金錢)
+        提升HP、MP最大值(花費{{ $filters.currency(increase_hp_mp_max_cost) }}金錢)
       </el-button>
     </div>
   </div>
@@ -40,6 +40,8 @@
 
 <script>
   import { mapState, mapActions } from "vuex";
+  import _ from "lodash";
+
   export default {
     name: "Exercise",
     data() {
@@ -58,7 +60,7 @@
         "chara_attributes",
       ]),
       formatted_exercise_rewards() {
-        return this._(this.exercise_rewards)
+        return _(this.exercise_rewards)
           .sortBy((x) => x.reward_attribute_type.id)
           .groupBy((x) => x.job_attribute_type.class_name)
           .value();

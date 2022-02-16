@@ -2,11 +2,11 @@
   <div>
     <div style="width: 100%;text-align: center">
       <el-button type="success" @click="upgrade_storage" v-show="chara_official || chara_is_king">
-        擴充倉庫({{ (_.get(country_profile, "item_limit") * 1000000) | currency }})
+        擴充倉庫({{ $filters.currency(country_profile.item_limit * 1000000) }})
       </el-button>
     </div>
     <div class="storage">
-      <h2 class="page-block-title">國庫（{{ country_item_total }}/{{ _.get(country_profile, "item_limit") }}）</h2>
+      <h2 class="page-block-title">國庫（{{ country_item_total }}/{{ country_profile?.item_limit }}）</h2>
       <PaginationItemTable
         :fetch-method="get_country_storage_items"
         ref="country_item_table"
@@ -14,7 +14,7 @@
       >
         <template v-slot:extra-column>
           <el-table-column label="取出" align="center" :width="150">
-            <template slot-scope="scope">
+            <template v-slot="scope">
               <InputNumberWithButton
                 text="取出"
                 :max="scope.row.number"
@@ -31,7 +31,7 @@
       <PaginationItemTable :fetch-method="get_bag_items" ref="bag_item_table">
         <template v-slot:extra-column>
           <el-table-column label="存入" align="center" :width="150">
-            <template slot-scope="scope">
+            <template v-slot="scope">
               <InputNumberWithButton
                 text="存入"
                 :max="scope.row.number"

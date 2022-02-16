@@ -7,12 +7,12 @@
       <el-table-column label="領土數" align="center" prop="location_count"> </el-table-column>
       <el-table-column label="國民數" align="center" prop="citizen_count"> </el-table-column>
       <el-table-column label="建立時間" align="center" prop="created_at">
-        <template slot-scope="scope">
-          {{ scope.row.created_at | datetime_display }}
+        <template v-slot="scope">
+          {{ $filters.datetime_display(scope.row.created_at) }}
         </template>
       </el-table-column>
       <el-table-column label="申請加入" align="center" v-if="!chara_country">
-        <template slot-scope="scope">
+        <template v-slot="scope">
           <el-button type="primary" @click="create_country_join_request({ country: scope.row.id })">申請加入</el-button>
         </template>
       </el-table-column>

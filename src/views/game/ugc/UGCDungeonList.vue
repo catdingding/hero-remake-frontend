@@ -6,17 +6,17 @@
           <el-table-column label="地城名稱" align="center" prop="name"></el-table-column>
           <el-table-column label="地城簡介" align="center" prop="description"></el-table-column>
           <el-table-column label="建立者" align="center">
-            <template slot-scope="scope">
+            <template v-slot="scope">
               <CharaLink :chara_name="scope.row.chara.name" :chara_id="scope.row.chara.id"></CharaLink>
             </template>
           </el-table-column>
           <el-table-column label="進度" align="center">
-            <template slot-scope="scope">
+            <template v-slot="scope">
               <span>{{ scope.row.record ? scope.row.record.current_floor : 0 }} / {{ scope.row.max_floor }}</span>
             </template>
           </el-table-column>
           <el-table-column label="行動" align="center">
-            <template slot-scope="scope">
+            <template v-slot="scope">
               <el-button
                 v-if="!scope.row.record || scope.row.record.status === 'inactive'"
                 type="primary"

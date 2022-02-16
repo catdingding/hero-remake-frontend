@@ -34,7 +34,7 @@
     mounted() {
       this.interval_id = setInterval(this.set_relative_time, this.period);
     },
-    beforeDestroy() {
+    beforeUnmount() {
       clearInterval(this.interval_id);
     },
   };

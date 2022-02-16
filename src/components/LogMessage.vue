@@ -2,7 +2,7 @@
   <div class="message">
     <span v-if="message.category">【{{ message.category }}】</span>
     <span>{{ message.content }}</span>
-    <span class="datetime">{{ message.created_at | datetime_display }}</span>
+    <span class="datetime">{{ $filters.datetime_display(message.created_at) }}</span>
   </div>
 </template>
 

@@ -14,12 +14,14 @@
         <span>[{{ channel_name_mapping[message.channel] }}]</span>
         <span>
           <CharaLink :chara_name="message.sender.name" :chara_id="message.sender.id"></CharaLink>
-          {{ message.sender.title ? message.sender.title.type.name : "" }}@{{ message.sender.country | country_name }}
+          {{ message.sender.title ? message.sender.title.type.name : "" }}@{{
+            $filters.country_name(message.sender.country)
+          }}
         </span>
         <span v-if="message.receiver">傳送給</span>
         <span v-if="message.receiver">
           {{ message.receiver.name }}
-          @{{ message.receiver.country | country_name }}
+          @{{ $filters.country_name(message.receiver.country) }}
         </span>
         <span v-if="message.is_system_generated" style="color:#999999">(系統訊息)</span>
         <span
@@ -39,7 +41,7 @@
         {{ message.content }}
         」
       </div>
-      <div class="datetime">{{ message.created_at | datetime_display }}</div>
+      <div class="datetime">{{ $filters.datetime_display(message.created_at) }}</div>
     </div>
   </div>
 </template>
@@ -75,9 +77,9 @@
     border-bottom: 1px solid #666;
     &.public {
       background-color: transparent;
-      color: var(--color-text-primary);
+      color: var(--text-color-primary);
       .datetime {
-        color: var(--color-text-primary);
+        color: var(--text-color-primary);
       }
     }
     &.country {
@@ -88,12 +90,6 @@
     }
     &.private {
       background-color: #fff7b3;
-    }
-    .datetime {
-      color: var(--color-text-secondary);
-      .dark-theme & {
-        color: #000000;
-      }
     }
   }
   .message {

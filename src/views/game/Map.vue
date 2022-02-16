@@ -3,16 +3,18 @@
     <div>
       <div class="panel">
         <span>x:</span>
-        <el-input-number v-model="x" size="mini" @change="get_map" />
+        <el-input-number v-model="x" size="small" @change="get_map" />
         <span>y:</span>
-        <el-input-number v-model="y" size="mini" @change="get_map" />
+        <el-input-number v-model="y" size="small" @change="get_map" />
       </div>
       <div class="map small-font" v-if="map">
         <div class="location" v-for="(location, index) in map" :key="index">
           <el-popover placement="top" title="詳細資訊" width="200" trigger="hover">
             屬性：{{ location.element_type.name }}<br />
-            國家：{{ location.country | country_name }}
-            <i slot="reference" class="info el-icon-info"></i>
+            國家：{{ $filters.country_name(location.country) }}
+            <template #reference>
+              <i class="info el-icon-info"></i>
+            </template>
           </el-popover>
 
           <span :class="{ 'no-town': !location.town }">{{ location.town ? location.town.name : "無城鎮" }}</span>
@@ -24,12 +26,12 @@
           <el-button
             v-if="location.x === chara_location.x && location.y === chara_location.y"
             type="info"
-            size="mini"
+            size="small"
             disabled
           >
             當前位置
           </el-button>
-          <el-button v-else type="success" size="mini" @click="move(location)">前往</el-button>
+          <el-button v-else type="success" size="small" @click="move(location)">前往</el-button>
         </div>
       </div>
     </div>

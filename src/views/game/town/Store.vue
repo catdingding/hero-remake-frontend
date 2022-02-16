@@ -5,12 +5,12 @@
       <ItemTypeOptionTable :options="store_options">
         <template v-slot:extra-column>
           <el-table-column label="價格" align="center">
-            <template slot-scope="scope">
-              {{ scope.row.price | currency }}
+            <template v-slot="scope">
+              {{ $filters.currency(scope.row.price) }}
             </template>
           </el-table-column>
           <el-table-column label="購買" align="center" width="120px">
-            <template slot-scope="scope">
+            <template v-slot="scope">
               <InputNumberWithButton
                 text="購買"
                 @click="buy_store_option({ id: scope.row.id, number: $event }).then(() => $refs.bag_item_table.fetch())"
@@ -31,12 +31,12 @@
       >
         <template v-slot:extra-column>
           <el-table-column label="出售價" align="center">
-            <template slot-scope="scope">
-              {{ (scope.row.type.value / 2) | currency }}
+            <template v-slot="scope">
+              {{ $filters.currency(scope.row.type.value / 2) }}
             </template>
           </el-table-column>
           <el-table-column label="出售" align="center" width="120px">
-            <template slot-scope="scope">
+            <template v-slot="scope">
               <InputNumberWithButton
                 text="出售"
                 type="danger"
@@ -78,7 +78,9 @@
     },
     watch: {
       $route(to, from) {
-        this.$store.dispatch("trade/get_store_options", { store_type: to.params.store_type });
+        if (to.path.includes("/game/town/store")) {
+          this.$store.dispatch("trade/get_store_options", { store_type: to.params.store_type });
+        }
       },
     },
     components: { PaginationItemTable, ItemTypeOptionTable, CharaWallet, InputNumberWithButton },

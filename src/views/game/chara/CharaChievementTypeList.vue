@@ -6,7 +6,7 @@
           <el-table-column label="成就名稱" align="center" prop="name"></el-table-column>
           <el-table-column label="稱號" align="center" prop="title_type.name"></el-table-column>
           <el-table-column label="已取得" align="center">
-            <template slot-scope="scope">
+            <template v-slot="scope">
               <span v-if="scope.row.obtained">已取得</span>
               <span v-else style="color:#aaa">未取得</span>
             </template>

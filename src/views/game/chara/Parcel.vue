@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-tabs value="first">
+    <el-tabs model-value="first">
       <!-- 寄送物品 -->
       <el-tab-pane label="寄送物品" name="first">
         <el-form :model="parcel_form_data" label-width="120px" label-position="left">
@@ -9,7 +9,7 @@
               <el-option
                 v-for="item in chara_bag_items"
                 :key="item.id"
-                :label="item | item_string"
+                :label="$filters.item_string(item)"
                 :value="item.id"
               ></el-option>
             </el-select>
@@ -37,7 +37,7 @@
           <el-table-column label="費用" prop="price" align="center"></el-table-column>
           <el-table-column label="訊息" prop="message" align="center"></el-table-column>
           <el-table-column label="領取/取消" align="center">
-            <template slot-scope="scope">
+            <template v-slot="scope">
               <el-button type="primary" @click="receive_parcel(scope.row.id)" v-if="scope.row.receiver.id === chara_id">
                 領取包裹
               </el-button>

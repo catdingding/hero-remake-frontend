@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Message } from "element-ui";
+import { ElMessage } from "element-plus";
 
 let api = axios.create({ baseURL: `${process.env.VUE_APP_API_ROOT}/` });
 
@@ -33,9 +33,9 @@ api.interceptors.response.use(
   (res) => {
     var display_message = res.data["display_message"];
     if (display_message) {
-      Message.success(display_message);
+      ElMessage.success(display_message);
     } else if (res.data["status"] === "success") {
-      Message.success("操作成功");
+      ElMessage.success("操作成功");
     }
     return res;
   },
@@ -44,7 +44,7 @@ api.interceptors.response.use(
       localStorage.clear();
       window.location.reload();
     }
-    Message.error(flat_data(err.response.data).join("<br/>"));
+    ElMessage.error(flat_data(err.response.data).join("<br/>"));
     return Promise.reject(err);
   }
 );

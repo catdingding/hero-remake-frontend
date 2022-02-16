@@ -1,6 +1,6 @@
 <template>
   <div style="display: inline-block;">
-    <el-tooltip manual placement="top" :value="is_focused" :content="display_value | currency">
+    <el-tooltip manual placement="top" :value="is_focused" :content="$filters.currency(display_value)">
       <el-input-number
         :size="size"
         :min="min"
@@ -10,7 +10,6 @@
         @blur="is_focused = false"
         @focus="is_focused = true"
         ref="input"
-        @input.native="display_value = $refs.input.displayValue"
         @input="display_value = input_value"
       ></el-input-number>
     </el-tooltip>
@@ -27,21 +26,29 @@
       min: { type: Number, default: 1 },
       max: { type: Number, default: Infinity },
       width: { type: String, default: "100px" },
-      size: { type: String, default: "mini" },
-      value: { type: Number },
+      size: { type: String, default: "small" },
+      modelValue: { type: Number },
     },
     computed: {
       input_value: {
         set(value) {
-          this.$emit("input", value);
+          this.$emit("update:modelValue", value);
         },
         get() {
-          return this.value;
+          return this.modelValue;
         },
       },
     },
     mounted() {
       this.display_value = this.value;
+      this.$watch(
+        () => {
+          return this.$refs.input.displayValue;
+        },
+        (val) => {
+          this.display_value = val;
+        }
+      );
     },
   };
 </script>

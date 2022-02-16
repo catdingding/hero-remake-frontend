@@ -15,7 +15,7 @@
             <el-option
               v-if="item.type.category == 1"
               :key="item.id"
-              :label="item | item_string"
+              :label="$filters.item_string(item)"
               :value="item.id"
             ></el-option>
           </template>
@@ -27,7 +27,7 @@
             <el-option
               v-if="item.type.category == 1"
               :key="item.id"
-              :label="item | item_string"
+              :label="$filters.item_string(item)"
               :value="item.id"
             ></el-option>
           </template>
@@ -39,7 +39,7 @@
             <el-option
               v-if="item.type.category == 1"
               :key="item.id"
-              :label="item | item_string"
+              :label="$filters.item_string(item)"
               :value="item.id"
             ></el-option>
           </template>

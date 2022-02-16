@@ -1,30 +1,24 @@
-import Vue from "vue";
-import "element-ui/lib/theme-chalk/index.css";
-import "./assets/dark-theme/index.css";
+import { createApp, h } from "vue";
+import "element-plus/dist/index.css";
 import "vue-virtual-scroller/dist/vue-virtual-scroller.css";
 import "./style.less";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
-import ElementUI from "element-ui";
-import locale from "element-ui/lib/locale/lang/zh-TW";
+import ElementPlus from "element-plus";
+import locale from "element-plus/lib/locale/lang/zh-tw";
 import VueLodash from "vue-lodash";
 import lodash from "lodash";
-import "./filters";
+import filters from "./filters";
 import VueVirtualScroller from "vue-virtual-scroller";
 
 import RelativeTime from "./components/RelativeTime.vue";
 
-Vue.use(ElementUI, { locale });
-Vue.use(VueLodash, { lodash: lodash });
-Vue.use(VueVirtualScroller);
-Vue.config.productionTip = false;
-
-Vue.component("RelativeTime", RelativeTime);
-
-new Vue({
-  router,
-  store,
-  render: (h) => h(App),
-  mounted() {},
-}).$mount("#app");
+const app = createApp(App)
+  .use(router)
+  .use(store)
+  .use(ElementPlus, { locale })
+  .use(VueVirtualScroller)
+  .component("RelativeTime", RelativeTime);
+app.config.globalProperties.$filters = filters;
+app.mount("#app");

@@ -2,11 +2,15 @@
   <div>
     <div>
       <el-card>
-        <div slot="header">選擇傳送對象</div>
+        <template #header>
+          <div>選擇傳送對象</div>
+        </template>
         <CharaSelect v-model="receiver"></CharaSelect>
       </el-card>
       <el-card class="send-gold">
-        <div slot="header">傳送金錢</div>
+        <template #header>
+          <div>傳送金錢</div>
+        </template>
         <InputNumber v-model="gold" :min="0" size="large" width="180px"></InputNumber>
         <br /><br />
         <el-button type="primary" @click="send_gold({ gold: gold, receiver: receiver })">傳送</el-button>
@@ -14,11 +18,13 @@
     </div>
 
     <el-card class="send-item">
-      <div slot="header">傳送物品</div>
+      <template #header>
+        <div>傳送物品</div>
+      </template>
       <PaginationItemTable ref="bag_item_table" :fetch-method="get_bag_items">
         <template v-slot:extra-column>
           <el-table-column label="傳送" align="center" width="150px">
-            <template slot-scope="scope">
+            <template v-slot="scope">
               <InputNumberWithButton
                 text="傳送"
                 :max="scope.row.number"

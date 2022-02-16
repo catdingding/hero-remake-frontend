@@ -1,6 +1,5 @@
 import api from "@/api";
 import router from "@/router";
-import { Message } from "element-ui";
 
 export default {
   namespaced: true,

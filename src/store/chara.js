@@ -1,5 +1,4 @@
 import api from "@/api";
-import { Message } from "element-ui";
 import _ from "lodash";
 
 export default {
@@ -89,12 +88,6 @@ export default {
       );
       if (remain_tickets === 0 && state.chara_location) {
         commit("battle/updateField", { path: "battle_map_id", value: state.chara_location.battle_map }, { root: true });
-      }
-      if (
-        _.get(state.chara_country, "id") !== _.get(chara_country, "id") ||
-        _.get(state.chara_team, "id") !== _.get(chara_team, "id")
-      ) {
-        commit("ws/close_ws", {}, { root: true });
       }
     },
     async rest({ commit, dispatch }) {

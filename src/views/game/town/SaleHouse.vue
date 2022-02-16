@@ -1,27 +1,27 @@
 <template>
   <div>
-    <el-tabs value="first">
+    <el-tabs model-value="first">
       <!-- 進行中拍賣 -->
       <el-tab-pane label="進行中拍賣" name="first">
         <PaginationItemTable :fetch-method="get_active_sales" item-field="item">
           <template v-slot:extra-column>
             <el-table-column label="出售者" align="center">
-              <template slot-scope="scope">
+              <template v-slot="scope">
                 {{ scope.row.seller.name }}
               </template>
             </el-table-column>
             <el-table-column label="價格" align="center">
-              <template slot-scope="scope">
-                {{ scope.row.price | currency }}
+              <template v-slot="scope">
+                {{ $filters.currency(scope.row.price) }}
               </template>
             </el-table-column>
             <el-table-column label="剩餘時間" align="center">
-              <template slot-scope="scope">
+              <template v-slot="scope">
                 <RelativeTime :time_string="scope.row.due_time" :period="1000"></RelativeTime>
               </template>
             </el-table-column>
             <el-table-column label="購買" align="center" width="150px">
-              <template slot-scope="scope">
+              <template v-slot="scope">
                 <el-button type="primary" @click="buy_sale(scope.row.id)">購買</el-button>
               </template>
             </el-table-column>
@@ -37,7 +37,7 @@
               <el-option
                 v-for="item in chara_bag_items"
                 :key="item.id"
-                :label="item | item_string"
+                :label="$filters.item_string(item)"
                 :value="item.id"
               ></el-option>
             </el-select>
@@ -46,7 +46,7 @@
             <el-input-number v-model="sale_form_data.number" :min="1"></el-input-number>
           </el-form-item>
           <el-form-item label="價格" required>
-            <InputNumber v-model="sale_form_data.price" :min="1" size="large" width="180px"></InputNumber>
+            <InputNumber v-model="sale_form_data.price" :min="1" size="default" width="150px"></InputNumber>
           </el-form-item>
           <el-form-item label="時長（小時）" required>
             <el-input-number v-model="sale_form_data.hours" :min="1"></el-input-number>
@@ -58,17 +58,17 @@
       <el-tab-pane label="領取物品" name="third">
         <el-table :data="todo_sales">
           <el-table-column label="物品名稱" align="center">
-            <template slot-scope="scope">
+            <template v-slot="scope">
               {{ scope.row.item.equipment ? scope.row.item.equipment.display_name : scope.row.item.type.name }}
             </template>
           </el-table-column>
           <el-table-column label="數量" align="center">
-            <template slot-scope="scope">
+            <template v-slot="scope">
               {{ scope.row.item.number }}
             </template>
           </el-table-column>
           <el-table-column label="領取" align="center">
-            <template slot-scope="scope">
+            <template v-slot="scope">
               <el-button type="primary" @click="receive_sale_item(scope.row.id)">領取物品</el-button>
             </template>
           </el-table-column>

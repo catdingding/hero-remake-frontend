@@ -4,7 +4,7 @@
       <span>{{ title }}</span>
       <span>{{ this.value }}/{{ this.maxValue }}</span>
     </div>
-    <el-button class="submit" size="mini" type="success" @click="$emit('submit')" :disabled="value < maxValue">
+    <el-button class="submit" size="small" type="success" @click="$emit('submit')" :disabled="value < maxValue">
       提交
     </el-button>
   </div>

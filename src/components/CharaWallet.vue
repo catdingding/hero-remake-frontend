@@ -1,8 +1,8 @@
 <template>
   <div>
-    金錢：{{ chara_gold | currency }}
+    金錢：{{ $filters.currency(chara_gold) }}
     <el-divider direction="vertical"></el-divider>
-    熟練度：{{ chara_proficiency | currency }}
+    熟練度：{{ $filters.currency(chara_proficiency) }}
   </div>
 </template>
 
@@ -13,7 +13,7 @@
     data() {
       return {};
     },
-    computed: { ...mapState("chara", ["chara_proficiency", "chara_gold"]) }
+    computed: { ...mapState("chara", ["chara_proficiency", "chara_gold"]) },
   };
 </script>
 

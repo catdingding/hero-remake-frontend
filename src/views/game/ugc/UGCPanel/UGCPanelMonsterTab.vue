@@ -9,7 +9,7 @@
         <el-table :data="slot_props.records">
           <el-table-column label="怪物名稱" align="center" prop="name"></el-table-column>
           <el-table-column label="操作" align="center">
-            <template slot-scope="scope">
+            <template v-slot="scope">
               <el-button type="primary" @click="open_dialog(scope.row.id)">
                 編輯
               </el-button>
@@ -24,7 +24,7 @@
         </el-table>
       </template>
     </Pagination>
-    <el-dialog title="編輯" :visible.sync="dialog_visible" width="80%">
+    <el-dialog title="編輯" v-model="dialog_visible" width="80%">
       <UGCPanelMonsterForm v-if="dialog_visible" :monster_id="dialog_monster_id" @save="$refs.monster_table.fetch()">
       </UGCPanelMonsterForm>
     </el-dialog>

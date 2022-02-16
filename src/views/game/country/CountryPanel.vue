@@ -1,13 +1,15 @@
 <template>
-  <div>
+  <div v-if="country_profile">
     <el-row type="flex" justify="space-around" style="width: 100%;">
       <el-col :span="7">
         <el-card>
-          <div slot="header">國家概況</div>
-          <table v-if="chara_country">
+          <template #header>
+            <div>國家概況</div>
+          </template>
+          <table v-if="chara_country && country_profile">
             <tr>
               <td>國王</td>
-              <td>{{ _.get(country_profile, "king.name") }}</td>
+              <td>{{ country_profile.king.name }}</td>
               <td>
                 <el-button type="primary" @click="change_king_dialog_visiable = true" v-show="chara_is_king">
                   禪讓
@@ -16,12 +18,12 @@
             </tr>
             <tr>
               <td>國家資金</td>
-              <td>{{ _.get(country_profile, "gold") | currency }}</td>
+              <td>{{ $filters.currency(country_profile.gold) }}</td>
               <td><el-button type="primary" @click="donate_dialog_visible = true">捐獻</el-button></td>
             </tr>
             <tr>
               <td>領土數量</td>
-              <td>{{ _.get(country_profile, "location_count") }}</td>
+              <td>{{ country_profile.location_count }}</td>
               <td></td>
             </tr>
           </table>
@@ -33,7 +35,7 @@
       </el-col>
       <el-col :span="14">
         <el-card>
-          <el-tabs value="first">
+          <el-tabs model-value="first">
             <el-tab-pane label="國民名冊" name="first">
               <Pagination :fetch-method="get_country_citizens" ref="citizen_table">
                 <template v-slot:main="slot_props">
@@ -87,12 +89,12 @@
                     <el-button
                       v-if="location.x === chara_location.x && location.y === chara_location.y"
                       type="info"
-                      size="mini"
+                      size="small"
                       disabled
                     >
                       當前位置
                     </el-button>
-                    <el-button v-else type="success" size="mini" @click="move(location)">前往</el-button>
+                    <el-button v-else type="success" size="small" @click="move(location)">前往</el-button>
                   </td>
                 </tr>
               </table>
@@ -114,7 +116,7 @@
       </el-col>
     </el-row>
     <!-- 捐獻 -->
-    <el-dialog title="捐獻" :visible.sync="donate_dialog_visible">
+    <el-dialog title="捐獻" v-model="donate_dialog_visible">
       <el-form :model="donate_form_data" class="form">
         <el-form-item label="捐獻金額" prop="gold" required>
           <InputNumber
@@ -126,20 +128,22 @@
           ></InputNumber>
         </el-form-item>
       </el-form>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="donate_dialog_visible = false">取消</el-button>
-        <el-button
-          type="primary"
-          @click="
-            donate_country(donate_form_data);
-            donate_dialog_visible = false;
-          "
-          >確認
-        </el-button>
-      </span>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="donate_dialog_visible = false">取消</el-button>
+          <el-button
+            type="primary"
+            @click="
+              donate_country(donate_form_data);
+              donate_dialog_visible = false;
+            "
+            >確認
+          </el-button>
+        </span>
+      </template>
     </el-dialog>
     <!-- 禪讓 -->
-    <el-dialog title="禪讓王位" :visible.sync="change_king_dialog_visiable">
+    <el-dialog title="禪讓王位" v-model="change_king_dialog_visiable">
       <el-form :model="change_king_form_data" class="form">
         <el-form-item label="禪讓對象" prop="chara" required>
           <CharaSelect
@@ -149,36 +153,40 @@
           ></CharaSelect>
         </el-form-item>
       </el-form>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="change_king_dialog_visiable = false">取消</el-button>
-        <el-button
-          type="primary"
-          @click="
-            change_king(change_king_form_data);
-            change_king_dialog_visiable = false;
-          "
-          >確認
-        </el-button>
-      </span>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="change_king_dialog_visiable = false">取消</el-button>
+          <el-button
+            type="primary"
+            @click="
+              change_king(change_king_form_data);
+              change_king_dialog_visiable = false;
+            "
+            >確認
+          </el-button>
+        </span>
+      </template>
     </el-dialog>
     <!-- 授予官職 -->
-    <el-dialog title="授予官職" :visible.sync="create_official_dialog_visiable">
+    <el-dialog title="授予官職" v-model="create_official_dialog_visiable">
       <el-form :model="create_official_form_data" class="form">
         <el-form-item label="官職名稱" prop="title" required>
           <el-input v-model="create_official_form_data.title"></el-input>
         </el-form-item>
       </el-form>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="create_official_dialog_visiable = false">取消</el-button>
-        <el-button
-          type="primary"
-          @click="
-            create_country_official(create_official_form_data).then(() => $refs.citizen_table.fetch());
-            create_official_dialog_visiable = false;
-          "
-          >確認
-        </el-button>
-      </span>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="create_official_dialog_visiable = false">取消</el-button>
+          <el-button
+            type="primary"
+            @click="
+              create_country_official(create_official_form_data).then(() => $refs.citizen_table.fetch());
+              create_official_dialog_visiable = false;
+            "
+            >確認
+          </el-button>
+        </span>
+      </template>
     </el-dialog>
   </div>
 </template>

@@ -2,20 +2,21 @@
   <div class="main">
     <div v-for="npc in npcs" :key="npc.id" class="npc-block">
       <div>
-        <el-avatar icon="el-icon-user-solid"></el-avatar>
+        <el-avatar><Avatar></Avatar></el-avatar>
       </div>
       <div>
         <span>{{ npc.name }}</span>
       </div>
       <div>
-        <el-button @click="open_chara_profile_dialog(npc.id)" type="primary" size="mini">詳細</el-button>
+        <el-button @click="open_chara_profile_dialog(npc.id)" type="primary" size="small">詳細</el-button>
       </div>
     </div>
   </div>
 </template>
-
 <script>
   import { mapState, mapActions } from "vuex";
+  import { Avatar } from "@element-plus/icons";
+
   export default {
     name: "NPCList",
     data() {
@@ -26,7 +27,7 @@
     mounted() {
       this.$store.dispatch("npc/get_npcs");
     },
-    components: {},
+    components: { Avatar },
   };
 </script>
 

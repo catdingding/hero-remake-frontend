@@ -58,7 +58,7 @@
     </table>
 
     <div class="save-panel">
-      <el-button type="success" size="medium" @click="set_abilitie_setting(setting)">儲存</el-button>
+      <el-button type="success" @click="set_abilitie_setting(setting)">儲存</el-button>
     </div>
   </div>
 </template>

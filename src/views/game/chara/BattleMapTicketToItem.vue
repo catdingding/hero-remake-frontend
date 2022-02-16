@@ -8,7 +8,7 @@
         <el-table-column label="地圖類型" align="center" prop="battle_map.name"></el-table-column>
         <el-table-column label="當前數量" align="center" prop="value"></el-table-column>
         <el-table-column label="製作" align="center" prop="created_at">
-          <template slot-scope="scope">
+          <template v-slot="scope">
             <InputNumberWithButton
               text="製作"
               @click="battle_map_ticket_to_item({ battle_map: scope.row.battle_map.id, number: $event })"

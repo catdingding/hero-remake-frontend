@@ -2,7 +2,7 @@
   <div>
     <div>
       <AvatarInput @change="avatar = $event"></AvatarInput><br />
-      <el-button type="primary" size="medium" @click="change_avatar(avatar)">更換頭像（100贊助點數）</el-button>
+      <el-button type="primary" @click="change_avatar(avatar)">更換頭像（100贊助點數）</el-button>
     </div>
   </div>
 </template>

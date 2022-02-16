@@ -4,22 +4,22 @@
       <el-table-column label="彩券名稱" align="center" prop="name"></el-table-column>
       <el-table-column label="期數" align="center" prop="nth"></el-table-column>
       <el-table-column label="累積獎金" align="center">
-        <template slot-scope="scope"> {{ scope.row.gold | currency }} </template>
+        <template v-slot="scope"> {{ $filters.currency(scope.row.gold) }} </template>
       </el-table-column>
       <el-table-column label="每注價格" align="center">
-        <template slot-scope="scope"> {{ scope.row.price | currency }} </template>
+        <template v-slot="scope"> {{ $filters.currency(scope.row.price) }} </template>
       </el-table-column>
       <el-table-column label="號碼範圍" align="center">
-        <template slot-scope="scope"> {{ scope.row.number_min }}-{{ scope.row.number_max }} </template>
+        <template v-slot="scope"> {{ scope.row.number_min }}-{{ scope.row.number_max }} </template>
       </el-table-column>
       <el-table-column label="購買張數上限" align="center" prop="chara_ticket_limit"></el-table-column>
       <el-table-column label="已購買號碼" align="center">
-        <template slot-scope="scope">
+        <template v-slot="scope">
           {{ scope.row.tickets.map((x) => x.number).join("、") }}
         </template>
       </el-table-column>
       <el-table-column label="購買(輸入號碼)" align="center">
-        <template slot-scope="scope">
+        <template v-slot="scope">
           <InputNumberWithButton
             text="購買"
             :default="scope.row.number_min"

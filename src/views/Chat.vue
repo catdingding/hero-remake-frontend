@@ -2,7 +2,7 @@
   <div class="box">
     <el-row type="flex" justify="space-between" style="width: 100%;" class="chat">
       <el-col :span="24">
-        <el-tabs value="all">
+        <el-tabs model-value="all">
           <el-tab-pane
             v-for="channel in channels"
             :key="channel.name"

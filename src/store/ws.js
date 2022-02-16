@@ -1,4 +1,4 @@
-import { Notification, Message } from "element-ui";
+import { ElNotification, ElMessage } from "element-plus";
 
 export default {
   namespaced: true,
@@ -56,11 +56,11 @@ export default {
 
       if (data.channel === "private" && !data.is_init && data.sender.id != this.state.chara_id) {
         var duration = 60000;
-        Notification({ title: data.sender.name, message: data.content, position: "top-left", duration: duration });
+        ElNotification({ title: data.sender.name, message: data.content, position: "top-left", duration: duration });
       }
     },
     receive_info_message(state, data) {
-      Message({ message: data.content, type: data.message_type });
+      ElMessage({ message: data.content, type: data.message_type });
     },
   },
   actions: {

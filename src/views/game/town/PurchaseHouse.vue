@@ -1,11 +1,11 @@
 <template>
   <div>
-    <el-tabs value="first">
+    <el-tabs model-value="first">
       <!-- 進行中 -->
       <el-tab-pane label="進行中收購" name="first">
         <el-table :data="active_purchases">
           <el-table-column label="收購物品類型" align="center">
-            <template slot-scope="scope">
+            <template v-slot="scope">
               <el-tooltip effect="dark" :content="scope.row.item_type.description" placement="top">
                 <i class="el-icon-info"></i>
               </el-tooltip>
@@ -13,27 +13,27 @@
             </template>
           </el-table-column>
           <el-table-column label="收購數量" align="center">
-            <template slot-scope="scope">
+            <template v-slot="scope">
               {{ scope.row.number }}
             </template>
           </el-table-column>
           <el-table-column label="收購者" align="center">
-            <template slot-scope="scope">
+            <template v-slot="scope">
               {{ scope.row.buyer.name }}
             </template>
           </el-table-column>
           <el-table-column label="價格" align="center">
-            <template slot-scope="scope">
-              {{ scope.row.price | currency }}
+            <template v-slot="scope">
+              {{ $filters.currency(scope.row.price) }}
             </template>
           </el-table-column>
           <el-table-column label="剩餘時間" align="center">
-            <template slot-scope="scope">
+            <template v-slot="scope">
               <RelativeTime :time_string="scope.row.due_time" :period="1000"></RelativeTime>
             </template>
           </el-table-column>
           <el-table-column label="出售" align="center">
-            <template slot-scope="scope">
+            <template v-slot="scope">
               <el-button type="primary" @click="sell_purchase(scope.row.id)">出售</el-button>
             </template>
           </el-table-column>
@@ -75,17 +75,17 @@
       <el-tab-pane label="領取" name="third">
         <el-table :data="todo_purchases">
           <el-table-column label="收購項目" align="center">
-            <template slot-scope="scope">
+            <template v-slot="scope">
               {{ scope.row.item_type.name }}
             </template>
           </el-table-column>
           <el-table-column label="金錢" align="center">
-            <template slot-scope="scope">
+            <template v-slot="scope">
               {{ scope.row.price }}
             </template>
           </el-table-column>
           <el-table-column label="領取" align="center">
-            <template slot-scope="scope">
+            <template v-slot="scope">
               <el-button type="primary" @click="receive_purchase(scope.row.id)">
                 領取{{ scope.row.item ? "物品" : "金錢" }}
               </el-button>

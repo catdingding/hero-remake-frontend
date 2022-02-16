@@ -5,7 +5,7 @@
       <ItemTypeOptionTable :options="exchange_options">
         <template v-slot:extra-column>
           <el-table-column label="需求" align="center">
-            <template slot-scope="scope">
+            <template v-slot="scope">
               <div v-for="(requirement, index) in scope.row.requirements" :key="index">
                 <el-tooltip effect="dark" :content="requirement.item_type.description" placement="top">
                   <i class="el-icon-info"></i>
@@ -15,7 +15,7 @@
             </template>
           </el-table-column>
           <el-table-column label="兌換" align="center" width="120px">
-            <template slot-scope="scope">
+            <template v-slot="scope">
               <InputNumberWithButton
                 text="兌換"
                 @click="

@@ -5,7 +5,7 @@
       <el-table-column label="隊長" align="center" prop="leader.name"> </el-table-column>
       <el-table-column label="人數" align="center" prop="member_count"> </el-table-column>
       <el-table-column label="申請加入" align="center" v-if="!chara_team">
-        <template slot-scope="scope">
+        <template v-slot="scope">
           <el-button
             type="primary"
             @click="create_team_join_request({ team: scope.row.id })"

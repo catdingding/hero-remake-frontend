@@ -3,7 +3,7 @@
     <SlotTable :slots="chara_slots">
       <template v-slot:extra-column>
         <el-table-column label="卸下" align="center">
-          <template slot-scope="scope">
+          <template v-slot="scope">
             <el-button
               v-if="scope.row.item"
               :type="scope.row.item.equipment.is_locked ? 'danger' : 'success'"

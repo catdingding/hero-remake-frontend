@@ -6,7 +6,7 @@
       class="pagination"
       layout="prev,pager,next,jumper"
       :page-size="pageSize"
-      :current-page.sync="current_page"
+      v-model:current-page="current_page"
       :total="total"
       @current-change="fetch"
     >

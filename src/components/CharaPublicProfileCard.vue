@@ -9,7 +9,7 @@
         </div>
         <div>
           <div>國籍</div>
-          <div>{{ data.country | country_name }}</div>
+          <div>{{ $filters.country_name(data.country) }}</div>
         </div>
         <div>
           <div>職業</div>
@@ -48,15 +48,15 @@
         <div v-for="slot in data.slots" :key="slot.id">
           <div>{{ slot.type.name }}</div>
           <div v-if="slot.item">
-            {{ slot.item | item_name }}-{{ slot.item | item_element_type }}<br />
-            {{ slot.item | item_attr }}<br />
-            {{ slot.item | item_ability }}
+            {{ $filters.item_name(slot.item) }}-{{ $filters.item_element_type(slot.item) }}<br />
+            {{ $filters.item_attr(slot.item) }}<br />
+            {{ $filters.item_ability(slot.item) }}
           </div>
           <div v-else>無</div>
         </div>
         <div>
           <div>同伴</div>
-          <div>{{ data.partner | partner }}</div>
+          <div>{{ $filters.partner(data.partner) }}</div>
         </div>
       </div>
     </div>

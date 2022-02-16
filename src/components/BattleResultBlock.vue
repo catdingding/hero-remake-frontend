@@ -57,7 +57,7 @@
           {{ message }}
         </div>
         <router-link v-if="show_home_button" to="/game">
-          <el-button type="primary" size="medium">返回主頁</el-button>
+          <el-button type="primary">返回主頁</el-button>
         </router-link>
       </div>
     </div>

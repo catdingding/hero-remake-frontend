@@ -9,7 +9,7 @@
           <el-input placeholder type="password" v-model="login_data.password"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" size="medium" @click="login">登入</el-button>
+          <el-button type="primary" @click="login">登入</el-button>
         </el-form-item>
       </el-form>
     </el-tab-pane>
@@ -37,7 +37,7 @@
         </el-form-item>
         <div style="text-align:center">註冊前請先閱讀<a :href="rule_url" target="_blank">遊戲規章</a></div>
         <el-form-item>
-          <el-button type="primary" size="medium" @click="register">註冊</el-button>
+          <el-button type="primary" @click="register">註冊</el-button>
         </el-form-item>
       </el-form>
     </el-tab-pane>

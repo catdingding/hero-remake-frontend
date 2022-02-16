@@ -8,7 +8,7 @@
         <el-timeline-item
           v-for="change_log in search_result_change_logs"
           :key="change_log.id"
-          :timestamp="change_log.time | datetime_display"
+          :timestamp="$filters.datetime_display(change_log.time)"
         >
           <div class="content">{{ change_log.content }}</div>
           <div class="note">{{ change_log.note }}</div>

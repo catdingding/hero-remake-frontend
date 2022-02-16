@@ -1,13 +1,13 @@
 <template>
   <div style="text-align: center">
-    <div v-if="_.get(chara_country, 'id') !== _.get(chara_location, 'country.id')">
+    <div v-if="chara_country?.id !== chara_location?.country?.id">
       <div style="width: 100%;">
-        佔領領土需消耗{{ (10 ** 9 * 2 ** _.get(country_profile, "location_count")) | currency }}金錢、
-        {{ 50 * 2 ** _.get(country_profile, "location_count") }}建國之石
+        佔領領土需消耗{{ $filters.currency(10 ** 9 * 2 ** country_profile?.location_count) }}金錢、
+        {{ 50 * 2 ** country_profile?.location_count }}建國之石
       </div>
       <el-button type="success" @click="occupy_location">佔領領土</el-button>
     </div>
-    <div v-if="_.get(chara_country, 'id') === _.get(chara_location, 'country.id')" style="width: 100%;">
+    <div v-if="chara_country?.id === chara_location?.country?.id" style="width: 100%;">
       <el-button type="danger" @click="abandon_location">放棄領土</el-button>
       <div v-if="chara_location.town">
         <el-divider>重新命名城鎮</el-divider>

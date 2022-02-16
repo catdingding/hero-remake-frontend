@@ -6,23 +6,23 @@
           <el-menu-item index="index" :route="{ path: '/game' }">
             主頁
           </el-menu-item>
-          <el-submenu index="chara">
-            <template slot="title">
+          <el-sub-menu index="chara">
+            <template v-slot:title>
               角色
             </template>
             <el-menu-item index="bag" :route="{ path: '/game/chara/bag' }">背包/裝備</el-menu-item>
             <el-menu-item index="excercise" :route="{ path: '/game/chara/exercise' }">修煉</el-menu-item>
             <el-menu-item index="job-change" :route="{ path: '/game/chara/job-change' }">轉職</el-menu-item>
-            <el-submenu index="ability-skill">
-              <template slot="title">奧義/技能</template>
+            <el-sub-menu index="ability-skill">
+              <template v-slot:title>奧義/技能</template>
               <el-menu-item index="ability-learn" :route="{ path: '/game/chara/ability-learn' }">學習奧義</el-menu-item>
               <el-menu-item index="ability-setting" :route="{ path: '/game/chara/ability-setting' }">
                 設置奧義
               </el-menu-item>
               <el-menu-item index="skill" :route="{ path: '/game/chara/skill-setting' }">技能</el-menu-item>
-            </el-submenu>
-            <el-submenu index="make-item">
-              <template slot="title">製作物品</template>
+            </el-sub-menu>
+            <el-sub-menu index="make-item">
+              <template v-slot:title>製作物品</template>
               <el-menu-item index="alchemy" :route="{ path: '/game/chara/alchemy' }">鍊金</el-menu-item>
               <el-menu-item
                 index="battle-map-ticket-to-item"
@@ -30,7 +30,7 @@
               >
                 地圖製作
               </el-menu-item>
-            </el-submenu>
+            </el-sub-menu>
             <el-menu-item index="pvp" :route="{ path: '/game/chara/pvp' }">PvP</el-menu-item>
             <el-menu-item index="send-item-gold" :route="{ path: '/game/chara/send-item-gold' }">
               傳送道具/金錢
@@ -44,9 +44,9 @@
             <el-menu-item index="chara-achievement-types" :route="{ path: '/game/chara/achievement-types' }"
               >成就</el-menu-item
             >
-          </el-submenu>
-          <el-submenu index="town" v-show="chara_location && chara_location.town">
-            <template slot="title">
+          </el-sub-menu>
+          <el-sub-menu index="town" v-show="chara_location && chara_location.town">
+            <template v-slot:title>
               城鎮
             </template>
             <el-menu-item index="inn" :route="{ path: '/game/town/inn' }">旅店</el-menu-item>
@@ -55,14 +55,14 @@
             <el-menu-item index="equipment-transform" :route="{ path: '/game/town/equipment-transform' }">
               裝備轉換所
             </el-menu-item>
-            <el-submenu index="store">
-              <template slot="title">商店</template>
+            <el-sub-menu index="store">
+              <template v-slot:title>商店</template>
               <el-menu-item index="store-weapon" :route="{ path: '/game/town/store/weapon' }">武器店</el-menu-item>
               <el-menu-item index="store-armor" :route="{ path: '/game/town/store/armor' }">防具店</el-menu-item>
               <el-menu-item index="store-jewelry" :route="{ path: '/game/town/store/jewelry' }">飾品店</el-menu-item>
               <el-menu-item index="store-item" :route="{ path: '/game/town/store/item' }">道具店</el-menu-item>
               <el-menu-item index="exchange-house" :route="{ path: '/game/town/exchange-house' }">兌換屋</el-menu-item>
-            </el-submenu>
+            </el-sub-menu>
             <el-menu-item index="pet-store" :route="{ path: '/game/town/pet-store' }">寵物店</el-menu-item>
             <el-menu-item index="auction-house" :route="{ path: '/game/town/auction-house' }">拍賣所</el-menu-item>
             <el-menu-item index="sale-house" :route="{ path: '/game/town/sale-house' }">出售所</el-menu-item>
@@ -72,9 +72,9 @@
             <el-menu-item index="lottery-house" :route="{ path: '/game/town/lottery-house' }">彩券行</el-menu-item>
             <el-menu-item index="arena" :route="{ path: '/game/town/arena' }">競技場</el-menu-item>
             <el-menu-item index="npc-list" :route="{ path: '/game/town/npc-list' }">NPC列表</el-menu-item>
-          </el-submenu>
-          <el-submenu index="country">
-            <template slot="title">
+          </el-sub-menu>
+          <el-sub-menu index="country">
+            <template v-slot:title>
               國家
             </template>
             <el-menu-item index="country-list" :route="{ path: '/game/country/list' }">國家列表</el-menu-item>
@@ -105,17 +105,13 @@
             <el-menu-item
               index="country-town-build"
               :route="{ path: '/game/country/town-build' }"
-              v-show="
-                chara_is_king &&
-                  !_.get(chara_location, 'town') &&
-                  _.get(chara_country, 'id') === _.get(chara_location, 'country.id')
-              "
+              v-if="chara_is_king && !chara_location?.town && chara_country?.id === chara_location?.country?.id"
             >
               建立城鎮
             </el-menu-item>
-          </el-submenu>
-          <el-submenu index="team">
-            <template slot="title">
+          </el-sub-menu>
+          <el-sub-menu index="team">
+            <template v-slot:title>
               隊伍
             </template>
             <el-menu-item index="team-list" :route="{ path: '/game/team/list' }">隊伍列表</el-menu-item>
@@ -132,9 +128,9 @@
             >
               入隊申請審查
             </el-menu-item>
-          </el-submenu>
-          <el-submenu index="other">
-            <template slot="title">
+          </el-sub-menu>
+          <el-sub-menu index="other">
+            <template v-slot:title>
               其他
             </template>
             <el-menu-item index="log" :route="{ path: '/game/log' }">事件查詢</el-menu-item>
@@ -156,22 +152,39 @@
                 <div style="width: 100%;height:100%;">遊戲規章</div>
               </a>
             </el-menu-item>
-            <el-menu-item @click="logout">登出</el-menu-item>
-          </el-submenu>
-          <el-submenu index="ugc">
-            <template slot="title">
+            <el-menu-item>
+              <div @click="logout" style="width: 100%;height:100%;display:flex;align-items: center;">
+                <span>登出</span>
+              </div>
+            </el-menu-item>
+          </el-sub-menu>
+          <el-sub-menu index="ugc">
+            <template v-slot:title>
               自訂
             </template>
             <el-menu-item index="ugc-dungeon-panel" :route="{ path: '/game/ugc/panel' }">管理面板</el-menu-item>
             <el-menu-item index="ugc-dungeon-list" :route="{ path: '/game/ugc/dungeon-list' }">地城列表</el-menu-item>
-          </el-submenu>
-          <el-button @click="toggle_dart_theme">dark theme</el-button>
+          </el-sub-menu>
+          <el-dropdown @command="change_theme" type="primary">
+            <el-button type="primary">
+              Theme<el-icon class="el-icon--right"><ArrowDown /></el-icon>
+            </el-button>
+            <template #dropdown>
+              <el-dropdown-menu>
+                <el-dropdown-item command="light">Light Theme</el-dropdown-item>
+                <el-dropdown-item command="dark">Dark Theme</el-dropdown-item>
+              </el-dropdown-menu>
+            </template>
+          </el-dropdown>
+          <!-- <el-button @click="is_dark_theme = !is_dark_theme">dark theme</el-button> -->
         </el-menu>
       </el-header>
       <el-main class="content">
-        <keep-alive include="Index">
-          <router-view class="router-view" />
-        </keep-alive>
+        <router-view v-slot="{ Component }" class="router-view">
+          <keep-alive include="Index">
+            <component :is="Component" />
+          </keep-alive>
+        </router-view>
       </el-main>
       <el-footer class="footer" height="100px">
         <div>
@@ -182,13 +195,13 @@
         </div>
       </el-footer>
     </el-container>
-    <el-dialog title="角色資料" :visible.sync="chara_profile_dialog_visible" width="50%">
+    <el-dialog title="角色資料" v-model="chara_profile_dialog_visible" width="50%">
       <CharaPublicProfileCard :data="chara_profile_dialog_data"></CharaPublicProfileCard>
     </el-dialog>
-    <el-dialog title="NPC資料" :visible.sync="npc_profile_dialog_visible" width="50%">
+    <el-dialog title="NPC資料" v-model="npc_profile_dialog_visible" width="50%">
       <NPCProfileCard :data="npc_profile"></NPCProfileCard>
     </el-dialog>
-    <el-dialog title="戰鬥結果" :visible.sync="battle_result_dialog_visible" width="90%">
+    <el-dialog title="戰鬥結果" v-model="battle_result_dialog_visible" width="90%">
       <BattleResultBlock></BattleResultBlock>
     </el-dialog>
   </div>
@@ -197,7 +210,7 @@
 <script>
   import { mapState, mapGetters, mapActions } from "vuex";
   import { mapFields } from "vuex-map-fields";
-  import { Message } from "element-ui";
+  import { ArrowDown } from "@element-plus/icons";
   import CharaPublicProfileCard from "@/components/CharaPublicProfileCard.vue";
   import NPCProfileCard from "@/components/NPCProfileCard.vue";
   import BattleResultBlock from "@/components/BattleResultBlock.vue";
@@ -209,6 +222,36 @@
         waiting_battle_result: false,
         auto_fight_error_times: 0,
         rule_url: process.env.VUE_APP_RULE_URL,
+        is_dark_theme: false,
+        css_settings: {
+          dark: {
+            "--el-color-white": "#36393f",
+            "--el-color-black": "#000000",
+            "--el-text-color-primary": "#faffff",
+            "--el-text-color-regular": "#faffff",
+            "--el-text-color-secondary": "#faffff",
+            "--el-text-color-placeholder": "#faffff",
+            "--el-bg-color": "#36393f",
+            "--el-border-color-base": "#dcdfe6",
+            "-el-border-color-light": "#e4e7ed",
+            "--el-border-color-lighter": "#ebeef5",
+            "--el-border-color-extra-light": "#f2f6fc",
+          },
+          light: {
+            "--el-color-white": "#ffffff",
+            "--el-color-black": "#000000",
+            "--el-color-primary": "#409eff",
+            "--el-text-color-primary": "#303133",
+            "--el-text-color-regular": "#606266",
+            "--el-text-color-secondary": "#909399",
+            "--el-text-color-placeholder": "#c0c4cc",
+            "--el-bg-color": "#f5f7fa",
+            "--el-border-color-base": "#dcdfe6",
+            "--el-border-color-light": "#e4e7ed",
+            "--el-border-color-lighter": "#ebeef5",
+            "--el-border-color-extra-light": "#f2f6fc",
+          },
+        },
       };
     },
     computed: {
@@ -291,14 +334,16 @@
           this.$router.push("/game");
         }
       },
-      toggle_dart_theme() {
-        document.body.classList.toggle("dark-theme");
+      change_theme(theme) {
+        for (const [key, value] of Object.entries(this.css_settings[theme])) {
+          document.documentElement.style.setProperty(key, value);
+        }
       },
     },
     mounted() {
       if (!this.is_loggedin) {
         this.$router.push("/");
-        Message.error("請先登入");
+        this.$message.error("請先登入");
         return;
       }
       this.$store
@@ -314,11 +359,11 @@
 
       window.addEventListener("keydown", this.process_hot_key);
     },
-    beforeDestroy() {
+    beforeUnmount() {
       clearInterval(this.auto_fight_interval_id);
       window.removeEventListener("keydown", this.process_hot_key);
     },
-    components: { CharaPublicProfileCard, NPCProfileCard, BattleResultBlock },
+    components: { CharaPublicProfileCard, NPCProfileCard, BattleResultBlock, ArrowDown },
   };
 </script>
 

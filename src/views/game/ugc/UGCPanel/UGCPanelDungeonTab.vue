@@ -10,7 +10,7 @@
           <el-table-column label="地城名稱" align="center" prop="name"></el-table-column>
           <el-table-column label="地城簡介" align="center" prop="description"></el-table-column>
           <el-table-column label="操作" align="center">
-            <template slot-scope="scope">
+            <template v-slot="scope">
               <el-button type="primary" @click="open_dialog(scope.row.id)">
                 編輯
               </el-button>
@@ -25,7 +25,7 @@
         </el-table>
       </template>
     </Pagination>
-    <el-dialog title="編輯" :visible.sync="dialog_visible" width="50%">
+    <el-dialog title="編輯" v-model="dialog_visible" width="50%">
       <UGCPanelDungeonForm v-if="dialog_visible" :dungeon_id="dialog_dungeon_id" @save="$refs.dungeon_table.fetch()">
       </UGCPanelDungeonForm>
     </el-dialog>

@@ -1,6 +1,5 @@
-import Vue from "vue";
 import Vuex from "vuex";
-import { Message } from "element-ui";
+import { ElMessage } from "element-plus";
 import router from "@/router";
 import { getField, updateField } from "vuex-map-fields";
 
@@ -23,9 +22,7 @@ import home from "./home";
 import npc from "./npc";
 import ugc from "./ugc";
 
-Vue.use(Vuex);
-
-export default new Vuex.Store({
+export default Vuex.createStore({
   modules: {
     chara,
     battle,
@@ -131,16 +128,16 @@ export default new Vuex.Store({
       var res = await api.post("/token/", data);
       commit("set_access_token", res.data.access);
       commit("set_refresh_token", res.data.refresh);
-      Message.success("登入成功");
+      ElMessage.success("登入成功");
 
       // 自動選擇角色
       await dispatch("get_available_charas");
       commit("set_chara");
-      router.push("game/");
+      router.push("/game");
     },
     async logout({ commit, dispatch }) {
       commit("clear_token");
-      Message.success("登出成功");
+      ElMessage.success("登出成功");
       router.push("/");
     },
     async register({ commit, dispatch }, data) {
@@ -157,7 +154,7 @@ export default new Vuex.Store({
       });
       commit("set_access_token", res.data.access);
       commit("set_refresh_token", res.data.refresh);
-      Message.success("註冊成功");
+      ElMessage.success("註冊成功");
 
       // 自動選擇角色
       await dispatch("get_available_charas");

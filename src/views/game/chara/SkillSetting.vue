@@ -2,7 +2,7 @@
   <div style="display:block">
     <SkillSettingTable v-model="settings" :available_skills="available_skills"></SkillSettingTable>
     <div class="save-panel">
-      <el-button type="success" size="medium" @click="set_skill_settings(settings)">儲存</el-button>
+      <el-button type="success" @click="set_skill_settings(settings)">儲存</el-button>
     </div>
   </div>
 </template>

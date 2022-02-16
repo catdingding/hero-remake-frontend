@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-card style="width:100%">
-      <el-tabs value="first">
+      <el-tabs model-value="first">
         <el-tab-pane label="地城" name="first"> <UGCPanelDungeonTab /></el-tab-pane>
         <el-tab-pane label="怪物" name="second"><UGCPanelMonsterTab /> </el-tab-pane>
       </el-tabs>

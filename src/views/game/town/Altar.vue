@@ -9,7 +9,7 @@
           <el-option
             v-for="item in chara_bag_items"
             :key="item.id"
-            :label="item | item_string"
+            :label="$filters.item_string(item)"
             :value="item.id"
           ></el-option>
         </el-select>

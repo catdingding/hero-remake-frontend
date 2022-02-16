@@ -5,13 +5,13 @@
       <template v-slot:main="slot_props">
         <el-table :data="slot_props.records">
           <el-table-column label="角色名稱" align="center">
-            <template slot-scope="scope">
+            <template v-slot="scope">
               <CharaLink :chara_name="scope.row.name" :chara_id="scope.row.id"></CharaLink>
             </template>
           </el-table-column>
           <el-table-column label="PvP分數" align="center" prop="pvp_points"></el-table-column>
           <el-table-column label="挑戰" align="center">
-            <template slot-scope="scope">
+            <template v-slot="scope">
               <el-button
                 type="primary"
                 :disabled="chara_id === scope.row.id"

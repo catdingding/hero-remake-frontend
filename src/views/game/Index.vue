@@ -8,7 +8,7 @@
       @submit="hand_in_quest('world_monster_quest')"
     ></QuestProgressBlock>
     <QuestProgressBlock
-      v-show="chara_country && _.get(chara_country, 'id') === _.get(chara_location, 'country.id')"
+      v-if="chara_country && chara_country?.id === chara_location?.country?.id"
       title="國家討伐任務"
       :value="chara_record ? chara_record.country_monster_quest_counter : 0"
       :max-value="400"
@@ -18,7 +18,9 @@
     <el-row type="flex" justify="space-between" style="width: 100%;flex-wrap: wrap;">
       <el-col :span="7" :xs="24">
         <el-card class="profile-card">
-          <div slot="header">地點狀態</div>
+          <template #header>
+            <div>地點狀態</div>
+          </template>
           <div class="profile" v-if="chara_location">
             <div class="attr">
               <div>座標</div>
@@ -26,7 +28,7 @@
             </div>
             <div class="attr">
               <div>國家</div>
-              <div>{{ chara_location.country | country_name }}</div>
+              <div>{{ $filters.country_name(chara_location.country) }}</div>
             </div>
             <div class="attr">
               <div>
@@ -46,14 +48,16 @@
             </div>
             <el-divider />
             <div class="command">
-              <router-link to="/game/map"><el-button size="medium" type="success">移動</el-button></router-link>
+              <router-link to="/game/map"><el-button type="success">移動</el-button></router-link>
             </div>
           </div>
         </el-card>
       </el-col>
       <el-col :span="7" :xs="24">
         <el-card class="profile-card">
-          <div slot="header">角色狀態</div>
+          <template #header>
+            <div>角色狀態</div>
+          </template>
           <div class="profile">
             <div class="attr">
               <div>名稱</div>
@@ -61,11 +65,11 @@
             </div>
             <div class="attr">
               <div>國籍</div>
-              <div>{{ chara_country | country_name }}</div>
+              <div>{{ $filters.country_name(chara_country) }}</div>
             </div>
             <div class="attr">
               <div>隊伍</div>
-              <div>{{ chara_team | team_name }}</div>
+              <div>{{ $filters.team_name(chara_team) }}</div>
             </div>
             <div class="attr">
               <div>職業</div>
@@ -89,11 +93,11 @@
             </div>
             <div class="attr">
               <div>金錢</div>
-              <div>{{ chara_gold | currency }}</div>
+              <div>{{ $filters.currency(chara_gold) }}</div>
             </div>
             <div class="attr">
               <div>熟練度</div>
-              <div>{{ chara_proficiency | currency }}</div>
+              <div>{{ $filters.currency(chara_proficiency) }}</div>
             </div>
             <div class="attr">
               <div>
@@ -179,7 +183,11 @@
 
       <el-col :span="7" :xs="24">
         <el-card class="command-card">
-          <div slot="header">指令</div>
+          <template #header>
+            <div>
+              指令
+            </div>
+          </template>
           <Avatar class="avatar" :chara_id="chara_id" :avatar_version="chara_avatar_version"></Avatar>
           <div class="command">
             <el-divider>行動冷卻</el-divider>
@@ -199,14 +207,14 @@
                 :label="battle_map_ticket.battle_map.name + '(' + battle_map_ticket.value + ')'"
               ></el-option>
             </el-select>
-            <el-button size="medium" type="primary" @click="fight_battle_map">戰鬥</el-button>
+            <el-button type="primary" @click="fight_battle_map">戰鬥</el-button>
             <el-switch v-model="auto_fight_enabled" active-text="自動戰鬥" inactive-text="手動戰鬥"></el-switch>
             <el-tooltip effect="dark" content="若本機時間無法與網路時間同步，可切換至伺服器時間的選項" placement="top">
               <el-switch v-model="action_offset_enabled" active-text="伺服器時間" inactive-text="本機時間"></el-switch>
             </el-tooltip>
             <el-divider />
             <el-tooltip effect="dark" content="恢復HP與MP，恢復上限受健康度影響" placement="top">
-              <el-button size="medium" type="success" @click="rest">休息</el-button>
+              <el-button type="success" @click="rest">休息</el-button>
             </el-tooltip>
           </div>
         </el-card>
@@ -224,7 +232,7 @@
 
     <el-row type="flex" justify="space-between" style="width: 100%;" class="chat">
       <el-col :span="24">
-        <el-tabs value="all">
+        <el-tabs model-value="all">
           <el-tab-pane
             v-for="channel in channels"
             :key="channel.name"
@@ -240,7 +248,7 @@
       <el-col :span="24">
         <el-collapse>
           <el-collapse-item>
-            <template slot="title"> 在線角色({{ online_charas.length }})</template>
+            <template v-slot:title> 在線角色({{ online_charas.length }})</template>
             <div class="online-charas">
               <CharaLink v-for="chara in online_charas" :key="chara.id" :chara_name="chara.name" :chara_id="chara.id">
               </CharaLink>
@@ -315,7 +323,7 @@
       this.get_online_charas();
       this.online_charas_interval_id = setInterval(this.get_online_charas, 60000);
     },
-    beforeDestroy() {
+    beforeUnmount() {
       clearInterval(this.online_charas_interval_id);
     },
     activated() {
@@ -357,6 +365,9 @@
   }
   .command {
     text-align: center;
+    a {
+      text-decoration: none;
+    }
   }
   .profile-card,
   .command-card {

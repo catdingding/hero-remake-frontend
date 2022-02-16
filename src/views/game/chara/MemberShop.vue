@@ -13,7 +13,7 @@
         <td>
           <el-button
             type="primary"
-            size="mini"
+            size="small"
             :disabled="chara_has_cold_down_bonus"
             @click="buy_member_shop({ option: 'buy-cold-down-bonus' })"
             >購買</el-button
@@ -26,7 +26,7 @@
         <td>
           <el-button
             type="primary"
-            size="mini"
+            size="small"
             :disabled="chara_has_auto_heal"
             @click="buy_member_shop({ option: 'buy-auto-heal' })"
             >購買</el-button
@@ -39,7 +39,7 @@
         <td>
           <el-button
             type="primary"
-            size="mini"
+            size="small"
             :disabled="chara_has_quest_bonus"
             @click="buy_member_shop({ option: 'buy-quest-bonus' })"
           >

@@ -9,7 +9,7 @@
       >
         <template v-slot:extra-column>
           <el-table-column label="取出" align="center" width="120px">
-            <template slot-scope="scope">
+            <template v-slot="scope">
               <InputNumberWithButton
                 text="取出"
                 :max="scope.row.number"
@@ -33,7 +33,7 @@
       >
         <template v-slot:extra-column>
           <el-table-column label="存入" align="center" width="120px">
-            <template slot-scope="scope">
+            <template v-slot="scope">
               <InputNumberWithButton
                 v-show="!is_sell_mode"
                 text="存入"

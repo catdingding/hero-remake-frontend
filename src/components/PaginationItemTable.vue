@@ -91,4 +91,7 @@
   .el-input {
     width: 120px;
   }
+  .el-form-item {
+    margin: 0 5px 5px 0;
+  }
 </style>

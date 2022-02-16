@@ -1,32 +1,32 @@
 <template>
   <div>
-    <el-tabs value="first">
+    <el-tabs model-value="first">
       <!-- 進行中拍賣 -->
       <el-tab-pane label="進行中拍賣" name="first">
         <PaginationItemTable :fetch-method="get_active_auctions" item-field="item">
           <template v-slot:extra-column>
             <el-table-column label="出售者" align="center">
-              <template slot-scope="scope">
+              <template v-slot="scope">
                 {{ scope.row.seller.name }}
               </template>
             </el-table-column>
             <el-table-column label="底價" prop="reserve_price" align="center">
-              <template slot-scope="scope">
-                {{ scope.row.reserve_price | currency }}
+              <template v-slot="scope">
+                {{ $filters.currency(scope.row.reserve_price) }}
               </template>
             </el-table-column>
             <el-table-column label="當前出價" prop="bid_price" align="center">
-              <template slot-scope="scope">
-                {{ scope.row.bid_price | currency }}
+              <template v-slot="scope">
+                {{ $filters.currency(scope.row.bid_price) }}
               </template>
             </el-table-column>
             <el-table-column label="剩餘時間" align="center">
-              <template slot-scope="scope">
+              <template v-slot="scope">
                 <RelativeTime :time_string="scope.row.due_time" :period="1000"></RelativeTime>
               </template>
             </el-table-column>
             <el-table-column label="出價" align="center" width="200px">
-              <template slot-scope="scope">
+              <template v-slot="scope">
                 <InputNumberWithButton
                   text="出價"
                   width="160px"
@@ -47,7 +47,7 @@
               <el-option
                 v-for="item in chara_bag_items"
                 :key="item.id"
-                :label="item | item_string"
+                :label="$filters.item_string(item)"
                 :value="item.id"
               ></el-option>
             </el-select>
@@ -56,7 +56,7 @@
             <el-input-number v-model="auction_form_data.number" :min="1"></el-input-number>
           </el-form-item>
           <el-form-item label="底價" required>
-            <InputNumber v-model="auction_form_data.reserve_price" :min="1" size="large" width="180px"></InputNumber>
+            <InputNumber v-model="auction_form_data.reserve_price" :min="1" size="default" width="150px"></InputNumber>
           </el-form-item>
           <el-form-item label="時長（小時）" required>
             <el-input-number v-model="auction_form_data.hours" :min="1"></el-input-number>
@@ -68,28 +68,28 @@
       <el-tab-pane label="領取物品/金錢" name="third">
         <el-table :data="todo_auctions">
           <el-table-column label="物品名稱" align="center">
-            <template slot-scope="scope">
+            <template v-slot="scope">
               <template v-if="!(scope.row.seller.id === chara_id && scope.row.bidder)">
                 {{ scope.row.item.equipment ? scope.row.item.equipment.display_name : scope.row.item.type.name }}
               </template>
             </template>
           </el-table-column>
           <el-table-column label="數量" align="center">
-            <template slot-scope="scope">
+            <template v-slot="scope">
               <template v-if="!(scope.row.seller.id === chara_id && scope.row.bidder)">
                 {{ scope.row.item.number }}
               </template>
             </template>
           </el-table-column>
           <el-table-column label="金錢" align="center">
-            <template slot-scope="scope">
+            <template v-slot="scope">
               <template v-if="scope.row.seller.id === chara_id && scope.row.bidder">
-                {{ scope.row.bid_price | currency }}
+                {{ $filters.currency(scope.row.bid_price) }}
               </template>
             </template>
           </el-table-column>
           <el-table-column label="領取" align="center">
-            <template slot-scope="scope">
+            <template v-slot="scope">
               <el-button
                 type="primary"
                 @click="receive_auction_gold(scope.row.id)"

@@ -5,11 +5,11 @@
       <SlotTable :slots="chara_slots">
         <template v-slot:extra-column>
           <el-table-column label="卸下" align="center">
-            <template slot-scope="scope">
+            <template v-slot="scope">
               <el-button
                 v-if="scope.row.item"
                 type="primary"
-                size="mini"
+                size="small"
                 @click="divest_slot({ slot_type: scope.row.type.id }).then(() => refresh())"
               >
                 卸下
@@ -22,10 +22,15 @@
       <h2 class="page-block-title">同伴</h2>
       <div>
         當前同伴：
-        {{ chara_partner | partner }}
+        {{ $filters.partner(chara_partner) }}
       </div>
       <el-select v-model="selected_partner" clearable style="width:300px">
-        <el-option v-for="partner in chara_partners" :key="partner.id" :label="partner | partner" :value="partner.id" />
+        <el-option
+          v-for="partner in chara_partners"
+          :key="partner.id"
+          :label="$filters.partner(partner)"
+          :value="partner.id"
+        />
       </el-select>
       <el-button type="primary" @click="assign_partner({ partner: selected_partner }).then(() => refresh())">
         更換同伴
@@ -52,7 +57,7 @@
       >
         <template v-slot:extra-column>
           <el-table-column label="使用/裝備" align="center" :width="120">
-            <template slot-scope="scope">
+            <template v-slot="scope">
               <div v-if="scope.row.type.use_effect">
                 <InputNumberWithButton
                   text="使用"
@@ -62,7 +67,11 @@
                 </InputNumberWithButton>
               </div>
               <div v-if="scope.row.equipment">
-                <el-button type="primary" size="mini" @click="equip_item({ item: scope.row.id }).then(() => refresh())">
+                <el-button
+                  type="primary"
+                  size="small"
+                  @click="equip_item({ item: scope.row.id }).then(() => refresh())"
+                >
                   裝備
                 </el-button>
               </div>

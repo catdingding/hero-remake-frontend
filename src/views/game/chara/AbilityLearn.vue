@@ -5,7 +5,7 @@
       <el-table-column label="說明" align="center" prop="description"></el-table-column>
       <el-table-column label="消耗熟練度" align="center" prop="require_proficiency"></el-table-column>
       <el-table-column label="學習" align="center" prop="created_at">
-        <template slot-scope="scope">
+        <template v-slot="scope">
           <el-button type="primary" @click="learn_ability({ ability: scope.row.id })">學習</el-button>
         </template>
       </el-table-column>

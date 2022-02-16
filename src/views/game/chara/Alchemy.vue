@@ -6,7 +6,7 @@
         <el-table-column label="名稱" align="center" prop="item_type.name"></el-table-column>
         <el-table-column label="消耗熟練度" align="center" prop="proficiency_cost"></el-table-column>
         <el-table-column label="製作" align="center" prop="created_at">
-          <template slot-scope="scope">
+          <template v-slot="scope">
             <InputNumberWithButton
               text="製作"
               @click="

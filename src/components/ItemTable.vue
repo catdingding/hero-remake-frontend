@@ -1,36 +1,36 @@
 <template>
   <el-table :data="data" row-key="id">
     <el-table-column label="名稱" align="center">
-      <template slot-scope="scope">
-        <el-tooltip effect="dark" :content="extract_item(scope.row) | item_description" placement="top">
+      <template v-slot="scope">
+        <el-tooltip effect="dark" :content="$filters.item_description(extract_item(scope.row))" placement="top">
           <i class="el-icon-info"></i>
         </el-tooltip>
-        {{ extract_item(scope.row) | item_name }}
+        {{ $filters.item_name(extract_item(scope.row)) }}
       </template>
     </el-table-column>
     <el-table-column label="類型" align="center" width="60px">
-      <template slot-scope="scope">
-        {{ extract_item(scope.row) | item_type }}
+      <template v-slot="scope">
+        {{ $filters.item_type(extract_item(scope.row)) }}
       </template>
     </el-table-column>
     <el-table-column label="屬" align="center" width="50px">
-      <template slot-scope="scope">
-        {{ extract_item(scope.row) | item_element_type }}
+      <template v-slot="scope">
+        {{ $filters.item_element_type(extract_item(scope.row)) }}
       </template>
     </el-table-column>
     <el-table-column label="數量" align="center" width="50px">
-      <template slot-scope="scope">
-        {{ extract_item(scope.row) | item_field_value("number") }}
+      <template v-slot="scope">
+        {{ extract_item(scope.row).number }}
       </template>
     </el-table-column>
     <el-table-column label="攻/防/重量" align="center" width="100px">
-      <template slot-scope="scope">
-        {{ extract_item(scope.row) | item_attr }}
+      <template v-slot="scope">
+        {{ $filters.item_attr(extract_item(scope.row)) }}
       </template>
     </el-table-column>
     <el-table-column label="奧義" align="center">
-      <template slot-scope="scope">
-        {{ extract_item(scope.row) | item_ability }}
+      <template v-slot="scope">
+        {{ $filters.item_ability(extract_item(scope.row)) }}
       </template>
     </el-table-column>
     <slot name="extra-column"></slot>
@@ -57,7 +57,7 @@
 </script>
 
 <style lang="less" scoped>
-  .el-table /deep/ .cell {
+  .el-table :deep(.cell) {
     padding-left: 5px;
     padding-right: 5px;
   }
