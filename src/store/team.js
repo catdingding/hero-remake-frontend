@@ -6,15 +6,11 @@ export default {
   state() {
     return {
       team_profile: null,
-      team_join_requests: [],
     };
   },
   mutations: {
     set_team_profile(state, data) {
       state.team_profile = data;
-    },
-    set_team_join_requests(state, data) {
-      state.team_join_requests = data;
     },
   },
   actions: {
@@ -41,14 +37,6 @@ export default {
     },
     async create_team_join_request({ state, commit, dispatch, rootState }, data) {
       return api.post(`team/join-requests/`, data);
-    },
-    async get_team_join_requests({ state, commit, dispatch, rootState }) {
-      var res = await api.get(`team/join-requests/`);
-      commit("set_team_join_requests", res.data);
-    },
-    async review_team_join_request({ state, commit, dispatch, rootState }, { id, action }) {
-      await api.post(`team/join-requests/${id}/review/`, { action });
-      dispatch("get_team_join_requests");
     },
     async disband_team({ state, commit, dispatch, rootState }, data) {
       await api.post(`team/disband/`, data);
