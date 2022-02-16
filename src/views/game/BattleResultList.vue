@@ -43,6 +43,7 @@
     span {
       cursor: pointer;
       text-decoration: underline;
+      color: var(--text-color-primary);
     }
   }
 </style>

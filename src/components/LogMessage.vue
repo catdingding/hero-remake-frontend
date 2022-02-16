@@ -1,7 +1,7 @@
 <template>
   <div class="message">
-    <span v-if="message.category">【{{ message.category }}】</span>
-    <span>{{ message.content }}</span>
+    <span class="category" v-if="message.category">【{{ message.category }}】</span>
+    <span class="content">{{ message.content }}</span>
     <span class="datetime">{{ $filters.datetime_display(message.created_at) }}</span>
   </div>
 </template>
@@ -18,9 +18,13 @@
 </script>
 
 <style lang="less" scoped>
+  .category,
+  .content {
+    color: var(--text-color-primary);
+  }
   .datetime {
     display: inline-block;
     padding-left: 10px;
-    color: #999999;
+    color: var(--text-color-secondary);
   }
 </style>
