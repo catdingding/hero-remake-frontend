@@ -4,7 +4,12 @@
       <el-button type="primary" @click="open_dialog(null)">新增怪物</el-button><br />
       上限10個
     </div>
-    <Pagination :fetch-method="get_ugc_monsters" :fixed_conditions="{ chara: chara_id }" ref="monster_table">
+    <Pagination
+      v-if="chara_id"
+      :fetch-method="get_ugc_monsters"
+      :fixed_conditions="{ chara: chara_id }"
+      ref="monster_table"
+    >
       <template v-slot:main="slot_props">
         <el-table :data="slot_props.records">
           <el-table-column label="怪物名稱" align="center" prop="name"></el-table-column>
