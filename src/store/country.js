@@ -6,15 +6,11 @@ export default {
   state() {
     return {
       country_profile: null,
-      country_join_requests: [],
     };
   },
   mutations: {
     set_country_profile(state, data) {
       state.country_profile = data;
-    },
-    set_country_join_requests(state, data) {
-      state.country_join_requests = data;
     },
   },
   actions: {
@@ -92,16 +88,6 @@ export default {
     },
     async create_country_join_request({ state, commit, dispatch, rootState }, data) {
       return api.post(`country/join-requests/`, data);
-    },
-    async get_country_join_requests({ state, commit, dispatch, rootState }) {
-      return api.get(`country/join-requests/`).then((res) => {
-        commit("set_country_join_requests", res.data);
-      });
-    },
-    async review_country_join_request({ state, commit, dispatch, rootState }, { id, action }) {
-      api.post(`country/join-requests/${id}/review/`, { action }).then((res) => {
-        dispatch("get_country_join_requests");
-      });
     },
   },
 };
