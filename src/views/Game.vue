@@ -378,6 +378,7 @@
     display: flex;
     justify-content: space-around;
     flex-flow: row wrap;
+    color: var(--text-color-primary);
   }
   .el-header {
     padding: 0;
