@@ -1,6 +1,8 @@
 <template>
   <div>
-    <div>當前修煉消耗：{{ exercise_cost }}熟練度，當前擁有熟練度：{{ $filters.currency(chara_proficiency) }}</div>
+    <HintBlock>
+      <div>當前修煉消耗：{{ exercise_cost }}熟練度，當前擁有熟練度：{{ $filters.currency(chara_proficiency) }}</div>
+    </HintBlock>
     <table>
       <tr>
         <th>職業</th>

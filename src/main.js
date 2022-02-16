@@ -13,12 +13,14 @@ import filters from "./filters";
 import VueVirtualScroller from "vue-virtual-scroller";
 
 import RelativeTime from "./components/RelativeTime.vue";
+import HintBlock from "./components/HintBlock.vue";
 
 const app = createApp(App)
   .use(router)
   .use(store)
   .use(ElementPlus, { locale })
   .use(VueVirtualScroller)
-  .component("RelativeTime", RelativeTime);
+  .component("RelativeTime", RelativeTime)
+  .component("HintBlock", HintBlock);
 app.config.globalProperties.$filters = filters;
 app.mount("#app");

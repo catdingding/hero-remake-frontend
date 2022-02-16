@@ -1,8 +1,10 @@
 <template>
   <div>
-    <div style="width: 100%;">
-      改名需消耗1億金錢
-    </div>
+    <HintBlock style="width: 100%;">
+      <div>
+        改名需消耗1億金錢
+      </div>
+    </HintBlock>
     <el-form :model="form_data" class="form">
       <el-form-item label="改名對象" prop="kind" required>
         <el-select v-model="form_data.kind">

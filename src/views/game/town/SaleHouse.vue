@@ -30,7 +30,7 @@
       </el-tab-pane>
       <!-- 拍賣物品 -->
       <el-tab-pane label="出售物品" name="second">
-        <div>上架商品需支付價格1%的押金（至少10萬），出售成功後會退回。</div>
+        <HintBlock><div>上架商品需支付價格1%的押金（至少10萬），出售成功後會退回。</div></HintBlock>
         <el-form :model="sale_form_data" label-width="120px" label-position="left">
           <el-form-item label="物品" required>
             <el-select v-model="sale_form_data.item">

@@ -41,7 +41,7 @@
       </el-tab-pane>
       <!-- 上架 -->
       <el-tab-pane label="收購物品" name="second">
-        <div>目前無法收購裝備。</div>
+        <HintBlock><div>目前無法收購裝備。</div></HintBlock>
         <el-form :model="purchase_form_data" label-width="120px" label-position="left">
           <el-form-item label="物品類型" required>
             <el-select

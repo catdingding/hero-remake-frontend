@@ -1,9 +1,11 @@
 <template>
   <div>
-    <div style="width: 100%;">
-      奧義注入：以奧義石注入固定消耗25000熟練值，以裝備注入所消耗的熟練會依照攻防重而不同<br />
-      強化：消耗與裝備同屬性的原料*3與1500萬金錢
-    </div>
+    <HintBlock style="width: 100%;">
+      <div>
+        奧義注入：以奧義石注入固定消耗25000熟練值，以裝備注入所消耗的熟練會依照攻防重而不同<br />
+        強化：消耗與裝備同屬性的原料*3與1500萬金錢
+      </div>
+    </HintBlock>
     <div class="slots">
       <CharaWallet></CharaWallet>
       <table>
