@@ -46,11 +46,11 @@
   .message-block {
     padding: 20px;
     .content {
-      color: #000000;
+      color: var(--text-color-primary);
       white-space: pre-wrap;
     }
     .note {
-      color: #666666;
+      color: var(--text-color-secondary);
     }
   }
 </style>
