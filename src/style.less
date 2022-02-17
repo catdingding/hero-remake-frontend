@@ -2,6 +2,9 @@
   --text-color-primary: var(--el-text-color-primary);
   --text-color-secondary: var(--el-text-color-secondary);
   --color-white: var(--el-color-white);
+
+  --text-color-primary-light-bg: var(--text-color-primary);
+  --text-color-secondary-light-bg: var(--text-color-secondary);
 }
 
 body {
@@ -50,7 +53,7 @@ table:not(.el-table__body) {
 .el-table {
   td,
   th {
-    background-color: transparent;
+    background-color: var(--el-color-white);
   }
 }
 

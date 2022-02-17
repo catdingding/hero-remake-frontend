@@ -75,11 +75,17 @@
     padding: 5px 0px 5px 0px;
     font-size: 14px;
     border-bottom: 1px solid #666;
+
+    color: var(--text-color-primary-light-bg);
+    .datetime {
+      color: var(--text-color-secondary-light-bg);
+    }
+
     &.public {
-      background-color: transparent;
+      background-color: var(--el-color-white);
       color: var(--text-color-primary);
       .datetime {
-        color: var(--text-color-primary);
+        color: var(--text-color-secondary);
       }
     }
     &.country {

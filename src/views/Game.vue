@@ -236,6 +236,8 @@
             "-el-border-color-light": "#e4e7ed",
             "--el-border-color-lighter": "#ebeef5",
             "--el-border-color-extra-light": "#f2f6fc",
+            "--text-color-primary-light-bg": "#303133",
+            "--text-color-secondary-light-bg": "#606266",
           },
           light: {
             "--el-color-white": "#ffffff",
@@ -250,6 +252,8 @@
             "--el-border-color-light": "#e4e7ed",
             "--el-border-color-lighter": "#ebeef5",
             "--el-border-color-extra-light": "#f2f6fc",
+            "--text-color-primary-light-bg": "var(--text-color-primary)",
+            "--text-color-secondary-light-bg": "var(--text-color-secondary)",
           },
         },
       };
