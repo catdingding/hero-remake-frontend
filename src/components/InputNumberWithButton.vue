@@ -25,6 +25,7 @@
       size: { type: String, default: "small" },
       type: { type: String, default: "primary" },
     },
+    emits: ["click"],
     mounted() {
       this.value = this.default;
     },

@@ -1,7 +1,7 @@
 <template>
   <el-select
     :value="value"
-    @change="$emit('input', $event)"
+    @change="$emit('update:modelValue', $event)"
     filterable
     remote
     :placeholder="placeholder"
