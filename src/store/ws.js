@@ -73,7 +73,18 @@ export default {
 
       var ws = new WebSocket(`${process.env.VUE_APP_WS_ROOT}/ws/chat/?token=${token}&chara=${chara_id}`);
       commit("set_ws", ws);
-      ws.onmessage = function(e) {
+      var last_message_time = new Date();
+
+      const heartbeat = () => {
+        if (new Date() - last_message_time > 15000) {
+          ws.close();
+        }
+        ws.send(JSON.stringify({ type: "ping" }));
+      };
+      const heartbeat_interval = setInterval(heartbeat, 5000);
+
+      ws.onmessage = function (e) {
+        last_message_time = new Date();
         var data = JSON.parse(e.data);
         if (data.type === "chat_message") {
           commit("receive_chat_message", data);
@@ -85,18 +96,20 @@ export default {
           commit("receive_info_message", data);
         }
       };
-      ws.onclose = function(e) {
+      ws.onclose = function (e) {
+        clearInterval(heartbeat_interval);
         if (rootState.access_token) {
           setTimeout(() => {
             dispatch("start_ws");
           }, 1000);
         }
       };
-      ws.onerror = function(err) {
+      ws.onerror = function (err) {
         ws.close();
       };
     },
     async send_chat_message({ state, commit, dispatch, rootState }, data) {
+      data["type"] = "chat_message";
       state.ws.send(JSON.stringify(data));
     },
   },
