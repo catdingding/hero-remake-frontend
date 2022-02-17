@@ -20,6 +20,7 @@
     <el-table-column align="center" label="HP(%)<=">
       <template v-slot="scope">
         <el-input-number
+          size="small"
           :min="0"
           :max="100"
           v-model="scope.row.hp_percentage"
@@ -32,6 +33,7 @@
     <el-table-column align="center" label="MP(%)<=">
       <template v-slot="scope">
         <el-input-number
+          size="small"
           :min="0"
           :max="100"
           v-model="scope.row.mp_percentage"
@@ -44,6 +46,7 @@
     <el-table-column align="center" label="防禦方HP(%)<=">
       <template v-slot="scope">
         <el-input-number
+          size="small"
           :min="0"
           :max="100"
           v-model="scope.row.defender_hp_percentage"
@@ -56,6 +59,7 @@
     <el-table-column align="center" label="防禦方MP(%)<=">
       <template v-slot="scope">
         <el-input-number
+          size="small"
           :min="0"
           :max="100"
           v-model="scope.row.defender_mp_percentage"
@@ -63,6 +67,17 @@
           :parser="(value) => value.replace('%', '')"
         >
         </el-input-number>
+      </template>
+    </el-table-column>
+    <el-table-column align="center" label="發動次數上限">
+      <template #header>
+        <el-tooltip placement="top">
+          <template #content> 0視為不限制 </template>
+          <span>技能發動次數上限</span>
+        </el-tooltip>
+      </template>
+      <template v-slot="scope">
+        <el-input-number size="small" :min="0" v-model="scope.row.times_limit"> </el-input-number>
       </template>
     </el-table-column>
     <el-table-column align="center" label="增加">
@@ -102,6 +117,7 @@
       mp_percentage: 100,
       defender_hp_percentage: 100,
       defender_mp_percentage: 100,
+      times_limit: 0,
     });
   };
   const remove_setting = (index) => {
@@ -119,4 +135,8 @@
   );
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+  .el-input-number {
+    width: 100px;
+  }
+</style>
