@@ -1,11 +1,12 @@
 <template>
   <el-upload action="" class="avatar-uploader" :show-file-list="false" :auto-upload="false" :on-change="set_avatar">
     <img v-if="object_url" :src="object_url" class="avatar" />
-    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+    <el-icon class="avatar-uploader-icon" v-else><Plus></Plus></el-icon>
   </el-upload>
 </template>
 
 <script>
+  import { Plus } from "@element-plus/icons";
   export default {
     name: "AvatarInput",
     data() {
@@ -13,6 +14,7 @@
         object_url: null,
       };
     },
+    emits: ["change"],
     methods: {
       set_avatar(file, fileList) {
         const type_check = file.raw.type === "image/jpeg" || file.raw.type === "image/png";
@@ -31,6 +33,7 @@
         this.$emit("change", file.raw);
       },
     },
+    components: { Plus },
   };
 </script>
 
