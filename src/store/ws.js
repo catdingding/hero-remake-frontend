@@ -1,4 +1,5 @@
 import { ElNotification, ElMessage } from "element-plus";
+import { v4 as uuidv4 } from "uuid";
 
 export default {
   namespaced: true,
@@ -40,12 +41,14 @@ export default {
       }
     },
     receive_log_message(state, data) {
+      data.uuid = uuidv4();
       state.log_messages.unshift(data);
       if (state.log_messages.length > 100) {
         state.log_messages.pop();
       }
     },
     receive_chat_message(state, data) {
+      data.uuid = uuidv4();
       for (let channel of ["all", data.channel]) {
         let messages = state.messages_mapping[channel];
         messages.unshift(data);

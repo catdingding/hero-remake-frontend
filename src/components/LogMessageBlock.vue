@@ -3,7 +3,7 @@
     <el-collapse :simple="true">
       <el-collapse-item :title="title">
         <div class="message-box">
-          <LogMessage v-for="(message, index) in messages" :key="index" :message="message"> </LogMessage>
+          <LogMessage v-for="message in messages" :key="message.uuid" :message="message"> </LogMessage>
         </div>
       </el-collapse-item>
     </el-collapse>

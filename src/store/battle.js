@@ -1,5 +1,6 @@
 import api from "@/api";
 import { getField, updateField } from "vuex-map-fields";
+import { v4 as uuidv4 } from "uuid";
 
 export default {
   namespaced: true,
@@ -35,6 +36,7 @@ export default {
     append_loots_log(state, data) {
       if (data.loots.length !== 0) {
         state.battle_loots_log_messages.unshift({
+          uuid: uuidv4(),
           created_at: new Date(),
           content: "獲得了" + data.loots.map((x) => x.name + "×" + x.number).join("、"),
         });

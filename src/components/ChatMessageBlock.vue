@@ -20,7 +20,7 @@
     <CharaSelect v-if="need_receiver" v-model="receiver"></CharaSelect>
     <el-button v-if="need_input" type="primary" @click="send_chat_message">送出</el-button>
     <div class="message-box">
-      <ChatMessage v-for="(message, index) in messages" :key="index" :message="message" @reply="set_reply_target">
+      <ChatMessage v-for="message in messages" :key="message.uuid" :message="message" @reply="set_reply_target">
       </ChatMessage>
     </div>
   </div>
