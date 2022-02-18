@@ -24,7 +24,7 @@
         當前同伴：
         {{ $filters.partner(chara_partner) }}
       </div>
-      <el-select v-model="selected_partner" clearable style="width:300px">
+      <el-select v-model="selected_partner" clearable style="width: 300px">
         <el-option
           v-for="partner in chara_partners"
           :key="partner.id"
@@ -39,9 +39,9 @@
       <h2 class="page-block-title">稱號</h2>
       <div>
         當前稱號：
-        {{ chara_title ? chara_title.type.name : 無 }}
+        {{ chara_title ? chara_title.type.name : "無" }}
       </div>
-      <el-select v-model="selected_title" clearable style="width:300px">
+      <el-select v-model="selected_title" clearable style="width: 300px">
         <el-option v-for="title in chara_titles" :key="title.id" :label="title.type.name" :value="title.id" />
       </el-select>
       <el-button type="primary" @click="set_title({ title: selected_title }).then(() => refresh())">
