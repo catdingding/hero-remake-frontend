@@ -38,7 +38,6 @@
 </template>
 
 <script>
-  import { mapState } from "vuex";
   export default {
     name: "SlotTable",
     data() {
