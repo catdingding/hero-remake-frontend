@@ -3,7 +3,7 @@
     <el-table-column label="名稱" align="center">
       <template v-slot="scope">
         <el-tooltip effect="dark" :content="$filters.item_description(extract_item(scope.row))" placement="top">
-          <i class="el-icon-info"></i>
+          <el-icon><InfoFilled /></el-icon>
         </el-tooltip>
         {{ $filters.item_name(extract_item(scope.row)) }}
       </template>
@@ -38,6 +38,7 @@
 </template>
 
 <script>
+  import { InfoFilled } from "@element-plus/icons";
   export default {
     name: "ItemTable",
     data() {
@@ -52,7 +53,8 @@
         }
       },
     },
-    props: { data: { type: Array }, itemField: { default: null } },
+    props: { data: { type: Array, default: () => [] }, itemField: { default: null } },
+    components: { InfoFilled },
   };
 </script>
 

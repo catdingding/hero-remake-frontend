@@ -3,7 +3,7 @@
     <el-table-column label="名稱" align="center">
       <template v-slot="scope">
         <el-tooltip effect="dark" :content="scope.row.item_type.description" placement="top">
-          <i class="el-icon-info"></i>
+          <el-icon><InfoFilled /></el-icon>
         </el-tooltip>
         {{ scope.row.item_type.name }}
       </template>
@@ -37,13 +37,14 @@
 </template>
 
 <script>
-  import { mapState } from "vuex";
+  import { InfoFilled } from "@element-plus/icons";
   export default {
     name: "ItemTypeOptionTable",
     data() {
       return {};
     },
     props: ["options"],
+    components: { InfoFilled },
   };
 </script>
 
