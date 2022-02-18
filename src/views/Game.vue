@@ -3,13 +3,9 @@
     <el-container>
       <el-header>
         <el-menu mode="horizontal" router background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
-          <el-menu-item index="index" :route="{ path: '/game' }">
-            主頁
-          </el-menu-item>
+          <el-menu-item index="index" :route="{ path: '/game' }"> 主頁 </el-menu-item>
           <el-sub-menu index="chara">
-            <template v-slot:title>
-              角色
-            </template>
+            <template v-slot:title> 角色 </template>
             <el-menu-item index="bag" :route="{ path: '/game/chara/bag' }">背包/裝備</el-menu-item>
             <el-menu-item index="excercise" :route="{ path: '/game/chara/exercise' }">修煉</el-menu-item>
             <el-menu-item index="job-change" :route="{ path: '/game/chara/job-change' }">轉職</el-menu-item>
@@ -46,9 +42,7 @@
             >
           </el-sub-menu>
           <el-sub-menu index="town" v-show="chara_location && chara_location.town">
-            <template v-slot:title>
-              城鎮
-            </template>
+            <template v-slot:title> 城鎮 </template>
             <el-menu-item index="inn" :route="{ path: '/game/town/inn' }">旅店</el-menu-item>
             <el-menu-item index="storage" :route="{ path: '/game/town/storage' }">倉庫</el-menu-item>
             <el-menu-item index="smith" :route="{ path: '/game/town/smith' }">鍛造屋</el-menu-item>
@@ -74,9 +68,7 @@
             <el-menu-item index="npc-list" :route="{ path: '/game/town/npc-list' }">NPC列表</el-menu-item>
           </el-sub-menu>
           <el-sub-menu index="country">
-            <template v-slot:title>
-              國家
-            </template>
+            <template v-slot:title> 國家 </template>
             <el-menu-item index="country-list" :route="{ path: '/game/country/list' }">國家列表</el-menu-item>
             <el-menu-item index="country-found" :route="{ path: '/game/country/found' }" v-show="!chara_country">
               建國
@@ -111,9 +103,7 @@
             </el-menu-item>
           </el-sub-menu>
           <el-sub-menu index="team">
-            <template v-slot:title>
-              隊伍
-            </template>
+            <template v-slot:title> 隊伍 </template>
             <el-menu-item index="team-list" :route="{ path: '/game/team/list' }">隊伍列表</el-menu-item>
             <el-menu-item index="team-found" :route="{ path: '/game/team/found' }" v-show="!chara_team">
               建立隊伍
@@ -130,9 +120,7 @@
             </el-menu-item>
           </el-sub-menu>
           <el-sub-menu index="other">
-            <template v-slot:title>
-              其他
-            </template>
+            <template v-slot:title> 其他 </template>
             <el-menu-item index="log" :route="{ path: '/game/log' }">事件查詢</el-menu-item>
             <el-menu-item index="battle-result-list" :route="{ path: '/game/battle-result-list' }">
               戰鬥記錄
@@ -143,25 +131,23 @@
             <el-menu-item index="change-log" :route="{ path: '/game/change-log' }">更新日誌</el-menu-item>
             <el-menu-item index="password-change" :route="{ path: '/game/password-change' }">更改密碼</el-menu-item>
             <el-menu-item>
-              <a href="/chat" target="_blank" style="color:#fff;">
-                <div style="width: 100%;height:100%;">聊天視窗</div>
+              <a href="/chat" @click.stop="" target="_blank" style="color: #fff">
+                <div class="full">聊天視窗</div>
               </a>
             </el-menu-item>
             <el-menu-item>
-              <a :href="rule_url" target="_blank" style="color:#fff;">
-                <div style="width: 100%;height:100%;">遊戲規章</div>
+              <a :href="rule_url" @click.stop="" target="_blank" style="color: #fff">
+                <div class="full">遊戲規章</div>
               </a>
             </el-menu-item>
             <el-menu-item>
-              <div @click="logout" style="width: 100%;height:100%;display:flex;align-items: center;">
+              <div @click.stop="logout" class="full">
                 <span>登出</span>
               </div>
             </el-menu-item>
           </el-sub-menu>
           <el-sub-menu index="ugc">
-            <template v-slot:title>
-              自訂
-            </template>
+            <template v-slot:title> 自訂 </template>
             <el-menu-item index="ugc-dungeon-panel" :route="{ path: '/game/ugc/panel' }">管理面板</el-menu-item>
             <el-menu-item index="ugc-dungeon-list" :route="{ path: '/game/ugc/dungeon-list' }">地城列表</el-menu-item>
           </el-sub-menu>
@@ -176,7 +162,6 @@
               </el-dropdown-menu>
             </template>
           </el-dropdown>
-          <!-- <el-button @click="is_dark_theme = !is_dark_theme">dark theme</el-button> -->
         </el-menu>
       </el-header>
       <el-main class="content">
@@ -308,8 +293,7 @@
           await this.$store.dispatch("battle/fight_battle_map");
           if (this.chara_record.total_battle % 10 === 1) {
             await this.$store.dispatch("chara/get_chara_profile", {
-              omit:
-                "bag_items,slots,skill_settings,introduction,main_ability,job_ability,live_ability,team,country,farms,title,titles,partner,partners",
+              omit: "bag_items,slots,skill_settings,introduction,main_ability,job_ability,live_ability,team,country,farms,title,titles,partner,partners",
             });
           } else {
             await this.$store.dispatch("chara/get_chara_profile", {
@@ -352,8 +336,7 @@
       }
       this.$store
         .dispatch("chara/get_chara_profile", {
-          omit:
-            "bag_items,slots,skill_settings,introduction,main_ability,job_ability,live_ability,farms,title,titles,partner,partners",
+          omit: "bag_items,slots,skill_settings,introduction,main_ability,job_ability,live_ability,farms,title,titles,partner,partners",
         })
         .then(() => {
           this.$store.dispatch("ws/start_ws");
@@ -397,6 +380,16 @@
     display: flex;
     align-items: center;
     flex-wrap: wrap;
+
+    .el-menu-item .full {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+    }
+    .el-menu-item a {
+      width: 100%;
+    }
   }
   .el-main {
     margin-top: 60px;
