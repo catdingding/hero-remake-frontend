@@ -75,14 +75,6 @@ export default {
       commit("set_ws", ws);
       var last_message_time = new Date();
 
-      const heartbeat = () => {
-        if (new Date() - last_message_time > 15000) {
-          ws.close();
-        }
-        ws.send(JSON.stringify({ type: "ping" }));
-      };
-      const heartbeat_interval = setInterval(heartbeat, 5000);
-
       ws.onmessage = function (e) {
         last_message_time = new Date();
         var data = JSON.parse(e.data);
@@ -97,8 +89,7 @@ export default {
         }
       };
       ws.onclose = function (e) {
-        clearInterval(heartbeat_interval);
-        if (rootState.access_token) {
+        if (rootState.access_token && state.ws.readyState > 1) {
           setTimeout(() => {
             dispatch("start_ws");
           }, 1000);
