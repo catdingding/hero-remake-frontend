@@ -34,9 +34,8 @@
             <el-menu-item index="farm" :route="{ path: '/game/chara/farm' }">農場</el-menu-item>
             <el-menu-item index="parcel" :route="{ path: '/game/chara/parcel' }">包裹</el-menu-item>
             <el-menu-item index="equipment-lock" :route="{ path: '/game/chara/equipment-lock' }">裝備綁定</el-menu-item>
-            <el-menu-item index="chara-introduction" :route="{ path: '/game/chara/introduction' }">自傳</el-menu-item>
             <el-menu-item index="member-shop" :route="{ path: '/game/chara/member-shop' }">贊助商店</el-menu-item>
-            <el-menu-item index="avatar-change" :route="{ path: '/game/chara/avatar-change' }">更換頭像</el-menu-item>
+            <el-menu-item index="setting" :route="{ path: '/game/chara/setting' }">設定調整</el-menu-item>
             <el-menu-item index="chara-achievement-types" :route="{ path: '/game/chara/achievement-types' }"
               >成就</el-menu-item
             >

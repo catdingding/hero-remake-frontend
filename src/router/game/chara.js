@@ -1,4 +1,3 @@
-import CharaIntroduction from "@/views/game/chara/CharaIntroduction.vue";
 import Bag from "@/views/game/chara/Bag.vue";
 import Farm from "@/views/game/chara/Farm.vue";
 import JobChange from "@/views/game/chara/JobChange.vue";
@@ -11,13 +10,12 @@ import Exercise from "@/views/game/chara/Exercise.vue";
 import PvP from "@/views/game/chara/PvP.vue";
 import EquipmentLock from "@/views/game/chara/EquipmentLock.vue";
 import MemberShop from "@/views/game/chara/MemberShop.vue";
-import AvatarChange from "@/views/game/chara/AvatarChange.vue";
 import BattleMapTicketToItem from "@/views/game/chara/BattleMapTicketToItem.vue";
 import Parcel from "@/views/game/chara/Parcel.vue";
 import CharaChievementTypeList from "@/views/game/chara/CharaChievementTypeList.vue";
+import CharaSetting from "@/views/game/chara/CharaSetting";
 
 export default [
-  { path: "chara/introduction", component: CharaIntroduction, meta: { title: "自傳" } },
   { path: "chara/bag", component: Bag, meta: { title: "背包" } },
   { path: "chara/job-change", component: JobChange, meta: { title: "轉職" } },
   { path: "chara/skill-setting", component: SkillSetting, meta: { title: "技能設定" } },
@@ -31,7 +29,7 @@ export default [
   { path: "chara/pvp", component: PvP, meta: { title: "PvP" } },
   { path: "chara/equipment-lock", component: EquipmentLock, meta: { title: "裝備綁定" } },
   { path: "chara/member-shop", component: MemberShop, meta: { title: "贊助商店" } },
-  { path: "chara/avatar-change", component: AvatarChange, meta: { title: "更換頭像" } },
   { path: "chara/battle-map-ticket-to-item", component: BattleMapTicketToItem, meta: { title: "地圖製作" } },
   { path: "chara/achievement-types", component: CharaChievementTypeList, meta: { title: "成就" } },
+  { path: "chara/setting", component: CharaSetting, meta: { title: "設定" } },
 ];
