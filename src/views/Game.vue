@@ -166,9 +166,7 @@
       </el-header>
       <el-main class="content">
         <router-view v-slot="{ Component }" class="router-view">
-          <keep-alive include="Index">
-            <component :is="Component" />
-          </keep-alive>
+          <component :is="Component" />
         </router-view>
       </el-main>
       <el-footer class="footer" height="100px">

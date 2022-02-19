@@ -15,7 +15,7 @@
       color="#67c23a"
       @submit="hand_in_quest('country_monster_quest')"
     ></QuestProgressBlock>
-    <el-row type="flex" justify="space-between" style="width: 100%;flex-wrap: wrap;">
+    <el-row type="flex" justify="space-between" style="width: 100%; flex-wrap: wrap">
       <el-col :span="7" :xs="24">
         <el-card class="profile-card">
           <template #header>
@@ -102,9 +102,7 @@
             <div class="attr">
               <div>
                 <el-tooltip effect="dark" content="影響休息恢復量，可於城鎮旅店恢復" placement="top">
-                  <span>
-                    健康度
-                  </span>
+                  <span> 健康度 </span>
                 </el-tooltip>
               </div>
               <div>{{ chara_health }}</div>
@@ -116,9 +114,7 @@
                   content="微妙的影響奧義注入、轉職能力繼承與普攻最小值，每小時會受到隨機加成"
                   placement="top"
                 >
-                  <span>
-                    幸運
-                  </span>
+                  <span> 幸運 </span>
                 </el-tooltip>
               </div>
               <div>{{ chara_luck }}</div>
@@ -184,16 +180,14 @@
       <el-col :span="7" :xs="24">
         <el-card class="command-card">
           <template #header>
-            <div>
-              指令
-            </div>
+            <div>指令</div>
           </template>
           <Avatar class="avatar" :chara_id="chara_id" :avatar_version="chara_avatar_version"></Avatar>
           <div class="command">
             <el-divider>行動冷卻</el-divider>
             <RelativeTime :time_string="chara_next_action_time" :period="100"></RelativeTime>
             <el-divider />
-            <el-select style="margin-bottom:16px;" v-model="battle_map_id">
+            <el-select style="margin-bottom: 16px" v-model="battle_map_id">
               <el-option
                 v-if="chara_location"
                 :value="chara_location.battle_map"
@@ -221,7 +215,7 @@
       </el-col>
     </el-row>
 
-    <el-row type="flex" justify="space-between" style="width: 100%;">
+    <el-row type="flex" justify="space-between" style="width: 100%">
       <el-col :span="15">
         <LogMessageBlock title="最近事件" :messages="log_messages"></LogMessageBlock>
       </el-col>
@@ -230,7 +224,7 @@
       </el-col>
     </el-row>
 
-    <el-row type="flex" justify="space-between" style="width: 100%;" class="chat">
+    <el-row type="flex" justify="space-between" style="width: 100%" class="chat">
       <el-col :span="24">
         <el-tabs model-value="all">
           <el-tab-pane
@@ -244,7 +238,7 @@
         </el-tabs>
       </el-col>
     </el-row>
-    <el-row type="flex" justify="space-between" style="width: 100%;" class="chat">
+    <el-row type="flex" justify="space-between" style="width: 100%" class="chat">
       <el-col :span="24">
         <el-collapse>
           <el-collapse-item>
@@ -320,16 +314,14 @@
     },
     components: { PercentageDisplay, LogMessageBlock, ChatMessageBlock, QuestProgressBlock, Avatar, CharaLink },
     mounted() {
+      this.$store.dispatch("chara/get_chara_profile", {
+        omit: "bag_items,slots,skill_settings,introduction,main_ability,job_ability,live_ability",
+      });
       this.get_online_charas();
       this.online_charas_interval_id = setInterval(this.get_online_charas, 60000);
     },
     beforeUnmount() {
       clearInterval(this.online_charas_interval_id);
-    },
-    activated() {
-      this.$store.dispatch("chara/get_chara_profile", {
-        omit: "bag_items,slots,skill_settings,introduction,main_ability,job_ability,live_ability",
-      });
     },
   };
 </script>
