@@ -3,9 +3,9 @@
     <div>
       <div class="panel">
         <span>x:</span>
-        <el-input-number v-model="x" size="small" @change="get_map" />
+        <el-input-number v-model="x" size="small" @change="fetch" />
         <span>y:</span>
-        <el-input-number v-model="y" size="small" @change="get_map" />
+        <el-input-number v-model="y" size="small" @change="fetch" />
       </div>
       <div class="map small-font" v-if="map">
         <div class="location" v-for="(location, index) in map" :key="index">
@@ -13,7 +13,7 @@
             屬性：{{ location.element_type.name }}<br />
             國家：{{ $filters.country_name(location.country) }}
             <template #reference>
-              <i class="info el-icon-info"></i>
+              <el-icon class="info"><InfoFilled /></el-icon>
             </template>
           </el-popover>
 
@@ -38,29 +38,32 @@
   </div>
 </template>
 
-<script>
-  import { mapState, mapActions } from "vuex";
-  export default {
-    name: "Map",
-    data() {
-      return {
-        x: null,
-        y: null,
-      };
-    },
-    computed: { ...mapState("map", ["map"]), ...mapState("chara", ["chara_location"]) },
-    methods: {
-      ...mapActions("map", ["move"]),
-      async get_map() {
-        this.$store.dispatch("map/get_map", { x: this.x, y: this.y });
-      },
-    },
-    async mounted() {
-      await this.$store.dispatch("chara/get_chara_profile", { fields: "location" });
-      this.x = this.chara_location.x;
-      this.y = this.chara_location.y;
-      await this.get_map();
-    },
+<script setup>
+  import { ref, computed, onMounted } from "vue";
+  import { useStore } from "vuex";
+  import { InfoFilled } from "@element-plus/icons";
+  import { get_map } from "@/api/map.js";
+
+  const x = ref(null);
+  const y = ref(null);
+  const map = ref([]);
+
+  const store = useStore();
+  const chara_location = computed(() => store.state.chara.chara_location);
+
+  const fetch = async () => {
+    map.value = await get_map({ x: x.value, y: y.value });
+  };
+
+  onMounted(async () => {
+    await store.dispatch("chara/get_chara_profile", { fields: "location" });
+    x.value = chara_location.value.x;
+    y.value = chara_location.value.y;
+    fetch();
+  });
+
+  const move = async (location) => {
+    store.dispatch("map/move", location);
   };
 </script>
 
