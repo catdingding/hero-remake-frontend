@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div style="width: 100%;text-align: center">
+    <div style="width: 100%; text-align: center">
       <el-button type="success" @click="upgrade_storage" v-show="chara_official || chara_is_king">
-        擴充倉庫({{ $filters.currency(country_profile.item_limit * 1000000) }})
+        擴充倉庫({{ $filters.currency(country_profile?.item_limit * 1000000) }})
       </el-button>
     </div>
     <div class="storage">
@@ -88,5 +88,10 @@
   }
   .bag {
     width: 48%;
+  }
+  @media screen and (max-width: 768px) {
+    .router-view > div {
+      width: 100%;
+    }
   }
 </style>

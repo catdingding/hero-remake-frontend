@@ -72,11 +72,16 @@
 </script>
 
 <style lang="less" scoped>
-  .send-gold {
+  .el-card {
     text-align: center;
     margin-top: 30px;
   }
   .send-item {
     width: 65%;
+  }
+  @media screen and (max-width: 768px) {
+    .router-view > div {
+      width: 100%;
+    }
   }
 </style>

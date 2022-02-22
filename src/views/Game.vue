@@ -389,7 +389,7 @@
     }
   }
   .el-main {
-    margin-top: 60px;
+    margin-top: 30px;
   }
   .footer {
     text-align: center;

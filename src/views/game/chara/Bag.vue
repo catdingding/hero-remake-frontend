@@ -130,4 +130,9 @@
   .slots {
     width: 40%;
   }
+  @media screen and (max-width: 768px) {
+    .router-view > div {
+      width: 100%;
+    }
+  }
 </style>
