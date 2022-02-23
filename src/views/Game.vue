@@ -390,6 +390,9 @@
   }
   .el-main {
     margin-top: 30px;
+    @media (max-width: 768px) {
+      margin-top: 0px;
+    }
   }
   .footer {
     text-align: center;
