@@ -12,7 +12,7 @@ import EquipmentLock from "@/views/game/chara/EquipmentLock.vue";
 import MemberShop from "@/views/game/chara/MemberShop.vue";
 import BattleMapTicketToItem from "@/views/game/chara/BattleMapTicketToItem.vue";
 import Parcel from "@/views/game/chara/Parcel.vue";
-import CharaChievementTypeList from "@/views/game/chara/CharaChievementTypeList.vue";
+import CharaAchievementTypeList from "@/views/game/chara/CharaAchievementTypeList.vue";
 import CharaSetting from "@/views/game/chara/CharaSetting";
 
 export default [
@@ -30,6 +30,6 @@ export default [
   { path: "chara/equipment-lock", component: EquipmentLock, meta: { title: "裝備綁定" } },
   { path: "chara/member-shop", component: MemberShop, meta: { title: "贊助商店" } },
   { path: "chara/battle-map-ticket-to-item", component: BattleMapTicketToItem, meta: { title: "地圖製作" } },
-  { path: "chara/achievement-types", component: CharaChievementTypeList, meta: { title: "成就" } },
+  { path: "chara/achievement-types", component: CharaAchievementTypeList, meta: { title: "成就" } },
   { path: "chara/setting", component: CharaSetting, meta: { title: "設定" } },
 ];

@@ -8,7 +8,9 @@
           <el-table-column label="已取得" align="center">
             <template v-slot="scope">
               <span v-if="scope.row.obtained">已取得</span>
-              <span v-else style="color:#aaa">未取得</span>
+              <span v-else style="color: #aaa">
+                未取得({{ scope.row.counter_value || 0 }}/{{ scope.row.requirement }})
+              </span>
             </template>
           </el-table-column>
         </el-table>
@@ -22,7 +24,7 @@
   import Pagination from "@/components/Pagination";
 
   export default {
-    name: "CharaChievementTypeList",
+    name: "CharaAchievementTypeList",
     data() {
       return {};
     },
