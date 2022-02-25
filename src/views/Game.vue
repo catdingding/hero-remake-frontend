@@ -196,6 +196,7 @@
   import CharaPublicProfileCard from "@/components/CharaPublicProfileCard.vue";
   import NPCProfileCard from "@/components/NPCProfileCard.vue";
   import BattleResultBlock from "@/components/BattleResultBlock.vue";
+  import { set_config } from "@/api/chara.js";
 
   export default {
     data() {
@@ -204,40 +205,6 @@
         waiting_battle_result: false,
         auto_fight_error_times: 0,
         rule_url: process.env.VUE_APP_RULE_URL,
-        is_dark_theme: false,
-        css_settings: {
-          dark: {
-            "--el-color-white": "#36393f",
-            "--el-color-black": "#000000",
-            "--el-text-color-primary": "#faffff",
-            "--el-text-color-regular": "#faffff",
-            "--el-text-color-secondary": "#faffff",
-            "--el-text-color-placeholder": "#faffff",
-            "--el-bg-color": "#36393f",
-            "--el-border-color-base": "#dcdfe6",
-            "-el-border-color-light": "#e4e7ed",
-            "--el-border-color-lighter": "#ebeef5",
-            "--el-border-color-extra-light": "#f2f6fc",
-            "--text-color-primary-light-bg": "#303133",
-            "--text-color-secondary-light-bg": "#606266",
-          },
-          light: {
-            "--el-color-white": "#ffffff",
-            "--el-color-black": "#000000",
-            "--el-color-primary": "#409eff",
-            "--el-text-color-primary": "#303133",
-            "--el-text-color-regular": "#606266",
-            "--el-text-color-secondary": "#909399",
-            "--el-text-color-placeholder": "#c0c4cc",
-            "--el-bg-color": "#f5f7fa",
-            "--el-border-color-base": "#dcdfe6",
-            "--el-border-color-light": "#e4e7ed",
-            "--el-border-color-lighter": "#ebeef5",
-            "--el-border-color-extra-light": "#f2f6fc",
-            "--text-color-primary-light-bg": "var(--text-color-primary)",
-            "--text-color-secondary-light-bg": "var(--text-color-secondary)",
-          },
-        },
       };
     },
     computed: {
@@ -320,9 +287,7 @@
         }
       },
       change_theme(theme) {
-        for (const [key, value] of Object.entries(this.css_settings[theme])) {
-          document.documentElement.style.setProperty(key, value);
-        }
+        set_config({ theme });
       },
     },
     mounted() {

@@ -1,5 +1,6 @@
 import api from "@/api";
 import _ from "lodash";
+import { apply_config } from "@/utils/chara.js";
 
 export default {
   namespaced: true,
@@ -65,14 +66,6 @@ export default {
         state[`chara_${key}`] = data[key];
       }
     },
-    apply_config(state, data) {
-      if (data.background) {
-        document.body.style["background-color"] = null;
-        document.body.style["background"] = data.background;
-      } else {
-        document.body.style["background-color"] = "var(--color-white)";
-      }
-    },
   },
   actions: {
     async get_chara_profile({ commit, state, rootState }, { omit = "", fields = "" }) {
@@ -90,7 +83,7 @@ export default {
       commit("set_client_offset", res, { root: true });
       commit("set_chara_profile", res.data);
       if ("config" in res.data) {
-        commit("apply_config", res.data.config);
+        apply_config(res.data.config);
       }
 
       let remain_tickets = state.chara_battle_map_tickets.reduce(

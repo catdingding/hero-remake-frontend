@@ -5,9 +5,7 @@
         <el-input v-model="form_data.background"> </el-input>
       </el-form-item>
     </el-form>
-    <el-button type="primary" @click="set_config(form_data).then(store.commit('chara/apply_config', form_data))">
-      送出
-    </el-button>
+    <el-button type="primary" @click="set_config(form_data)"> 送出 </el-button>
   </div>
 </template>
 
