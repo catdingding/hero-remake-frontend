@@ -89,9 +89,11 @@
             <div v-if="slot.item && slot.type.id != 4">
               {{ slot.item.equipment.upgrade_times }}/{{ slot.item.equipment.upgrade_times_limit }}
               <br />
-              <el-button type="primary" @click="smith_upgrade({ slot_type: slot.type.id, times: 1 }).then(refresh)">
-                強化
-              </el-button>
+              <InputNumberWithButton
+                text="強化"
+                @click="smith_upgrade({ slot_type: slot.type.id, times: $event }).then(refresh)"
+              >
+              </InputNumberWithButton>
             </div>
           </td>
           <td>
@@ -127,6 +129,7 @@
 <script>
   import { mapState, mapActions } from "vuex";
   import CharaWallet from "@/components/CharaWallet.vue";
+  import InputNumberWithButton from "@/components/InputNumberWithButton";
   import { smith_upgrade, smith_replace_ability, smith_replace_element_type } from "@/api/item.js";
 
   export default {
@@ -190,7 +193,7 @@
     mounted() {
       this.refresh();
     },
-    components: { CharaWallet },
+    components: { CharaWallet, InputNumberWithButton },
   };
 </script>
 
