@@ -44,24 +44,10 @@ export default {
         dispatch("chara/get_chara_profile", { fields: "gold" }, { root: true });
       });
     },
-    async smith_upgrade({ state, commit, dispatch, rootState }, data) {
-      api.post("smith/upgrade/", data).then((res) => {
-        dispatch("chara/get_chara_profile", { fields: "slots,bag_items,proficiency,gold" }, { root: true });
-      });
-    },
-    async smith_replace_ability({ state, commit, dispatch, rootState }, data) {
-      api.post("smith/replace-ability/", data).then((res) => {
-        dispatch("chara/get_chara_profile", { fields: "slots,bag_items,proficiency,gold" }, { root: true });
-      });
-    },
     async pet_upgrade({ state, commit, dispatch, rootState }, data) {
       api.post("pet/upgrade/", data).then((res) => {
         dispatch("chara/get_chara_profile", { fields: "slots,proficiency,gold" }, { root: true });
       });
-    },
-    async smith_replace_element_type({ state, commit, dispatch, rootState }, data) {
-      await api.post("smith/replace-element-type/", data);
-      await dispatch("chara/get_chara_profile", { fields: "slots" }, { root: true });
     },
     async battle_map_ticket_to_item({ state, commit, dispatch, rootState }, data) {
       await api.post("chara/battle-map-ticket-to-item/", data);
