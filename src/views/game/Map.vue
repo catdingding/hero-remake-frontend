@@ -79,7 +79,7 @@
       height: 100px;
       position: relative;
       border: #aaa 1px solid;
-      background-color: #fff;
+      background-color: var(--color-white);
       text-align: center;
       .no-town {
         color: #999;
