@@ -7,12 +7,14 @@
     </el-table-column>
     <el-table-column align="center" label="技能">
       <template v-slot="scope">
-        <el-select v-model="scope.row.skill" style="width:250px">
+        <el-select v-model="scope.row.skill" style="width: 250px">
           <el-option
             v-for="(skill, index) in available_skills"
             :key="index"
             :value="skill.id"
-            :label="skill.name + `(mp:${skill.mp_cost},威力:${skill.power},發動率:${skill.rate}%)`"
+            :label="
+              skill.name + `(mp:${skill.mp_cost},威力:${skill.power},發動率:${skill.rate}%,ap:${skill.action_cost})`
+            "
           ></el-option>
         </el-select>
       </template>
