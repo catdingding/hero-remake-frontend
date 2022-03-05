@@ -7,7 +7,7 @@
     </el-table-column>
     <el-table-column align="center" label="技能">
       <template v-slot="scope">
-        <el-select v-model="scope.row.skill" style="width: 250px">
+        <el-select v-model="scope.row.skill">
           <el-option
             v-for="(skill, index) in available_skills"
             :key="index"
@@ -21,54 +21,22 @@
     </el-table-column>
     <el-table-column align="center" label="HP(%)<=">
       <template v-slot="scope">
-        <el-input-number
-          size="small"
-          :min="0"
-          :max="100"
-          v-model="scope.row.hp_percentage"
-          :formatter="(value) => `${value}%`"
-          :parser="(value) => value.replace('%', '')"
-        >
-        </el-input-number>
+        <el-input-number size="small" :min="0" :max="100" v-model="scope.row.hp_percentage"> </el-input-number>
       </template>
     </el-table-column>
     <el-table-column align="center" label="MP(%)<=">
       <template v-slot="scope">
-        <el-input-number
-          size="small"
-          :min="0"
-          :max="100"
-          v-model="scope.row.mp_percentage"
-          :formatter="(value) => `${value}%`"
-          :parser="(value) => value.replace('%', '')"
-        >
-        </el-input-number>
+        <el-input-number size="small" :min="0" :max="100" v-model="scope.row.mp_percentage"> </el-input-number>
       </template>
     </el-table-column>
     <el-table-column align="center" label="防禦方HP(%)<=">
       <template v-slot="scope">
-        <el-input-number
-          size="small"
-          :min="0"
-          :max="100"
-          v-model="scope.row.defender_hp_percentage"
-          :formatter="(value) => `${value}%`"
-          :parser="(value) => value.replace('%', '')"
-        >
-        </el-input-number>
+        <el-input-number size="small" :min="0" :max="100" v-model="scope.row.defender_hp_percentage"> </el-input-number>
       </template>
     </el-table-column>
     <el-table-column align="center" label="防禦方MP(%)<=">
       <template v-slot="scope">
-        <el-input-number
-          size="small"
-          :min="0"
-          :max="100"
-          v-model="scope.row.defender_mp_percentage"
-          :formatter="(value) => `${value}%`"
-          :parser="(value) => value.replace('%', '')"
-        >
-        </el-input-number>
+        <el-input-number size="small" :min="0" :max="100" v-model="scope.row.defender_mp_percentage"> </el-input-number>
       </template>
     </el-table-column>
     <el-table-column align="center" label="發動次數上限">
@@ -80,6 +48,11 @@
       </template>
       <template v-slot="scope">
         <el-input-number size="small" :min="0" v-model="scope.row.times_limit"> </el-input-number>
+      </template>
+    </el-table-column>
+    <el-table-column align="center" label="發動率(%)">
+      <template v-slot="scope">
+        <el-input-number size="small" :min="0" v-model="scope.row.probability"> </el-input-number>
       </template>
     </el-table-column>
     <el-table-column align="center" label="增加">
@@ -120,6 +93,7 @@
       defender_hp_percentage: 100,
       defender_mp_percentage: 100,
       times_limit: 0,
+      probability: 100,
     });
   };
   const remove_setting = (index) => {
@@ -138,7 +112,10 @@
 </script>
 
 <style lang="less" scoped>
+  .el-select {
+    width: 200px;
+  }
   .el-input-number {
-    width: 100px;
+    width: 90px;
   }
 </style>
