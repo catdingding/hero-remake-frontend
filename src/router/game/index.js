@@ -8,6 +8,7 @@ import BattleResultList from "@/views/game/BattleResultList.vue";
 import AbilityList from "@/views/game/AbilityList.vue";
 import SkillList from "@/views/game/SkillList.vue";
 import PetList from "@/views/game/PetList.vue";
+import About from "@/views/game/About.vue";
 
 import chara_routers from "./chara";
 import country_routers from "./country";
@@ -32,4 +33,5 @@ export default [
   { path: "ability-list", component: AbilityList, meta: { title: "奧義列表" } },
   { path: "skill-list", component: SkillList, meta: { title: "技能列表" } },
   { path: "pet-list", component: PetList, meta: { title: "寵物列表" } },
+  { path: "about", component: About, meta: { title: "關於" } },
 ];

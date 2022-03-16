@@ -120,6 +120,7 @@
           </el-sub-menu>
           <el-sub-menu index="other">
             <template v-slot:title> 其他 </template>
+            <el-menu-item index="about" :route="{ path: '/game/about' }">關於</el-menu-item>
             <el-menu-item index="log" :route="{ path: '/game/log' }">事件查詢</el-menu-item>
             <el-menu-item index="battle-result-list" :route="{ path: '/game/battle-result-list' }">
               戰鬥記錄
