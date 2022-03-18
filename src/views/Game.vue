@@ -187,6 +187,7 @@
     <el-dialog title="戰鬥結果" v-model="battle_result_dialog_visible" width="90%">
       <BattleResultBlock></BattleResultBlock>
     </el-dialog>
+    <NPCDesktopPet class="desktop-pet" />
   </div>
 </template>
 
@@ -197,6 +198,7 @@
   import CharaPublicProfileCard from "@/components/CharaPublicProfileCard.vue";
   import NPCProfileCard from "@/components/NPCProfileCard.vue";
   import BattleResultBlock from "@/components/BattleResultBlock.vue";
+  import NPCDesktopPet from "@/components/NPCDesktopPet.vue";
   import { set_config } from "@/api/chara.js";
 
   export default {
@@ -313,7 +315,7 @@
       clearInterval(this.auto_fight_interval_id);
       window.removeEventListener("keydown", this.process_hot_key);
     },
-    components: { CharaPublicProfileCard, NPCProfileCard, BattleResultBlock, ArrowDown },
+    components: { CharaPublicProfileCard, NPCProfileCard, BattleResultBlock, ArrowDown, NPCDesktopPet },
   };
 </script>
 
@@ -353,6 +355,12 @@
     .el-menu-item a {
       width: 100%;
     }
+  }
+  .desktop-pet {
+    z-index: 10;
+    position: fixed;
+    right: 0;
+    bottom: 0;
   }
   .el-main {
     margin-top: 30px;
