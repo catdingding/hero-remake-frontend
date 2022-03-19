@@ -12,6 +12,7 @@ export default {
         { name: "country", display_name: "國家", need_input: true },
         { name: "team", display_name: "隊伍", need_input: true },
         { name: "private", display_name: "私訊", need_input: true },
+        { name: "system", display_name: "系統", need_input: false },
       ],
       messages_mapping: {
         all: [],
@@ -19,6 +20,7 @@ export default {
         country: [],
         team: [],
         private: [],
+        system: [],
       },
       log_messages: [],
     };

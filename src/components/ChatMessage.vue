@@ -2,29 +2,37 @@
   <div
     class="chat-message"
     :class="{
-      public: message.channel == 'public',
+      public: message.channel == 'public' || message.channel == 'system',
       country: message.channel == 'country',
       team: message.channel == 'team',
       private: message.channel == 'private',
     }"
   >
-    <Avatar class="avatar" :chara_id="message.sender.id" :avatar_version="message.sender.avatar_version"></Avatar>
+    <Avatar
+      v-if="message.channel != 'system'"
+      class="avatar"
+      :chara_id="message.sender.id"
+      :avatar_version="message.sender.avatar_version"
+    />
+    <img v-else :src="message.avatar.path" />
     <div class="message">
       <div class="title">
         <span>[{{ channel_name_mapping[message.channel] }}]</span>
-        <span>
-          <CharaLink :chara_name="message.sender.name" :chara_id="message.sender.id"></CharaLink>
+        <span v-if="message.channel != 'system'">
+          <CharaLink :chara_name="message.sender.name" :chara_id="message.sender.id" />
           {{ message.sender.title ? message.sender.title.type.name : "" }}@{{
             $filters.country_name(message.sender.country)
           }}
         </span>
+        <span v-else>{{ message.sender_name }}</span>
         <span v-if="message.receiver">傳送給</span>
         <span v-if="message.receiver">
           {{ message.receiver.name }}
           @{{ $filters.country_name(message.receiver.country) }}
         </span>
-        <span v-if="message.is_system_generated" style="color:#999999">(系統訊息)</span>
+        <span v-if="message.is_system_generated" style="color: #999999">(系統訊息)</span>
         <span
+          v-if="message.channel != 'system'"
           class="reply"
           @click="
             $emit('reply', {
@@ -32,12 +40,13 @@
               receiver: message.channel === 'private' ? message.sender.id : null,
             })
           "
-          >回</span
         >
+          回
+        </span>
       </div>
       <div class="content">
         「
-        {{ message.sender.official ? `【${message.sender.official.title}】` : "" }}
+        {{ message.sender?.official ? `【${message.sender.official.title}】` : "" }}
         {{ message.content }}
         」
       </div>
@@ -60,6 +69,7 @@
           country: "國",
           team: "隊",
           private: "私",
+          system: "系",
         },
       };
     },
