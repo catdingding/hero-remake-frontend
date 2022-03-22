@@ -14,6 +14,7 @@ import VueVirtualScroller from "vue-virtual-scroller";
 
 import RelativeTime from "./components/RelativeTime.vue";
 import HintBlock from "./components/HintBlock.vue";
+import './registerServiceWorker'
 
 const app = createApp(App)
   .use(router)
