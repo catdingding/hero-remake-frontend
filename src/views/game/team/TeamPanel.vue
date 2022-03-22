@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-row type="flex" justify="space-around" style="width: 100%;" v-if="team_profile">
+    <el-row type="flex" justify="space-around" style="width: 100%" v-if="team_profile">
       <el-col :span="24">
         <el-card>
           <el-tabs model-value="first">
@@ -87,7 +87,7 @@
                     <el-button
                       v-else-if="row.status === 'ended'"
                       type="primary"
-                      @click="change_dungeon_record_status({ record: row.id, new_status: 'inactive' })"
+                      @click="change_dungeon_record_to_inactive({ record: row.id, new_status: 'inactive' })"
                     >
                       結算
                     </el-button>
@@ -131,6 +131,7 @@
         </el-card>
       </el-col>
     </el-row>
+    <SceneDialog v-model="scene_dialog_visible" start-key="0" :contents="contents" />
   </div>
 </template>
 
@@ -138,11 +139,15 @@
   import { mapState, mapActions } from "vuex";
   import InputNumberWithButton from "@/components/InputNumberWithButton";
   import Pagination from "@/components/Pagination";
+  import SceneDialog from "@/components/SceneDialog";
 
   export default {
     name: "TeamPanel",
     data() {
-      return {};
+      return {
+        scene_dialog_visible: false,
+        contents: [],
+      };
     },
     computed: {
       ...mapState("chara", ["chara_team", "chara_is_leader", "chara_id", "chara_location"]),
@@ -160,6 +165,52 @@
       ]),
       ...mapActions("battle", ["dungeon_fight", "world_boss_fight"]),
       ...mapActions("map", ["move"]),
+      async change_dungeon_record_to_inactive(input_data) {
+        let data = await this.change_dungeon_record_status(input_data);
+        this.contents = {
+          0: {
+            speaker: "系統醬",
+            message: "對地城的探索結束了，來看看這次有什麼收穫吧",
+            standing: { path: "/image/npc/system/standing/none.png" },
+            next_key: "1",
+          },
+          1: {
+            speaker: "系統醬",
+            message: `你們的隊伍${data.display_message}`,
+            standing: { path: "/image/npc/system/standing/smile.png" },
+            next_key: "2",
+          },
+          2: {
+            speaker: "系統醬",
+            message: "對這次的收穫還滿意嗎？",
+            standing: { path: "/image/npc/system/standing/smile.png" },
+            next_key: null,
+            options: [
+              { text: "滿意", next_key: "2-A-1" },
+              { text: "不滿意", next_key: "2-B-1" },
+            ],
+          },
+          "2-A-1": {
+            speaker: "系統醬",
+            message: "滿意就好，以後要繼續探索地城喔~",
+            standing: { path: "/image/npc/system/standing/smile.png" },
+            next_key: null,
+          },
+          "2-B-1": {
+            speaker: "系統醬",
+            message: "不滿意呀……但為了平衡，我也不能給你額外的物品",
+            standing: { path: "/image/npc/system/standing/bothered.png" },
+            next_key: "2-B-2",
+          },
+          "2-B-2": {
+            speaker: "系統醬",
+            message: "準備好之後，再來挑戰一次吧",
+            standing: { path: "/image/npc/system/standing/smile.png" },
+            next_key: null,
+          },
+        };
+        this.scene_dialog_visible = true;
+      },
     },
     mounted() {
       this.$store.dispatch("chara/get_chara_profile", { fields: "team,is_leader,location" }).then(() => {
@@ -167,7 +218,7 @@
       });
       this.$store.dispatch("battle/get_world_bosses");
     },
-    components: { InputNumberWithButton, Pagination },
+    components: { InputNumberWithButton, Pagination, SceneDialog },
   };
 </script>
 
