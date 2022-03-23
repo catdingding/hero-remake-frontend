@@ -1,6 +1,8 @@
 const theme_css_settings = {
   dark: {
     "--el-color-white": "#36393f",
+    "--el-fill-color-blank": "#36393f",
+    "--el-fill-color-light": "#454950",
     "--el-color-black": "#000000",
     "--el-text-color-primary": "#faffff",
     "--el-text-color-regular": "#faffff",
@@ -8,7 +10,7 @@ const theme_css_settings = {
     "--el-text-color-placeholder": "#faffff",
     "--el-bg-color": "#36393f",
     "--el-border-color-base": "#dcdfe6",
-    "-el-border-color-light": "#e4e7ed",
+    "--el-border-color-light": "#e4e7ed",
     "--el-border-color-lighter": "#ebeef5",
     "--el-border-color-extra-light": "#f2f6fc",
     "--text-color-primary-light-bg": "#303133",
@@ -16,6 +18,8 @@ const theme_css_settings = {
   },
   light: {
     "--el-color-white": "#ffffff",
+    "--el-fill-color-blank": "#ffffff",
+    "--el-fill-color-light": "#f5f7fa",
     "--el-color-black": "#000000",
     "--el-color-primary": "#409eff",
     "--el-text-color-primary": "#303133",

@@ -7,14 +7,12 @@ import router from "./router";
 import store from "./store";
 import ElementPlus from "element-plus";
 import locale from "element-plus/lib/locale/lang/zh-tw";
-import VueLodash from "vue-lodash";
-import lodash from "lodash";
 import filters from "./filters";
 import VueVirtualScroller from "vue-virtual-scroller";
 
 import RelativeTime from "./components/RelativeTime.vue";
 import HintBlock from "./components/HintBlock.vue";
-import './registerServiceWorker'
+import "./registerServiceWorker";
 
 const app = createApp(App)
   .use(router)
