@@ -1,5 +1,7 @@
 <template>
-  <div class="percentage_display" :style="style">{{ this.value }}/{{ this.maxValue }}</div>
+  <div class="percentage-display" :style="style">
+    <span>{{ this.value }}/{{ this.maxValue }}</span>
+  </div>
 </template>
 
 <script>
@@ -13,19 +15,22 @@
       style() {
         var percentage = (this.value / this.maxValue) * 100;
         return {
-          background: `linear-gradient(to left, ${this.color} ${percentage}%, white ${percentage}%)`
+          background: `linear-gradient(to left, ${this.color} ${percentage}%, transparent ${percentage}%)`,
         };
-      }
-    }
+      },
+    },
   };
 </script>
 
 <style lang="less" scoped>
-  .percentage_display {
+  .percentage-display {
     width: 100%;
+    height: 100%;
     border: 1px solid #aaa;
     display: inline-block;
-    padding-right: 10px;
     text-align: right;
+    span {
+      padding-right: 10px;
+    }
   }
 </style>

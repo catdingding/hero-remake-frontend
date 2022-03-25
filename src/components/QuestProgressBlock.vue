@@ -21,7 +21,7 @@
       style() {
         var percentage = (this.value / this.maxValue) * 100;
         return {
-          background: `linear-gradient(to right, ${this.color} ${percentage}%, white ${percentage}%)`,
+          background: `linear-gradient(to right, ${this.color} ${percentage}%, transparent ${percentage}%)`,
         };
       },
     },

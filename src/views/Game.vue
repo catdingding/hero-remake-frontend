@@ -184,7 +184,7 @@
     <el-dialog title="NPC資料" v-model="npc_profile_dialog_visible" width="50%">
       <NPCProfileCard :data="npc_profile"></NPCProfileCard>
     </el-dialog>
-    <el-dialog title="戰鬥結果" v-model="battle_result_dialog_visible" width="90%">
+    <el-dialog title="戰鬥結果" v-model="battle_result_dialog_visible" width="90%" destroy-on-close>
       <BattleResultBlock></BattleResultBlock>
     </el-dialog>
     <NPCDesktopPet class="desktop-pet" />
@@ -344,8 +344,6 @@
   .el-menu {
     display: flex;
     align-items: center;
-    flex-wrap: wrap;
-
     .el-menu-item .full {
       width: 100%;
       height: 100%;
