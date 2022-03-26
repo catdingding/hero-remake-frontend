@@ -181,9 +181,6 @@
     <el-dialog title="角色資料" v-model="chara_profile_dialog_visible" width="50%">
       <CharaPublicProfileCard :data="chara_profile_dialog_data"></CharaPublicProfileCard>
     </el-dialog>
-    <el-dialog title="NPC資料" v-model="npc_profile_dialog_visible" width="50%">
-      <NPCProfileCard :data="npc_profile"></NPCProfileCard>
-    </el-dialog>
     <el-dialog title="戰鬥結果" v-model="battle_result_dialog_visible" width="90%" destroy-on-close>
       <BattleResultBlock></BattleResultBlock>
     </el-dialog>
@@ -196,7 +193,6 @@
   import { mapFields } from "vuex-map-fields";
   import { ArrowDown } from "@element-plus/icons";
   import CharaPublicProfileCard from "@/components/CharaPublicProfileCard.vue";
-  import NPCProfileCard from "@/components/NPCProfileCard.vue";
   import BattleResultBlock from "@/components/BattleResultBlock.vue";
   import NPCDesktopPet from "@/components/NPCDesktopPet.vue";
   import { set_config } from "@/api/chara.js";
@@ -226,8 +222,6 @@
       ...mapFields("battle", ["auto_fight_enabled", "battle_result_dialog_visible"]),
       ...mapState("battle", ["battle_map_id"]),
       ...mapFields("dialog", ["chara_profile_dialog_visible"]),
-      ...mapFields("npc", ["npc_profile_dialog_visible"]),
-      ...mapState("npc", ["npc_profile"]),
       ...mapState("dialog", ["chara_profile_dialog_data"]),
     },
     methods: {
@@ -315,7 +309,7 @@
       clearInterval(this.auto_fight_interval_id);
       window.removeEventListener("keydown", this.process_hot_key);
     },
-    components: { CharaPublicProfileCard, NPCProfileCard, BattleResultBlock, ArrowDown, NPCDesktopPet },
+    components: { CharaPublicProfileCard, BattleResultBlock, ArrowDown, NPCDesktopPet },
   };
 </script>
 

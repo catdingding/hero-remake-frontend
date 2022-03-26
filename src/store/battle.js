@@ -103,5 +103,9 @@ export default {
       commit("set_battle_result_dialog_visible", true);
       commit("set_battle_result", res.data);
     },
+    async open_battle_result_dialog({ commit }, data) {
+      commit("set_battle_result_dialog_visible", true);
+      commit("set_battle_result", data);
+    },
   },
 };

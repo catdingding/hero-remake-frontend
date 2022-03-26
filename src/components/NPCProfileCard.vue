@@ -45,7 +45,7 @@
             (+{{ favorite.friendliness_reward }}友好)
             <InputNumberWithButton
               text="贈送"
-              @click="submit_favorite({ favorite: favorite.id, number: $event, npc_id: data.id })"
+              @click="submit_favorite({ favorite: favorite.id, number: $event, npc_id: data.id }).then(fetch)"
             ></InputNumberWithButton>
           </div>
         </div>
@@ -57,8 +57,15 @@
             (-{{ option.friendliness_cost }}友好)
             <InputNumberWithButton
               text="索取"
-              @click="exchange({ exchange_option: option.id, number: $event, npc_id: data.id })"
+              @click="exchange({ exchange_option: option.id, number: $event, npc_id: data.id }).then(fetch)"
             ></InputNumberWithButton>
+          </div>
+        </div>
+
+        <div>
+          <el-divider>其他</el-divider>
+          <div>
+            <el-button type="primary" @click="fight">切磋</el-button>
           </div>
         </div>
       </div>
@@ -68,18 +75,26 @@
   </div>
 </template>
 
-<script>
-  import { mapState, mapActions } from "vuex";
+<script setup>
+  import { ref, computed, defineProps, onMounted } from "vue";
+  import { useStore } from "vuex";
   import InputNumberWithButton from "@/components/InputNumberWithButton";
-  export default {
-    name: "NPCProfileCard",
-    data() {
-      return {};
-    },
-    props: { data: { type: Object } },
-    methods: { ...mapActions("npc", ["submit_favorite", "exchange"]) },
-    components: { InputNumberWithButton },
+  import { get_npc_profile, submit_favorite, exchange, fight_npc } from "@/api/npc";
+  const store = useStore();
+  const props = defineProps({ npcId: { type: Number } });
+  const data = ref(null);
+
+  const fetch = async () => {
+    data.value = await get_npc_profile(props.npcId);
   };
+  const fight = async () => {
+    let result = await fight_npc(data.value.id);
+    await store.dispatch("battle/open_battle_result_dialog", result);
+  };
+
+  onMounted(async () => {
+    await fetch();
+  });
 </script>
 
 <style lang="less" scoped>
