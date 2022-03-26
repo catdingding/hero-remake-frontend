@@ -2,34 +2,34 @@
   <div>
     技能設定上限10，奧義上限10
     <el-form :model="form_data" label-width="120px" label-position="left">
-      <el-form-item label="名稱" required>
+      <el-form-item label="名稱" required prop="name">
         <el-input v-model="form_data.name"></el-input>
       </el-form-item>
-      <el-form-item label="HP" required>
+      <el-form-item label="HP" required prop="hp">
         <el-input-number v-model="form_data.hp" :min="1"></el-input-number>
       </el-form-item>
-      <el-form-item label="MP" required>
+      <el-form-item label="MP" required prop="mp">
         <el-input-number v-model="form_data.mp" :min="1"></el-input-number>
       </el-form-item>
-      <el-form-item label="屬性" required>
+      <el-form-item label="屬性" required prop="element_type">
         <el-select v-model="form_data.element_type">
           <el-option v-for="item in element_types" :value="item.id" :key="item.id" :label="item.name"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="能力" required v-for="attribute in form_data.attributes" :key="attribute.id">
+      <el-form-item label="能力" v-for="attribute in form_data.attributes" :key="attribute.id">
         <el-select v-model="attribute.type" disabled>
           <el-option v-for="item in attribute_types" :key="item.id" :label="item.name" :value="item.id"></el-option>
         </el-select>
         <el-input-number v-model="attribute.value" :min="1"></el-input-number>
       </el-form-item>
-      <el-form-item label="奧義" required>
+      <el-form-item label="奧義">
         <el-select v-model="form_data.abilities" multiple :multiple-limit="10">
           <el-option v-for="item in abilities" :value="item.id" :key="item.id" :label="item.name"></el-option>
         </el-select>
       </el-form-item>
       <SkillSettingTable v-model="form_data.skill_settings" :available_skills="skills"></SkillSettingTable>
     </el-form>
-    <div style="text-align:center">
+    <div style="text-align: center">
       <el-button type="success" @click="save">儲存</el-button>
     </div>
   </div>

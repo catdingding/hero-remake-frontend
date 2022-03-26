@@ -2,10 +2,10 @@
   <div>
     樓層上限10層，每層上限3隻怪物
     <el-form :model="form_data" label-width="120px" label-position="left">
-      <el-form-item label="名稱" required>
+      <el-form-item label="名稱" required prop="name">
         <el-input v-model="form_data.name"></el-input>
       </el-form-item>
-      <el-form-item label="簡介" required>
+      <el-form-item label="簡介" required prop="description">
         <el-input type="textarea" v-model="form_data.description"></el-input>
       </el-form-item>
       <div class="floor" v-for="(floor, index) in form_data.floors" :key="index">
@@ -30,7 +30,7 @@
         </div>
       </div>
     </el-form>
-    <div style="text-align:center">
+    <div style="text-align: center">
       <el-button type="success" @click="save">儲存</el-button>
     </div>
   </div>
