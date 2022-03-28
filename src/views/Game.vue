@@ -151,7 +151,7 @@
             <el-menu-item index="ugc-dungeon-panel" :route="{ path: '/game/ugc/panel' }">管理面板</el-menu-item>
             <el-menu-item index="ugc-dungeon-list" :route="{ path: '/game/ugc/dungeon-list' }">地城列表</el-menu-item>
           </el-sub-menu>
-          <el-dropdown @command="change_theme" type="primary">
+          <el-dropdown @command="change_theme" type="primary" :hide-timeout="500">
             <el-button type="primary">
               Theme<el-icon class="el-icon--right"><ArrowDown /></el-icon>
             </el-button>
@@ -283,8 +283,8 @@
           this.$router.push("/game");
         }
       },
-      change_theme(theme) {
-        set_config({ theme });
+      async change_theme(theme) {
+        await set_config({ theme });
       },
     },
     mounted() {

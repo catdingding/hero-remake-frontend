@@ -1,12 +1,12 @@
 import api from "@/api";
-import { apply_config } from "@/utils/chara.js";
+import store from "@/store";
 
 export async function set_introduction(data) {
   await api.put("/chara/introduction/", data);
 }
 export async function set_config(data) {
   await api.put("/chara/config/", data);
-  apply_config(data);
+  await store.dispatch("chara/apply_config", data);
 }
 export async function change_avatar(avatar) {
   var form_data = new FormData();

@@ -4,6 +4,9 @@
       <el-form-item label="背景(CSS)">
         <el-input v-model="form_data.background"> </el-input>
       </el-form-item>
+      <el-form-item label="預設開啟自動戰鬥">
+        <el-switch v-model="form_data.default_autofight_status"> </el-switch>
+      </el-form-item>
     </el-form>
     <el-button type="primary" @click="set_config(form_data)"> 送出 </el-button>
   </div>

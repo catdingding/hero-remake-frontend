@@ -1,4 +1,4 @@
-const theme_css_settings = {
+export const theme_css_settings = {
   dark: {
     "--el-color-white": "#36393f",
     "--el-fill-color-blank": "#36393f",
@@ -35,18 +35,3 @@ const theme_css_settings = {
     "--text-color-secondary-light-bg": "var(--text-color-secondary)",
   },
 };
-
-export function apply_config(config) {
-  if (config.background) {
-    document.body.style["background-color"] = null;
-    document.body.style["background"] = config.background;
-  } else if (config.background === "") {
-    document.body.style["background"] = null;
-    document.body.style["background-color"] = "var(--color-white)";
-  }
-  if (config.theme) {
-    for (const [key, value] of Object.entries(theme_css_settings[config.theme])) {
-      document.documentElement.style.setProperty(key, value);
-    }
-  }
-}

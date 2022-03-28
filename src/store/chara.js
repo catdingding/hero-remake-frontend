@@ -1,6 +1,6 @@
 import api from "@/api";
 import _ from "lodash";
-import { apply_config } from "@/utils/chara.js";
+import { theme_css_settings } from "@/settings/chara";
 
 export default {
   namespaced: true,
@@ -53,6 +53,7 @@ export default {
       chara_has_cold_down_bonus: null,
       chara_has_quest_bonus: null,
       chara_has_auto_heal: null,
+      is_config_loaded: false,
     };
   },
   getters: {
@@ -66,9 +67,12 @@ export default {
         state[`chara_${key}`] = data[key];
       }
     },
+    set_is_config_loaded(state, data) {
+      state.is_config_loaded = data;
+    },
   },
   actions: {
-    async get_chara_profile({ commit, state, rootState }, { omit = "", fields = "" }) {
+    async get_chara_profile({ state, commit, dispatch, rootState }, { omit = "", fields = "" }) {
       var url = "/chara/profile/?";
       if (omit) {
         url += "omit=" + omit + "&";
@@ -83,7 +87,7 @@ export default {
       commit("set_client_offset", res, { root: true });
       commit("set_chara_profile", res.data);
       if ("config" in res.data) {
-        apply_config(res.data.config);
+        await dispatch("apply_config", res.data.config);
       }
 
       let remain_tickets = state.chara_battle_map_tickets.reduce(
@@ -116,6 +120,28 @@ export default {
     async get_chara_achievement_types({ state, commit, dispatch, rootState }, { conditions }) {
       var res = await api.get("chara/achievement-types/", { params: conditions });
       return res.data;
+    },
+    async apply_config({ state, commit, dispatch, rootState }, config) {
+      if (config.background) {
+        document.body.style["background-color"] = null;
+        document.body.style["background"] = config.background;
+      } else if (config.background === "") {
+        document.body.style["background"] = null;
+        document.body.style["background-color"] = "var(--color-white)";
+      }
+      if (config.theme) {
+        for (const [key, value] of Object.entries(theme_css_settings[config.theme])) {
+          document.documentElement.style.setProperty(key, value);
+        }
+      }
+      if (config.default_autofight_status && !state.is_config_loaded) {
+        commit(
+          "battle/updateField",
+          { path: "auto_fight_enabled", value: config.default_autofight_status },
+          { root: true }
+        );
+        commit("set_is_config_loaded", true);
+      }
     },
   },
 };
