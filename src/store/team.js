@@ -46,10 +46,5 @@ export default {
       await api.post(`team/change-leader/`, data);
       dispatch("chara/get_chara_profile", { fields: "is_leader" }, { root: true });
     },
-    async change_dungeon_record_status({ state, commit, dispatch, rootState }, data) {
-      let res = await api.post(`team/change-dungeon-record-status/`, data);
-      dispatch("get_team_profile");
-      return res.data;
-    },
   },
 };

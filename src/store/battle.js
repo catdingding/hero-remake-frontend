@@ -84,7 +84,6 @@ export default {
     },
     async dungeon_fight({ state, commit, dispatch, rootState }, data) {
       let res = await api.post(`/battle/dungeon-fight/`, data);
-      dispatch("team/get_team_profile", {}, { root: true });
       commit("set_battle_result_dialog_visible", true);
       commit("set_battle_result", res.data);
     },

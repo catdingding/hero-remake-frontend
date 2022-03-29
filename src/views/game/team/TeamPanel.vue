@@ -51,46 +51,50 @@
                   <th>已完成進度</th>
                   <th>行動</th>
                 </tr>
-                <tr v-for="row in team_profile.dungeon_records" :key="row.id">
-                  <td>{{ row.dungeon.name }}</td>
-                  <td>{{ row.dungeon.description }}</td>
+                <tr v-for="row in team_dungeons" :key="row.id">
+                  <td>{{ row.name }}</td>
+                  <td>{{ row.description }}</td>
                   <td>
-                    {{ row.dungeon.ticket_type ? row.dungeon.ticket_type.name + "*" + row.dungeon.ticket_cost : "" }}
+                    {{ row.ticket_type ? row.ticket_type.name + "*" + row.ticket_cost : "" }}
                   </td>
-                  <td>{{ row.passed_times }}</td>
-                  <td>{{ row.current_floor }} / {{ row.dungeon.is_infinite ? "∞" : row.dungeon.max_floor }}</td>
+                  <td>{{ row.record?.passed_times }}</td>
+                  <td>{{ row.record?.current_floor }} / {{ row.is_infinite ? "∞" : row.max_floor }}</td>
                   <td>
+                    <span v-if="!chara_is_leader">需為隊長</span>
                     <el-button
-                      v-if="row.status === 'inactive' && !row.dungeon.is_infinite"
+                      v-else-if="row.record.status === 'inactive' && !row.is_infinite"
                       type="primary"
-                      @click="change_dungeon_record_status({ record: row.id, new_status: 'active' })"
+                      @click="start_team_dungeon(row.id, {}).then(fetch_team_dungeons)"
                     >
                       進入地城
                     </el-button>
                     <InputNumberWithButton
-                      v-if="row.status === 'inactive' && row.dungeon.is_infinite"
+                      v-else-if="row.record.status === 'inactive' && row.is_infinite"
                       type="primary"
                       text="進入地城(開始層數)"
                       size=""
-                      @click="
-                        change_dungeon_record_status({ record: row.id, new_status: 'active', start_floor: $event })
-                      "
+                      @click="start_team_dungeon(row.id, { start_floor: $event }).then(fetch_team_dungeons)"
                     >
                     </InputNumberWithButton>
                     <el-button
-                      v-else-if="row.status === 'active'"
+                      v-else-if="row.record.status === 'active'"
                       type="success"
-                      @click="dungeon_fight({ dungeon: row.dungeon.id })"
+                      @click="dungeon_fight({ dungeon: row.id }).then(fetch_team_dungeons)"
                     >
                       挑戰下一階
                     </el-button>
-                    <el-button
-                      v-else-if="row.status === 'ended'"
-                      type="primary"
-                      @click="change_dungeon_record_to_inactive({ record: row.id, new_status: 'inactive' })"
-                    >
-                      結算
-                    </el-button>
+                    <template v-else-if="row.record.status === 'ended'">
+                      <el-button type="primary" @click="terminate_team_dungeon(row.id).then(fetch_team_dungeons)">
+                        結算
+                      </el-button>
+                      <el-button
+                        type="danger"
+                        v-if="row.record.current_floor < row.max_floor || row.is_infinite"
+                        @click="recover_team_dungeon(row.id).then(fetch_team_dungeons)"
+                      >
+                        復活(25贊助點數)
+                      </el-button>
+                    </template>
                   </td>
                 </tr>
               </table>
@@ -137,6 +141,7 @@
 
 <script>
   import { mapState, mapActions } from "vuex";
+  import { get_team_dungeons, start_team_dungeon, recover_team_dungeon, terminate_team_dungeon } from "@/api/team";
   import InputNumberWithButton from "@/components/InputNumberWithButton";
   import Pagination from "@/components/Pagination";
   import SceneDialog from "@/components/SceneDialog";
@@ -147,6 +152,7 @@
       return {
         scene_dialog_visible: false,
         contents: [],
+        team_dungeons: [],
       };
     },
     computed: {
@@ -155,18 +161,13 @@
       ...mapState("battle", ["world_bosses"]),
     },
     methods: {
-      ...mapActions("team", [
-        "get_team_members",
-        "leave_team",
-        "dismiss_member",
-        "disband_team",
-        "change_dungeon_record_status",
-        "change_leader",
-      ]),
+      ...mapActions("team", ["get_team_members", "leave_team", "dismiss_member", "disband_team", "change_leader"]),
       ...mapActions("battle", ["dungeon_fight", "world_boss_fight"]),
       ...mapActions("map", ["move"]),
-      async change_dungeon_record_to_inactive(input_data) {
-        let data = await this.change_dungeon_record_status(input_data);
+      start_team_dungeon,
+      recover_team_dungeon,
+      async terminate_team_dungeon(dungeon) {
+        let data = await terminate_team_dungeon(dungeon);
         this.contents = {
           0: {
             speaker: "系統醬",
@@ -211,12 +212,16 @@
         };
         this.scene_dialog_visible = true;
       },
+      async fetch_team_dungeons() {
+        this.team_dungeons = await get_team_dungeons();
+      },
     },
     mounted() {
       this.$store.dispatch("chara/get_chara_profile", { fields: "team,is_leader,location" }).then(() => {
         this.$store.dispatch("team/get_team_profile");
       });
       this.$store.dispatch("battle/get_world_bosses");
+      this.fetch_team_dungeons();
     },
     components: { InputNumberWithButton, Pagination, SceneDialog },
   };
