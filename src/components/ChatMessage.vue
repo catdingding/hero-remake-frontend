@@ -20,9 +20,15 @@
         <span>[{{ channel_name_mapping[message.channel] }}]</span>
         <span v-if="message.channel != 'system'">
           <CharaLink :chara_name="message.sender.name" :chara_id="message.sender.id" />
-          {{ message.sender.title ? message.sender.title.type.name : "" }}@{{
-            $filters.country_name(message.sender.country)
-          }}
+          <span
+            v-if="message.sender.custom_title.name && is_time_active(message.sender.custom_title.due_time)"
+            :style="{ color: message.sender.custom_title.color }"
+          >
+            [{{ message.sender.custom_title.name }}]
+          </span>
+          <span v-else>{{ message.sender.title ? message.sender.title.type.name : "" }}</span>
+          <span>@</span>
+          <span>{{ $filters.country_name(message.sender.country) }}</span>
         </span>
         <span v-else>{{ message.sender_name }}</span>
         <span v-if="message.receiver">傳送給</span>
@@ -56,7 +62,7 @@
 </template>
 
 <script>
-  import { mapState, mapActions } from "vuex";
+  import { mapGetters } from "vuex";
   import Avatar from "@/components/Avatar";
   import CharaLink from "@/components/CharaLink";
 
@@ -74,6 +80,7 @@
       };
     },
     props: { message: { type: Object } },
+    computed: { ...mapGetters(["is_time_active"]) },
     components: { Avatar, CharaLink },
   };
 </script>

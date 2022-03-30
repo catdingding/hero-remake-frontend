@@ -19,6 +19,7 @@ export default {
       chara_live_ability: null,
       chara_partner: null,
       chara_title: null,
+      chara_custom_title: null,
       chara_slots: [],
       chara_bag_items: [],
       chara_skill_settings: [],

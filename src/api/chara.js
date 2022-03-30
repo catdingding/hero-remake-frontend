@@ -16,3 +16,9 @@ export async function change_avatar(avatar) {
     headers: { "Content-Type": "multipart/form-data" },
   });
 }
+export async function set_custom_title(data) {
+  await api.put("/chara/custom-title/", data);
+}
+export async function expand_custom_title(data) {
+  await api.post("/chara/custom-title/expand/", data);
+}

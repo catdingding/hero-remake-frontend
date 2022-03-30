@@ -5,6 +5,7 @@
         <el-tab-pane label="自傳" name="first"> <CharaIntroduction /></el-tab-pane>
         <el-tab-pane label="更換頭像" name="second"><AvatarChange /> </el-tab-pane>
         <el-tab-pane label="個人化設定" name="third"><CharaConfig /> </el-tab-pane>
+        <el-tab-pane label="自訂稱號" name="fourth"><CharaCustomTitle /> </el-tab-pane>
       </el-tabs>
     </el-card>
   </div>
@@ -14,6 +15,7 @@
   import AvatarChange from "./AvatarChange.vue";
   import CharaIntroduction from "./CharaIntroduction.vue";
   import CharaConfig from "./CharaConfig.vue";
+  import CharaCustomTitle from "./CharaCustomTitle.vue";
 </script>
 
 <style lang="less" scoped></style>

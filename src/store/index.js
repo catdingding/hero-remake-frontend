@@ -89,6 +89,9 @@ export default Vuex.createStore({
     get_client_time: (state) => () => {
       return new Date() - (state.action_offset_enabled ? state.client_offset : 0);
     },
+    is_time_active: (state, getters) => (time) => {
+      return Date.parse(time) >= getters.get_client_time();
+    },
   },
   mutations: {
     updateField,
