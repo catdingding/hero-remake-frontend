@@ -14,7 +14,7 @@
       :chara_id="message.sender.id"
       :avatar_version="message.sender.avatar_version"
     />
-    <img v-else :src="message.avatar.path" />
+    <img v-else class="avatar" :src="message.avatar.path" />
     <div class="message">
       <div class="title">
         <span>[{{ channel_name_mapping[message.channel] }}]</span>
@@ -88,7 +88,8 @@
 <style lang="less" scoped>
   .chat-message {
     display: flex;
-    height: 100px;
+    align-items: center;
+    min-height: 100px;
     padding: 5px 0px 5px 0px;
     font-size: 14px;
     border-bottom: 1px solid #666;
@@ -124,6 +125,7 @@
     }
   }
   .avatar {
+    height: 100px;
     width: 100px;
     min-width: 100px;
   }
