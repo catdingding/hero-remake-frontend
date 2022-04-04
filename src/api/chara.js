@@ -1,6 +1,11 @@
 import api from "@/api";
 import store from "@/store";
 
+export async function get_charas({ conditions }) {
+  let res = await api.get(`/charas/`, { params: conditions });
+  return res.data;
+}
+
 export async function set_introduction(data) {
   await api.put("/chara/introduction/", data);
 }

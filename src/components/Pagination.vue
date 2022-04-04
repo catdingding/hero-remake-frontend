@@ -67,6 +67,7 @@
 
 <style lang="less" scoped>
   .pagination {
-    text-align: center;
+    display: flex;
+    justify-content: center;
   }
 </style>

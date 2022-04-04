@@ -111,6 +111,7 @@
       <el-menu-item index="about" :route="{ path: '/game/about' }">關於</el-menu-item>
       <el-menu-item index="log" :route="{ path: '/game/log' }">事件查詢</el-menu-item>
       <el-menu-item index="battle-result-list" :route="{ path: '/game/battle-result-list' }"> 戰鬥記錄 </el-menu-item>
+      <el-menu-item index="ranking" :route="{ path: '/game/ranking' }">排行榜</el-menu-item>
       <el-menu-item index="ability-list" :route="{ path: '/game/ability-list' }">奧義列表</el-menu-item>
       <el-menu-item index="skill-list" :route="{ path: '/game/skill-list' }">技能列表</el-menu-item>
       <el-menu-item index="pet-list" :route="{ path: '/game/pet-list' }">寵物列表</el-menu-item>
