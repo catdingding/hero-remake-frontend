@@ -1,9 +1,15 @@
 <template>
   <div>
-    <div>當前贊助點數：{{ chara_member_point }} <br /><a :href="donatoin_url" target="_blank">贊助方式</a></div>
+    <div>
+      <span>贊助點數（付費）：{{ chara_member_point_paid }}</span>
+      <br />
+      <span>贊助點數（綁定）：{{ chara_member_point_free }}</span>
+      <br />
+      <a :href="donatoin_url" target="_blank">贊助方式</a>
+    </div>
     <table>
       <tr>
-        <th style="width:50%">項目</th>
+        <th style="width: 50%">項目</th>
         <th>價格</th>
         <th>購買</th>
       </tr>
@@ -99,7 +105,8 @@
       ...mapState("chara", [
         "chara_record",
         "chara_bag_item_limit",
-        "chara_member_point",
+        "chara_member_point_paid",
+        "chara_member_point_free",
         "chara_has_cold_down_bonus",
         "chara_has_quest_bonus",
         "chara_has_auto_heal",
@@ -108,7 +115,8 @@
     methods: { ...mapActions("trade", ["buy_member_shop"]) },
     mounted() {
       this.$store.dispatch("chara/get_chara_profile", {
-        fields: "record,bag_item_limit,member_point,has_cold_down_bonus,has_quest_bonus,has_auto_heal",
+        fields:
+          "record,bag_item_limit,member_point_paid,member_point_free,has_cold_down_bonus,has_quest_bonus,has_auto_heal",
       });
     },
     components: { InputNumberWithButton },
