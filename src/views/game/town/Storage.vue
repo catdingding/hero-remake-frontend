@@ -78,7 +78,7 @@
         this.$refs.bag_item_table.fetch();
       },
     },
-    activated() {
+    mounted() {
       this.$store.dispatch("chara/get_chara_profile", { fields: "storage_item_limit,bag_item_limit" });
     },
     components: { PaginationItemTable, InputNumberWithButton },
