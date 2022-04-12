@@ -133,6 +133,7 @@ export default {
         return;
       }
       commit("updateField", { path: "waiting_battle_result", value: true });
+      let has_error = false;
       try {
         await dispatch("fight_battle_map");
         if (rootState.chara.chara_record.total_battle % 10 === 1) {
@@ -154,6 +155,7 @@ export default {
           );
         }
       } catch (e) {
+        has_error = true;
         if (e.response && e.response.status >= 400 && e.response.status < 500) {
           commit("updateField", { path: "auto_fight_error_times", value: state.auto_fight_error_times + 1 });
           if (state.auto_fight_error_times > 10) {
@@ -169,6 +171,10 @@ export default {
         }
       }
       commit("updateField", { path: "waiting_battle_result", value: false });
+
+      if (!has_error && rootGetters["chara/able_to_action"]()) {
+        dispatch("try_auto_fight");
+      }
     },
   },
 };
