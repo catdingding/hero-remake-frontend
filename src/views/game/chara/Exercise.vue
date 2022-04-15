@@ -2,6 +2,7 @@
   <div>
     <HintBlock>
       <div>當前修煉消耗：{{ exercise_cost }}熟練度，當前擁有熟練度：{{ $filters.currency(chara_proficiency) }}</div>
+      <div>修煉可增加能力上限，已達400後無效</div>
     </HintBlock>
     <table>
       <tr>
@@ -27,12 +28,12 @@
     </table>
 
     <el-divider></el-divider>
-    <div style="text-align:center">
+    <div style="text-align: center">
       當前擁有金錢：{{ $filters.currency(chara_gold) }}<br />
       HP最大值/潛力上限：{{ chara_hp_max }}/{{ chara_hp_limit }}<br />
       MP最大值/潛力上限：{{ chara_mp_max }}/{{ chara_mp_limit }}<br />
     </div>
-    <div style="width: 100%;text-align: center;margin-top:25px;">
+    <div style="width: 100%; text-align: center; margin-top: 25px">
       <el-button type="primary" @click="increase_hp_mp_max()">
         提升HP、MP最大值(花費{{ $filters.currency(increase_hp_mp_max_cost) }}金錢)
       </el-button>
