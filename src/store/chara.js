@@ -125,11 +125,14 @@ export default {
     },
     async apply_config({ state, commit, dispatch, rootState }, config) {
       if (config.background) {
-        document.body.style["background-color"] = null;
-        document.body.style["background"] = config.background;
+        document.documentElement.style.setProperty("--background", config.background);
       } else if (config.background === "") {
-        document.body.style["background"] = null;
-        document.body.style["background-color"] = "var(--color-white)";
+        document.documentElement.style.setProperty("--background", "var(--default-background)");
+      }
+      if (config.use_image_background === true) {
+        document.documentElement.style.setProperty("--default-background", "var(--default-background-image)");
+      } else if (config.use_image_background === false) {
+        document.documentElement.style.setProperty("--default-background", "var(--default-background-color)");
       }
       if (config.theme) {
         for (const [key, value] of Object.entries(theme_css_settings[config.theme])) {

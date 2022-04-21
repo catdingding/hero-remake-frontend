@@ -7,6 +7,9 @@
       <el-form-item label="預設開啟自動戰鬥">
         <el-switch v-model="form_data.default_autofight_status"> </el-switch>
       </el-form-item>
+      <el-form-item label="預設背景模式">
+        <el-switch v-model="form_data.use_image_background" active-text="圖片背景" inactive-text="顏色背景"></el-switch>
+      </el-form-item>
     </el-form>
     <el-button type="primary" @click="set_config(form_data)"> 送出 </el-button>
   </div>

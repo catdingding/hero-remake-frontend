@@ -2,9 +2,9 @@
   <div class="home">
     <h1>無限冒險重製版</h1>
     <el-row type="flex" justify="center" align="middle">
-      <div stype="width:300px">
+      <el-card stype="width:350px">
         <LoginRegist></LoginRegist>
-      </div>
+      </el-card>
     </el-row>
   </div>
 </template>

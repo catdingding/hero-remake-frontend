@@ -8,9 +8,9 @@
         <el-form-item label="密碼" prop="password">
           <el-input placeholder type="password" v-model="login_data.password"></el-input>
         </el-form-item>
-        <el-form-item>
+        <div style="text-align: center">
           <el-button type="primary" @click="login">登入</el-button>
-        </el-form-item>
+        </div>
       </el-form>
     </el-tab-pane>
     <el-tab-pane label="註冊">
@@ -28,17 +28,17 @@
           <el-input placeholder v-model="register_data.chara.name" maxlength="10" show-word-limit></el-input>
         </el-form-item>
         <el-form-item label="元素屬性" prop="chara.element_type">
-          <el-select v-model="register_data.chara.element_type" style="width:200px">
+          <el-select v-model="register_data.chara.element_type" style="width: 200px">
             <el-option v-for="item in element_types" :value="item.id" :key="item.id" :label="item.name"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="上傳頭像" prop="chara_avatar">
           <AvatarInput @change="register_data.chara_avatar = $event"></AvatarInput>
         </el-form-item>
-        <div style="text-align:center">註冊前請先閱讀<a :href="rule_url" target="_blank">遊戲規章</a></div>
-        <el-form-item>
+        <div style="text-align: center">註冊前請先閱讀<a :href="rule_url" target="_blank">遊戲規章</a></div>
+        <div style="text-align: center">
           <el-button type="primary" @click="register">註冊</el-button>
-        </el-form-item>
+        </div>
       </el-form>
     </el-tab-pane>
   </el-tabs>
@@ -86,10 +86,10 @@
       };
     },
     methods: {
-      login: function() {
+      login: function () {
         this.$store.dispatch("login", this.login_data);
       },
-      register: function() {
+      register: function () {
         this.$refs.register_form.validate((valid) => {
           if (valid) {
             this.$store.dispatch("register", this.register_data);

@@ -5,11 +5,16 @@
 
   --text-color-primary-light-bg: var(--text-color-primary);
   --text-color-secondary-light-bg: var(--text-color-secondary);
+
+  --default-background-image: url("@/asset/image/background/tower.jpg") 0px 0px/100% fixed;
+  --default-background-color: var(--color-white);
+  --default-background: var(--default-background-image);
+  --background: var(--default-background);
 }
 
 body {
   margin: 0;
-  background-color: var(--color-white);
+  background: var(--background);
 }
 
 h2 {
@@ -24,6 +29,7 @@ h2 {
 }
 
 table:not(.el-table__body) {
+  background-color: var(--color-white);
   border-collapse: collapse;
   width: 100%;
   text-align: center;
@@ -65,4 +71,12 @@ table:not(.el-table__body) {
 
 .router-link-active {
   text-decoration: none;
+}
+
+.el-tabs__header {
+  background-color: var(--el-color-white);
+}
+
+.el-tabs__nav {
+  padding-left: 10px;
 }
