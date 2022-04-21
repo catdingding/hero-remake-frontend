@@ -60,6 +60,7 @@
     user-select: none;
     background-image: url("@/asset/image/background/tower-nochara.jpg");
     background-size: 100%;
+    background-position: center;
     @media (max-width: 1200px) {
       background-size: auto 100%;
     }
