@@ -6,10 +6,13 @@
   --text-color-primary-light-bg: var(--text-color-primary);
   --text-color-secondary-light-bg: var(--text-color-secondary);
 
-  --default-background-image: url("@/asset/image/background/tower.jpg") 0px 0px/100% fixed;
+  --default-background-image: url("@/asset/image/background/tower.jpg") center/100% fixed;
   --default-background-color: var(--color-white);
   --default-background: var(--default-background-image);
   --background: var(--default-background);
+  @media (max-width: 1200px) {
+    --default-background-image: url("@/asset/image/background/tower.jpg") center / auto 100% fixed;
+  }
 }
 
 body {
