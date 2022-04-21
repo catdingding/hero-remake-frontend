@@ -59,11 +59,8 @@
     border-radius: 30px;
     user-select: none;
     background-image: url("@/asset/image/background/tower-nochara.jpg");
-    background-size: 100%;
+    background-size: cover;
     background-position: center;
-    @media (max-width: 1200px) {
-      background-size: auto 100%;
-    }
 
     .standing {
       height: 165%;
