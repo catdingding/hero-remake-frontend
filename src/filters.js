@@ -36,12 +36,6 @@ export default {
 
     return `${d.getFullYear()}/${d.getMonth() + 1}/${d.getDate()} ${d.getHours()}時${d.getMinutes()}分`;
   },
-  item_name(item) {
-    return item.equipment ? item.equipment.display_name + (item.equipment.is_locked ? "[綁]" : "") : item.type.name;
-  },
-  item_description(item) {
-    return item.type.description;
-  },
   item_type(item) {
     if (item.equipment) {
       return item.type.slot_type.name;

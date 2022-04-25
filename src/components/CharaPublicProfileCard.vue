@@ -48,7 +48,7 @@
         <div v-for="slot in data.slots" :key="slot.id">
           <div>{{ slot.type.name }}</div>
           <div v-if="slot.item">
-            {{ $filters.item_name(slot.item) }}-{{ $filters.item_element_type(slot.item) }}<br />
+            <ItemName :item="slot.item" />-{{ $filters.item_element_type(slot.item) }}<br />
             {{ $filters.item_attr(slot.item) }}<br />
             {{ $filters.item_ability(slot.item) }}
           </div>
@@ -65,16 +65,11 @@
   </div>
 </template>
 
-<script>
-  import { mapState, mapActions } from "vuex";
-  export default {
-    name: "CharaPublicProfileCard",
-    data() {
-      return {};
-    },
-    props: { data: { type: Object } },
-    methods: {},
-  };
+<script setup>
+  import { defineProps, toRef } from "vue";
+  import ItemName from "@/components/ItemName";
+  const props = defineProps({ data: { type: Object } });
+  const data = toRef(props, "data");
 </script>
 
 <style lang="less" scoped>

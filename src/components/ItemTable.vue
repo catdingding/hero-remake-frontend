@@ -2,10 +2,7 @@
   <el-table :data="data" row-key="id">
     <el-table-column label="名稱" align="center">
       <template v-slot="scope">
-        <el-tooltip effect="dark" :content="$filters.item_description(extract_item(scope.row))" placement="top">
-          <el-icon><InfoFilled /></el-icon>
-        </el-tooltip>
-        {{ $filters.item_name(extract_item(scope.row)) }}
+        <ItemName :item="extract_item(scope.row)" />
       </template>
     </el-table-column>
     <el-table-column label="類型" align="center" width="60px">
@@ -23,7 +20,7 @@
         {{ extract_item(scope.row).number }}
       </template>
     </el-table-column>
-    <el-table-column label="攻/防/重量" align="center" width="100px">
+    <el-table-column label="攻/防/重" align="center" width="100px">
       <template v-slot="scope">
         {{ $filters.item_attr(extract_item(scope.row)) }}
       </template>
@@ -38,7 +35,7 @@
 </template>
 
 <script>
-  import { InfoFilled } from "@element-plus/icons";
+  import ItemName from "@/components/ItemName";
   export default {
     name: "ItemTable",
     data() {
@@ -54,7 +51,7 @@
       },
     },
     props: { data: { type: Array, default: () => [] }, itemField: { default: null } },
-    components: { InfoFilled },
+    components: { ItemName },
   };
 </script>
 
