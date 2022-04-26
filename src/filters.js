@@ -59,7 +59,8 @@ export default {
     return item[field];
   },
   item_string(item) {
-    return `${this.item_name(item)} ${this.item_attr(item)} ${this.item_ability(item)} (擁有${item.number})`;
+    let name = item.equipment ? item.equipment.display_name + (item.equipment.is_locked ? "[綁]" : "") : item.type.name;
+    return `${name} ${this.item_attr(item)} ${this.item_ability(item)} (擁有${item.number})`;
   },
   country_name(country) {
     return country === null ? "無所屬" : country.name;
