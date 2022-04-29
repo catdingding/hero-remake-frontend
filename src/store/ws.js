@@ -88,6 +88,7 @@ export default {
           commit("receive_log_message", data);
         } else if (data.type === "refresh_chara_profile") {
           dispatch("chara/get_chara_profile", { fields: "country,team" }, { root: true });
+          ws.close();
         } else if (data.type === "info_message") {
           commit("receive_info_message", data);
         }
