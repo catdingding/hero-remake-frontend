@@ -24,6 +24,12 @@
           </el-select>
         </el-form-item>
         <el-form-item>
+          <el-select clearable v-model="slot_props.conditions.has_battle_effect" placeholder="效果">
+            <el-option label="有戰場效果" value="true"></el-option>
+            <el-option label="無戰場效果" value="false"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item>
           <el-select clearable v-model="slot_props.conditions.category" placeholder="類型">
             <el-option
               v-for="category in item_categories"
