@@ -15,6 +15,7 @@ export const theme_css_settings = {
     "--el-border-color-extra-light": "#f2f6fc",
     "--text-color-primary-light-bg": "#303133",
     "--text-color-secondary-light-bg": "#606266",
+    "--default-background-mask": "rgba(54, 57, 63,0.5)",
   },
   light: {
     "--el-color-white": "#ffffff",
@@ -33,5 +34,6 @@ export const theme_css_settings = {
     "--el-border-color-extra-light": "#f2f6fc",
     "--text-color-primary-light-bg": "var(--text-color-primary)",
     "--text-color-secondary-light-bg": "var(--text-color-secondary)",
+    "--default-background-mask": "rgba(255,255,255,0.5)",
   },
 };

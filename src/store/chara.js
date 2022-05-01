@@ -126,8 +126,10 @@ export default {
     async apply_config({ state, commit, dispatch, rootState }, config) {
       if (config.background) {
         document.documentElement.style.setProperty("--background", config.background);
+        document.documentElement.style.setProperty("--background-mask", "none");
       } else if (config.background === "") {
         document.documentElement.style.setProperty("--background", "var(--default-background)");
+        document.documentElement.style.setProperty("--background-mask", "var(--default-background-mask)");
       }
       if (config.use_image_background === true) {
         document.documentElement.style.setProperty("--default-background", "var(--default-background-image)");

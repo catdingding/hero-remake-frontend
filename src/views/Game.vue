@@ -4,10 +4,12 @@
       <el-header>
         <Menu />
       </el-header>
-      <el-main class="content">
-        <router-view v-slot="{ Component }" class="router-view">
-          <component :is="Component" />
-        </router-view>
+      <el-main>
+        <div class="content">
+          <router-view v-slot="{ Component }" class="router-view">
+            <component :is="Component" />
+          </router-view>
+        </div>
       </el-main>
       <el-footer class="footer" height="100px">
         <div>
@@ -86,12 +88,14 @@
 
 <style lang="less" scoped>
   .content {
+    margin: 0 auto;
+    max-width: 1200px;
     min-height: calc(100vh - 112px);
+    padding: 25px;
+    background-color: var(--background-mask);
   }
   .router-view {
-    max-width: 1200px;
     margin: 0 auto;
-    padding: 25px 0 25px 0;
     display: flex;
     justify-content: space-around;
     flex-flow: row wrap;
@@ -113,7 +117,8 @@
     bottom: 0;
   }
   .el-main {
-    margin-top: 30px;
+    margin-top: 58px;
+    padding: 0;
     @media (max-width: 768px) {
       margin-top: 0px;
     }

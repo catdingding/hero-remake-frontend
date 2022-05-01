@@ -93,7 +93,6 @@
     width: 48%;
   }
   .page-block-title {
-    position: relative;
     .el-switch {
       position: absolute;
       right: 0px;
