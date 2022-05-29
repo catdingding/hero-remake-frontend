@@ -1,8 +1,11 @@
 <template>
   <div>
+    <div style="width: 100%">
+      <CharaWallet></CharaWallet>
+    </div>
     <div class="store">
       <h2 class="page-block-title">架上商品</h2>
-      <ItemTypeOptionTable :options="store_options">
+      <ItemTypeOptionTable :options="store_options" style="margin-top: 57px">
         <template v-slot:extra-column>
           <el-table-column label="價格" align="center">
             <template v-slot="scope">
@@ -23,7 +26,6 @@
     </div>
     <div class="chara">
       <h2 class="page-block-title">背包（{{ bag_item_total }}/{{ chara_bag_item_limit }}）</h2>
-      <CharaWallet></CharaWallet>
       <PaginationItemTable
         :fetch-method="get_bag_items"
         ref="bag_item_table"
@@ -92,7 +94,7 @@
     width: 48%;
   }
   .chara {
-    width: 52%;
+    width: 51%;
   }
   @media screen and (max-width: 768px) {
     .router-view > div {
