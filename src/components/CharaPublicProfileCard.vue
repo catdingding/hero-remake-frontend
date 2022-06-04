@@ -62,12 +62,15 @@
     </div>
     <el-divider>自傳</el-divider>
     <div class="introduction">{{ data.introduction.content }}</div>
+    <el-divider>家園</el-divider>
+    <CharaHome style="margin: 0 auto" :data="data.home" />
   </div>
 </template>
 
 <script setup>
   import { defineProps, toRef } from "vue";
   import ItemName from "@/components/ItemName";
+  import CharaHome from "@/components/CharaHome";
   const props = defineProps({ data: { type: Object } });
   const data = toRef(props, "data");
 </script>

@@ -27,3 +27,7 @@ export async function set_custom_title(data) {
 export async function expand_custom_title(data) {
   await api.post("/chara/custom-title/expand/", data);
 }
+
+export async function set_home(data) {
+  await api.put("/chara/home/", data);
+}

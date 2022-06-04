@@ -40,6 +40,7 @@ export default {
       chara_mp_limit: null,
       chara_luck: null,
       chara_farms: [],
+      chara_home: {},
       chara_buffs: [],
       chara_partners: [],
       chara_titles: [],

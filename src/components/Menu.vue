@@ -24,6 +24,7 @@
         傳送道具/金錢
       </el-menu-item>
       <el-menu-item index="farm" :route="{ path: '/game/chara/farm' }">農場</el-menu-item>
+      <el-menu-item index="home" :route="{ path: '/game/chara/home' }">家園</el-menu-item>
       <el-menu-item index="parcel" :route="{ path: '/game/chara/parcel' }">包裹</el-menu-item>
       <el-menu-item index="equipment-lock" :route="{ path: '/game/chara/equipment-lock' }">裝備綁定</el-menu-item>
       <el-menu-item index="member-shop" :route="{ path: '/game/chara/member-shop' }">贊助商店</el-menu-item>

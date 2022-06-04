@@ -20,7 +20,7 @@
         </div>
       </el-footer>
     </el-container>
-    <el-dialog title="角色資料" v-model="chara_profile_dialog_visible" width="50%">
+    <el-dialog title="角色資料" v-model="chara_profile_dialog_visible" :width="get_dialog_width()">
       <CharaPublicProfileCard :data="chara_profile_dialog_data"></CharaPublicProfileCard>
     </el-dialog>
     <el-dialog title="戰鬥結果" v-model="battle_result_dialog_visible" width="90%" destroy-on-close>
@@ -59,6 +59,13 @@
       async try_auto_fight() {
         await this.$store.dispatch("battle/try_auto_fight");
       },
+      get_dialog_width() {
+        if (window.matchMedia("(max-width: 768px)").matches) {
+          return "90%";
+        } else {
+          return "720px";
+        }
+      },
     },
     mounted() {
       if (!this.is_loggedin) {
@@ -68,7 +75,7 @@
       }
       this.$store
         .dispatch("chara/get_chara_profile", {
-          omit: "bag_items,slots,skill_settings,introduction,main_ability,job_ability,live_ability,farms,title,titles,partner,partners",
+          fields: "id,name,next_action_time,location,country,team,official,is_king,is_leader,config",
         })
         .then(() => {
           this.$store.dispatch("ws/start_ws");

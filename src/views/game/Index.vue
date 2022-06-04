@@ -317,7 +317,8 @@
     components: { PercentageDisplay, LogMessageBlock, ChatMessageBlock, QuestProgressBlock, Avatar, CharaLink },
     mounted() {
       this.$store.dispatch("chara/get_chara_profile", {
-        omit: "bag_items,slots,skill_settings,introduction,main_ability,job_ability,live_ability",
+        fields:
+          "name,avatar_version,next_action_time,location,country,team,element_type,job,exp,proficiency,gold,health,hp_max,hp,mp_max,mp,luck_base,bag_item_limit,storage_item_limit,official,level,attributes,record,is_king,is_leader,hp_limit,mp_limit,luck,config,buffs,battle_map_tickets",
       });
       this.get_online_charas();
       this.online_charas_interval_id = setInterval(this.get_online_charas, 60000);
