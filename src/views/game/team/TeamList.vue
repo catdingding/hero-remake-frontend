@@ -15,6 +15,13 @@
           </el-button>
         </template>
       </el-table-column>
+      <el-table-column label="切磋" align="center" v-if="chara_is_leader">
+        <template v-slot="scope">
+          <el-button type="primary" @click="pvp_team_fight(scope.row.id)" :disabled="scope.row.id === chara_team.id">
+            切磋
+          </el-button>
+        </template>
+      </el-table-column>
     </el-table>
   </div>
 </template>
@@ -26,8 +33,11 @@
     data() {
       return {};
     },
-    computed: { ...mapState("search", ["search_result_teams"]), ...mapState("chara", ["chara_team"]) },
-    methods: { ...mapActions("team", ["create_team_join_request"]) },
+    computed: {
+      ...mapState("search", ["search_result_teams"]),
+      ...mapState("chara", ["chara_team", "chara_is_leader"]),
+    },
+    methods: { ...mapActions("team", ["create_team_join_request"]), ...mapActions("battle", ["pvp_team_fight"]) },
     mounted() {
       this.$store.dispatch("search/search_teams", { omit: "members,dungeon_records" });
       this.$store.dispatch("chara/get_chara_profile", { fields: "team" });

@@ -68,6 +68,13 @@ export default {
     },
     async mirror_fight({ state, commit, dispatch, rootState }) {
       let res = await api.post(`/battle/mirror-fight/`);
+      dispatch("chara/get_chara_profile", { fields: "next_action_time" }, { root: true });
+      commit("set_battle_result_dialog_visible", true);
+      commit("set_battle_result", res.data);
+    },
+    async pvp_team_fight({ state, commit, dispatch, rootState }, opponent) {
+      let res = await api.post(`/battle/pvp-team-fight/`, { opponent });
+      dispatch("chara/get_chara_profile", { fields: "next_action_time" }, { root: true });
       commit("set_battle_result_dialog_visible", true);
       commit("set_battle_result", res.data);
     },
