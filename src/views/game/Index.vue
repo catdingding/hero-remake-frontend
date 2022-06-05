@@ -185,9 +185,9 @@
           <Avatar class="avatar" :chara_id="chara_id" :avatar_version="chara_avatar_version"></Avatar>
           <div class="command">
             <el-divider>
-              <el-tooltip effect="dark" content="最多保留600秒" placement="top"> 行動冷卻 </el-tooltip>
+              <el-tooltip effect="dark" content="最多保留24小時" placement="top"> 行動冷卻 </el-tooltip>
             </el-divider>
-            <RelativeTime :time_string="chara_next_action_time" :period="100" :min="-600000"></RelativeTime>
+            <RelativeTime :time_string="chara_next_action_time" :period="100" :min="-86400000"></RelativeTime>
             <el-divider />
             <el-select style="margin-bottom: 16px" v-model="battle_map_id">
               <el-option
