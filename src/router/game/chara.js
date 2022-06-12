@@ -15,6 +15,7 @@ import Parcel from "@/views/game/chara/Parcel.vue";
 import CharaAchievementTypeList from "@/views/game/chara/CharaAchievementTypeList.vue";
 import CharaSetting from "@/views/game/chara/CharaSetting";
 import Home from "@/views/game/chara/Home";
+import Adventure from "@/views/game/chara/Adventure";
 
 export default [
   { path: "chara/bag", component: Bag, meta: { title: "背包" } },
@@ -34,4 +35,5 @@ export default [
   { path: "chara/achievement-types", component: CharaAchievementTypeList, meta: { title: "成就" } },
   { path: "chara/setting", component: CharaSetting, meta: { title: "設定" } },
   { path: "chara/home", component: Home, meta: { title: "家園" } },
+  { path: "chara/adventure", component: Adventure, meta: { title: "冒險" } },
 ];

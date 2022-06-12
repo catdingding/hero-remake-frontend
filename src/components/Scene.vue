@@ -13,7 +13,7 @@
         <div class="name">{{ content.speaker }}</div>
         <div class="to-previous" @click="toPrevious">返回上句</div>
         <div class="message" @click="toNext">
-          {{ content.message }}
+          {{ message }}
         </div>
       </div>
     </div>
@@ -22,6 +22,10 @@
 
 <script setup>
   import { ref, computed, reactive, defineProps } from "vue";
+  import { useStore } from "vuex";
+  import { ElMessage } from "element-plus";
+
+  const store = useStore();
   const props = defineProps({ contents: { type: Array, default: () => [{}] }, startKey: { type: String } });
   const key = ref(props.startKey);
   const content_stack = reactive([]);
@@ -29,11 +33,19 @@
   const content = computed(() => {
     return props.contents[key.value];
   });
+  const message = computed(() => {
+    return content.value.message.replace("[\\chara]", store.state.chara.chara_name);
+  });
 
   const toNext = () => {
     if (content.value.next_key) {
       content_stack.push(key.value);
       key.value = content.value.next_key;
+    } else if (!content.value.options || content.value.options.length === 0) {
+      ElMessage({
+        message: "場景已結束",
+        type: "success",
+      });
     }
   };
   const toPrevious = () => {

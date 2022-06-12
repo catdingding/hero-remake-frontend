@@ -23,6 +23,7 @@
       <el-menu-item index="send-item-gold" :route="{ path: '/game/chara/send-item-gold' }">
         傳送道具/金錢
       </el-menu-item>
+      <el-menu-item index="adventure" :route="{ path: '/game/chara/adventure' }">冒險</el-menu-item>
       <el-menu-item index="farm" :route="{ path: '/game/chara/farm' }">農場</el-menu-item>
       <el-menu-item index="home" :route="{ path: '/game/chara/home' }">家園</el-menu-item>
       <el-menu-item index="parcel" :route="{ path: '/game/chara/parcel' }">包裹</el-menu-item>
