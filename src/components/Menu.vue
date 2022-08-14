@@ -120,6 +120,11 @@
       <el-menu-item index="change-log" :route="{ path: '/game/change-log' }">更新日誌</el-menu-item>
       <el-menu-item index="password-change" :route="{ path: '/game/password-change' }">更改密碼</el-menu-item>
       <el-menu-item>
+        <a :href="discord_url" @click.stop="" target="_blank" style="color: #fff">
+          <div class="full">Discord</div>
+        </a>
+      </el-menu-item>
+      <el-menu-item>
         <a href="/chat" @click.stop="" target="_blank" style="color: #fff">
           <div class="full">聊天視窗</div>
         </a>
@@ -163,6 +168,7 @@
     data() {
       return {
         rule_url: process.env.VUE_APP_RULE_URL,
+        discord_url: process.env.VUE_APP_DISCORD_URL
       };
     },
     computed: {
