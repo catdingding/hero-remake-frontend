@@ -18,7 +18,7 @@ Farm<template>
           <div v-else>
             <el-select v-model="farm.selected_item">
               <el-option
-                v-for="item in chara_bag_items"
+                v-for="item in sorted_chara_bag_items"
                 :key="item.id"
                 :label="$filters.item_string(item)"
                 :value="item.id"
@@ -46,6 +46,7 @@ Farm<template>
 
 <script>
   import { mapState, mapActions } from "vuex";
+  import _ from "lodash";
   import CharaWallet from "@/components/CharaWallet.vue";
   export default {
     name: "Farm",
@@ -54,6 +55,9 @@ Farm<template>
     },
     computed: {
       ...mapState("chara", ["chara_farms", "chara_bag_items"]),
+      sorted_chara_bag_items(){
+        return _.sortBy(this.chara_bag_items, (x)=> !(x.name.includes('種子') || ['蛋雞','肉雞','乳牛'].includes(x.name)))
+      }
     },
     methods: {
       ...mapActions("home", ["expand_farm", "place_item_to_farm", "remove_item_from_farm", "harvest_farm"]),
